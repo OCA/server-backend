@@ -21,7 +21,7 @@
 
 {
     'name': 'External Database Sources',
-    'version': '1.3',
+    'version': '8.0.1.3.0',
     'category': 'Tools',
     'description': """
 This module allows you to define connections to foreign databases using ODBC,
@@ -59,8 +59,5 @@ Contributors
     'test': [
         'test/dbsource_connect.yml',
     ],
-    'installable': False,
-    'active': False,
+    'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
