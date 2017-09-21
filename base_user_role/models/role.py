@@ -47,6 +47,13 @@ class ResUsersRole(models.Model):
         return res
 
     @api.multi
+    def unlink(self):
+        users = self.mapped('user_ids')
+        res = super(ResUsersRole, self).unlink()
+        users.set_groups_from_roles(force=True)
+        return res
+
+    @api.multi
     def update_users(self):
         """Update all the users concerned by the roles identified by `ids`."""
         users = self.mapped('user_ids')
@@ -91,5 +98,5 @@ class ResUsersRoleLine(models.Model):
     def unlink(self):
         users = self.mapped('user_id')
         res = super(ResUsersRoleLine, self).unlink()
-        users.set_groups_from_roles()
+        users.set_groups_from_roles(force=True)
         return res
