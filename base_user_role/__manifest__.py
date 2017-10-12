@@ -3,7 +3,7 @@
 
 {
     'name': 'User roles',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.0.1',
     'category': 'Tools',
     'author': 'ABF OSIELL, Odoo Community Association (OCA)',
     'license': 'AGPL-3',
