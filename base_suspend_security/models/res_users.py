@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This module copyright (C) 2015 Therp BV (<http://therp.nl>).
@@ -18,6 +17,7 @@
 #
 ##############################################################################
 from odoo import models
+
 from ..base_suspend_security import BaseSuspendSecurityUid
 
 

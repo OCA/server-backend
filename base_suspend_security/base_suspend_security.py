@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This module copyright (C) 2015 Therp BV <http://therp.nl>.
@@ -17,6 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from odoo.tools import pycompat
 
 
 class BaseSuspendSecurityUid(int):
@@ -24,9 +24,12 @@ class BaseSuspendSecurityUid(int):
         return self
 
     def __eq__(self, other):
-        if isinstance(other, (int, long)):
+        if isinstance(other, pycompat.integer_types):
             return False
         return super(BaseSuspendSecurityUid, self).__int__() == other
+
+    def __hash__(self):
+        return super(BaseSuspendSecurityUid, self).__hash__()
 
     def __iter__(self):
         yield super(BaseSuspendSecurityUid, self).__int__()
