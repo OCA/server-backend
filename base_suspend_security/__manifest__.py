@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This module copyright (C) 2015 Therp BV <http://therp.nl>.
@@ -19,8 +18,8 @@
 ##############################################################################
 {
     "name": "Suspend security",
-    "version": "10.0.1.0.0",
-    "author": "Therp BV, Odoo Community Association (OCA)",
+    "version": "11.0.1.0.0",
+    "author": "Therp BV, brain-tec AG, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Hidden/Dependency",
     "summary": "Suspend security checks for a call",

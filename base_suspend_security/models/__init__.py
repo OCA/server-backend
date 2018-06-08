@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This module copyright (C) 2015 Therp BV <http://therp.nl>.
@@ -17,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import ir_rule
-from . import ir_model_access
-from . import res_users
 from . import base
+from . import ir_model_access
+from . import ir_rule
+from . import res_users
