@@ -4,6 +4,7 @@ import datetime
 import logging
 
 from odoo import api, fields, models
+from odoo import SUPERUSER_ID
 
 
 _logger = logging.getLogger(__name__)
@@ -76,7 +77,8 @@ class ResUsersRoleLine(models.Model):
         comodel_name='res.users.role', string="Role",
         ondelete='cascade')
     user_id = fields.Many2one(
-        comodel_name='res.users', string="User")
+        comodel_name='res.users', string="User",
+        domain=[('id', '!=', SUPERUSER_ID)])
     date_from = fields.Date("From")
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute='_compute_is_enabled')
