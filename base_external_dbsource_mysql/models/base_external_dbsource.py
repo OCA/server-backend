@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2011 Daniel Reis
 # Copyright 2016 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
@@ -19,7 +18,7 @@ try:
         CONNECTORS.append(('mysql', 'MySQL'))
         assert MySQLdb
     except (ImportError, AssertionError):
-        _logger.info('MySQL not available. Please install "mysqldb" '
+        _logger.info('MySQLdb not available. Please install "mysqlclient" '
                      'python package.')
 except ImportError:
     _logger.info('base_external_dbsource Odoo module not found.')
