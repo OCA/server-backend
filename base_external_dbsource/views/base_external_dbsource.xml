@@ -30,10 +30,14 @@
                             </group>
                         </group>
                         <group col="1">
-                            <field name="connector"/>
-                            <field name="conn_string"
-                                   placeholder="Please check the tooltip for connection string examples"/>
-                            <button name="connection_test" string="Test Connection" type="object" icon="fa-refresh"/>
+                            <group>
+                                <field name="connector"/>
+                            </group>
+                            <group string="Connection string" col="1">
+                                <field name="conn_string" nolabel="1"
+                                       placeholder="Please check the tooltip for connection string examples"/>
+                                <button name="connection_test" string="Test Connection" type="object" icon="fa-refresh"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
