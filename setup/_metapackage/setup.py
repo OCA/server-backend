@@ -8,6 +8,8 @@ setuptools.setup(
     description="Meta package for oca-server-backend Odoo addons",
     version=version,
     install_requires=[
+        'odoo11-addon-base_external_dbsource',
+        'odoo11-addon-base_external_system',
         'odoo11-addon-base_suspend_security',
         'odoo11-addon-base_user_role',
     ],
