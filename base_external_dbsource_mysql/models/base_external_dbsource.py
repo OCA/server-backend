@@ -18,7 +18,7 @@ try:
         CONNECTORS.append(('mysql', 'MySQL'))
         assert MySQLdb
     except (ImportError, AssertionError):
-        _logger.info('MySQL not available. Please install "mysqldb" '
+        _logger.info('MySQLdb not available. Please install "mysqlclient" '
                      'python package.')
 except ImportError:
     _logger.info('base_external_dbsource Odoo module not found.')
