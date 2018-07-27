@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo11-addon-base_external_dbsource',
+        'odoo11-addon-base_external_dbsource_mysql',
         'odoo11-addon-base_external_dbsource_sqlite',
         'odoo11-addon-base_external_system',
         'odoo11-addon-base_suspend_security',
