@@ -12,4 +12,8 @@ class Base(models.AbstractModel):
 
     @api.model
     def suspend_security(self):
-        return self.sudo(user=BaseSuspendSecurityUid(self.env.uid))
+        return self.with_env(
+            api.Environment(
+                self.env.cr,
+                BaseSuspendSecurityUid(self.env.uid),
+                self.env.context))
