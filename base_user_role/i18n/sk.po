@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * base_user_role
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
 msgid ""
@@ -12,10 +12,10 @@ msgstr ""
 "PO-Revision-Date: 2016-12-17 02:07+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Slovak (https://www.transifex.com/oca/teams/23907/sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. module: base_user_role
@@ -99,6 +99,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role_is_portal
+msgid "If checked, this group is usable as a portal."
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_implied_ids
 msgid "Inherits"
 msgstr ""
@@ -127,14 +132,17 @@ msgid "Name"
 msgstr "Meno"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_is_portal
+msgid "Portal"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line_role_id
-#: model:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
-#: model:ir.ui.view,arch_db:base_user_role.view_res_users_role_tree
 msgid "Role"
 msgstr ""
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line_ids_1519
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line_ids_1497
 msgid "Role lines"
 msgstr ""
 
@@ -165,6 +173,13 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_trans_implied_ids
 msgid "Transitively inherits"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
+#: model:ir.cron,cron_name:base_user_role.cron_update_users
+#: model:ir.cron,name:base_user_role.cron_update_users
+msgid "Update user roles"
 msgstr ""
 
 #. module: base_user_role
