@@ -58,6 +58,11 @@ class BaseExternalDbsource(models.Model):
     - Elasticsearch: https://user:%s@localhost:9200
     """,
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        default=lambda self: self.env.user.company_id,
+    )
     conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")
     password = fields.Char("Password", size=40)
     client_cert = fields.Text()
