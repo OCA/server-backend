@@ -10,7 +10,11 @@
     "license": "LGPL-3",
     "images": ["images/screenshot01.png"],
     "depends": ["base"],
-    "data": ["views/base_external_dbsource.xml", "security/ir.model.access.csv"],
+    "data": [
+        "views/base_external_dbsource.xml",
+        "security/ir.model.access.csv",
+        "security/base_external_dbsource_security.xml",
+    ],
     "demo": ["demo/base_external_dbsource.xml"],
     "installable": True,
 }
