@@ -19,14 +19,16 @@ class ResUsersRole(models.Model):
         readonly=True, string="Associated group")
     line_ids = fields.One2many(
         comodel_name='res.users.role.line',
-        inverse_name='role_id', string="Users")
+        inverse_name='role_id', string="Role lines")
     user_ids = fields.One2many(
-        comodel_name='res.users', string="Users",
+        comodel_name='res.users', string="Users list",
         compute='_compute_user_ids')
     group_category_id = fields.Many2one(
         related='group_id.category_id',
         default=lambda cls: cls.env.ref(
-            'base_user_role.ir_module_category_role').id)
+            'base_user_role.ir_module_category_role').id,
+        string="Associated category",
+        help="Associated group's category")
 
     @api.multi
     @api.depends('line_ids.user_id')
@@ -86,11 +88,11 @@ class ResUsersRoleLine(models.Model):
         for role_line in self:
             role_line.is_enabled = True
             if role_line.date_from:
-                date_from = fields.Date.from_string(role_line.date_from)
+                date_from = role_line.date_from
                 if date_from > today:
                     role_line.is_enabled = False
             if role_line.date_to:
-                date_to = fields.Date.from_string(role_line.date_to)
+                date_to = role_line.date_to
                 if today > date_to:
                     role_line.is_enabled = False
 
