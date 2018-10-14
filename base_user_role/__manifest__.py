@@ -3,11 +3,11 @@
 
 {
     'name': 'User roles',
-    'version': '11.0.1.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Tools',
     'author': 'ABF OSIELL, Odoo Community Association (OCA)',
     'license': 'AGPL-3',
-    'maintainer': 'ABF OSIELL',
+    'maintainers': ['ABF OSIELL', 'jcdrubay'],
     'website': 'http://www.osiell.com',
     'depends': [
         'base',
@@ -20,5 +20,4 @@
         'views/user.xml',
     ],
     'installable': True,
-    'auto_install': False,
 }
