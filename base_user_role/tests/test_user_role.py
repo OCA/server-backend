@@ -28,13 +28,16 @@ class TestUserRole(TransactionCase):
         self.role1_id = self.role_model.create(vals)
 
         # ROLE_2
+        # Must have group_user in order to have sufficient groups. Check:
+        # github.com/odoo/odoo/commit/c3717f3018ce0571aa41f70da4262cc946d883b4
         self.group_multi_currency_id = self.env.ref(
             'base.group_multi_currency')
         self.group_settings_id = self.env.ref('base.group_system')
         vals = {
             'name': "ROLE_2",
             'implied_ids': [
-                (6, 0, [self.group_multi_currency_id.id,
+                (6, 0, [self.group_user_id.id,
+                        self.group_multi_currency_id.id,
                         self.group_settings_id.id])],
         }
         self.role2_id = self.role_model.create(vals)
