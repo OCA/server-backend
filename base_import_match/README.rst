@@ -84,7 +84,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/149/10.0
+   :target: https://runbot.odoo-community.org/runbot/149/11.0
 
 Known Issues / Roadmap
 ======================
@@ -108,6 +108,7 @@ Contributors
 
 * Jairo Llopis <yajo.sk8@gmail.com>
 * Vicent Cubells <vicent.cubells@tecnativa.com>
+* Marçal Isern <marsal.isern@qubiq.es>
 
 Maintainer
 ----------

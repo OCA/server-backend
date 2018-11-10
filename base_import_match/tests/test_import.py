@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Grupo ESOC Ingeniería de Servicios, S.L.U. - Jairo Llopis
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -32,7 +31,7 @@ class ImportCase(TransactionCase):
         agrolait.vat = "BE0477472701"
         record = self._base_import_record("res.partner", "res_partner_vat")
         record.do(["name", "vat", "is_company"], OPTIONS)
-        agrolait.env.invalidate_all()
+        agrolait.env.clear()
         self.assertEqual(agrolait.name, "Agrolait Changed")
 
     def test_res_partner_parent_name_is_company(self):
