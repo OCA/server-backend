@@ -39,3 +39,12 @@ class TestBaseExternalDbsource(common.TransactionCase):
         ) as parent_method:
             self.dbsource.execute_sqlite(*expect)
             parent_method.assert_called_once_with(*expect)
+
+    def test_execute_sqlit_without_sqlparams(self):
+        """ It should pass args to SQLAlchemy execute """
+        expect = 'sqlquery', None, 'metadata'
+        with mock.patch.object(
+                self.dbsource, '_execute_sqlalchemy'
+        ) as parent_method:
+            self.dbsource.execute_sqlite(*expect)
+            parent_method.assert_called_once_with(*expect)
