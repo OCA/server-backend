@@ -21,7 +21,7 @@ msgstr ""
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource_conn_string
+#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__conn_string
 msgid ""
 "\n"
 "    Sample connection strings:\n"
@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:348
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:347
 #, python-format
 msgid ""
 "\"%s\" method not found, check that all assets are installed for the %s "
@@ -47,32 +47,33 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_ca_certs
-msgid "Ca certs"
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
+msgid "Ca Certs"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_client_cert
-msgid "Client cert"
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_cert
+msgid "Client Cert"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_client_key
-msgid "Client key"
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
+msgid "Client Key"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_conn_string_full
-msgid "Conn string full"
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
+msgid "Conn String Full"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_conn_string
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
+#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Connection string"
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:189
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:188
 #, python-format
 msgid ""
 "Connection test failed:\n"
@@ -81,7 +82,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:193
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:192
 #, python-format
 msgid ""
 "Connection test succeeded:\n"
@@ -89,17 +90,17 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_connector
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__connector
 msgid "Connector"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_create_uid
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__create_uid
 msgid "Created by"
 msgstr "Utworzone przez"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_create_date
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__create_date
 msgid "Created on"
 msgstr "Utworzono"
 
@@ -109,22 +110,22 @@ msgid "Database Sources"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_name
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__name
 msgid "Datasource name"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_display_name
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__display_name
 msgid "Display Name"
 msgstr "Wyświetlana nazwa "
 
 #. module: base_external_dbsource
-#: model:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
+#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
+#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
 msgid "External DB Sources"
 msgstr ""
 
@@ -135,64 +136,44 @@ msgid "External Database Sources"
 msgstr ""
 
 #. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "Firebird"
-msgstr ""
-
-#. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_id
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__id
 msgid "ID"
 msgstr "ID"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource_connector
+#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__connector
 msgid ""
 "If a connector is missing from the list, check the server log to confirm "
 "that the required components were detected."
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource___last_update
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource____last_update
 msgid "Last Modified on"
 msgstr "Ostatnio modyfikowano"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_write_uid
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_uid
 msgid "Last Updated by"
 msgstr "Ostatnio modyfikowane przez"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_write_date
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_date
 msgid "Last Updated on"
 msgstr "Ostatnia zmiana"
 
 #. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "Microsoft SQL Server"
-msgstr ""
-
-#. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "MySQL"
-msgstr ""
-
-#. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "ODBC"
-msgstr ""
-
-#. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource_password
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource_ca_certs
+#: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Path to CA Certs file on server."
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
+#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Please check the tooltip for connection string examples"
 msgstr ""
 
@@ -202,17 +183,12 @@ msgid "PostgreSQL"
 msgstr ""
 
 #. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "SQLite"
-msgstr ""
-
-#. module: base_external_dbsource
-#: model:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
+#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Test Connection"
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:160
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:159
 #, python-format
 msgid "query is a required argument"
 msgstr ""
