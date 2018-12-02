@@ -62,15 +62,15 @@ You can also define default roles for a new user by editing the user called
 
 Roles:
 
-.. image:: /base_user_role/static/description/roles.png
+.. image:: https://raw.githubusercontent.com/base_user_role/static/description/roles.png
 
 Add groups:
 
-.. image:: /base_user_role/static/description/role_groups.png
+.. image:: https://raw.githubusercontent.com/base_user_role/static/description/role_groups.png
 
 Add users (with dates or not):
 
-.. image:: /base_user_role/static/description/role_users.png
+.. image:: https://raw.githubusercontent.com/base_user_role/static/description/role_users.png
 
 Usage
 =====
@@ -87,7 +87,7 @@ To use this module, you need to:
 
 #. Go to Configuration / Users / Users choose user and set Roles:
 
-.. image:: /base_user_role/static/description/user_form.png
+.. image:: https://raw.githubusercontent.com/base_user_role/static/description/user_form.png
 
 Known issues / Roadmap
 ======================
