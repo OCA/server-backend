@@ -7,12 +7,18 @@ You can also define default roles for a new user by editing the user called
 
 Roles:
 
-.. image:: /base_user_role/static/description/roles.png
+.. figure:: /OCA/server-backend/12.0/base_user_role/static/description/roles.png
+   :width: 80 %
+   :align: center
 
 Add groups:
 
-.. image:: /base_user_role/static/description/role_groups.png
+.. figure:: /OCA/server-backend/12.0/base_user_role/static/description/role_groups.png
+   :width: 80 %
+   :align: center
 
 Add users (with dates or not):
 
-.. image:: /base_user_role/static/description/role_users.png
+.. figure:: /OCA/server-backend/12.0/base_user_role/static/description/role_users.png
+   :width: 80 %
+   :align: center
