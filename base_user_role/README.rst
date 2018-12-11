@@ -62,15 +62,21 @@ You can also define default roles for a new user by editing the user called
 
 Roles:
 
-.. image:: https://raw.githubusercontent.com/base_user_role/static/description/roles.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/roles.png
+   :width: 80 %
+   :align: center
 
 Add groups:
 
-.. image:: https://raw.githubusercontent.com/base_user_role/static/description/role_groups.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/role_groups.png
+   :width: 80 %
+   :align: center
 
 Add users (with dates or not):
 
-.. image:: https://raw.githubusercontent.com/base_user_role/static/description/role_users.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/role_users.png
+   :width: 80 %
+   :align: center
 
 Usage
 =====
@@ -87,15 +93,7 @@ To use this module, you need to:
 
 #. Go to Configuration / Users / Users choose user and set Roles:
 
-.. image:: https://raw.githubusercontent.com/base_user_role/static/description/user_form.png
-
-Known issues / Roadmap
-======================
-
-Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/server-backend/issues>`_. In case of trouble, please
-check there if your issue has already been reported. If you spotted it first,
-help us smash it by providing detailed and welcomed feedback.
+.. image:: https://raw.githubusercontent.com/OCA/server-backend/base_user_role/static/description/user_form.png
 
 Bug Tracker
 ===========
