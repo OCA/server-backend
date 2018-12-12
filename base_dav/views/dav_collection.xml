@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_dav_collection_tree" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="dav_type" />
+                <field name="model_id" />
+                <field name="domain" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_dav_collection_form" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="dav_type" />
+                    <field name="model_id" />
+                    <!-- TODO: use widget="domain" when we can set the model dynamically /-->
+                    <field name="domain" />
+                    <field name="url" widget="url" />
+                </group>
+                <label for="field_mapping_ids" />
+                <field name="field_mapping_ids">
+                    <tree editable="bottom">
+                        <field name="name" />
+                        <field name="field_id" domain="[('model_id', '=', parent.model_id)]" />
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+    <act_window
+        id="action_dav_collection"
+        name="WebDAV collections"
+        res_model="dav.collection"
+        view_mode="tree,form"
+    />
+    <menuitem 
+        id="menu_dav_collection"
+        parent="base.menu_administration"
+        action="action_dav_collection"
+        sequence="100"
+    />
+
+</odoo>
