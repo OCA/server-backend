@@ -55,6 +55,13 @@ class ResUsers(models.Model):
         If no role is defined on the user, its groups are let untouched unless
         the `force` parameter is `True`.
         """
+        role_groups = {}
+        # We obtain all the groups associated to each role first, so that
+        # it is faster to compare later with each user's groups.
+        for role in self.mapped('role_line_ids.role_id'):
+            role_groups[role] = list(set(
+                role.group_id.ids + role.implied_ids.ids +
+                role.trans_implied_ids.ids))
         for user in self:
             if not user.role_line_ids and not force:
                 continue
@@ -64,11 +71,16 @@ class ResUsers(models.Model):
             for role_line in role_lines:
                 role = role_line.role_id
                 if role:
-                    group_ids.append(role.group_id.id)
-                    group_ids.extend(role.implied_ids.ids)
+                    group_ids += role_groups[role]
             group_ids = list(set(group_ids))    # Remove duplicates IDs
-            vals = {
-                'groups_id': [(6, 0, group_ids)],
-            }
-            super(ResUsers, user).write(vals)
+            groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
+            groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
+            to_add = [(4, gr) for gr in groups_to_add]
+            to_remove = [(3, gr) for gr in groups_to_remove]
+            groups = to_remove + to_add
+            if groups:
+                vals = {
+                    'groups_id': groups,
+                }
+                super(ResUsers, user).write(vals)
         return True
