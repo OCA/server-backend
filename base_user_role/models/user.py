@@ -70,8 +70,7 @@ class ResUsers(models.Model):
                 lambda rec: rec.is_enabled)
             for role_line in role_lines:
                 role = role_line.role_id
-                if role:
-                    group_ids += role_groups[role]
+                group_ids += role_groups[role]
             group_ids = list(set(group_ids))    # Remove duplicates IDs
             groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
             groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
