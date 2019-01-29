@@ -74,11 +74,11 @@ class ResUsersRoleLine(models.Model):
     _description = 'Users associated to a role'
 
     role_id = fields.Many2one(
-        comodel_name='res.users.role', string="Role",
+        comodel_name='res.users.role', required=True, string="Role",
         ondelete='cascade')
     user_id = fields.Many2one(
-        comodel_name='res.users', string="User",
-        domain=[('id', '!=', SUPERUSER_ID)])
+        comodel_name='res.users', required=True, string="User",
+        domain=[('id', '!=', SUPERUSER_ID)], ondelete='cascade')
     date_from = fields.Date("From")
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute='_compute_is_enabled')
