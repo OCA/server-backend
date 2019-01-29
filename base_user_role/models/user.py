@@ -50,6 +50,11 @@ class ResUsers(models.Model):
         return res
 
     @api.multi
+    def _get_enabled_roles(self):
+        return self.role_line_ids.filtered(
+            lambda rec: rec.is_enabled and
+            (not rec.company_id or rec.company_id == rec.user_id.company_id))
+
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
         If no role is defined on the user, its groups are let untouched unless
@@ -66,9 +71,7 @@ class ResUsers(models.Model):
             if not user.role_line_ids and not force:
                 continue
             group_ids = []
-            role_lines = user.role_line_ids.filtered(
-                lambda rec: rec.is_enabled)
-            for role_line in role_lines:
+            for role_line in user._get_enabled_roles():
                 role = role_line.role_id
                 group_ids += role_groups[role]
             group_ids = list(set(group_ids))    # Remove duplicates IDs
