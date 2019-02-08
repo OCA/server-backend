@@ -62,7 +62,7 @@
             <field name="field_ids"/>
             <separator/>
             <group expand="0" string="Group By">
-                <filter string="Model" context="{'group_by': 'model_id'}"/>
+                <filter string="Model" context="{'group_by': 'model_id'}" name="model"/>
             </group>
         </search>
     </field>
