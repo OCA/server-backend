@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, models
@@ -20,7 +19,8 @@ class Base(models.AbstractModel):
         if self.env["base_import.match"]._usable_rules(self._name, fields):
             newdata = list()
             # Data conversion to ORM format
-            import_fields = map(models.fix_import_export_id_paths, fields)
+            import_fields = list(
+                map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
                 self._extract_records(import_fields, data))
             # Mock Odoo to believe the user is importing the ID field
@@ -44,7 +44,10 @@ class Base(models.AbstractModel):
                     match = self.env["base_import.match"]._match_find(
                         self, record, row)
                 # Give a valid XMLID to this row if a match was found
-                row["id"] = (match._BaseModel__export_xml_id()
+                # To generate externals IDS.
+                match.export_data(fields)
+                ext_id = match.get_external_id()
+                row["id"] = (ext_id[match.id]
                              if match else row.get("id", u""))
                 # Store the modified row, in the same order as fields
                 newdata.append(tuple(row[f] for f in clean_fields))
