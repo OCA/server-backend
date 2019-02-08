@@ -11,11 +11,11 @@
     </record>
     <record model="base_import.match.field" id="res_partner_vat_vat">
       <field name="match_id" ref="base_import_match.res_partner_vat"/>
-      <field name="field_id" ref="base.field_res_partner_vat"/>
+      <field name="field_id" ref="base.field_res_partner__vat"/>
     </record>
     <record model="base_import.match.field" id="res_partner_vat_is_company">
       <field name="match_id" ref="base_import_match.res_partner_vat"/>
-      <field name="field_id" ref="base.field_res_partner_is_company"/>
+      <field name="field_id" ref="base.field_res_partner__is_company"/>
       <field name="conditional">True</field>
       <field name="imported_value">True</field>
     </record>
@@ -27,7 +27,7 @@
     </record>
     <record model="base_import.match.field" id="res_users_login_login">
       <field name="match_id" ref="base_import_match.res_users_login"/>
-      <field name="field_id" ref="base.field_res_users_login"/>
+      <field name="field_id" ref="base.field_res_users__login"/>
     </record>
 
 </odoo>
