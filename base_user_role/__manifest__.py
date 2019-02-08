@@ -8,7 +8,7 @@
     'author': 'ABF OSIELL, Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'maintainers': ['ABF OSIELL', 'jcdrubay'],
-    'website': 'http://www.osiell.com',
+    'website': 'https://github.com/OCA/server-backend',
     'depends': [
         'base',
     ],
