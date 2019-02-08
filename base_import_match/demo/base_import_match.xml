@@ -11,15 +11,15 @@
     </record>
     <record model="base_import.match.field" id="res_partner_parent_name_is_company_name">
       <field name="match_id" ref="res_partner_parent_name_is_company"/>
-      <field name="field_id" ref="base.field_res_partner_name"/>
+      <field name="field_id" ref="base.field_res_partner__name"/>
     </record>
     <record model="base_import.match.field" id="res_partner_parent_name_is_company_parent">
       <field name="match_id" ref="res_partner_parent_name_is_company"/>
-      <field name="field_id" ref="base.field_res_partner_parent_id"/>
+      <field name="field_id" ref="base.field_res_partner__parent_id"/>
     </record>
     <record model="base_import.match.field" id="res_partner_parent_name_is_company_is_company">
       <field name="match_id" ref="res_partner_parent_name_is_company"/>
-      <field name="field_id" ref="base.field_res_partner_is_company"/>
+      <field name="field_id" ref="base.field_res_partner__is_company"/>
     </record>
 
     <!-- Match partner by email -->
@@ -29,7 +29,7 @@
     </record>
     <record model="base_import.match.field" id="res_partner_email_email">
       <field name="match_id" ref="base_import_match.res_partner_email"/>
-      <field name="field_id" ref="base.field_res_partner_email"/>
+      <field name="field_id" ref="base.field_res_partner__email"/>
     </record>
 
     <!-- Match partner by name -->
@@ -39,7 +39,7 @@
     </record>
     <record model="base_import.match.field" id="res_partner_name_name">
       <field name="match_id" ref="base_import_match.res_partner_name"/>
-      <field name="field_id" ref="base.field_res_partner_name"/>
+      <field name="field_id" ref="base.field_res_partner__name"/>
     </record>
 
 </odoo>
