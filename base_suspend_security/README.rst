@@ -8,6 +8,12 @@ This module was written to  allow you to call code with some `uid` while being s
 
 Usually, you'll be in in the situation to want something like this if you inherit from a module you can't or don't want to change, and call `super()`.
 
+Installation
+============
+
+This version is only valid for being used since Odoo commit
+9af8b31d921dcccb7bcf230271fd3ef4R4329 (merged on 2019-02-04).
+
 Usage
 =====
 
