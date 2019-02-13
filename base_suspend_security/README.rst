@@ -34,6 +34,13 @@ Usually, you'll be in in the situation to want something like this if you inheri
 .. contents::
    :local:
 
+Installation
+============
+
+This version is only valid for being used since Odoo commit
+dcc752aaabc10aee8bbccc1474b43d224b57023c (merged on 2019-02-20).
+
+
 Usage
 =====
 
