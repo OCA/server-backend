@@ -128,7 +128,6 @@ Credits
 Authors
 ~~~~~~~
 
-* Grupo ESOC Ingeniería de Servicios
 * Tecnativa
 
 Contributors
