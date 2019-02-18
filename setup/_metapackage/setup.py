@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-server-backend Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-base_import_match',
         'odoo12-addon-base_user_role',
     ],
     classifiers=[
