@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-base_import_match',
+        'odoo12-addon-base_suspend_security',
         'odoo12-addon-base_user_role',
     ],
     classifiers=[
