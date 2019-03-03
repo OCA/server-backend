@@ -20,21 +20,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_suspend_security
-#: model:ir.model,name:base_suspend_security.model_res_users
-msgid "Users"
-msgstr "Usuarios"
-
-#. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_base
-msgid "base"
-msgstr "base de datos"
+msgid "Base"
+msgstr ""
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_model_access
-msgid "ir.model.access"
+#, fuzzy
+msgid "Model Access"
 msgstr "ir.modelo.acceso"
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_rule
-msgid "ir.rule"
-msgstr "ir.regla"
+msgid "Record Rule"
+msgstr ""
+
+#. module: base_suspend_security
+#: model:ir.model,name:base_suspend_security.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#~ msgid "base"
+#~ msgstr "base de datos"
+
+#~ msgid "ir.rule"
+#~ msgstr "ir.regla"

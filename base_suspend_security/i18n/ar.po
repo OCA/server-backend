@@ -20,21 +20,21 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: base_suspend_security
-#: model:ir.model,name:base_suspend_security.model_res_users
-msgid "Users"
-msgstr "المستخدمون"
-
-#. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_base
-msgid "base"
+msgid "Base"
 msgstr ""
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_model_access
-msgid "ir.model.access"
+msgid "Model Access"
 msgstr ""
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_rule
-msgid "ir.rule"
+msgid "Record Rule"
 msgstr ""
+
+#. module: base_suspend_security
+#: model:ir.model,name:base_suspend_security.model_res_users
+msgid "Users"
+msgstr "المستخدمون"

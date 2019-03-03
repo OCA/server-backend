@@ -19,21 +19,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_suspend_security
-#: model:ir.model,name:base_suspend_security.model_res_users
-msgid "Users"
-msgstr "Gebruikers"
-
-#. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_base
-msgid "base"
+msgid "Base"
 msgstr ""
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_model_access
-msgid "ir.model.access"
+msgid "Model Access"
 msgstr ""
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_rule
-msgid "ir.rule"
+msgid "Record Rule"
 msgstr ""
+
+#. module: base_suspend_security
+#: model:ir.model,name:base_suspend_security.model_res_users
+msgid "Users"
+msgstr "Gebruikers"
