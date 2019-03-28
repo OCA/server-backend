@@ -162,6 +162,11 @@ msgid "Last Updated on"
 msgstr "Τελευταία ενημέρωση στις"
 
 #. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
+msgid "Microsoft SQL Server"
+msgstr ""
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr ""
@@ -179,6 +184,11 @@ msgstr ""
 #. module: base_external_dbsource
 #: selection:base.external.dbsource,connector:0
 msgid "PostgreSQL"
+msgstr ""
+
+#. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
+msgid "SQLite"
 msgstr ""
 
 #. module: base_external_dbsource
