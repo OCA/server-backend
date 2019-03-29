@@ -3,6 +3,7 @@
 import mock
 
 from odoo.tests import common
+from odoo.sql_db import connection_info_for
 
 from ..exceptions import ConnectionFailedError, ConnectionSuccessError
 
@@ -11,7 +12,22 @@ class TestBaseExternalDbsource(common.TransactionCase):
 
     def setUp(self):
         super(TestBaseExternalDbsource, self).setUp()
-        self.dbsource = self.env.ref('base_external_dbsource.demo_postgre')
+        # Obtain current odoo instance DB connection settings
+        connection_info = connection_info_for(self.env.cr.dbname)[1]
+        # Adapt to the format expected by this module
+        password = connection_info.get("password", "")
+        connection_info["password"] = "%s"
+        connection_info["dbname"] = connection_info["database"]
+        del connection_info["database"]
+        # Create a proper dbsource record to test
+        self.dbsource = self.env["base.external.dbsource"].create({
+            "conn_string": " ".join(
+                "%s='%s'" % item for item in connection_info.items()
+            ),
+            "connector": "postgresql",
+            "name": "test postgres with current odoo config",
+            "password": password,
+        })
 
     def _test_adapter_method(
         self, method_name, side_effect=None, return_value=None,
