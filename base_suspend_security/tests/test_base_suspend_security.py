@@ -46,3 +46,28 @@ class TestBaseSuspendSecurity(TransactionCase):
         # this tests if _normalize_args conversion works
         self.env['res.users'].browse(
             self.env['res.users'].suspend_security().env.uid)
+        # Test normal search on One2many
+        partner = self.env['res.partner'].search(
+            [('user_ids.id', '=', self.env.user.suspend_security().env.uid)],
+            limit=1)
+        self.assertEqual(partner, self.env.user.partner_id)
+        # Test search on One2many without specifing ID (standard Odoo)
+        partner = self.env['res.partner'].search(
+            [('user_ids', '=', self.env.uid)],
+            limit=1)
+        self.assertEqual(partner, self.env.user.partner_id)
+        # Test search on One2many without specifing ID (suspend_security)
+        partner = self.env['res.partner'].search(
+            [('user_ids', '=', self.env.user.suspend_security().env.uid)],
+            limit=1)
+        self.assertEqual(partner, self.env.user.partner_id)
+        # Test search on One2many without ID with IN (standard Odoo)
+        partner = self.env['res.partner'].search(
+            [('user_ids', 'in', self.env.uid)],
+            limit=1)
+        self.assertEqual(partner, self.env.user.partner_id)
+        # Test search on One2many without ID with IN (suspend_security)
+        partner = self.env['res.partner'].search(
+            [('user_ids', 'in', self.env.user.suspend_security().env.uid)],
+            limit=1)
+        self.assertEqual(partner, self.env.user.partner_id)
