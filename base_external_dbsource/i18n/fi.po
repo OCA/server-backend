@@ -167,6 +167,11 @@ msgstr "Viimeksi päivitetty"
 
 #. module: base_external_dbsource
 #: selection:base.external.dbsource,connector:0
+msgid "Microsoft SQL Server"
+msgstr ""
+
+#. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
 msgid "MySQL"
 msgstr ""
 

@@ -169,6 +169,11 @@ msgstr "Última actualización el"
 
 #. module: base_external_dbsource
 #: selection:base.external.dbsource,connector:0
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+#. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
 msgid "MySQL"
 msgstr "MySQL"
 
@@ -210,9 +215,6 @@ msgstr ""
 
 #~ msgid "Firebird"
 #~ msgstr "Firebird"
-
-#~ msgid "Microsoft SQL Server"
-#~ msgstr "Microsoft SQL Server"
 
 #~ msgid "ODBC"
 #~ msgstr "ODBC"
