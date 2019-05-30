@@ -27,6 +27,9 @@ class ResUsersRole(models.Model):
         related='group_id.category_id',
         default=lambda cls: cls.env.ref(
             'base_user_role.ir_module_category_role').id)
+    comment = fields.Html(
+        string="Internal Notes",
+    )
 
     @api.multi
     @api.depends('line_ids.user_id')
