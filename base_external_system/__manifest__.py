@@ -4,10 +4,11 @@
 {
     "name": "Base External System",
     "summary": "Data models allowing for connection to external systems.",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Base",
-    "website": "https://laslabs.com/",
-    "author": "LasLabs, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/server-backend",
+    "author": "LasLabs, "
+              "Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
