@@ -77,12 +77,15 @@
 
                 <group expand="0" string="Group By">
                     <filter string="Host"
+                            name="host"
                             domain=""
                             context="{'group_by': 'host'}" />
                     <filter string="Port"
+                            name="port"
                             domain=""
                             context="{'group_by': 'port'}" />
                     <filter string="Username"
+                            name="username"
                             domain=""
                             context="{'group_by': 'username'}" />
                 </group>
