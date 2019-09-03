@@ -9,30 +9,31 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-21 04:22+0000\n"
-"PO-Revision-Date: 2017-01-21 04:22+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2019-09-03 01:23+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_base
 msgid "Base"
-msgstr ""
+msgstr "Suporte"
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_model_access
 msgid "Model Access"
-msgstr ""
+msgstr "Modelo de Acesso"
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_ir_rule
 msgid "Record Rule"
-msgstr ""
+msgstr "Regra de Gravação"
 
 #. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_res_users
