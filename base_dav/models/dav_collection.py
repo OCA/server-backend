@@ -1,5 +1,8 @@
 # Copyright 2019 Therp BV <https://therp.nl>
+# Copyright 2019 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from datetime import datetime, date
+from dateutil import tz
 import vobject
 from odoo import api, fields, models, tools
 # pylint: disable=missing-import-error
@@ -82,6 +85,45 @@ class DavCollection(models.Model):
         )
 
     @api.multi
+    def from_vobject(self, item):
+        self.ensure_one()
+
+        result = {}
+        if self.dav_type == 'calendar':
+            if item.name != 'VCALENDAR':
+                return None
+            if not hasattr(item, 'vevent'):
+                return None
+            item = item.vevent
+        elif self.dav_type == 'addressbook' and item.name != 'VCARD':
+            return None
+
+        children = {c.name.lower(): c for c in item.getChildren()}
+        for mapping in self.field_mapping_ids:
+            name = mapping.name.lower()
+            if name not in children:
+                continue
+
+            child = children[name]
+
+            conversion_funcs = [
+                '_from_vobject_%s_%s' % (mapping.field_id.ttype, name),
+                '_from_vobject_%s' % mapping.field_id.ttype,
+            ]
+
+            value = child.value
+            for conversion_func in conversion_funcs:
+                if hasattr(self, conversion_func):
+                    val = getattr(self, conversion_func)(child)
+                    if val:
+                        value = val
+                        break
+
+            if value:
+                result[mapping.field_id.name] = value
+        return result
+
+    @api.multi
     def to_vobject(self, record):
         self.ensure_one()
         result = None
@@ -117,12 +159,36 @@ class DavCollection(models.Model):
             )
         return result
 
+    @api.model
+    def _from_vobject_datetime(self, item):
+        if isinstance(item.value, datetime):
+            value = item.value.astimezone(tz.UTC)
+            return value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        elif isinstance(item.value, date):
+            return item.value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        return None
+
+    @api.model
+    def _from_vobject_date(self, item):
+        if isinstance(item.value, datetime):
+            value = item.value.astimezone(tz.UTC)
+            return value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+        elif isinstance(item.value, date):
+            return item.value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+        return None
+
+    @api.model
+    def _from_vobject_binary(self, item):
+        return item.value.encode('ascii')
+
+    @api.model
+    def _from_vobject_char_n(self, item):
+        return item.family
+
     @api.multi
     def _to_vobject_datetime(self, record, field_name):
         result = fields.Datetime.from_string(record[field_name])
-        # TODO: this still generates wrong times
-        result.replace(tzinfo=vobject.icalendar.utc)
-        return result
+        return result.replace(tzinfo=tz.UTC)
 
     @api.multi
     def _to_vobject_datetime_rev(self, record, field_name):

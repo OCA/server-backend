@@ -1,4 +1,5 @@
 # Copyright 2018 Therp BV <https://therp.nl>
+# Copyright 2019 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import base64
 import os
@@ -120,13 +121,58 @@ class Collection(BaseCollection):
                         record.write_date
                     ),
                 )
-        record = collection_model.browse(int(components[-1]))
+
+        try:
+            record = collection_model.browse(int(components[-1]))
+        except ValueError:
+            return None
         return Item(
             self,
             item=self.collection.to_vobject(record),
             href=href,
             last_modified=self._odoo_to_http_datetime(record.write_date),
         )
+
+    def upload(self, href, vobject_item):
+        components = self._split_path(href)
+
+        collection_model = self.env[self.collection.model_id.model]
+        if self.collection.dav_type == 'files':
+            return super().upload(href, vobject_item)
+
+        data = self.collection.from_vobject(vobject_item)
+
+        try:
+            record_id = int(components[-1])
+        except ValueError:
+            record_id = None
+
+        if not record_id:
+            record = collection_model.create(data)
+            href = "%s/%s" % (href, record.id)
+        else:
+            record = collection_model.browse(record_id)
+            record.write(data)
+
+        return Item(
+            self,
+            item=self.collection.to_vobject(record),
+            href=href,
+            last_modified=self._odoo_to_http_datetime(record.write_date),
+        )
+
+    def delete(self, href):
+        components = self._split_path(href)
+
+        collection_model = self.env[self.collection.model_id.model]
+        if self.collection.dav_type == 'files':
+            return super().delete(href)
+
+        try:
+            record_id = int(components[-1])
+            collection_model.browse(record_id).unlink()
+        except ValueError:
+            pass
 
     def _odoo_to_http_datetime(self, value):
         return time.strftime(

@@ -3,7 +3,7 @@
 {
     "name": "Caldav and Carddav support",
     "version": "11.0.1.0.0",
-    "author": "Therp BV,Odoo Community Association (OCA)",
+    "author": "initOS GmbH,Therp BV,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Extra Tools",
     "summary": "Access Odoo data as calendar or address book",
