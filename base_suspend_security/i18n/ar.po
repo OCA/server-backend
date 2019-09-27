@@ -20,6 +20,21 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: base_suspend_security
+#: model:ir.model.fields,field_description:base_suspend_security.field_ir_cron_channel_ids
+msgid "Add Channels"
+msgstr ""
+
+#. module: base_suspend_security
+#: model:ir.model.fields,field_description:base_suspend_security.field_ir_cron_partner_ids
+msgid "Add Followers"
+msgstr ""
+
+#. module: base_suspend_security
+#: model:ir.model.fields,field_description:base_suspend_security.field_ir_cron_template_id
+msgid "Email Template"
+msgstr ""
+
+#. module: base_suspend_security
 #: model:ir.model,name:base_suspend_security.model_res_users
 msgid "Users"
 msgstr "المستخدمون"
