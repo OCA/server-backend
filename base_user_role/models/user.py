@@ -31,7 +31,6 @@ class ResUsers(models.Model):
                 })
         return default_values
 
-    @api.multi
     @api.depends('role_line_ids.role_id')
     def _compute_role_ids(self):
         for user in self:
@@ -43,13 +42,11 @@ class ResUsers(models.Model):
         new_record.set_groups_from_roles()
         return new_record
 
-    @api.multi
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
         self.sudo().set_groups_from_roles()
         return res
 
-    @api.multi
     def _get_enabled_roles(self):
         return self.role_line_ids.filtered(
             lambda rec: rec.is_enabled and
