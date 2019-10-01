@@ -62,7 +62,6 @@
     <field name="name">Roles</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">res.users.role</field>
-    <field name="view_type">form</field>
     <field name="view_id" ref="view_res_users_role_tree"/>
 </record>
 
