@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  © 2019 initOS (Amjad Enaya <amjad.enaya@initos.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+    <record id="confirm_uninstall_form" model="ir.ui.view">
+        <field name="name">confirm.uninstall.form</field>
+        <field name="model">confirm.uninstall</field>
+        <field name="arch"  type="xml">
+            <form string="Confirmation before uninstall">
+                <p>
+                    By <b>confirmation</b> some Modules will be <b>uninstalled</b> which can lead to <b>DATA LOST</b>.
+                    Please make sure that you want to proceed
+                    <br></br>
+                    By <b>cancelling</b> all your changes in the settings will be discarded
+                </p>
+                <footer>
+                    <button type="object" name="confirmed" string="Confirm uninstall" class="oe_highlight"/>
+                    <button type="object" name="canceled" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
