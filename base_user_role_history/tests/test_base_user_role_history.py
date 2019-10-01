@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).µ
 
 from datetime import date, timedelta
 
-from openerp import fields
-from openerp.tests.common import SavepointCase
+from odoo.tests.common import SavepointCase
 
 
 class TestBaseUserRoleHistory(SavepointCase):
@@ -83,12 +81,12 @@ class TestBaseUserRoleHistory(SavepointCase):
         self.assertEqual(history_lines_2.old_role_id, self.role_01)
         self.assertEqual(history_lines_2.new_role_id, self.role_01)
         self.assertFalse(history_lines_2.old_date_from)
-        self.assertEqual(history_lines_2.new_date_from,
-                         fields.Date.to_string(date.today()))
+        self.assertEqual(history_lines_2.new_date_from, date.today())
         self.assertFalse(history_lines_2.old_date_to)
-        self.assertEqual(history_lines_2.new_date_to,
-                         fields.Date.to_string(
-                             date.today() + timedelta(days=5)))
+        self.assertEqual(
+            history_lines_2.new_date_to,
+            date.today() + timedelta(days=5)
+        )
         self.user_01.write({
             'role_line_ids': [(1, self.user_01.role_line_ids[0].id, {})]
         })
@@ -110,12 +108,15 @@ class TestBaseUserRoleHistory(SavepointCase):
         self.assertEqual(history_lines_4.performed_action, 'unlink')
         self.assertEqual(history_lines_4.old_role_id, self.role_01)
         self.assertFalse(history_lines_4.new_role_id)
-        self.assertEqual(history_lines_4.old_date_from,
-                         fields.Date.to_string(date.today()))
+        self.assertEqual(
+            history_lines_4.old_date_from,
+            date.today()
+        )
         self.assertFalse(history_lines_4.new_date_from)
-        self.assertEqual(history_lines_4.old_date_to,
-                         fields.Date.to_string(
-                             date.today() + timedelta(days=5)))
+        self.assertEqual(
+            history_lines_4.old_date_to,
+            date.today() + timedelta(days=5)
+        )
         self.assertFalse(history_lines_4.new_date_to)
 
     def test_create_role_lines_on_new_user(self):
