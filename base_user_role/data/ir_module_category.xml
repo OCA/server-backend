@@ -4,6 +4,12 @@
  -->
 <odoo>
 
+<!--
+This module category aims to be linked to role/group you create in your own
+module (field 'res.groups.category_id').
+By doing this you'll have the section 'User roles' in the "Access rights" tab
+on the user form which will regroup all roles/groups for a better visibility.
+-->
 <record model="ir.module.category" id="ir_module_category_role">
     <field name='name'>User roles</field>
 </record>

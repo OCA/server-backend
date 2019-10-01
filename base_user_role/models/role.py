@@ -32,7 +32,6 @@ class ResUsersRole(models.Model):
         string="Associated category",
         help="Associated group's category")
 
-    @api.multi
     @api.depends('line_ids.user_id')
     def _compute_user_ids(self):
         for role in self:
@@ -44,20 +43,17 @@ class ResUsersRole(models.Model):
         new_record.update_users()
         return new_record
 
-    @api.multi
     def write(self, vals):
         res = super(ResUsersRole, self).write(vals)
         self.update_users()
         return res
 
-    @api.multi
     def unlink(self):
         users = self.mapped('user_ids')
         res = super(ResUsersRole, self).unlink()
         users.set_groups_from_roles(force=True)
         return res
 
-    @api.multi
     def update_users(self):
         """Update all the users concerned by the roles identified by `ids`."""
         users = self.mapped('user_ids')
@@ -87,7 +83,6 @@ class ResUsersRoleLine(models.Model):
         'res.company', 'Company',
         default=lambda self: self.env.user.company_id)
 
-    @api.multi
     @api.constrains('user_id', 'company_id')
     def _check_company(self):
         for record in self:
@@ -98,7 +93,6 @@ class ResUsersRoleLine(models.Model):
                     _('User "{}" does not have access to the company "{}"')
                     .format(record.user_id.name, record.company_id.name))
 
-    @api.multi
     @api.depends('date_from', 'date_to')
     def _compute_is_enabled(self):
         today = datetime.date.today()
@@ -113,7 +107,6 @@ class ResUsersRoleLine(models.Model):
                 if today > date_to:
                     role_line.is_enabled = False
 
-    @api.multi
     def unlink(self):
         users = self.mapped('user_id')
         res = super(ResUsersRoleLine, self).unlink()
