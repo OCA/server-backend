@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -6,7 +5,7 @@
     'name': 'Base User Role History',
     'summary': """
         This module allows to track the changes on users roles.""",
-    'version': '9.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV, '
               'Odoo Community Association (OCA)',

@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
+from odoo import api, fields, models, _
 
 
 class ResUsers(models.Model):
@@ -18,8 +17,8 @@ class ResUsers(models.Model):
         return {
             'user_id': role_line.user_id.id,
             'role_id': role_line.role_id.id,
-            'date_from': fields.Date.from_string(role_line.date_from),
-            'date_to': fields.Date.from_string(role_line.date_to),
+            'date_from': role_line.date_from,
+            'date_to': role_line.date_to,
             'is_enabled': role_line.is_enabled,
         }
 
@@ -33,11 +32,12 @@ class ResUsers(models.Model):
                     self._prepare_role_line_history_dict(role_line)
         return role_line_values_by_user
 
-    @api.model
-    def create(self, vals):
-        res = super(ResUsers, self).create(vals)
-        if 'role_line_ids' not in vals:
-            return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        for vals in vals_list:
+            if 'role_line_ids' not in vals:
+                return res
         new_role_line_values_by_user = res._get_role_line_values_by_user()
         self.env['base.user.role.line.history'].create_from_vals(
             {},
@@ -49,9 +49,9 @@ class ResUsers(models.Model):
     @api.multi
     def write(self, vals):
         if 'role_line_ids' not in vals:
-            return super(ResUsers, self).write(vals)
+            return super().write(vals)
         old_role_line_values_by_user = self._get_role_line_values_by_user()
-        res = super(ResUsers, self).write(vals)
+        res = super().write(vals)
         new_role_line_values_by_user = self._get_role_line_values_by_user()
         self.env['base.user.role.line.history'].create_from_vals(
             old_role_line_values_by_user,
