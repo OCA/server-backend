@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 2019 initOS (Amjad Enaya <amjad.enaya@initos.com>)
+# 2019 initOS GmbH (Amjad Enaya <amjad.enaya@initos.com>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api, _
@@ -17,8 +17,8 @@ class ResConfigSettings(models.TransientModel):
     def execute(self):
         self.ensure_one()
         ModuleSudo = self.env['ir.module.module'].sudo()
-        module_fields = filter(lambda x: x.startswith('module_'), self._fields.keys())
-        module_names = list(map(lambda x: x.replace("module_", ''), module_fields))
+        module_fields = filter(lambda x: x.startswith('module_'), self._fields)
+        module_names = [x.replace("module_", '') for x in module_fields]
         modules = ModuleSudo.search(
             [('name', 'in', module_names),
              ('state', 'in', ['to install', 'installed', 'to upgrade'])
@@ -30,7 +30,6 @@ class ResConfigSettings(models.TransientModel):
                 need_warning = True
                 break
         if need_warning:
-            print('warning needed')
             dic = {
                 'type': 'ir.actions.act_window',
                 'name': 'Confirmation',
@@ -46,4 +45,3 @@ class ResConfigSettings(models.TransientModel):
         else:
             res = super(ResConfigSettings, self).execute()
             return res
-
