@@ -12,12 +12,11 @@ class ConfirmUninstall(models.TransientModel):
     def confirmed(self):
         self.ensure_one()
         res_id = int(self.env.context.get('default_res_id'))
-        self.env["res.config.settings"].browse(res_id).execute_from_confirm_wiz()
+        self.env["res.config.settings"].browse(res_id)\
+            .execute_from_confirm_wiz()
         return
 
     def canceled(self):
         self.ensure_one()
         res_id = int(self.env.context.get('default_res_id'))
         return self.env["res.config.settings"].browse(res_id).cancel()
-
-

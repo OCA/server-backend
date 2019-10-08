@@ -2,7 +2,8 @@
 # 2019 initOS GmbH (Amjad Enaya <amjad.enaya@initos.com>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api, _
+from odoo import models, api
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
@@ -37,7 +38,9 @@ class ResConfigSettings(models.TransientModel):
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_id': False,
-                'view_id': self.env.ref('res_config_module_helper.confirm_uninstall_form', False).id,
+                'view_id': self.env.ref(
+                    'res_config_module_helper.confirm_uninstall_form',
+                    False).id,
                 'target': 'new',
                 'context': {'default_res_id': self.id}
             }
