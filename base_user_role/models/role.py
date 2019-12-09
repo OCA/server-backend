@@ -29,6 +29,9 @@ class ResUsersRole(models.Model):
             'base_user_role.ir_module_category_role').id,
         string="Associated category",
         help="Associated group's category")
+    comment = fields.Html(
+        string="Internal Notes",
+    )
 
     @api.multi
     @api.depends('line_ids.user_id')

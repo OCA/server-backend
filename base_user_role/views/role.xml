@@ -27,6 +27,9 @@
                             </tree>
                         </field>
                     </page>
+                    <page name="role_inernal_notes" string="Internal Notes">
+                        <field name="comment"/>
+                    </page>
                 </notebook>
             </sheet>
         </form>
