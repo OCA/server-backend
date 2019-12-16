@@ -3,22 +3,20 @@
 
 
 {
-    'name': 'User roles',
-    'version': '13.0.1.0.0',
-    'category': 'Tools',
-    'author': 'ABF OSIELL, Odoo Community Association (OCA)',
-    'license': 'LGPL-3',
-    'maintainers': ['sebalix', 'jcdrubay', 'novawish'],
-    'website': 'https://github.com/OCA/server-backend',
-    'depends': [
-        'base',
+    "name": "User roles",
+    "version": "13.0.1.0.0",
+    "category": "Tools",
+    "author": "ABF OSIELL, Odoo Community Association (OCA)",
+    "license": "LGPL-3",
+    "maintainers": ["sebalix", "jcdrubay", "novawish"],
+    "website": "https://github.com/OCA/server-backend",
+    "depends": ["base"],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/ir_cron.xml",
+        "data/ir_module_category.xml",
+        "views/role.xml",
+        "views/user.xml",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'data/ir_cron.xml',
-        'data/ir_module_category.xml',
-        'views/role.xml',
-        'views/user.xml',
-    ],
-    'installable': True,
+    "installable": True,
 }
