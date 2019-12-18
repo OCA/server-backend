@@ -112,7 +112,7 @@ class BaseUserRoleLineHistory(models.Model):
         role_history_line_vals_by_role_line = self._prepare_create_from_vals(
             old_role_line_values_by_user, new_role_line_values_by_user
         )
-        # Create the history lines with suspend security
+        # Create the history lines with sudo
         # (nobody has the create right)
         for role_history_vals in role_history_line_vals_by_role_line.values():
-            self.suspend_security().create(role_history_vals)
+            self.sudo().create(role_history_vals)
