@@ -21,7 +21,6 @@ class ResUsers(models.Model):
             "is_enabled": role_line.is_enabled,
         }
 
-    @api.multi
     def _get_role_line_values_by_user(self):
         role_line_values_by_user = {}
         for rec in self:
@@ -45,7 +44,6 @@ class ResUsers(models.Model):
         res.last_role_line_modification = fields.Datetime.now()
         return res
 
-    @api.multi
     def write(self, vals):
         if "role_line_ids" not in vals:
             return super().write(vals)
@@ -58,7 +56,6 @@ class ResUsers(models.Model):
         self.write({"last_role_line_modification": fields.Datetime.now()})
         return res
 
-    @api.multi
     def show_role_lines_history(self):  # pragma: no cover
         self.ensure_one()
         domain = [("user_id", "=", self.id)]
