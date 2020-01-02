@@ -57,11 +57,6 @@ msgid "Color Index"
 msgstr "Farve indeks"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
-msgid "Comment"
-msgstr "Kommentar"
-
-#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
 msgid "Created by"
@@ -116,6 +111,12 @@ msgstr "Id"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Inherits"
 msgstr "Arver"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Internal Notes"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
@@ -229,6 +230,9 @@ msgstr "Bruger af denne gruppe arver automatisk disse grupper"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Oversigter"
+
+#~ msgid "Comment"
+#~ msgstr "Kommentar"
 
 #~ msgid "If checked, this group is usable as a portal."
 #~ msgstr "Hvis slået til kan denne gruppe anvendes som portal."
