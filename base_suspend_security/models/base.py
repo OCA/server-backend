@@ -19,10 +19,10 @@ class Base(models.AbstractModel):
                 self.env.context))
 
     def sudo(self, user=SUPERUSER_ID):
-        if isinstance(self.env.uid, BaseSuspendSecurityUid):
+        if isinstance(user, BaseSuspendSecurityUid):
             return self.with_env(
                 api.Environment(
-                    self.env.cr, BaseSuspendSecurityUid(user), self.env.context
+                    self.env.cr, user, self.env.context
                 )
             )
         return super().sudo(user)
