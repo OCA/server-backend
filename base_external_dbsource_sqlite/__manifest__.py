@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     'name': 'External Database Source - SQLite',
-    'version': '11.0.1.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Tools',
     'author': "Daniel Reis, "
               "LasLabs, "
