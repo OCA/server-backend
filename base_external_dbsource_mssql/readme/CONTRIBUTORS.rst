@@ -3,4 +3,4 @@
 * Gervais Naoussi <gervaisnaoussi@gmail.com>
 * Dave Lasley <dave@laslabs.com>
 * `Tecnativa <https://www.tecnativa.com>`_:
-  * Sergio Teruel
+    * Sergio Teruel
