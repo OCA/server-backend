@@ -47,7 +47,6 @@
         <record model="ir.actions.act_window" id="action_dbsource">
             <field name="name">External Database Sources</field>
             <field name="res_model">base.external.dbsource</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_dbsource_tree"/>
         </record>
