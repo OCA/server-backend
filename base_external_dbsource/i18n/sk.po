@@ -181,6 +181,11 @@ msgid "PostgreSQL"
 msgstr ""
 
 #. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
+msgid "SQLite"
+msgstr ""
+
+#. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Test Connection"
 msgstr ""
