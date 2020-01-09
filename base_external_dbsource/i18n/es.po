@@ -163,6 +163,11 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr "Contraseña"
@@ -200,9 +205,6 @@ msgstr ""
 
 #~ msgid "Firebird"
 #~ msgstr "Firebird"
-
-#~ msgid "Microsoft SQL Server"
-#~ msgstr "Microsoft SQL Server"
 
 #~ msgid "MySQL"
 #~ msgstr "MySQL"
