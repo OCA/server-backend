@@ -9,19 +9,20 @@ from odoo import api, models
 _logger = logging.getLogger(__name__)
 
 try:
-    from odoo.addons.base_external_dbsource.models import (
-        base_external_dbsource,
-    )
+    from odoo.addons.base_external_dbsource.models import base_external_dbsource
+
     CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
     try:
         import pymssql
-        CONNECTORS.append(('mssql', 'Microsoft SQL Server'))
+
+        CONNECTORS.append(("mssql", "Microsoft SQL Server"))
         assert pymssql
     except (ImportError, AssertionError):
-        _logger.info('MS SQL Server not available. Please install "pymssql" '
-                     'python package.')
+        _logger.info(
+            'MS SQL Server not available. Please install "pymssql" ' "python package."
+        )
 except ImportError:
-    _logger.info('base_external_dbsource Odoo module not found.')
+    _logger.info("base_external_dbsource Odoo module not found.")
 
 
 class BaseExternalDbsource(models.Model):
@@ -29,7 +30,7 @@ class BaseExternalDbsource(models.Model):
 
     _inherit = "base.external.dbsource"
 
-    PWD_STRING_MSSQL = 'Password=%s;'
+    PWD_STRING_MSSQL = "Password=%s;"
 
     @api.multi
     def connection_close_mssql(self, connection):
