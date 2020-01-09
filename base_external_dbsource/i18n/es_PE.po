@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:347
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
 "\"%s\" method not found, check that all assets are installed for the %s "
@@ -72,7 +72,7 @@ msgid "Connection string"
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:188
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
 "Connection test failed:\n"
@@ -81,7 +81,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:192
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
 "Connection test succeeded:\n"
@@ -162,11 +162,6 @@ msgid "Last Updated on"
 msgstr "Ultima Actualización"
 
 #. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "Microsoft SQL Server"
-msgstr ""
-
-#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr ""
@@ -182,13 +177,8 @@ msgid "Please check the tooltip for connection string examples"
 msgstr ""
 
 #. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__postgresql
 msgid "PostgreSQL"
-msgstr ""
-
-#. module: base_external_dbsource
-#: selection:base.external.dbsource,connector:0
-msgid "SQLite"
 msgstr ""
 
 #. module: base_external_dbsource
@@ -197,7 +187,7 @@ msgid "Test Connection"
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:159
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid "query is a required argument"
 msgstr ""
