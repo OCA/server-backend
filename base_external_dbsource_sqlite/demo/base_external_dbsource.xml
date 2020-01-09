@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
     <record model="base.external.dbsource" id="demo_sqlite">
         <field name="name">SQLite Demo</field>
