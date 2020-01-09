@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'External Database Sources',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'category': 'Tools',
     'author': "Daniel Reis, "
               "LasLabs, "
