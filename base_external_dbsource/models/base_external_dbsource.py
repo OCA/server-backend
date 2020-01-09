@@ -3,9 +3,9 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import logging
-import psycopg2
-
 from contextlib import contextmanager
+
+import psycopg2
 
 from odoo import _, api, fields, models, tools
 
@@ -33,18 +33,18 @@ class BaseExternalDbsource(models.Model):
     """
 
     _name = "base.external.dbsource"
-    _description = 'External Database Sources'
+    _description = "External Database Sources"
 
-    CONNECTORS = [
-        ('postgresql', 'PostgreSQL'),
-    ]
+    CONNECTORS = [("postgresql", "PostgreSQL")]
     # This is appended to the conn string if pass declared but not detected.
     # Children should declare PWD_STRING_CONNECTOR (such as PWD_STRING_FBD)
     #   to allow for override.
-    PWD_STRING = 'PWD=%s;'
+    PWD_STRING = "PWD=%s;"
 
-    name = fields.Char('Datasource name', required=True, size=64)
-    conn_string = fields.Text('Connection string', help="""
+    name = fields.Char("Datasource name", required=True, size=64)
+    conn_string = fields.Text(
+        "Connection string",
+        help="""
     Sample connection strings:
     - Microsoft SQL Server:
       mssql+pymssql://username:%s@server:port/dbname?charset=utf8
@@ -56,34 +56,31 @@ class BaseExternalDbsource(models.Model):
         password=%s
     - SQLite: sqlite:///test.db
     - Elasticsearch: https://user:%s@localhost:9200
-    """)
-    conn_string_full = fields.Text(
-        readonly=True,
-        compute='_compute_conn_string_full',
+    """,
     )
-    password = fields.Char('Password', size=40)
+    conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")
+    password = fields.Char("Password", size=40)
     client_cert = fields.Text()
     client_key = fields.Text()
-    ca_certs = fields.Char(
-        help='Path to CA Certs file on server.',
-    )
+    ca_certs = fields.Char(help="Path to CA Certs file on server.")
     connector = fields.Selection(
-        CONNECTORS, 'Connector', required=True,
+        CONNECTORS,
+        "Connector",
+        required=True,
         help="If a connector is missing from the list, check the server "
-             "log to confirm that the required components were detected.",
+        "log to confirm that the required components were detected.",
     )
 
     current_table = None
 
-    @api.multi
-    @api.depends('conn_string', 'password')
+    @api.depends("conn_string", "password")
     def _compute_conn_string_full(self):
         for record in self:
             if record.password:
-                if '%s' not in record.conn_string:
+                if "%s" not in record.conn_string:
                     pwd_string = getattr(
                         record,
-                        'PWD_STRING_%s' % record.connector.upper(),
+                        "PWD_STRING_%s" % record.connector.upper(),
                         record.PWD_STRING,
                     )
                     record.conn_string += pwd_string
@@ -93,12 +90,10 @@ class BaseExternalDbsource(models.Model):
 
     # Interface
 
-    @api.multi
     def change_table(self, name):
         """ Change the table that is used for CRUD operations """
         self.current_table = name
 
-    @api.multi
     def connection_close(self, connection):
         """ It closes the connection to the data source.
 
@@ -106,10 +101,9 @@ class BaseExternalDbsource(models.Model):
         the adapter type.
         """
 
-        method = self._get_adapter_method('connection_close')
+        method = self._get_adapter_method("connection_close")
         return method(connection)
 
-    @api.multi
     @contextmanager
     def connection_open(self):
         """ It provides a context manager for the data source.
@@ -118,20 +112,17 @@ class BaseExternalDbsource(models.Model):
         the adapter type.
         """
 
-        method = self._get_adapter_method('connection_open')
+        method = self._get_adapter_method("connection_open")
         try:
             connection = method()
             yield connection
         finally:
             try:
                 self.connection_close(connection)
-            except:
-                _logger.exception('Connection close failure.')
+            except Exception:
+                _logger.exception("Connection close failure.")
 
-    @api.multi
-    def execute(
-        self, query=None, execute_params=None, metadata=False, **kwargs
-    ):
+    def execute(self, query=None, execute_params=None, metadata=False, **kwargs):
         """ Executes a query and returns a list of rows.
 
             "execute_params" can be a dict of values, that can be referenced
@@ -154,24 +145,23 @@ class BaseExternalDbsource(models.Model):
         # Old API compatibility
         if not query:
             try:
-                query = kwargs['sqlquery']
+                query = kwargs["sqlquery"]
             except KeyError:
-                raise TypeError(_('query is a required argument'))
+                raise TypeError(_("query is a required argument"))
         if not execute_params:
             try:
-                execute_params = kwargs['sqlparams']
+                execute_params = kwargs["sqlparams"]
             except KeyError:
                 pass
 
-        method = self._get_adapter_method('execute')
+        method = self._get_adapter_method("execute")
         rows, cols = method(query, execute_params, metadata)
 
         if metadata:
-            return {'cols': cols, 'rows': rows}
+            return {"cols": cols, "rows": rows}
         else:
             return rows
 
-    @api.multi
     def connection_test(self):
         """ It tests the connection
 
@@ -179,22 +169,18 @@ class BaseExternalDbsource(models.Model):
             ConnectionSuccessError: On connection success
             ConnectionFailedError: On connection failed
         """
+        try:
+            with self.connection_open():
+                pass
+        except Exception as e:
+            raise ConnectionFailedError(
+                _("Connection test failed:\n" "Here is what we got instead:\n%s")
+                % tools.ustr(e)
+            )
+        raise ConnectionSuccessError(
+            _("Connection test succeeded:\n" "Everything seems properly set up!")
+        )
 
-        for obj in self:
-            try:
-                with self.connection_open():
-                    pass
-            except Exception as e:
-                raise ConnectionFailedError(_(
-                    "Connection test failed:\n"
-                    "Here is what we got instead:\n%s"
-                ) % tools.ustr(e))
-        raise ConnectionSuccessError(_(
-            "Connection test succeeded:\n"
-            "Everything seems properly set up!",
-        ))
-
-    @api.multi
     def remote_browse(self, record_ids, *args, **kwargs):
         """ It browses for and returns the records from remote by ID
 
@@ -210,10 +196,9 @@ class BaseExternalDbsource(models.Model):
         """
 
         assert self.current_table
-        method = self._get_adapter_method('remote_browse')
+        method = self._get_adapter_method("remote_browse")
         return method(record_ids, *args, **kwargs)
 
-    @api.multi
     def remote_create(self, vals, *args, **kwargs):
         """ It creates a record on the remote data source.
 
@@ -229,10 +214,9 @@ class BaseExternalDbsource(models.Model):
         """
 
         assert self.current_table
-        method = self._get_adapter_method('remote_create')
+        method = self._get_adapter_method("remote_create")
         return method(vals, *args, **kwargs)
 
-    @api.multi
     def remote_delete(self, record_ids, *args, **kwargs):
         """ It deletes records by ID on remote
 
@@ -248,10 +232,9 @@ class BaseExternalDbsource(models.Model):
         """
 
         assert self.current_table
-        method = self._get_adapter_method('remote_delete')
+        method = self._get_adapter_method("remote_delete")
         return method(record_ids, *args, **kwargs)
 
-    @api.multi
     def remote_search(self, query, *args, **kwargs):
         """ It searches the remote for the query.
 
@@ -267,10 +250,9 @@ class BaseExternalDbsource(models.Model):
         """
 
         assert self.current_table
-        method = self._get_adapter_method('remote_search')
+        method = self._get_adapter_method("remote_search")
         return method(query, *args, **kwargs)
 
-    @api.multi
     def remote_update(self, record_ids, vals, *args, **kwargs):
         """ It updates the remote records with the vals
 
@@ -286,7 +268,7 @@ class BaseExternalDbsource(models.Model):
         """
 
         assert self.current_table
-        method = self._get_adapter_method('remote_update')
+        method = self._get_adapter_method("remote_update")
         return method(record_ids, vals, *args, **kwargs)
 
     # Adapters
@@ -312,7 +294,6 @@ class BaseExternalDbsource(models.Model):
 
     # Compatibility & Private
 
-    @api.multi
     def conn_open(self):
         """ It opens and returns a connection to the remote data source.
 
@@ -339,14 +320,14 @@ class BaseExternalDbsource(models.Model):
         """
 
         self.ensure_one()
-        method = '%s_%s' % (method_prefix, self.connector)
+        method = "{}_{}".format(method_prefix, self.connector)
 
         try:
             return getattr(self, method)
         except AttributeError:
-            raise NotImplementedError(_(
-                '"%s" method not found, check that all assets are installed '
-                'for the %s connector type.'
-            )) % (
-                method, self.connector,
-            )
+            raise NotImplementedError(
+                _(
+                    '"%s" method not found, check that all assets are installed '
+                    "for the %s connector type."
+                )
+            ) % (method, self.connector)
