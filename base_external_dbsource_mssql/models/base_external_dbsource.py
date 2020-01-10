@@ -4,7 +4,7 @@
 
 import logging
 
-from odoo import api, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
@@ -32,14 +32,11 @@ class BaseExternalDbsource(models.Model):
 
     PWD_STRING_MSSQL = "Password=%s;"
 
-    @api.multi
     def connection_close_mssql(self, connection):
         return connection.close()
 
-    @api.multi
     def connection_open_mssql(self):
         return self._connection_open_sqlalchemy()
 
-    @api.multi
     def execute_mssql(self, sqlquery, sqlparams, metadata):
         return self._execute_sqlalchemy(sqlquery, sqlparams, metadata)
