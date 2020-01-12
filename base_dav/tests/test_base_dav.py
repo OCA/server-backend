@@ -7,6 +7,7 @@ from unittest import mock
 from urllib.parse import urlparse
 
 from odoo.tests.common import TransactionCase
+from odoo.tools import mute_logger
 
 from ..controllers.main import PREFIX
 from ..controllers.main import Main as Controller
@@ -18,6 +19,7 @@ RADICALE_PATH = MODULE_PATH + ".radicale"
 ADMIN_PASSWORD = "RadicalePa$$word"
 
 
+@mute_logger("radicale")
 @mock.patch(CONTROLLER_PATH + ".request")
 @mock.patch(RADICALE_PATH + ".auth.request")
 @mock.patch(RADICALE_PATH + ".collection.request")
