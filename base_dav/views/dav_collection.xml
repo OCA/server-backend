@@ -39,6 +39,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="field_id"/>
                 <field name="mapping_type"/>
             </tree>
         </field>
@@ -52,9 +53,7 @@
                     <field name="collection_id" invisible="1"/>
                     <field name="name"/>
                     <field name="mapping_type"/>
-                    <field name="field_id"
-                           domain="[('model_id', '=', collection_id.model_id)]"
-                           attrs="{'invisible': [('mapping_type', '!=', 'simple')]}"/>
+                    <field name="field_id" domain="[('model_id', '=', collection_id.model_id)]"/>
                     <field name="import_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
                     <field name="export_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
                 </group>
