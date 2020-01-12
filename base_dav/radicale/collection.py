@@ -130,3 +130,7 @@ class Collection(BaseCollection):
 
     def list(self):
         return self.collection.dav_list(self.path_components)
+
+    @classmethod
+    def create_collection(cls, href, collection=None, props=None):
+        return None
