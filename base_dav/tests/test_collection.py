@@ -3,7 +3,6 @@
 from datetime import datetime, timedelta
 from unittest import mock
 
-from odoo.exceptions import MissingError
 from odoo.tests.common import TransactionCase
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -108,8 +107,7 @@ class TestCalendar(TransactionCase):
 
         # Delete an record
         collection.delete(item.href)
-        with self.assertRaises(MissingError):
-            self.record.name
+        self.assertFalse(self.record.exists())
 
         # Create a new record
         item = collection.upload(record_url + "0", item)
