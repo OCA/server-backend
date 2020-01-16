@@ -172,7 +172,7 @@ class DavCollection(models.Model):
         ))
 
     @api.multi
-    def dav_list(self, path_components):
+    def dav_list(self, collection, path_components):
         self.ensure_one()
 
         if self.dav_type == 'files':
@@ -215,7 +215,7 @@ class DavCollection(models.Model):
         return result
 
     @api.multi
-    def dav_delete(self, components):
+    def dav_delete(self, collection, components):
         self.ensure_one()
 
         if self.dav_type == "files":
@@ -225,7 +225,7 @@ class DavCollection(models.Model):
             self.get_record(components).unlink()
 
     @api.multi
-    def dav_upload(self, href, item):
+    def dav_upload(self, collection, href, item):
         self.ensure_one()
 
         components = self._split_path(href)
@@ -248,14 +248,14 @@ class DavCollection(models.Model):
             record.write(data)
 
         return Item(
-            self,
+            collection,
             item=self.to_vobject(record),
             href=href,
             last_modified=self._odoo_to_http_datetime(record.write_date),
         )
 
     @api.multi
-    def dav_get(self, href):
+    def dav_get(self, collection, href):
         self.ensure_one()
 
         components = self._split_path(href)
@@ -279,7 +279,7 @@ class DavCollection(models.Model):
                     ('name', '=', components[3]),
                 ], limit=1)
                 return FileItem(
-                    self,
+                    collection,
                     item=attachment,
                     href=href,
                     last_modified=self._odoo_to_http_datetime(
@@ -293,7 +293,7 @@ class DavCollection(models.Model):
             return None
 
         return Item(
-            self,
+            collection,
             item=self.to_vobject(record),
             href=href,
             last_modified=self._odoo_to_http_datetime(record.write_date),
