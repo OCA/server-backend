@@ -120,13 +120,13 @@ class Collection(BaseCollection):
         self.logger.warning('unsupported metadata %s', key)
 
     def get(self, href):
-        return self.collection.dav_get(href)
+        return self.collection.dav_get(self, href)
 
     def upload(self, href, vobject_item):
-        return self.collection.dav_upload(href, vobject_item)
+        return self.collection.dav_upload(self, href, vobject_item)
 
     def delete(self, href):
-        return self.collection.dav_delete(self._split_path(href))
+        return self.collection.dav_delete(self, self._split_path(href))
 
     def list(self):
-        return self.collection.dav_list(self.path_components)
+        return self.collection.dav_list(self, self.path_components)
