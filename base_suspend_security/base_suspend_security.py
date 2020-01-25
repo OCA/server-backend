@@ -4,9 +4,6 @@ from odoo.tools import pycompat
 
 
 class BaseSuspendSecurityUid(int):
-    def __int__(self):
-        return self
-
     def __eq__(self, other):
         if isinstance(other, pycompat.integer_types):
             return False

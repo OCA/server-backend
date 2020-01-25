@@ -30,3 +30,19 @@ class TestBaseSuspendSecurity(TransactionCase):
         # this tests if _normalize_args conversion works
         self.env['res.users'].browse(
             self.env['res.users'].suspend_security().env.uid)
+
+    def test_suspend_security_on_search(self):
+        user_without_access = self.env["res.users"].create(
+            dict(
+                name="Testing Suspend Security",
+                login="nogroups",
+                email="nogroups@suspendsecurity.com",
+                groups_id=[(5,)],
+            )
+        )
+        model = self.env["ir.config_parameter"]
+        # the search is forbidden
+        with self.assertRaises(exceptions.AccessError):
+            model.sudo(user_without_access).search([])
+        # this tests the search
+            model.sudo(user_without_access).suspend_security().search([])
