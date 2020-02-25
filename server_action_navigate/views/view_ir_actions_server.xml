@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_ir_actions_server_form" model="ir.ui.view">
+        <field name="model">ir.actions.server</field>
+        <field name="inherit_id" ref="base.view_server_action_form"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='code']" position="after">
+                <page string="Navigation Options" name='page_navigate' autofocus="autofocus"
+                        attrs="{'invisible': [('state', '!=', 'navigate')]}">
+                    <group>
+                        <field name="max_navigate_line_sequence" invisible="1"/>
+                        <field name="max_navigate_line_model" invisible="1"/>
+                        <!-- we can check emptyness of a 2many like this since v10 i think /-->
+                        <button name="delete_last_line" string="Delete Last Line" type="object"
+                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"/>
+                        <field name="navigate_line_ids" context="{'navigate_line_ids': navigate_line_ids}" nolabel="1" colspan="4">
+                            <tree editable="bottom" delete="false">
+                                <!-- the handle widget takes care of the sequence /-->
+                                <field name="sequence" widget="handle" invisible="True" />
+                                <field name="field_id" />
+                                <field name="field_model"/>
+                            </tree>
+                        </field>
+                        <field name="navigate_action_id"
+                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

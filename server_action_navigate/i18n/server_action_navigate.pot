@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* server_action_navigate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__action_id
+msgid "Action"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__state
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__state
+msgid "Action To Do"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Add Followers"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Create Next Activity"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Create a new Record"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__navigate_action_id
+#: model:ir.model.fields,help:server_action_navigate.field_ir_cron__navigate_action_id
+msgid "Define here the action used when the navigation will be executed if empty, a generic action will be used."
+msgstr ""
+
+#. module: server_action_navigate
+#: model_terms:ir.ui.view,arch_db:server_action_navigate.view_ir_actions_server_form
+msgid "Delete Last Line"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Execute Python Code"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Execute several actions"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_id
+msgid "Field"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server_navigate_line__field_model
+msgid "For relationship fields, the technical name of the target model"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__id
+msgid "ID"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__max_navigate_line_model
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__max_navigate_line_model
+msgid "Max Navigate Model in lines"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__max_navigate_line_sequence
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__max_navigate_line_sequence
+msgid "Max Navigate sequence in lines"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_model
+msgid "Model"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Navigate"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_line_ids
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_line_ids
+msgid "Navigate Lines"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_action_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_action_id
+msgid "Navigation Action"
+msgstr ""
+
+#. module: server_action_navigate
+#: model_terms:ir.ui.view,arch_db:server_action_navigate.view_ir_actions_server_form
+msgid "Navigation Options"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.actions.server,name:server_action_navigate.navigate_partner_2_tags
+msgid "See tags of Partners"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Send Email"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model,name:server_action_navigate.model_ir_actions_server
+msgid "Server Action"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model,name:server_action_navigate.model_ir_actions_server_navigate_line
+msgid "Server Actions Navigation Lines"
+msgstr ""
+
+#. module: server_action_navigate
+#: code:addons/server_action_navigate/models/ir_actions_server.py:62
+#, python-format
+msgid "The Action Server %s is not correctly set\n"
+" : No fields defined"
+msgstr ""
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__state
+#: model:ir.model.fields,help:server_action_navigate.field_ir_cron__state
+msgid "Type of server action. The following values are available:\n"
+"- 'Execute Python Code': a block of python code that will be executed\n"
+"- 'Create': create a new record with new values\n"
+"- 'Update a Record': update the values of a record\n"
+"- 'Execute several actions': define an action that triggers several other server actions\n"
+"- 'Send Email': automatically send an email (Discuss)\n"
+"- 'Add Followers': add followers to a record (Discuss)\n"
+"- 'Create Next Activity': create an activity (Discuss)"
+msgstr ""
+
+#. module: server_action_navigate
+#: selection:ir.actions.server,state:0
+msgid "Update the Record"
+msgstr ""
+
