@@ -23,7 +23,7 @@ User roles
     :target: https://runbot.odoo-community.org/runbot/253/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module was written to extend the standard functionality regarding users
 and groups management.
@@ -154,7 +154,7 @@ promote its widespread use.
 
 Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-ABF OSIELL| |maintainer-jcdrubay| 
+|maintainer-ABF OSIELL| |maintainer-jcdrubay|
 
 This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/12.0/base_user_role>`_ project on GitHub.
 
