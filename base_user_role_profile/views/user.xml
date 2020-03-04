@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+
+    <record id="view_res_users_form_inherit_profile" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='role_line_ids']" position="before">
+                <group>
+                    <field name="profile_ids" widget="many2many_tags" attrs="{'readonly': True}"/>
+                    <field name="profile_id" domain="[('id', 'in', profile_ids)]"
+                           options="{'no_create_edit': True, 'no_open': True}"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='role_line_ids']//field[@name='company_id']" position="after">
+                <field name="profile_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_users_form_show_company" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='role_line_ids']//field[@name='company_id']" position="attributes">
+                <attribute name="groups" eval=""/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
