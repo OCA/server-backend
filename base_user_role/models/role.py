@@ -39,7 +39,7 @@ class ResUsersRole(models.Model):
         string="Associated category",
         help="Associated group's category",
     )
-    comment = fields.Html(string="Internal Notes",)
+    comment = fields.Html(string="Internal Notes")
 
     @api.multi
     @api.depends("line_ids.user_id")
@@ -90,6 +90,9 @@ class ResUsersRoleLine(models.Model):
     date_from = fields.Date("From")
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
+    company_id = fields.Many2one(
+        "res.company", "Company", default=lambda self: self.env.user.company_id
+    )
 
     @api.multi
     @api.depends("date_from", "date_to")
