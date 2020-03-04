@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="demo_profile_company" model="res.company">
+        <field name="name">Company, The Second</field>
+    </record>
+
+    <!--Profiles-->
+    <!--Merchant: Purchase and/or Sales-->
+    <record id="demo_profile_1" model="res.users.profile">
+        <field name="name">Merchant Profile</field>
+    </record>
+    <record id="demo_profile_2" model="res.users.profile">
+        <field name="name">HR profile</field>
+    </record>
+    <record id="demo_profile_3" model="res.users.profile">
+        <field name="name">ERP Settings profile</field>
+    </record>
+
+    <!--Roles-->
+    <record id="role_purchaser" model="res.users.role">
+        <field name="name">Role 1: Purchaser permissions</field>
+        <field name="implied_ids" eval="[
+                (6, 0, [ref('purchase.group_purchase_manager'), ref('base.group_user'), ref('base.group_multi_company')])
+            ]"/>
+        <field name="profile_id" eval="ref('base_user_role_profile_example.demo_profile_1')"/>
+    </record>
+    <record id="role_sale" model="res.users.role">
+        <field name="name">Role 2: Sales permissions</field>
+        <field name="implied_ids" eval="[
+                (6, 0, [ref('sales_team.group_sale_manager'), ref('base.group_user'), ref('base.group_multi_company')])
+            ]"/>
+        <field name="profile_id" eval="ref('base_user_role_profile_example.demo_profile_1')"/>
+    </record>
+    <record id="role_erp_manager" model="res.users.role">
+        <field name="name">Role 3: System permissions</field>
+        <field name="implied_ids" eval="[
+                (6, 0, [ref('base.group_erp_manager'), ref('base.group_user'), ref('base.group_multi_company')])
+            ]"/>
+        <field name="profile_id" eval="ref('base_user_role_profile_example.demo_profile_3')"/>
+    </record>
+    <record id="role_hr_manager" model="res.users.role">
+        <field name="name">Role 4: HR permissions</field>
+        <field name="implied_ids" eval="[
+                (6, 0, [ref('hr.group_hr_manager'), ref('base.group_user'), ref('base.group_multi_company')])
+            ]"/>
+        <field name="profile_id" eval="ref('base_user_role_profile_example.demo_profile_2')"/>
+    </record>
+
+    <!--Role lines-->
+    <record id="role_line_1" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_purchaser')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base.main_company')"/>
+    </record>
+    <record id="role_line_2" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_sale')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base.main_company')"/>
+    </record>
+    <record id="role_line_3" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_hr_manager')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base.main_company')"/>
+    </record>
+    <record id="role_line_4" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_sale')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base_user_role_profile_example.demo_profile_company')"/>
+    </record>
+    <record id="role_line_5" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_hr_manager')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base_user_role_profile_example.demo_profile_company')"/>
+    </record>
+    <record id="role_line_6" model="res.users.role.line">
+        <field name="role_id" eval="ref('base_user_role_profile_example.role_erp_manager')"/>
+        <field name="user_id" eval="ref('base.user_demo')"/>
+        <field name="company_id" eval="ref('base_user_role_profile_example.demo_profile_company')"/>
+    </record>
+
+    <!--Demo user-->
+    <record id="base.user_demo" model="res.users">
+        <field name="role_line_ids"
+               eval="[
+               (4, ref('base_user_role_profile_example.role_line_1'), 0),
+               (4, ref('base_user_role_profile_example.role_line_2'), 0),
+               (4, ref('base_user_role_profile_example.role_line_3'), 0),
+               (4, ref('base_user_role_profile_example.role_line_4'), 0),
+               (4, ref('base_user_role_profile_example.role_line_5'), 0),
+               (4, ref('base_user_role_profile_example.role_line_6'), 0),
+               ]"/>
+        <field name="company_ids" eval="[(4, ref('base_user_role_profile_example.demo_profile_company'), 0)]"/>
+    </record>
+</odoo>
