@@ -10,34 +10,42 @@ _logger = logging.getLogger(__name__)
 
 
 class ResUsersRole(models.Model):
-    _name = 'res.users.role'
-    _inherits = {'res.groups': 'group_id'}
+    _name = "res.users.role"
+    _inherits = {"res.groups": "group_id"}
     _description = "User role"
 
     group_id = fields.Many2one(
-        comodel_name='res.groups', required=True, ondelete='cascade',
-        readonly=True, string="Associated group")
-    line_ids = fields.One2many(
-        comodel_name='res.users.role.line',
-        inverse_name='role_id', string="Role lines")
-    user_ids = fields.One2many(
-        comodel_name='res.users', string="Users list",
-        compute='_compute_user_ids')
-    group_category_id = fields.Many2one(
-        related='group_id.category_id',
-        default=lambda cls: cls.env.ref(
-            'base_user_role.ir_module_category_role').id,
-        string="Associated category",
-        help="Associated group's category")
-    comment = fields.Html(
-        string="Internal Notes",
+        comodel_name="res.groups",
+        required=True,
+        ondelete="cascade",
+        readonly=True,
+        string="Associated group",
     )
+    line_ids = fields.One2many(
+        comodel_name="res.users.role.line",
+        inverse_name="role_id",
+        string="Role lines",
+    )
+    user_ids = fields.One2many(
+        comodel_name="res.users",
+        string="Users list",
+        compute="_compute_user_ids",
+    )
+    group_category_id = fields.Many2one(
+        related="group_id.category_id",
+        default=lambda cls: cls.env.ref(
+            "base_user_role.ir_module_category_role"
+        ).id,
+        string="Associated category",
+        help="Associated group's category",
+    )
+    comment = fields.Html(string="Internal Notes")
 
     @api.multi
-    @api.depends('line_ids.user_id')
+    @api.depends("line_ids.user_id")
     def _compute_user_ids(self):
         for role in self:
-            role.user_ids = role.line_ids.mapped('user_id')
+            role.user_ids = role.line_ids.mapped("user_id")
 
     @api.model
     def create(self, vals):
@@ -53,7 +61,7 @@ class ResUsersRole(models.Model):
 
     @api.multi
     def unlink(self):
-        users = self.mapped('user_ids')
+        users = self.mapped("user_ids")
         res = super(ResUsersRole, self).unlink()
         users.set_groups_from_roles(force=True)
         return res
@@ -61,7 +69,7 @@ class ResUsersRole(models.Model):
     @api.multi
     def update_users(self):
         """Update all the users concerned by the roles identified by `ids`."""
-        users = self.mapped('user_ids')
+        users = self.mapped("user_ids")
         users.set_groups_from_roles()
         return True
 
@@ -72,20 +80,22 @@ class ResUsersRole(models.Model):
 
 
 class ResUsersRoleLine(models.Model):
-    _name = 'res.users.role.line'
-    _description = 'Users associated to a role'
+    _name = "res.users.role.line"
+    _description = "Users associated to a role"
 
     role_id = fields.Many2one(
-        comodel_name='res.users.role', string="Role",
-        ondelete='cascade')
-    user_id = fields.Many2one(
-        comodel_name='res.users', string="User")
+        comodel_name="res.users.role", string="Role", ondelete="cascade"
+    )
+    user_id = fields.Many2one(comodel_name="res.users", string="User")
     date_from = fields.Date("From")
     date_to = fields.Date("To")
-    is_enabled = fields.Boolean("Enabled", compute='_compute_is_enabled')
+    is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
+    company_id = fields.Many2one(
+        "res.company", "Company", default=lambda self: self.env.user.company_id
+    )
 
     @api.multi
-    @api.depends('date_from', 'date_to')
+    @api.depends("date_from", "date_to")
     def _compute_is_enabled(self):
         today = datetime.date.today()
         for role_line in self:
@@ -101,7 +111,7 @@ class ResUsersRoleLine(models.Model):
 
     @api.multi
     def unlink(self):
-        users = self.mapped('user_id')
+        users = self.mapped("user_id")
         res = super(ResUsersRoleLine, self).unlink()
         users.set_groups_from_roles(force=True)
         return res

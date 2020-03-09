@@ -4,38 +4,43 @@ from odoo import api, fields, models
 
 
 class ResUsers(models.Model):
-    _inherit = 'res.users'
+    _inherit = "res.users"
 
     role_line_ids = fields.One2many(
-        comodel_name='res.users.role.line',
-        inverse_name='user_id',
+        comodel_name="res.users.role.line",
+        inverse_name="user_id",
         string="Role lines",
-        default=lambda self: self._default_role_lines()
+        default=lambda self: self._default_role_lines(),
     )
     role_ids = fields.One2many(
-        comodel_name='res.users.role', string="Roles",
-        compute='_compute_role_ids')
+        comodel_name="res.users.role",
+        string="Roles",
+        compute="_compute_role_ids",
+    )
 
     @api.model
     def _default_role_lines(self):
         default_user = self.env.ref(
-            'base.default_user', raise_if_not_found=False)
+            "base.default_user", raise_if_not_found=False
+        )
         default_values = []
         if default_user:
             for role_line in default_user.role_line_ids:
-                default_values.append({
-                    'role_id': role_line.role_id.id,
-                    'date_from': role_line.date_from,
-                    'date_to': role_line.date_to,
-                    'is_enabled': role_line.is_enabled,
-                })
+                default_values.append(
+                    {
+                        "role_id": role_line.role_id.id,
+                        "date_from": role_line.date_from,
+                        "date_to": role_line.date_to,
+                        "is_enabled": role_line.is_enabled,
+                    }
+                )
         return default_values
 
     @api.multi
-    @api.depends('role_line_ids.role_id')
+    @api.depends("role_line_ids.role_id")
     def _compute_role_ids(self):
         for user in self:
-            user.role_ids = user.role_line_ids.mapped('role_id')
+            user.role_ids = user.role_line_ids.mapped("role_id")
 
     @api.model
     def create(self, vals):
@@ -49,6 +54,14 @@ class ResUsers(models.Model):
         self.sudo().set_groups_from_roles()
         return res
 
+    def _get_applicable_roles(self):
+        return self.role_line_ids.filtered(
+            lambda rec: rec.is_enabled
+            and (
+                not rec.company_id or rec.company_id == rec.user_id.company_id
+            )
+        )
+
     @api.multi
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
@@ -58,21 +71,23 @@ class ResUsers(models.Model):
         role_groups = {}
         # We obtain all the groups associated to each role first, so that
         # it is faster to compare later with each user's groups.
-        for role in self.mapped('role_line_ids.role_id'):
-            role_groups[role] = list(set(
-                role.group_id.ids + role.implied_ids.ids +
-                role.trans_implied_ids.ids))
+        for role in self.mapped("role_line_ids.role_id"):
+            role_groups[role] = list(
+                set(
+                    role.group_id.ids
+                    + role.implied_ids.ids
+                    + role.trans_implied_ids.ids
+                )
+            )
         for user in self:
             if not user.role_line_ids and not force:
                 continue
             group_ids = []
-            role_lines = user.role_line_ids.filtered(
-                lambda rec: rec.is_enabled)
-            for role_line in role_lines:
+            for role_line in user._get_applicable_roles():
                 role = role_line.role_id
                 if role:
                     group_ids += role_groups[role]
-            group_ids = list(set(group_ids))    # Remove duplicates IDs
+            group_ids = list(set(group_ids))  # Remove duplicates IDs
             groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
             groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
             to_add = [(4, gr) for gr in groups_to_add]
@@ -80,7 +95,7 @@ class ResUsers(models.Model):
             groups = to_remove + to_add
             if groups:
                 vals = {
-                    'groups_id': groups,
+                    "groups_id": groups,
                 }
                 super(ResUsers, user).write(vals)
         return True
