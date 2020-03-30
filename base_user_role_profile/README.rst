@@ -13,11 +13,17 @@ User profiles
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-oca%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/oca/server-backend/tree/12.0/base_user_role_profile
-    :alt: oca/server-backend
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
+    :target: https://github.com/OCA/server-backend/tree/12.0/base_user_role_profile
+    :alt: OCA/server-backend
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/server-backend-12-0/server-backend-12-0-base_user_role_profile
+    :alt: Translate me on Weblate
+.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
+    :target: https://runbot.odoo-community.org/runbot/253/12.0
+    :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 Extending the base_user_role module, this one adds the notion of profiles. Effectively profiles act as an additional filter to how the roles are used. Through the new widget, much in the same way that a user can switch companies when they are part of the multi company group, users have the possibility to change profiles when they are part of the multi profiles group.
 
@@ -25,6 +31,12 @@ This allows users to switch their permission groups dynamically. This can be use
  - finer grain control on menu and model permissions (with record rules this becomes very flexible)
  - break down complicated menus into simpler ones
  - easily restrict users accidentally editing or creating records in O2M fields and in general misusing the interface, instead of excessively explaining things to them
+
+When you define a role, you have the possibility to link it to a profile. Roles are applied to users in the following way:
+  - Apply user's roles without profiles in any case
+  - Apply user's roles that are linked to the currently selected profile
+
+Note that this module assumes a multicompany environment
 
 **Table of contents**
 
@@ -35,6 +47,7 @@ Configuration
 =============
 
 Go to Configuration / Users / Profiles and create a profile. Go to Configuration / Users / Roles and define some role lines with profiles.
+Be careful when defining role lines that company ids and profiles are correctly configured.
 
 Usage
 =====
@@ -44,10 +57,10 @@ Once you have set up at least one profile for a user, use the widget in the top 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/oca/server-backend/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/oca/server-backend/issues/new?body=module:%20base_user_role_profile%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_profile%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -68,6 +81,16 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `oca/server-backend <https://github.com/oca/server-backend/tree/12.0/base_user_role_profile>`_ project on GitHub.
+This module is maintained by the OCA.
 
-You are welcome to contribute.
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/12.0/base_user_role_profile>`_ project on GitHub.
+
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
