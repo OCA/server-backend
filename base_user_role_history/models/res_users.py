@@ -43,7 +43,7 @@ class ResUsers(models.Model):
             {},
             new_role_line_values_by_user
         )
-        res.last_role_line_modification = fields.Datetime.now()
+        res.write({'last_role_line_modification': fields.Datetime.now()})
         return res
 
     @api.multi
