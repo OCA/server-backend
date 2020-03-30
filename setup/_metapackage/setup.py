@@ -16,6 +16,8 @@ setuptools.setup(
         'odoo12-addon-base_suspend_security',
         'odoo12-addon-base_user_role',
         'odoo12-addon-base_user_role_history',
+        'odoo12-addon-base_user_role_profile',
+        'odoo12-addon-base_user_role_profile_example',
     ],
     classifiers=[
         'Programming Language :: Python',
