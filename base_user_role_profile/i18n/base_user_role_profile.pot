@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_user_role_profile
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__user_ids
+msgid "Allowed users"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users__profile_id
+msgid "Current profile"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users__profile_ids
+msgid "Currently allowed profiles"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: base_user_role_profile
+#. openerp-web
+#: code:addons/base_user_role_profile/static/src/xml/templates.xml:6
+#, python-format
+msgid "Dropdown menu"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model,name:base_user_role_profile.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__id
+msgid "ID"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__name
+msgid "Name"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_role__profile_id
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_role_line__profile_id
+msgid "Profile"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model,name:base_user_role_profile.model_res_users_profile
+msgid "Role profile"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__role_ids
+msgid "Roles"
+msgstr ""
+
+#. module: base_user_role_profile
+#. openerp-web
+#: code:addons/base_user_role_profile/static/src/js/switch_profile_menu.js:31
+#, python-format
+msgid "Tap on the list to change profile"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.actions.act_window,name:base_user_role_profile.action_res_users_profile_tree
+#: model:ir.ui.menu,name:base_user_role_profile.menu_action_res_users_profile_tree
+msgid "User Profiles"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model,name:base_user_role_profile.model_res_users_role
+msgid "User role"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model,name:base_user_role_profile.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: base_user_role_profile
+#: model:ir.model,name:base_user_role_profile.model_res_users_role_line
+msgid "Users associated to a role"
+msgstr ""
+
