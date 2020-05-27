@@ -14,16 +14,16 @@ Base Global Discount
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/11.0/base_global_discount
+    :target: https://github.com/OCA/server-backend/tree/12.0/base_global_discount
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/server-backend-11-0/server-backend-11-0-base_global_discount
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/253/11.0
+    :target: https://runbot.odoo-community.org/runbot/253/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 Base module to have global discounts applied to either sales or purchases. It
 doesn't do much for itself, so account_global_discount or
@@ -60,7 +60,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_global_discount%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_global_discount%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -82,6 +82,10 @@ Contributors
   * Carlos Dauden
   * Rafael Blasco
 
+* `Xtendoo <https://www.xtendoo.es>`_
+
+  * Manuel Calero
+
 Maintainers
 ~~~~~~~~~~~
 
@@ -95,6 +99,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/11.0/base_global_discount>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/12.0/base_global_discount>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
