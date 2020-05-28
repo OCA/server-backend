@@ -17,13 +17,13 @@ Base Global Discount
     :target: https://github.com/OCA/server-backend/tree/12.0/base_global_discount
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-11-0/server-backend-11-0-base_global_discount
+    :target: https://translation.odoo-community.org/projects/server-backend-12-0/server-backend-12-0-base_global_discount
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/253/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 Base module to have global discounts applied to either sales or purchases. It
 doesn't do much for itself, so account_global_discount or
@@ -81,10 +81,6 @@ Contributors
   * David Vidal
   * Carlos Dauden
   * Rafael Blasco
-
-* `Xtendoo <https://www.xtendoo.es>`_
-
-  * Manuel Calero
 
 Maintainers
 ~~~~~~~~~~~
