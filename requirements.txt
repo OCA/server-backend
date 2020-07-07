@@ -1,4 +1,4 @@
 sqlalchemy
 mysqlclient
-radicale
+radicale<3.0.0
 pymssql<3.0
