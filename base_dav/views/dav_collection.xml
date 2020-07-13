@@ -51,9 +51,10 @@
             <form>
                 <group>
                     <field name="collection_id" invisible="1"/>
+                    <field name="model_id" invisible="1"/>
                     <field name="name"/>
                     <field name="mapping_type"/>
-                    <field name="field_id" domain="[('model_id', '=', collection_id.model_id)]"/>
+                    <field name="field_id" domain="[('model_id', '=', model_id)]"/>
                     <field name="import_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
                     <field name="export_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
                 </group>
@@ -73,5 +74,4 @@
         action="action_dav_collection"
         sequence="100"
     />
-
 </odoo>

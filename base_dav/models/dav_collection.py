@@ -7,8 +7,9 @@ import time
 from operator import itemgetter
 from urllib.parse import quote_plus
 
-import vobject
 from odoo import api, fields, models, tools
+
+import vobject
 
 # pylint: disable=missing-import-error
 from ..controllers.main import PREFIX
