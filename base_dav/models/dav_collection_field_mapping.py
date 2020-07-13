@@ -4,10 +4,11 @@
 
 import datetime
 
+from odoo import api, fields, models, tools
+
 import dateutil
 import vobject
 from dateutil import tz
-from odoo import api, fields, models, tools
 
 
 class DavCollectionFieldMapping(models.Model):
@@ -33,6 +34,10 @@ class DavCollectionFieldMapping(models.Model):
         'ir.model.fields',
         required=True,
         help="Field of the model the values are mapped to",
+    )
+    model_id = fields.Many2one(
+        'ir.model',
+        related='collection_id.model_id',
     )
     import_code = fields.Text(
         help="Code to import the value from a vobject. Use the variable "
