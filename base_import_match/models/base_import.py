@@ -2,6 +2,7 @@
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
+
 from odoo import api, fields, models, tools
 
 _logger = logging.getLogger(__name__)
@@ -12,10 +13,7 @@ class BaseImportMatch(models.Model):
     _description = "Deduplicate settings prior to CSV imports."
     _order = "sequence, name"
 
-    name = fields.Char(
-        compute="_compute_name",
-        store=True,
-        index=True)
+    name = fields.Char(compute="_compute_name", store=True, index=True)
     sequence = fields.Integer(index=True)
     model_id = fields.Many2one(
         "ir.model",
@@ -23,18 +21,18 @@ class BaseImportMatch(models.Model):
         required=True,
         ondelete="cascade",
         domain=[("transient", "=", False)],
-        help="In this model you will apply the match.")
+        help="In this model you will apply the match.",
+    )
     model_name = fields.Char(
-        string="Model name",
-        related="model_id.model",
-        store=True,
-        index=True)
+        string="Model name", related="model_id.model", store=True, index=True
+    )
     field_ids = fields.One2many(
         comodel_name="base_import.match.field",
         inverse_name="match_id",
         string="Fields",
         required=True,
-        help="Fields that will define an unique key.")
+        help="Fields that will define an unique key.",
+    )
 
     @api.onchange("model_id")
     def _onchange_model_id(self):
@@ -135,37 +133,38 @@ class BaseImportMatchField(models.Model):
     _name = "base_import.match.field"
     _description = "Field import match definition"
 
-    name = fields.Char(
-        related="field_id.name")
+    name = fields.Char(related="field_id.name")
     field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="Field",
         required=True,
         ondelete="cascade",
         domain="[('model_id', '=', model_id)]",
-        help="Field that will be part of an unique key.")
+        help="Field that will be part of an unique key.",
+    )
     match_id = fields.Many2one(
         comodel_name="base_import.match",
         string="Match",
         ondelete="cascade",
-        required=True)
-    model_id = fields.Many2one(
-        related="match_id.model_id")
+        required=True,
+    )
+    model_id = fields.Many2one(related="match_id.model_id")
     conditional = fields.Boolean(
-        help="Enable if you want to use this field only in some conditions.")
+        help="Enable if you want to use this field only in some conditions."
+    )
     imported_value = fields.Char(
         help="If the imported value is not this, the whole matching rule will "
-             "be discarded. Be careful, this data is always treated as a "
-             "string, and comparison is case-sensitive so if you set 'True', "
-             "it will NOT match '1' nor 'true', only EXACTLY 'True'.")
+        "be discarded. Be careful, this data is always treated as a "
+        "string, and comparison is case-sensitive so if you set 'True', "
+        "it will NOT match '1' nor 'true', only EXACTLY 'True'."
+    )
 
     @api.depends("conditional", "field_id", "imported_value")
     def _compute_display_name(self):
         for one in self:
             pattern = u"{name} ({cond})" if one.conditional else u"{name}"
             one.display_name = pattern.format(
-                name=one.field_id.name,
-                cond=one.imported_value,
+                name=one.field_id.name, cond=one.imported_value,
             )
 
     @api.onchange("field_id", "match_id", "conditional", "imported_value")
