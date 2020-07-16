@@ -4,18 +4,18 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Tools",
     "website": "https://tecnativa.com",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base_import",],
+    "depends": ["base_import"],
     "data": [
         "security/ir.model.access.csv",
         "data/base_import_match.xml",
         "views/base_import_match_view.xml",
     ],
-    "demo": ["demo/base_import_match.xml",],
+    "demo": ["demo/base_import_match.xml"],
 }

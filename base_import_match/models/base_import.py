@@ -106,7 +106,7 @@ class BaseImportMatch(models.Model):
         return model
 
     @api.model
-    @tools.ormcache("model_name", "fields")
+    @tools.ormcache("model_name", "frozenset(fields)")
     def _usable_rules(self, model_name, fields):
         """Return a set of elements usable for calling ``load()``.
 
