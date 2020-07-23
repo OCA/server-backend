@@ -1,0 +1,346 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* easy_massive_translation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-30 11:01+0000\n"
+"PO-Revision-Date: 2020-04-30 13:07+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "%s is not a valid field in %s model"
+msgstr "%s no es un campo válido en el modelo %s"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "%s is not an active language."
+msgstr "%s no es un idioma activo."
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "%s keys cannot be duplicated."
+msgstr "%s las claves no pueden estar duplicadas."
+
+#. module: easy_massive_translation
+#: model:ir.model.fields.selection,name:easy_massive_translation.selection__export_massive_translation__record_selection__all
+msgid "All Records"
+msgstr "Todos los registros"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "All fields need an origin key. %s#origin key needed but not found"
+msgstr ""
+"Todos los campos necesitan una clave origin. La clave %s#origin se requiere "
+"pero no se ha encontrado"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.import_massive_translation_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__show_translated
+msgid ""
+"Check if the template has to contain both the fields that have         "
+"already been translated and those that have not been translated yet."
+msgstr ""
+"Marcar si la plantilla debe contener tanto los campos que ya han sido "
+"traducidos como aquellos que todavía no lo están."
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__create_uid
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__create_date
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__delimeter
+msgid "Delimiter"
+msgstr "Delimitador"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__display_name
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__record_domain
+#: model:ir.model.fields.selection,name:easy_massive_translation.selection__export_massive_translation__record_selection__domain
+msgid "Domain"
+msgstr "Dominio"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "Empty keys found"
+msgstr "Se han encontrados claves vacías"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Export"
+msgstr "Exportar"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Export Complete"
+msgstr "Exportación completa"
+
+#. module: easy_massive_translation
+#: model:ir.actions.act_window,name:easy_massive_translation.export_massive_translation_action
+#: model:ir.ui.menu,name:easy_massive_translation.export_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Export Massive Translation"
+msgstr "Exportar Traducción Masiva"
+
+#. module: easy_massive_translation
+#: model:ir.model,name:easy_massive_translation.model_export_massive_translation
+msgid "Export Massive Translations Template"
+msgstr "Exportar plantilla de traducción masiva"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__translated_fields
+msgid "Fields"
+msgstr "Campos"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__translated_fields
+msgid "Fields from the model you want to translate."
+msgstr "Campos del modelo que quieres traducir."
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__data
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__data
+#, python-format
+msgid "File"
+msgstr "Archivo"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__name
+msgid "File Name"
+msgstr "Nombre del archivo"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__id
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__id
+msgid "ID"
+msgstr "ID"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.import_massive_translation_view_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: easy_massive_translation
+#: model:ir.actions.act_window,name:easy_massive_translation.import_massive_translation_action
+#: model:ir.model,name:easy_massive_translation.model_import_massive_translation
+#: model:ir.ui.menu,name:easy_massive_translation.menu_massive_import_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.import_massive_translation_view_form
+msgid "Import Massive Translation"
+msgstr "Importar traducción masiva"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "Invalid ID found: %s"
+msgstr "Se ha encontrado un ID no válido: %s"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__languages
+msgid "Languages"
+msgstr "Idiomas"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__languages
+msgid "Languages you want to translate terms into."
+msgstr "Idiomas a los que quieres traducir los términos."
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation____last_update
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation____last_update
+msgid "Last Modified on"
+msgstr "Modificado por última vez el"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__write_uid
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por última vez por"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__write_date
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__write_date
+msgid "Last Updated on"
+msgstr "Actualizado por última vez el"
+
+#. module: easy_massive_translation
+#: model:ir.ui.menu,name:easy_massive_translation.easy_massive_translation_menu
+msgid "Massive Translation"
+msgstr "Traducción masiva"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Massive Translation Template:"
+msgstr "Plantilla de Traducción Masiva:"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__translated_model
+#: model:ir.model.fields,field_description:easy_massive_translation.field_import_massive_translation__translated_model
+msgid "Model"
+msgstr "Modelo"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__translated_model
+msgid "Model you want to get the terms to translate from."
+msgstr "Modelo del que quieres traducir los términos."
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.import_massive_translation_view_form
+msgid ""
+"NOTE: Modifying the ID values or the first row of the file might result in "
+"malfunction. Changes applied on origin fields will perform a change of the "
+"value of that field before creating the translations."
+msgstr ""
+"NOTA: Modificar los valores ID o la primera fila puede provocar que la "
+"traducción no se realice correctamente. Los cambios hechos a los campos "
+"origin se aplicarán antes de crear las traducciones."
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "No file selected"
+msgstr "No se ha seleccionado ningún archivo"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "Not a valid file"
+msgstr "No es un archivo válido"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__record_selection
+msgid "Records"
+msgstr "Registros"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__reference_field
+msgid "Reference Field"
+msgstr "Campo de referencia"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__reference_field
+msgid ""
+"Second column of the file. It contains a field to use as a         "
+"reference of the record the user is working on."
+msgstr ""
+"Segunda columna del archivo. Contiene un campo para utilizar como "
+"referencia de los registros sobre los que se trabaja."
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Select a field to use as a reference (default: name)."
+msgstr "Seleccionar un campo de referencia (predefinido: nombre)."
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.import_massive_translation_view_form
+msgid "Select a model"
+msgstr "Selecciona un modelo"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid "Select which fields you want to translate."
+msgstr "Selecciona los campos que quieres traducir."
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__show_translated
+msgid "Show Translated Terms"
+msgstr "Mostrar términos traducidos"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,help:easy_massive_translation.field_export_massive_translation__record_selection
+msgid ""
+"Show all translatable records on the template or select a         domain."
+msgstr ""
+"Mostrar todos los registros traducibles en la plantilla o seleccionar un "
+"dominio."
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__state
+msgid "State"
+msgstr "Estado"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "The first key needs to be id"
+msgstr "La primera columna tiene que ser ID"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid "The following IDs do not exist in the system: %s"
+msgstr "Los siguientes IDs no existen en el sistema: %s"
+
+#. module: easy_massive_translation
+#: code:addons/easy_massive_translation/wizards/import_massive_translation.py:0
+#, python-format
+msgid ""
+"The second key needs to be the reference field with format "
+"valid_field#reference"
+msgstr ""
+"La segunda clave tiene que ser un campo de referencia con el formato "
+"campo_válido#referencia"
+
+#. module: easy_massive_translation
+#: model_terms:ir.ui.view,arch_db:easy_massive_translation.export_massive_translation_view_form
+msgid ""
+"This file was generated using the universal <strong>Unicode/UTF-8</strong> "
+"file encoding, please be sure to view and edit using the same encoding."
+msgstr ""
+"Este archivo fue creado utilizando la codificación universal "
+"<strong>Unicode/UTF-8</strong>, por favor asegúrate de visualizarlo "
+"utilizando la misma codificación."
+
+#. module: easy_massive_translation
+#: model:ir.model.fields,field_description:easy_massive_translation.field_export_massive_translation__translated_model_name
+msgid "Translated Model Name"
+msgstr "Nombre del modelo"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields.selection,name:easy_massive_translation.selection__export_massive_translation__state__choose
+msgid "choose"
+msgstr "elegir"
+
+#. module: easy_massive_translation
+#: model:ir.model.fields.selection,name:easy_massive_translation.selection__export_massive_translation__state__get
+msgid "get"
+msgstr "obtener"

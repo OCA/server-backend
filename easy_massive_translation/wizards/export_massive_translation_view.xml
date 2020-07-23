@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Manuel Regidor <manuel.regidor@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="export_massive_translation_view_form" model="ir.ui.view">
+        <field name="name">export.massive.translation.view.form</field>
+        <field name="model">export.massive.translation</field>
+        <field name="arch" type="xml">
+            <form string="Export Massive Translation">
+                <field name="state" invisible="1" />
+                <field name="name" invisible="1" />
+                <group states="choose" name="options">
+                    <field
+                        name="languages"
+                        widget="many2many_tags"
+                        options="{'no_create_edit': True}"
+                    />
+                    <field
+                        name="translated_model"
+                        options="{'no_create_edit': True, 'no_create':True}"
+                        placeholder="Select a model"
+                    />
+                    <field name="translated_model_name" invisible="1" />
+                    <field
+                        name="reference_field"
+                        options="{'no_create_edit': True, 'no_create':True}"
+                        attrs="{'invisible': [('translated_model', '=', False)]}"
+                        placeholder="Select a field to use as a reference (default: name)."
+                    />
+                    <field name="show_translated" />
+                    <field
+                        name="translated_fields"
+                        widget="many2many_tags"
+                        options="{'no_create_edit': True, 'no_create':True}"
+                        attrs="{'invisible': [('translated_model', '=', False)]}"
+                        placeholder="Select which fields you want to translate."
+                    />
+                    <field name="record_selection" widget="radio" />
+                    <field
+                        name="record_domain"
+                        widget="domain"
+                        attrs="{'invisible': [('record_selection', '!=', 'domain')]}"
+                        options="{'model': 'translated_model_name'}"
+                    />
+                </group>
+                <div states="get">
+                    <h2>Export Complete</h2>
+                    <p>Massive Translation Template: <field
+                            name="data"
+                            readonly="1"
+                            filename="name"
+                        /></p>
+                    <p>This file was generated using the universal <strong
+                        >Unicode/UTF-8</strong> file encoding, please be sure to view and edit using the same encoding.</p>
+                    <p
+                        style="color: #E13E3E;"
+                    >NOTE: Modifying the ID values or the first row of the file might result in malfunction. Changes applied on origin fields will perform a change of the value of that field before creating the translations.</p>
+                </div>
+                <separator string="" colspan="4" />
+                <footer states="choose">
+                    <button
+                        name="get_file"
+                        type="object"
+                        string="Export"
+                        class="oe_highlight"
+                    />
+                    <button
+                        special="cancel"
+                        string="Close"
+                        type="object"
+                        class="btn-default"
+                    />
+                </footer>
+                <footer states="get">
+                    <button
+                        special="cancel"
+                        string="Close"
+                        type="object"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="export_massive_translation_action" model="ir.actions.act_window">
+        <field name="name">Export Massive Translation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">export.massive.translation</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="export_massive_translation_view_form" />
+        <field name="target">new</field>
+    </record>
+</odoo>
