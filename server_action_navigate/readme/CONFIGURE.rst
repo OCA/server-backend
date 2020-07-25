@@ -6,7 +6,7 @@
 
 * Set a name that will be used for the Contextual Action
 
-* choose a model
+* Choose a model
 
 * Select 'Navigate' option in the field 'Action To Do'
 
@@ -22,6 +22,6 @@
 
 **Extra options**
 
-* you can define groups whose members will have access to that option.
+* You can define groups whose members will have access to that option.
 
 * You can select an action that will be used to display the target field list.
