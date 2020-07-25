@@ -4,6 +4,8 @@
 
 from odoo.tests.common import TransactionCase
 
+from odoo.tools.safe_eval import safe_eval
+
 
 class TestModule(TransactionCase):
 
@@ -18,5 +20,33 @@ class TestModule(TransactionCase):
             active_model="res.users",
             active_ids=self.users.ids).run()
 
-        self.assertNotEqual(
-            result.get("domain", False), False)
+        self.assertEqual(result.get("id", False), False)
+
+        self.assertEqual(
+            result.get('res_model', False), 'res.partner.category')
+
+        self.assertEqual(
+            safe_eval(result.get('domain', [])),
+            [("id", "in", self.users.mapped("partner_id.category_id").ids)]
+        )
+
+    def test_delete_last_line(self):
+        line_qty = len(self.action_server.navigate_line_ids)
+        self.action_server.delete_last_line()
+        self.assertEqual(
+            line_qty - 1,
+            len(self.action_server.navigate_line_ids)
+        )
+
+    def test_action_navigate_with_action(self):
+        self.action_server.navigate_action_id = self.env.ref(
+            "base.action_partner_category_form")
+
+        result = self.action_server.with_context(
+            active_model="res.users",
+            active_ids=self.users.ids).run()
+
+        self.assertEqual(
+            result.get("id", False),
+            self.env.ref("base.action_partner_category_form").id,
+            )
