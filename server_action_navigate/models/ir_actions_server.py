@@ -58,7 +58,7 @@ class IrActionsServer(models.Model):
     def run_action_navigate_multi(self, action, eval_context=None):
         IrModel = self.env['ir.model']
         lines = action.navigate_line_ids
-        if len(lines) == 0:
+        if not lines:
             raise UserError(_(
                 "The Action Server %s is not correctly set\n"
                 " : No fields defined"))
