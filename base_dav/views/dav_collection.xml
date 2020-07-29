@@ -28,7 +28,7 @@
                     <field name="rights"/>
                 </group>
                 <group string="Additional field mapping">
-                    <field name="field_mapping_ids" nolabel="1"/>
+                    <field name="field_mapping_ids" nolabel="1" context="{'default_collection_id': active_id}/>
                 </group>
             </form>
         </field>
