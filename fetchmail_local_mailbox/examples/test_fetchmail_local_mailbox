@@ -1,0 +1,9 @@
+From: root@fetchmail_local_mailbox_test
+To: partner@fetchmail_local_mailbox_test
+Subject: A new partner
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-Id: <42@fetchmail_local_mailbox_test>
+
+This mail should create a new partner

@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_email_server_form" model="ir.ui.view">
+        <field name="inherit_id" ref="fetchmail.view_email_server_form" />
+        <field name="model">fetchmail.server</field>
+        <field name="arch" type="xml">
+            <field name="server" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'required': [('type', 'not in', ['local', 'local_mailbox'])]}</attribute>
+            </field>
+            <field name="user" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'required': [('type', 'not in', ['local', 'local_mailbox'])]}</attribute>
+            </field>
+            <field name="password" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'required': [('type', 'not in', ['local', 'local_mailbox'])]}</attribute>
+            </field>
+            <xpath expr="//field[@name='server']/ancestor::page" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('type', '=', 'local_mailbox')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='server']/ancestor::page" position="after">
+                <page
+                    string="Mailbox"
+                    name="local_mailbox"
+                    attrs="{'invisible': [('type', '!=', 'local_mailbox')]}"
+                >
+                    <group>
+                        <field
+                            name="mailbox_path"
+                            attrs="{'required': [('type', '=', 'local_mailbox')]}"
+                        />
+                        <field
+                            name="mailbox_type"
+                            attrs="{'required': [('type', '=', 'local_mailbox')]}"
+                        />
+                        <field name="mailbox_delete_processed" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
