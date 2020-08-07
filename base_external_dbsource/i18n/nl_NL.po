@@ -167,6 +167,11 @@ msgid "Microsoft SQL Server"
 msgstr "Microsoft SQL Server"
 
 #. module: base_external_dbsource
+#: selection:base.external.dbsource,connector:0
+msgid "MySQL"
+msgstr "MySQL"
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr "Wachtwoord"
@@ -204,9 +209,6 @@ msgstr ""
 
 #~ msgid "Firebird"
 #~ msgstr "Firebird"
-
-#~ msgid "MySQL"
-#~ msgstr "MySQL"
 
 #~ msgid "ODBC"
 #~ msgstr "ODBC"
