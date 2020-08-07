@@ -26,7 +26,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
     def test_connection_open_mysql(self):
         """ It should call SQLAlchemy open """
         with mock.patch.object(
-            self.dbsource, '_connection_open_sqlalchemy'
+            self.dbsource, 'connection_open_mysql'
         ) as parent_method:
             self.dbsource.connection_open_mysql()
             parent_method.assert_called_once_with()
@@ -35,7 +35,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """ It should pass args to SQLAlchemy execute """
         expect = 'sqlquery', 'sqlparams', 'metadata'
         with mock.patch.object(
-            self.dbsource, '_execute_sqlalchemy'
+            self.dbsource, 'execute_mysql'
         ) as parent_method:
             self.dbsource.execute_mysql(*expect)
             parent_method.assert_called_once_with(*expect)
