@@ -4,7 +4,7 @@
 
 import logging
 
-from odoo import api, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
@@ -20,6 +20,11 @@ try:
     except (ImportError, AssertionError):
         _logger.info('MySQLdb not available. Please install "mysqlclient" '
                      'python package.')
+    try:
+        import sqlalchemy
+    except ImportError:
+        _logger.info('SQLAlchemy library not available. Please '
+                     'install "sqlalchemy" python package.')
 except ImportError:
     _logger.info('base_external_dbsource Odoo module not found.')
 
@@ -29,14 +34,22 @@ class BaseExternalDbsource(models.Model):
 
     _inherit = "base.external.dbsource"
 
-    @api.multi
     def connection_close_mysql(self, connection):
         return connection.close()
 
-    @api.multi
     def connection_open_mysql(self):
-        return self._connection_open_sqlalchemy()
+        return sqlalchemy.create_engine(self.conn_string_full).connect()
 
-    @api.multi
     def execute_mysql(self, sqlquery, sqlparams, metadata):
-        return self._execute_sqlalchemy(sqlquery, sqlparams, metadata)
+        # FIXME: Duplicated method in modules to be consolidated in base
+        rows, cols = list(), list()
+        for record in self:
+            with record.connection_open() as connection:
+                if sqlparams is None:
+                    cur = connection.execute(sqlquery)
+                else:
+                    cur = connection.execute(sqlquery, sqlparams)
+                if metadata:
+                    cols = list(cur.keys())
+                rows = [r for r in cur]
+        return rows, cols
