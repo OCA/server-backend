@@ -63,21 +63,18 @@ msgstr ""
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
 #, fuzzy
-#| msgid "Ca certs"
 msgid "Ca Certs"
 msgstr "CA Zerts"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_cert
 #, fuzzy
-#| msgid "Client cert"
 msgid "Client Cert"
 msgstr "Client-Zert"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 #, fuzzy
-#| msgid "Client key"
 msgid "Client Key"
 msgstr "Client-Schlüssel"
 
