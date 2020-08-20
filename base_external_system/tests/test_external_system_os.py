@@ -7,7 +7,6 @@ from .common import Common
 
 
 class TestExternalSystemOs(Common):
-
     @classmethod
     def setUpClass(cls):
         """Remember the working dir, just in case."""
@@ -22,7 +21,7 @@ class TestExternalSystemOs(Common):
 
     def setUp(self):
         super(TestExternalSystemOs, self).setUp()
-        self.record = self.env.ref('base_external_system.external_system_os')
+        self.record = self.env.ref("base_external_system.external_system_os")
 
     def test_external_get_client_returns_os(self):
         """It should return the Pyhton OS module."""

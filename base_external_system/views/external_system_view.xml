@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
     Copyright 2017 LasLabs Inc.
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 -->
-
 <odoo>
-
     <record id="external_system_view_form" model="ir.ui.view">
         <field name="name">external.system.view.form</field>
         <field name="model">external.system</field>
         <field name="arch" type="xml">
             <form string="External System">
                 <header>
-                    <button name="action_test_connection"
-                            type="object"
-                            string="Test Connection" />
+                    <button
+                        name="action_test_connection"
+                        type="object"
+                        string="Test Connection"
+                    />
                 </header>
                 <sheet>
                     <group name="data">
@@ -50,7 +49,6 @@
             </form>
         </field>
     </record>
-
     <record id="external_system_view_tree" model="ir.ui.view">
         <field name="name">external.system.view.tree</field>
         <field name="model">external.system</field>
@@ -62,50 +60,51 @@
             </tree>
         </field>
     </record>
-
     <record id="external_system_view_search" model="ir.ui.view">
         <field name="name">external.system.view.search</field>
         <field name="model">external.system</field>
         <field name="arch" type="xml">
             <search string="External Systems">
-
                 <field name="name" />
                 <field name="company_ids" />
                 <field name="host" />
                 <field name="port" />
                 <field name="username" />
-
                 <group expand="0" string="Group By">
-                    <filter string="Host"
-                            name="host"
-                            domain=""
-                            context="{'group_by': 'host'}" />
-                    <filter string="Port"
-                            name="port"
-                            domain=""
-                            context="{'group_by': 'port'}" />
-                    <filter string="Username"
-                            name="username"
-                            domain=""
-                            context="{'group_by': 'username'}" />
+                    <filter
+                        string="Host"
+                        name="host"
+                        domain=""
+                        context="{'group_by': 'host'}"
+                    />
+                    <filter
+                        string="Port"
+                        name="port"
+                        domain=""
+                        context="{'group_by': 'port'}"
+                    />
+                    <filter
+                        string="Username"
+                        name="username"
+                        domain=""
+                        context="{'group_by': 'username'}"
+                    />
                 </group>
-
             </search>
         </field>
     </record>
-
     <record id="external_system_action" model="ir.actions.act_window">
-         <field name="name">External Systems</field>
-         <field name="res_model">external.system</field>
-         <field name="type">ir.actions.act_window</field>
-         <field name="view_type">form</field>
-         <field name="view_mode">tree,form</field>
-     </record>
-
-    <menuitem id="menu_external_system"
-              name="External Systems"
-              parent="base.menu_custom"
-              action="external_system_action"
-              sequence="50" />
-
+        <field name="name">External Systems</field>
+        <field name="res_model">external.system</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_external_system"
+        name="External Systems"
+        parent="base.menu_custom"
+        action="external_system_action"
+        sequence="50"
+    />
 </odoo>

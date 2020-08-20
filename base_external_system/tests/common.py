@@ -2,13 +2,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from contextlib import contextmanager
+
 from mock import MagicMock
 
 from odoo.tests.common import TransactionCase
 
 
 class Common(TransactionCase):
-
     @contextmanager
     def _mock_method(self, method_name, method_obj=None):
         if method_obj is None:
