@@ -4,14 +4,14 @@
 {
     "name": "Base External System",
     "summary": "Data models allowing for connection to external systems.",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Base",
     "website": "https://github.com/OCA/server-backend",
     "author": "LasLabs, " "Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base",],
+    "depends": ["base"],
     "data": [
         "demo/external_system_os_demo.xml",
         "security/ir.model.access.csv",
