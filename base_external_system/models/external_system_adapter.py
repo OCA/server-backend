@@ -3,7 +3,7 @@
 
 from contextlib import contextmanager
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -13,15 +13,15 @@ class ExternalSystemAdapter(models.AbstractModel):
     Methods provided are prefixed with ``external_`` in order to keep from
     """
 
-    _name = 'external.system.adapter'
-    _description = 'External System Adapter'
-    _inherits = {'external.system': 'system_id'}
+    _name = "external.system.adapter"
+    _description = "External System Adapter"
+    _inherits = {"external.system": "system_id"}
 
     system_id = fields.Many2one(
-        string='System',
-        comodel_name='external.system',
+        string="System",
+        comodel_name="external.system",
         required=True,
-        ondelete='cascade',
+        ondelete="cascade",
     )
 
     @api.multi
@@ -67,14 +67,14 @@ class ExternalSystemAdapter(models.AbstractModel):
         Raises:
             odoo.exceptions.UserError: In the event of a good connection.
         """
-        raise UserError(_('The connection was a success.'))
+        raise UserError(_("The connection was a success."))
 
     @api.model
     def create(self, vals):
         context_self = self.with_context(no_create_interface=True)
-        vals.update({
-            'system_type': self._name,
-        })
+        vals.update(
+            {"system_type": self._name,}
+        )
         record = super(ExternalSystemAdapter, context_self).create(vals)
         record.system_id.interface = record
         return record
