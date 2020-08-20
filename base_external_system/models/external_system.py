@@ -74,7 +74,6 @@ class ExternalSystem(models.Model):
         adapter = self.env["external.system.adapter"]
         return [(m, self.env[m]._description) for m in adapter._inherit_children]
 
-    @api.multi
     @api.constrains("fingerprint", "ignore_fingerprint")
     def check_fingerprint_ignore_fingerprint(self):
         """Do not allow a blank fingerprint if not set to ignore."""
@@ -87,7 +86,6 @@ class ExternalSystem(models.Model):
                     )
                 )
 
-    @api.multi
     @contextmanager
     def client(self):
         """Client object usable as a context manager to include destruction.
@@ -107,11 +105,10 @@ class ExternalSystem(models.Model):
         """Create the interface for the record and assign to ``interface``."""
         record = super(ExternalSystem, self).create(vals)
         if not self.env.context.get("no_create_interface"):
-            interface = self.env[vals["system_type"]].create({"system_id": record.id,})
+            interface = self.env[vals["system_type"]].create({"system_id": record.id})
             record.interface = interface
         return record
 
-    @api.multi
     def action_test_connection(self):
         """Test the connection to the external system."""
         self.ensure_one()
