@@ -1,10 +1,20 @@
 # Copyright 2017 LasLabs Inc.
+# Copyright 2020 Therp BV <https://therp.nl>.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from contextlib import contextmanager
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+
+from ..lib_systems.external_system_adapter import ExternalSystemAdapter
+
+SYSTEM_ADAPTERS = {
+    subclass._name: subclass for subclass in ExternalSystemAdapter.__subclasses__()
+}
+SYSTEM_TYPE_SELECTION = [
+    (subclass._name, subclass._description) for subclass in SYSTEM_ADAPTERS.values()
+]
 
 
 class ExternalSystem(models.Model):
@@ -49,6 +59,12 @@ class ExternalSystem(models.Model):
     remote_path = fields.Char(
         help="Restrict to this directory path on the remote, if applicable.",
     )
+    remote_path_ids = fields.One2many(
+        comodel_name="external.system.path",
+        inverse_name="system_id",
+        string="Remote system path's and resources",
+        help="Link for multiple resources/path's on external system.",
+    )
     company_ids = fields.Many2many(
         string="Companies",
         comodel_name="res.company",
@@ -56,23 +72,11 @@ class ExternalSystem(models.Model):
         default=lambda s: [(6, 0, s.env.user.company_id.ids)],
         help="Access to this system is restricted to these companies.",
     )
-    system_type = fields.Selection(selection="_get_system_types", required=True,)
-    interface = fields.Reference(
-        selection="_get_system_types",
-        readonly=True,
-        help="This is the interface that this system represents. It is "
-        "created automatically upon creation of the external system.",
-    )
+    system_type = fields.Selection(selection=SYSTEM_TYPE_SELECTION, required=True,)
 
     _sql_constraints = [
         ("name_uniq", "UNIQUE(name)", "Connection name must be unique."),
     ]
-
-    @api.model
-    def _get_system_types(self):
-        """Return the adapter interface models that are installed."""
-        adapter = self.env["external.system.adapter"]
-        return [(m, self.env[m]._description) for m in adapter._inherit_children]
 
     @api.constrains("fingerprint", "ignore_fingerprint")
     def check_fingerprint_ignore_fingerprint(self):
@@ -90,26 +94,24 @@ class ExternalSystem(models.Model):
     def client(self):
         """Client object usable as a context manager to include destruction.
 
-        Yields the result from ``external_get_client``, then calls
-        ``external_destroy_client`` to cleanup the client.
+        Yields the result from ``get_client``, then calls ``destroy_client``
+            to cleanup the client.
 
         Yields:
-            mixed: An object representing the client connection to the remote
-             system.
+            mixed: An object representing the client connection to the remote system.
         """
-        with self.interface.client() as client:
+        client = self.make_instance()
+        with client.client() as client:
             yield client
-
-    @api.model
-    def create(self, vals):
-        """Create the interface for the record and assign to ``interface``."""
-        record = super(ExternalSystem, self).create(vals)
-        if not self.env.context.get("no_create_interface"):
-            interface = self.env[vals["system_type"]].create({"system_id": record.id})
-            record.interface = interface
-        return record
 
     def action_test_connection(self):
         """Test the connection to the external system."""
+        system = self.make_instance()
+        system.test_connection()
+
+    def make_instance(self):
+        """Create concrete instance for this object."""
         self.ensure_one()
-        self.interface.external_test_connection()
+        system_adapter = SYSTEM_ADAPTERS[self.system_type]
+        system = system_adapter(self)
+        return system

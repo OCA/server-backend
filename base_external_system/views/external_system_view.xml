@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Copyright 2017 LasLabs Inc.
+    Copyright 2020 Therp BV
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 -->
 <odoo>
@@ -43,6 +44,12 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="Path's">
+                            <group colspan="6" col="1">
+                                <separator string="Rempte Path's" />
+                                <field name="remote_path_ids" nolabel="1" />
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <footer />
@@ -54,6 +61,7 @@
         <field name="model">external.system</field>
         <field name="arch" type="xml">
             <tree string="External Systems">
+                <field name="system_type" />
                 <field name="name" />
                 <field name="host" />
                 <field name="port" />
@@ -71,6 +79,12 @@
                 <field name="port" />
                 <field name="username" />
                 <group expand="0" string="Group By">
+                    <filter
+                        string="Type"
+                        name="grpup_by_system_type"
+                        domain=""
+                        context="{'group_by': 'system_type'}"
+                    />
                     <filter
                         string="Host"
                         name="host"

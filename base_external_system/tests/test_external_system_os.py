@@ -1,38 +1,41 @@
 # Copyright 2017 LasLabs Inc.
+# Copyright 2020 Therp BV <https://therp.nl>.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import os
+import tempfile
 
-from .common import Common
+from odoo.tests.common import TransactionCase
 
 
-class TestExternalSystemOs(Common):
-    @classmethod
-    def setUpClass(cls):
-        """Remember the working dir, just in case."""
-        super(TestExternalSystemOs, cls).setUpClass()
-        cls.working_dir = os.getcwd()
+class TestExternalSystemOs(TransactionCase):
+    def test_context_manager(self):
+        """Check context-manager for client."""
+        working_dir = os.getcwd()
+        system = self.env.ref("base_external_system.external_system_os")
+        with system.client() as client:
+            self.assertEqual(client.client_instance, os)
+            self.assertEqual(client.client_instance.getcwd(), system.remote_path)
+        self.assertEqual(os.getcwd(), working_dir)
 
-    @classmethod
-    def tearDownClass(cls):
-        """Set the working dir back to origin, just in case."""
-        super(TestExternalSystemOs, cls).tearDownClass()
-        os.chdir(cls.working_dir)
-
-    def setUp(self):
-        super(TestExternalSystemOs, self).setUp()
-        self.record = self.env.ref("base_external_system.external_system_os")
-
-    def test_external_get_client_returns_os(self):
-        """It should return the Pyhton OS module."""
-        self.assertEqual(self.record.external_get_client(), os)
-
-    def test_external_get_client_changes_directories(self):
-        """It should change to the proper directory."""
-        self.record.external_get_client()
-        self.assertEqual(os.getcwd(), self.record.remote_path)
-
-    def test_external_destroy_client_changes_directory(self):
-        """It should change back to the previous working directory."""
-        self.record.external_destroy_client(None)
-        self.assertEqual(os.getcwd(), self.working_dir)
+    def test_path_context_manager(self):
+        """Check context-manager for external_system_path."""
+        working_dir = os.getcwd()
+        sink_path = self.env.ref("base_external_system.external_system_sink_path")
+        source_path = self.env.ref("base_external_system.external_system_source_path")
+        # Nesting three context managers to get temporary directories and
+        # of course the remote system instance.
+        with tempfile.TemporaryDirectory() as tmpsinkdirname:
+            sink_path.remote_path = tmpsinkdirname
+            with tempfile.TemporaryDirectory() as tmpsourcedirname:
+                source_path.remote_path = tmpsourcedirname
+                with sink_path.client() as client:
+                    self.assertEqual(client.client_instance, os)
+                    self.assertEqual(
+                        client.client_instance.getcwd(), sink_path.remote_path
+                    )
+                    client.cd(source_path)
+                    self.assertEqual(
+                        client.client_instance.getcwd(), source_path.remote_path
+                    )
+        self.assertEqual(os.getcwd(), working_dir)
