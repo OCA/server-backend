@@ -25,7 +25,10 @@ class TestExternalSystem(Common):
 
     def test_check_fingerprint_allowed(self):
         """It should not raise a validation error if there is a fingerprint."""
-        self.record.write({"ignore_fingerprint": False, "fingerprint": "Data"})
+        # In Odoo 13.0, due to the way inverse records (models inherited from)
+        # are handled, setting both fields at the same time causes an error.
+        self.record.write({"fingerprint": "Data"})
+        self.record.write({"ignore_fingerprint": False})
         self.assertTrue(True)
 
     def test_client(self):
