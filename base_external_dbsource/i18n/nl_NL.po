@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:347
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:352
 #, python-format
 msgid ""
 "\"%s\" method not found, check that all assets are installed for the %s "
@@ -61,6 +61,11 @@ msgid "Client Key"
 msgstr ""
 
 #. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
+msgid "Company"
+msgstr ""
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
 msgid "Conn String Full"
 msgstr ""
@@ -72,7 +77,7 @@ msgid "Connection string"
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:188
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:193
 #, python-format
 msgid ""
 "Connection test failed:\n"
@@ -81,7 +86,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:192
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:197
 #, python-format
 msgid ""
 "Connection test succeeded:\n"
@@ -202,7 +207,7 @@ msgid "Test Connection"
 msgstr "Test Verbinding"
 
 #. module: base_external_dbsource
-#: code:addons/base_external_dbsource/models/base_external_dbsource.py:159
+#: code:addons/base_external_dbsource/models/base_external_dbsource.py:164
 #, python-format
 msgid "query is a required argument"
 msgstr ""
