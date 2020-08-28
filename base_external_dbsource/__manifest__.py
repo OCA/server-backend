@@ -19,6 +19,7 @@
     'data': [
         'views/base_external_dbsource.xml',
         'security/ir.model.access.csv',
+        'security/base_external_dbsource_security.xml',
     ],
     'demo': [
         'demo/base_external_dbsource.xml',
