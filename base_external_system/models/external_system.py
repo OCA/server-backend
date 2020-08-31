@@ -73,6 +73,12 @@ class ExternalSystem(models.Model):
         help="Access to this system is restricted to these companies.",
     )
     system_type = fields.Selection(selection=SYSTEM_TYPE_SELECTION, required=True,)
+    state = fields.Selection(
+        selection=[("draft", "Not Confirmed"), ("done", "Confirmed")],
+        default="draft",
+        readonly=True,
+        required=True,
+    )
 
     _sql_constraints = [
         ("name_uniq", "UNIQUE(name)", "Connection name must be unique."),
@@ -106,8 +112,13 @@ class ExternalSystem(models.Model):
 
     def action_test_connection(self):
         """Test the connection to the external system."""
-        system = self.make_instance()
-        system.test_connection()
+        try:
+            system = self.make_instance()
+            system.test_connection()
+            self.state = "done"
+        except Exception:
+            self.state = "draft"
+            raise
 
     def make_instance(self):
         """Create concrete instance for this object."""

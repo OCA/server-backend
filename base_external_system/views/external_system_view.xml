@@ -24,6 +24,7 @@
                             <field name="company_ids" widget="many2many_tags" />
                             <field name="remote_path" />
                             <field name="ignore_fingerprint" />
+                            <field name="state" />
                         </group>
                         <group name="group_connection_data">
                             <field name="host" />
