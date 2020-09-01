@@ -5,14 +5,14 @@ import mock
 from odoo.tests import common
 
 ADAPTER = (
-    "odoo.addons.base_external_dbsource_mysql.models" ".base_external_dbsource.MySQLdb"
+    "odoo.addons.base_external_dbsource_mysql.models.base_external_dbsource.MySQLdb"
 )
 
 
 class TestBaseExternalDbsource(common.TransactionCase):
     def setUp(self):
         super(TestBaseExternalDbsource, self).setUp()
-        self.dbsource = self.env.ref("base_external_dbsource_mysql.demo_mysql",)
+        self.dbsource = self.env.ref("base_external_dbsource_mysql.demo_mysql")
 
     def test_connection_close_mysql(self):
         """ It should close the connection """
