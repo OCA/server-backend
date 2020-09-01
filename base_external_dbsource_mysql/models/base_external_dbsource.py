@@ -9,24 +9,27 @@ from odoo import models
 _logger = logging.getLogger(__name__)
 
 try:
-    from odoo.addons.base_external_dbsource.models import (
-        base_external_dbsource,
-    )
+    from odoo.addons.base_external_dbsource.models import base_external_dbsource
+
     CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
     try:
         import MySQLdb
-        CONNECTORS.append(('mysql', 'MySQL'))
+
+        CONNECTORS.append(("mysql", "MySQL"))
         assert MySQLdb
     except (ImportError, AssertionError):
-        _logger.info('MySQLdb not available. Please install "mysqlclient" '
-                     'python package.')
+        _logger.info(
+            'MySQLdb not available. Please install "mysqlclient" ' "python package."
+        )
     try:
         import sqlalchemy
     except ImportError:
-        _logger.info('SQLAlchemy library not available. Please '
-                     'install "sqlalchemy" python package.')
+        _logger.info(
+            "SQLAlchemy library not available. Please "
+            'install "sqlalchemy" python package.'
+        )
 except ImportError:
-    _logger.info('base_external_dbsource Odoo module not found.')
+    _logger.info("base_external_dbsource Odoo module not found.")
 
 
 class BaseExternalDbsource(models.Model):
