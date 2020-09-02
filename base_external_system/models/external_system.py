@@ -5,22 +5,51 @@
 from contextlib import contextmanager
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 from ..lib_systems.external_system_adapter import ExternalSystemAdapter
 
-SYSTEM_ADAPTERS = {
-    subclass._name: subclass for subclass in ExternalSystemAdapter.__subclasses__()
-}
-SYSTEM_TYPE_SELECTION = [
-    (subclass._name, subclass._description) for subclass in SYSTEM_ADAPTERS.values()
-]
+
+def get_all_subclasses(cls):
+    """Helper function to get all the subclasses of a class."""
+    cls.__subclasses__()
+    subclasses = set()
+    check_these = [cls]
+    while check_these:
+        parent = check_these.pop()
+        for child in parent.__subclasses__():
+            if child not in subclasses:
+                subclasses.add(child)
+                check_these.append(child)
+    return subclasses
+
+
+def is_concrete(cls):
+    return not bool(getattr(cls, "__abstractmethods__", False))
+
+
+def get_adapter(system_type):
+    """Get the concrete adapter implementing a system type."""
+    system_adapters = get_all_subclasses(ExternalSystemAdapter)
+    for adapter in system_adapters:
+        if adapter._name == system_type:
+            return adapter
+    raise UserError(_("No external system adapter named %s") % system_type)
 
 
 class ExternalSystem(models.Model):
 
     _name = "external.system"
     _description = "External System"
+
+    def get_system_type_selection(self):
+        """Selection will be based on concrete external system classes."""
+        system_adapters = get_all_subclasses(ExternalSystemAdapter)
+        return [
+            (subclass._name, subclass._description)
+            for subclass in system_adapters
+            if is_concrete(subclass)
+        ]
 
     name = fields.Char(
         required=True, help="This is the canonical (humanized) name for the system.",
@@ -72,7 +101,7 @@ class ExternalSystem(models.Model):
         default=lambda s: [(6, 0, s.env.user.company_id.ids)],
         help="Access to this system is restricted to these companies.",
     )
-    system_type = fields.Selection(selection=SYSTEM_TYPE_SELECTION, required=True,)
+    system_type = fields.Selection(selection=get_system_type_selection, required=True,)
     state = fields.Selection(
         selection=[("draft", "Not Confirmed"), ("done", "Confirmed")],
         default="draft",
@@ -123,6 +152,6 @@ class ExternalSystem(models.Model):
     def make_instance(self):
         """Create concrete instance for this object."""
         self.ensure_one()
-        system_adapter = SYSTEM_ADAPTERS[self.system_type]
-        system = system_adapter(self)
+        adapter = get_adapter(self.system_type)
+        system = adapter(self)
         return system
