@@ -25,7 +25,7 @@ class ResUsers(models.Model):
         )
         default_values = []
         if default_user:
-            for role_line in default_user.role_line_ids:
+            for role_line in default_user.sudo().role_line_ids:
                 default_values.append(
                     {
                         "role_id": role_line.role_id.id,
