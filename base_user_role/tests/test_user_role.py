@@ -187,7 +187,7 @@ class TestUserRole(TransactionCase):
             }
         )
         # Check that user does not have any groups
-        self.assertEquals(self.user_id.groups_id, self.env["res.groups"].browse())
+        self.assertEqual(self.user_id.groups_id, self.env["res.groups"].browse())
 
     def test_user_role_same_company(self):
         self.user_id.write({"company_id": self.company1.id})
