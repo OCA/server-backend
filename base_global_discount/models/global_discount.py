@@ -1,46 +1,36 @@
 # Copyright 2019 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
+
 from odoo.addons import decimal_precision as dp
 
 
 class GlobalDiscount(models.Model):
-    _name = 'global.discount'
-    _description = 'Global Discount'
+    _name = "global.discount"
+    _description = "Global Discount"
     _order = "sequence, id desc"
 
-    sequence = fields.Integer(
-        help='Gives the order to apply discounts',
-    )
-    name = fields.Char(
-        string='Discount Name',
-        required=True,
-    )
+    sequence = fields.Integer(help="Gives the order to apply discounts",)
+    name = fields.Char(string="Discount Name", required=True,)
     discount = fields.Float(
-        digits=dp.get_precision('Discount'),
-        required=True,
-        default=0.0,
+        digits=dp.get_precision("Discount"), required=True, default=0.0,
     )
     discount_scope = fields.Selection(
-        selection=[
-            ('sale', 'Sales'),
-            ('purchase', 'Purchases'),
-        ],
-        default='sale',
-        required='True',
-        string='Discount Scope',
+        selection=[("sale", "Sales"), ("purchase", "Purchases"),],
+        default="sale",
+        required="True",
+        string="Discount Scope",
     )
     company_id = fields.Many2one(
-        comodel_name='res.company',
-        string='Company',
+        comodel_name="res.company",
+        string="Company",
         default=lambda self: self.env.user.company_id,
     )
 
     def name_get(self):
         result = []
         for one in self:
-            result.append(
-                (one.id, '{} ({:.2f}%)'.format(one.name, one.discount)))
+            result.append((one.id, "{} ({:.2f}%)".format(one.name, one.discount)))
         return result
 
     def _get_global_discount_vals(self, base, **kwargs):
@@ -52,7 +42,7 @@ class GlobalDiscount(models.Model):
         """
         self.ensure_one()
         return {
-            'global_discount': self,
-            'base': base,
-            'base_discounted': base * (1 - (self.discount / 100)),
+            "global_discount": self,
+            "base": base,
+            "base_discounted": base * (1 - (self.discount / 100)),
         }
