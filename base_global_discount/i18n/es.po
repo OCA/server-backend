@@ -101,7 +101,7 @@ msgid "Purchase Global Discounts"
 msgstr "Descuentos globales de compra"
 
 #. module: base_global_discount
-#: selection:global.discount,discount_scope:0
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__purchase
 msgid "Purchases"
 msgstr "Compras"
 
@@ -112,7 +112,7 @@ msgid "Sale Global Discounts"
 msgstr "Descuentos de venta globales"
 
 #. module: base_global_discount
-#: selection:global.discount,discount_scope:0
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__sale
 msgid "Sales"
 msgstr "Ventas"
 
