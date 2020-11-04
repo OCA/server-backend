@@ -10,14 +10,14 @@
                 <field
                     name="customer_global_discount_ids"
                     widget="many2many_tags"
-                    attrs="{'invisible': [('customer', '=', False), ('is_company', '=', False), ('parent_id', '!=', False)]}"
+                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
                 />
             </group>
             <group name="purchase" position="inside">
                 <field
                     name="supplier_global_discount_ids"
                     widget="many2many_tags"
-                    attrs="{'invisible': [('supplier', '=', False), ('is_company', '=', False), ('parent_id', '!=', False)]}"
+                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
                 />
             </group>
         </field>
