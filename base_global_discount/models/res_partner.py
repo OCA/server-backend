@@ -8,6 +8,7 @@ class ResPartner(models.Model):
 
     customer_global_discount_ids = fields.Many2many(
         comodel_name="global.discount",
+        relation="customer_global_discount_rel",
         column1="partner_id",
         column2="global_discount_id",
         string="Sale Global Discounts",
@@ -15,6 +16,7 @@ class ResPartner(models.Model):
     )
     supplier_global_discount_ids = fields.Many2many(
         comodel_name="global.discount",
+        relation="supplier_global_discount_rel",
         column1="partner_id",
         column2="global_discount_id",
         string="Purchase Global Discounts",
