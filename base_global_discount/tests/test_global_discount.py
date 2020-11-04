@@ -9,10 +9,10 @@ class TestGlobalDiscount(common.SavepointCase):
         super().setUpClass()
         cls.global_discount_obj = cls.env["global.discount"]
         cls.global_discount_1 = cls.global_discount_obj.create(
-            {"name": "Test Discount 1", "discount_scope": "sale", "discount": 20,}
+            {"name": "Test Discount 1", "discount_scope": "sale", "discount": 20}
         )
         cls.global_discount_2 = cls.global_discount_obj.create(
-            {"name": "Test Discount 2", "discount_scope": "sale", "discount": 30,}
+            {"name": "Test Discount 2", "discount_scope": "sale", "discount": 30}
         )
 
     def test_01_global_discounts(self):

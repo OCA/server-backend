@@ -2,21 +2,17 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
 
-from odoo.addons import decimal_precision as dp
-
 
 class GlobalDiscount(models.Model):
     _name = "global.discount"
     _description = "Global Discount"
     _order = "sequence, id desc"
 
-    sequence = fields.Integer(help="Gives the order to apply discounts",)
-    name = fields.Char(string="Discount Name", required=True,)
-    discount = fields.Float(
-        digits=dp.get_precision("Discount"), required=True, default=0.0,
-    )
+    sequence = fields.Integer(help="Gives the order to apply discounts")
+    name = fields.Char(string="Discount Name", required=True)
+    discount = fields.Float(digits="Discount", required=True, default=0.0)
     discount_scope = fields.Selection(
-        selection=[("sale", "Sales"), ("purchase", "Purchases"),],
+        selection=[("sale", "Sales"), ("purchase", "Purchases")],
         default="sale",
         required="True",
         string="Discount Scope",
@@ -24,7 +20,7 @@ class GlobalDiscount(models.Model):
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env.user.company_id,
+        default=lambda self: self.env.company,
     )
 
     def name_get(self):
