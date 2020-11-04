@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_global_discount
+# 	* base_global_discount
 #
 msgid ""
 msgstr ""
@@ -101,7 +101,7 @@ msgid "Purchase Global Discounts"
 msgstr "Descontos Globais de Compras"
 
 #. module: base_global_discount
-#: selection:global.discount,discount_scope:0
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__purchase
 msgid "Purchases"
 msgstr "Compras"
 
@@ -112,7 +112,7 @@ msgid "Sale Global Discounts"
 msgstr "Descontos Globais de Vendas"
 
 #. module: base_global_discount
-#: selection:global.discount,discount_scope:0
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__sale
 msgid "Sales"
 msgstr "Vendas"
 
