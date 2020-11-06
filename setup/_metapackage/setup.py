@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo13-addon-base_external_dbsource',
         'odoo13-addon-base_external_dbsource_mysql',
         'odoo13-addon-base_external_dbsource_sqlite',
+        'odoo13-addon-base_global_discount',
         'odoo13-addon-base_import_match',
         'odoo13-addon-base_user_role',
         'odoo13-addon-base_user_role_history',
