@@ -10,6 +10,14 @@
                 <field
                     name="customer_global_discount_ids"
                     widget="many2many_tags"
+                    groups="base_global_discount.group_global_discount"
+                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
+                />
+                <field
+                    name="customer_global_discount_ids_readonly"
+                    string="Sale Global Discounts"
+                    widget="many2many_tags"
+                    groups="!base_global_discount.group_global_discount"
                     attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
                 />
             </group>
@@ -17,6 +25,15 @@
                 <field
                     name="supplier_global_discount_ids"
                     widget="many2many_tags"
+                    groups="base_global_discount.group_global_discount"
+                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
+                />
+                <field
+                    name="supplier_global_discount_ids_readonly"
+                    string="Purchase Global Discounts"
+                    readonly="1"
+                    widget="many2many_tags"
+                    groups="!base_global_discount.group_global_discount"
                     attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
                 />
             </group>

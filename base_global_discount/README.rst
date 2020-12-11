@@ -39,6 +39,7 @@ Configuration
 
 To use this module, you need to:
 
+#. Go to *Settings > Users*, choose yours and set *Manage Global Discounts*.
 #. Go to *Settings > Parameters > Global Discounts*
 #. Choose the discount scope (sales or purchases).
 #. You can also restrict it to a certain company if needed.
@@ -46,7 +47,8 @@ To use this module, you need to:
 Usage
 =====
 
-You can assign global discounts to partners as well:
+You can assign global discounts to partners as well. You'll need the proper
+permission (*Manage Global Discounts*):
 
 #. Go to a partner that is a company.
 #. Go to the *Sales & Purchases* tab.
