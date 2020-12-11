@@ -41,9 +41,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_global_discount"
+    <menuitem 
+        id="menu_global_discount"
         action="action_global_discount_tree"
         name="Global Discounts"
-        sequence="1" parent="base.menu_ir_property"/>
+        sequence="1" parent="base.menu_ir_property"
+        groups="base_global_discount.group_global_discount"
+    />
 
 </odoo>
