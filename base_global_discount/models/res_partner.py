@@ -20,3 +20,15 @@ class ResPartner(models.Model):
         string='Purchase Global Discounts',
         domain=[('discount_scope', '=', 'purchase')],
     )
+    # HACK: Looks like UI doesn't behave well with Many2many fields and
+    # negative groups when the same field is shown. In this case, we want to
+    # show the readonly version to any not in the global discount group.
+    # TODO: Check if it's fixed in future versions
+    customer_global_discount_ids_readonly = fields.Many2many(
+        related="customer_global_discount_ids",
+        readonly=True,
+    )
+    supplier_global_discount_ids_readonly = fields.Many2many(
+        related="customer_global_discount_ids",
+        readonly=True,
+    )

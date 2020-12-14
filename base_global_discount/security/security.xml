@@ -12,5 +12,8 @@
         <field name="perm_write" eval="1"/>
         <field name="perm_unlink" eval="1"/>
     </record>
-
+    <record id="group_global_discount" model="res.groups">
+        <field name="name">Manage Global Discounts</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
 </odoo>
