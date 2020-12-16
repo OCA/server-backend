@@ -27,8 +27,10 @@ class ResPartner(models.Model):
     customer_global_discount_ids_readonly = fields.Many2many(
         related="customer_global_discount_ids",
         readonly=True,
+        string='Sale Global Discounts (Readonly)',
     )
     supplier_global_discount_ids_readonly = fields.Many2many(
-        related="customer_global_discount_ids",
+        related="supplier_global_discount_ids",
         readonly=True,
+        string='Purchase Global Discounts (Readonly)',
     )
