@@ -30,12 +30,8 @@ class TestUserProfile(TransactionCase):
         }
         self.user_id = self.user_model.create(user_vals)
 
-        self.profile1_id = self.env["res.users.profile"].create(
-            {"name": "profile1"}
-        )
-        self.profile2_id = self.env["res.users.profile"].create(
-            {"name": "profile2"}
-        )
+        self.profile1_id = self.env["res.users.profile"].create({"name": "profile1"})
+        self.profile2_id = self.env["res.users.profile"].create({"name": "profile2"})
 
         # role 1
         self.group_user_id = self.env.ref("base.group_user")
@@ -47,16 +43,12 @@ class TestUserProfile(TransactionCase):
 
         # role 3
         self.group_erp_manager_id = self.env.ref("base.group_erp_manager")
-        self.group_partner_manager_id = self.env.ref(
-            "base.group_partner_manager"
-        )
+        self.group_partner_manager_id = self.env.ref("base.group_partner_manager")
 
         # roles 1 and 2 have a profile, role 3 no profile
         vals = {
             "name": "ROLE_1",
-            "implied_ids": [
-                (6, 0, [self.group_user_id.id, self.group_no_one_id.id])
-            ],
+            "implied_ids": [(6, 0, [self.group_user_id.id, self.group_no_one_id.id])],
             "profile_id": self.profile1_id.id,
         }
         self.role1_id = self.role_model.create(vals)
@@ -97,23 +89,17 @@ class TestUserProfile(TransactionCase):
         self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
         line2_vals = {"role_id": self.role2_id.id, "user_id": self.user_id.id}
         self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
-        self.assertEqual(
-            self.user_id.profile_ids, self.profile1_id + self.profile2_id
-        )
+        self.assertEqual(self.user_id.profile_ids, self.profile1_id + self.profile2_id)
         self.assertEqual(self.user_id.profile_id, self.profile1_id)
         self.user_id.action_profile_change({"profile_id": self.profile1_id.id})
 
-        user_group_ids = sorted(
-            set([group.id for group in self.user_id.groups_id])
-        )
+        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role1_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)
 
         self.user_id.action_profile_change({"profile_id": self.profile2_id.id})
 
-        user_group_ids = sorted(
-            set([group.id for group in self.user_id.groups_id])
-        )
+        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role2_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)
 
@@ -146,16 +132,12 @@ class TestUserProfile(TransactionCase):
         self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
         self.assertEqual(self.user_id.profile_ids, self.profile1_id)
 
-        user_group_ids = sorted(
-            set([group.id for group in self.user_id.groups_id])
-        )
+        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role1_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)
 
         self.user_id.company_id = self.company2
         self.assertEqual(self.user_id.profile_ids, self.profile2_id)
-        user_group_ids = sorted(
-            set([group.id for group in self.user_id.groups_id])
-        )
+        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role2_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
 <odoo>
 
@@ -9,8 +9,8 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="user_ids"/>
+                        <field name="name" />
+                        <field name="user_ids" />
                     </group>
                 </sheet>
             </form>
@@ -22,21 +22,23 @@
         <field name="model">res.users.profile</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
-    
+
     <record model="ir.actions.act_window" id="action_res_users_profile_tree">
         <field name="name">User Profiles</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.users.profile</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="view_res_users_profile_tree"/>
+        <field name="view_id" ref="view_res_users_profile_tree" />
     </record>
 
-    <menuitem id="menu_action_res_users_profile_tree"
+    <menuitem
+        id="menu_action_res_users_profile_tree"
         parent="base.menu_users"
-        action="action_res_users_profile_tree"/>
+        action="action_res_users_profile_tree"
+    />
 
 </odoo>
