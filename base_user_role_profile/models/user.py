@@ -15,7 +15,8 @@ class ResUsers(models.Model):
     )
 
     profile_ids = fields.Many2many(
-        "res.users.profile", string="Currently allowed profiles",
+        "res.users.profile",
+        string="Currently allowed profiles",
     )
 
     def _get_action_root_menu(self):
@@ -55,15 +56,12 @@ class ResUsers(models.Model):
     def _get_applicable_roles(self):
         res = super()._get_applicable_roles()
         res = res.filtered(
-            lambda r: not r.profile_id
-            or (r.profile_id.id == r.user_id.profile_id.id)
+            lambda r: not r.profile_id or (r.profile_id.id == r.user_id.profile_id.id)
         )
         return res
 
     def _update_profile_id(self):
-        default_profile = self.env.ref(
-            "base_user_role_profile.default_profile"
-        )
+        default_profile = self.env.ref("base_user_role_profile.default_profile")
         if not self.profile_ids:
             if self.profile_id != default_profile:
                 self.profile_id = default_profile
