@@ -224,3 +224,8 @@ class TestUserRole(TransactionCase):
         role_group_ids = sorted(set(role_group_ids))
         # Check that user have groups implied by role 2
         self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_update_role(self):
+        self.role1_id.write({"name": "foo", "comment": "FOO"})
+        self.assertEqual(self.role1_id.group_id.name, "foo")
+        self.assertEqual(self.role1_id.group_id.comment, "FOO")

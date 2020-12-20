@@ -47,6 +47,14 @@ class ResUsersRole(models.Model):
         return new_record
 
     def write(self, vals):
+        # Workaround to solve issue with broken code in odoo that clear the cache
+        # during the write: see odoo/addons/base/models/res_users.py#L226
+        groups_vals = {}
+        for field in self.group_id._fields:
+            if field in vals:
+                groups_vals[field] = vals.pop(field)
+        if groups_vals:
+            self.group_id.write(groups_vals)
         res = super(ResUsersRole, self).write(vals)
         self.update_users()
         return res
