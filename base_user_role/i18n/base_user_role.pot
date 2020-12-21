@@ -49,11 +49,6 @@ msgid "Color Index"
 msgstr ""
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
-msgid "Comment"
-msgstr ""
-
-#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__company_id
 msgid "Company"
 msgstr ""
@@ -112,6 +107,12 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Inherits"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Internal Notes"
 msgstr ""
 
 #. module: base_user_role
