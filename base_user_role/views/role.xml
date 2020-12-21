@@ -34,6 +34,9 @@
                                 </tree>
                             </field>
                         </page>
+                        <page name="page_internal_notes" string="Internal Notes">
+                            <field name="comment" />
+                        </page>
                     </notebook>
                 </sheet>
             </form>
