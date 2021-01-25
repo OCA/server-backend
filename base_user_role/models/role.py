@@ -92,6 +92,13 @@ class ResUsersRoleLine(models.Model):
     company_id = fields.Many2one(
         "res.company", "Company", default=lambda self: self.env.user.company_id
     )
+    _sql_constraints = [
+        (
+            "user_role_uniq",
+            "unique (user_id,role_id)",
+            "Roles can be assigned to a user only once at a time",
+        )
+    ]
 
     @api.constrains("user_id", "company_id")
     def _check_company(self):
