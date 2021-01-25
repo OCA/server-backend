@@ -18,15 +18,10 @@ class TestUserProfile(TransactionCase):
         self.user_model = self.env["res.users"]
         self.role_model = self.env["res.users.role"]
 
-        self.company1 = self.env.ref("base.main_company")
-        self.company2 = self.env["res.company"].create({"name": "company2"})
-
         self.default_user = self.env.ref("base.default_user")
         user_vals = {
             "name": "USER TEST (ROLES)",
             "login": "user_test_roles",
-            "company_ids": [(6, 0, [self.company1.id, self.company2.id])],
-            "company_id": self.company1.id,
         }
         self.user_id = self.user_model.create(user_vals)
 
@@ -115,29 +110,3 @@ class TestUserProfile(TransactionCase):
         user_group_ids = set(user_group_ids)
         expected_groups = set(self.role1_group_ids + self.role3_group_ids)
         self.assertEqual(user_group_ids, expected_groups)
-
-    def test_sync_profile_change_company(self):
-        line1_vals = {
-            "role_id": self.role1_id.id,
-            "user_id": self.user_id.id,
-            "company_id": self.company1.id,
-        }
-        self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
-        line2_vals = {
-            "role_id": self.role2_id.id,
-            "user_id": self.user_id.id,
-            "company_id": self.company2.id,
-        }
-
-        self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
-        self.assertEqual(self.user_id.profile_ids, self.profile1_id)
-
-        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
-        expected_group_ids = sorted(set(self.role1_group_ids))
-        self.assertEqual(user_group_ids, expected_group_ids)
-
-        self.user_id.company_id = self.company2
-        self.assertEqual(self.user_id.profile_ids, self.profile2_id)
-        user_group_ids = sorted({group.id for group in self.user_id.groups_id})
-        expected_group_ids = sorted(set(self.role2_group_ids))
-        self.assertEqual(user_group_ids, expected_group_ids)

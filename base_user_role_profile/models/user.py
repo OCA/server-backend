@@ -37,7 +37,7 @@ class ResUsers(models.Model):
     @api.model
     def create(self, vals):
         new_record = super().create(vals)
-        if vals.get("company_id") or vals.get("role_line_ids"):
+        if vals.get("role_line_ids"):
             new_record.sudo()._compute_profile_ids()
         return new_record
 
@@ -47,11 +47,7 @@ class ResUsers(models.Model):
             self.sudo().write({"profile_id": vals["profile_id"]})
             del vals["profile_id"]
         res = super().write(vals)
-        if (
-            vals.get("company_id")
-            or vals.get("profile_id")
-            or vals.get("role_line_ids")
-        ):
+        if vals.get("profile_id") or vals.get("role_line_ids"):
             self.sudo()._compute_profile_ids()
         return res
 
@@ -73,9 +69,7 @@ class ResUsers(models.Model):
     def _compute_profile_ids(self):
         for rec in self:
             role_lines = rec.role_line_ids
-            profiles = role_lines.filtered(
-                lambda r: r.company_id == rec.company_id
-            ).mapped("profile_id")
+            profiles = role_lines.mapped("profile_id")
             rec.profile_ids = profiles
             # set defaults in case applicable profile changes
             rec._update_profile_id()
