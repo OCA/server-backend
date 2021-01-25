@@ -49,10 +49,7 @@ class ResUsers(models.Model):
         return res
 
     def _get_enabled_roles(self):
-        return self.role_line_ids.filtered(
-            lambda rec: rec.is_enabled
-            and (not rec.company_id or rec.company_id == rec.user_id.company_id)
-        )
+        return self.role_line_ids.filtered(lambda rec: rec.is_enabled)
 
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
