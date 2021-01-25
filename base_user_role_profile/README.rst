@@ -23,9 +23,9 @@ User profiles
     :target: https://runbot.odoo-community.org/runbot/253/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
-Extending the base_user_role module, this one adds the notion of profiles. Effectively profiles act as an additional filter to how the roles are used. Through the new widget, much in the same way that a user can switch companies when they are part of the multi company group, users have the possibility to change profiles when they are part of the multi profiles group.
+Extending the base_user_role module, this one adds the notion of profiles. Effectively profiles act as an additional filter to how the roles are used.
 
 This allows users to switch their permission groups dynamically. This can be useful for example to:
  - finer grain control on menu and model permissions (with record rules this becomes very flexible)
