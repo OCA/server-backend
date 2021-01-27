@@ -27,12 +27,11 @@
                                     <field name="date_from" />
                                     <field name="date_to" />
                                     <field name="is_enabled" />
-                                    <field
-                                        name="company_id"
-                                        groups="base.group_multi_company"
-                                    />
                                 </tree>
                             </field>
+                        </page>
+                        <page name="page_internal_notes" string="Internal Notes">
+                            <field name="comment" />
                         </page>
                     </notebook>
                 </sheet>
