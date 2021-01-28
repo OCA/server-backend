@@ -165,6 +165,11 @@ msgid "Roles"
 msgstr "Roller"
 
 #. module: base_user_role
+#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
+msgid "Roles can be assigned to a user only once at a time"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
 msgid "Rules"
 msgstr "Regler"
