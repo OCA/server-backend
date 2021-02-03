@@ -12,8 +12,8 @@ class ResUsers(models.Model):
     def _browse(cls, ids, env, prefetch=None, add_prefetch=True):
         """be sure we browse ints, ids laread is normalized"""
         return super(ResUsers, cls)._browse(
-            [
+            models._normalize_ids([
                 i if not isinstance(i, BaseSuspendSecurityUid)
                 else super(BaseSuspendSecurityUid, i).__int__()
                 for i in ids
-            ], env, prefetch=prefetch, add_prefetch=add_prefetch)
+            ]), env, prefetch=prefetch, add_prefetch=add_prefetch)

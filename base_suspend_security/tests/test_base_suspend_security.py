@@ -28,8 +28,9 @@ class TestBaseSuspendSecurity(TransactionCase):
         self.assertEqual(other_company.name, 'test')
         self.assertEqual(other_company.write_uid.id, user_id)
         # this tests if _normalize_args conversion works
-        self.env['res.users'].browse(
+        user = self.env['res.users'].browse(
             self.env['res.users'].suspend_security().env.uid)
+        self.assertIsInstance(user._ids, tuple)
 
     def test_suspend_security_on_search(self):
         user_without_access = self.env["res.users"].create(
@@ -45,4 +46,4 @@ class TestBaseSuspendSecurity(TransactionCase):
         with self.assertRaises(exceptions.AccessError):
             model.sudo(user_without_access).search([])
         # this tests the search
-            model.sudo(user_without_access).suspend_security().search([])
+        model.sudo(user_without_access).suspend_security().search([])
