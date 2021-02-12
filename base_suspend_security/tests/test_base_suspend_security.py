@@ -63,3 +63,13 @@ class TestBaseSuspendSecurity(TransactionCase):
             ('user_ids', '=', user_without_access.suspend_security().env.uid),
         ])
         self.assertTrue(partners)
+
+    def test_envs(self):
+        """ Test that we get the same env when suspending from the same env """
+        partner = self.env.ref('base.partner_demo')
+        user = self.env.ref('base.user_demo')
+        self.assertEqual(partner.env.args, user.env.args)
+        partner_suspended = partner.suspend_security()
+        user_suspended = user.suspend_security()
+        self.assertNotEqual(partner.env.args, partner_suspended.env.args)
+        self.assertEqual(user_suspended.env.args, partner_suspended.env.args)
