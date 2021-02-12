@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import exceptions
 from odoo.tests.common import TransactionCase
+from ..base_suspend_security import BaseSuspendSecurityUid
 
 
 class TestBaseSuspendSecurity(TransactionCase):
@@ -31,6 +32,15 @@ class TestBaseSuspendSecurity(TransactionCase):
         self.env['res.users'].browse(
             self.env['res.users'].suspend_security().env.uid)
 
+    def test_base_suspend_security_uid(self):
+        """ Test corner cases of dunder functions """
+        uid = BaseSuspendSecurityUid(42)
+        self.assertFalse(uid == 42)
+        self.assertEqual(uid[0], 42)
+        self.assertFalse(uid[1:])
+        with self.assertRaises(IndexError):
+            self.env['res.users'].browse(uid[1])
+
     def test_suspend_security_on_search(self):
         user_without_access = self.env["res.users"].create(
             dict(
@@ -46,3 +56,10 @@ class TestBaseSuspendSecurity(TransactionCase):
             model.sudo(user_without_access).search([])
         # this tests the search
             model.sudo(user_without_access).suspend_security().search([])
+        # be sure we can search suspended uids like ints
+        partners = self.env['res.partner'].with_context(
+            active_test=False,
+        ).search([
+            ('user_ids', '=', user_without_access.suspend_security().env.uid),
+        ])
+        self.assertTrue(partners)
