@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[base_user_role](base_user_role/) | 14.0.2.1.0 | User roles
+[base_user_role](base_user_role/) | 14.0.2.1.1 | User roles
 
 [//]: # (end addons)
 
