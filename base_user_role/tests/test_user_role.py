@@ -169,3 +169,8 @@ class TestUserRole(TransactionCase):
         )
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
         self.assertEqual(user.role_ids, roles)
+
+    def test_update_role(self):
+        self.role1_id.write({"name": "foo", "comment": "FOO"})
+        self.assertEqual(self.role1_id.group_id.name, "foo")
+        self.assertEqual(self.role1_id.group_id.comment, "FOO")
