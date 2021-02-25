@@ -27,6 +27,22 @@ class ImportCase(TransactionCase):
                 }
             )
 
+    def test_res_partner_external_id(self):
+        """Change name based on External ID."""
+        deco_addict = self.env.ref("base.res_partner_2")
+        record = self._base_import_record("res.partner", "res_partner_external_id")
+        record.do(["id", "vat", "name"], [], OPTIONS)
+        deco_addict.env.cache.invalidate()
+        self.assertEqual(deco_addict.name, "Deco Addict External ID Changed")
+
+    def test_res_partner_dbid(self):
+        """Change name based on DB ID."""
+        deco_addict = self.env.ref("base.res_partner_2")
+        record = self._base_import_record("res.partner", "res_partner_dbid")
+        record.do([".id", "vat", "name"], [], OPTIONS)
+        deco_addict.env.cache.invalidate()
+        self.assertEqual(deco_addict.name, "Deco Addict External DBID Changed")
+
     def test_res_partner_vat(self):
         """Change name based on VAT."""
         deco_addict = self.env.ref("base.res_partner_2")
@@ -35,6 +51,17 @@ class ImportCase(TransactionCase):
         record.do(["name", "vat", "is_company"], [], OPTIONS)
         deco_addict.env.cache.invalidate()
         self.assertEqual(deco_addict.name, "Deco Addict Changed")
+
+    def test_res_partner_invalid_combination_vat(self):
+        """Change name based on VAT."""
+        deco_addict = self.env.ref("base.res_partner_2")
+        deco_addict.vat = "BE0477472701"
+        record = self._base_import_record(
+            "res.partner", "res_partner_invalid_combination_vat"
+        )
+        record.do(["name", "vat", "is_company"], [], OPTIONS)
+        deco_addict.env.cache.invalidate()
+        self.assertEqual(deco_addict.name, deco_addict.name)
 
     def test_res_partner_parent_name_is_company(self):
         """Change email based on parent_id, name and is_company."""
@@ -62,6 +89,16 @@ class ImportCase(TransactionCase):
         self.assertEqual(
             self.env.ref("base.res_partner_address_4").function, "Function Changed"
         )
+
+    def test_res_partner_name_duplicated(self):
+        """Change function based on name."""
+        record = self._base_import_record("res.partner", "res_partner_name")
+        partner_1 = self.env.ref("base.res_partner_address_4")
+        partner_2 = self.env.ref("base.res_partner_2")
+        function = partner_1.function
+        partner_2.name = partner_1.name
+        record.do(["function", "name"], [], OPTIONS)
+        self.assertEqual(self.env.ref("base.res_partner_address_4").function, function)
 
     def test_res_users_login(self):
         """Change name based on login."""

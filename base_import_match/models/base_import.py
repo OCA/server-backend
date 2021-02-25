@@ -160,13 +160,16 @@ class BaseImportMatchField(models.Model):
     )
 
     @api.depends("conditional", "field_id", "imported_value")
-    def _compute_display_name(self):
+    def name_get(self):
+        result = []
         for one in self:
             pattern = u"{name} ({cond})" if one.conditional else u"{name}"
-            one.display_name = pattern.format(
+            name = pattern.format(
                 name=one.field_id.name,
                 cond=one.imported_value,
             )
+            result.append((one.id, name))
+        return result
 
     @api.onchange("field_id", "match_id", "conditional", "imported_value")
     def _onchange_match_id_name(self):
