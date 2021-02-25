@@ -69,6 +69,13 @@
             </search>
         </field>
     </record>
-    <act_window name="Import Match" res_model="base_import.match" id="match_action" />
+
+    <record id="match_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Import Match</field>
+        <field name="res_model">base_import.match</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <menuitem id="match_menu" action="match_action" parent="base.next_id_9" />
 </odoo>
