@@ -164,7 +164,8 @@ class BaseImportMatchField(models.Model):
         for one in self:
             pattern = u"{name} ({cond})" if one.conditional else u"{name}"
             one.display_name = pattern.format(
-                name=one.field_id.name, cond=one.imported_value,
+                name=one.field_id.name,
+                cond=one.imported_value,
             )
 
     @api.onchange("field_id", "match_id", "conditional", "imported_value")
