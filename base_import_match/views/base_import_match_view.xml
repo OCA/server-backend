@@ -46,8 +46,8 @@
     <field name="model">base_import.match</field>
     <field name="arch" type="xml">
         <tree string="Import Match">
+            <field name="sequence" widget="handle"/>
             <field name="name"/>
-            <field name="sequence" invisible="True"/>
         </tree>
     </field>
 </record>
