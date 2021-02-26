@@ -4,7 +4,7 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "Tools",
     "website": "https://tecnativa.com",
     "author": "Tecnativa, "
