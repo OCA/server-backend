@@ -192,8 +192,8 @@ class TestUserRole(TransactionCase):
         self.user_id.role_line_ids.filtered(
             lambda l: l.role_id.id == self.role1_id.id
         ).unlink()
-        # Check user has no groups from role1 and role2
-        self.assertFalse(role1_groups <= self.user_id.groups_id)
+        # Keep user with the groups of role1
+        self.assertLessEqual(role1_groups, self.user_id.groups_id)
         self.assertFalse(role2_groups <= self.user_id.groups_id)
 
     def test_default_user_roles(self):

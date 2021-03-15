@@ -112,6 +112,6 @@ class ResUsersRoleLine(models.Model):
     @api.multi
     def unlink(self):
         users = self.mapped("user_id")
-        res = super(ResUsersRoleLine, self).unlink()
-        users.set_groups_from_roles(force=True)
+        res = super().unlink()
+        users.filtered(lambda x: x.role_line_ids).set_groups_from_roles(force=True)
         return res
