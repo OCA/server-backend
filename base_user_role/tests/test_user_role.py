@@ -297,3 +297,11 @@ class TestUserRole(SavepointCase):
         role_group_ids = sorted(set(role_group_ids))
         # Check that user have groups implied by role 2
         self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_user_role_category(self):
+        # Check that groups created by role has the correct
+        # default category
+        self.assertEqual(
+            self.env.ref("base_user_role.ir_module_category_role").id,
+            self.role1_id.category_id.id
+        )
