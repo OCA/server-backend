@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo11-addon-base_external_dbsource_sqlite',
         'odoo11-addon-base_external_system',
         'odoo11-addon-base_global_discount',
+        'odoo11-addon-base_import_match',
         'odoo11-addon-base_suspend_security',
         'odoo11-addon-base_user_role',
     ],
