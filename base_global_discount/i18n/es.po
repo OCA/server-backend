@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-23 06:22+0000\n"
-"PO-Revision-Date: 2019-08-23 06:22+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2021-03-16 18:46+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__company_id
@@ -97,7 +98,7 @@ msgstr "Última Actualización el"
 #. module: base_global_discount
 #: model:res.groups,name:base_global_discount.group_global_discount
 msgid "Manage Global Discounts"
-msgstr ""
+msgstr "Gestionar Descuentos Globales"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids
@@ -110,7 +111,7 @@ msgstr "Descuentos globales de compra"
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids_readonly
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__supplier_global_discount_ids_readonly
 msgid "Purchase Global Discounts (Readonly)"
-msgstr ""
+msgstr "Descuentos Globales Compras (solo lectura)"
 
 #. module: base_global_discount
 #: selection:global.discount,discount_scope:0
@@ -128,7 +129,7 @@ msgstr "Descuentos de venta globales"
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__customer_global_discount_ids_readonly
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__customer_global_discount_ids_readonly
 msgid "Sale Global Discounts (Readonly)"
-msgstr ""
+msgstr "Descuentos Globales Ventas (solo lectura)"
 
 #. module: base_global_discount
 #: selection:global.discount,discount_scope:0
