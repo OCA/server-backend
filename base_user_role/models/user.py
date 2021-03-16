@@ -21,8 +21,7 @@ class ResUsers(models.Model):
     @api.model
     def _default_role_lines(self):
         default_user = self.env.ref(
-            "base.default_user", raise_if_not_found=False
-        )
+            'base.default_user', raise_if_not_found=False).sudo()
         default_values = []
         if default_user:
             for role_line in default_user.role_line_ids:
