@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2021 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_wizard_preview_change_user_role_form" model="ir.ui.view">
+        <field name="model">wizard.preview.change.user.role</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="user_id" readonly="1"/>
+                    <field name="role_ids" widget="many2many_tags"/>
+                    <field name="hide_role_groups"/>
+                </group>
+                <group string="Groups to Add">
+                    <field name="added_group_ids" nolabel="1"/>
+                </group>
+                <group string="Groups to Remove">
+                    <field name="removed_group_ids" nolabel="1"/>
+                </group>
+                <footer>
+                    <button name="apply" string="Apply" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -3,11 +3,22 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
+    <record id="action_preview_role_changes" model="ir.actions.act_window">
+      <field name="name">Change Roles and Preview</field>
+      <field name="res_model">wizard.preview.change.user.role</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
 <record id="view_res_users_form_inherit" model="ir.ui.view">
     <field name="name">res.users.form.inherit</field>
     <field name="model">res.users</field>
     <field name="inherit_id" ref="base.view_users_form"/>
     <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button name="%(action_preview_role_changes)d" type="action" string="Change Roles and Preview"/>
+        </xpath>
         <xpath expr="//notebook/page[1]" position="before">
             <page string="Roles">
                 <field name="role_line_ids" nolabel="1">
