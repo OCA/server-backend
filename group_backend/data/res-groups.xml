@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record model="res.groups" id="group_backend">
+            <field name="name">Backend user</field>
+            <field name="category_id" ref="base.module_category_user_type" />
+            <field name="comment">
+                This group is used to gives user backend access.
+
+                While users in `base.group_user` gets a lot of default access
+                which makes hard to define properly records/rules/menu access.
+
+                So for maintainability you shouldn't linked any access right, rules,
+                menu, and so on to this group directly.
+
+                The only intent of this groups is to be able to get a session
+                to Odoo backend (`/web`).
+            </field>
+        </record>
+    </data>
+</odoo>
