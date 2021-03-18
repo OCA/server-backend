@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record model="backend.dummy.model" id="dummy_model_1">
+            <field name="my_value">hello</field>
+            <field name="my_other_value">hello</field>
+        </record>
+    </data>
+</odoo>
