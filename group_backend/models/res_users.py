@@ -1,4 +1,8 @@
+import logging
+
 from odoo import api, models
+
+_logger = logging.getLogger(__name__)
 
 
 class Users(models.Model):
@@ -19,5 +23,10 @@ class Users(models.Model):
         """
         res = super(Users, self).has_group(group_ext_id)
         if not res and group_ext_id == "base.group_user":
-            return super(Users, self).has_group("group_backend.group_backend")
+            has_group_backend = super(Users, self).has_group(
+                "group_backend.group_backend"
+            )
+            if has_group_backend:
+                _logger.warning("Forcing has_group to return True for group_backend")
+            return has_group_backend
         return res
