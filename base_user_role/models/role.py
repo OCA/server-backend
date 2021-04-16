@@ -91,7 +91,7 @@ class ResUsersRoleLine(models.Model):
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
     company_id = fields.Many2one(
-        "res.company", "Company", default=lambda self: self.env.user.company_id
+        "res.company", "Company", default=False
     )
 
     @api.multi
