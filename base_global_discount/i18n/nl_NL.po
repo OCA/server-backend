@@ -95,10 +95,22 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: base_global_discount
+#: model:res.groups,name:base_global_discount.group_global_discount
+msgid "Manage Global Discounts"
+msgstr ""
+
+#. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__supplier_global_discount_ids
+#: model_terms:ir.ui.view,arch_db:base_global_discount.res_partner_form_view
 msgid "Purchase Global Discounts"
 msgstr "Algemene inkoopkorting"
+
+#. module: base_global_discount
+#: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids_readonly
+#: model:ir.model.fields,field_description:base_global_discount.field_res_users__supplier_global_discount_ids_readonly
+msgid "Purchase Global Discounts (readonly)"
+msgstr ""
 
 #. module: base_global_discount
 #: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__purchase
@@ -108,8 +120,15 @@ msgstr "Inkopen"
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__customer_global_discount_ids
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__customer_global_discount_ids
+#: model_terms:ir.ui.view,arch_db:base_global_discount.res_partner_form_view
 msgid "Sale Global Discounts"
 msgstr "Algemene verkoopkorting"
+
+#. module: base_global_discount
+#: model:ir.model.fields,field_description:base_global_discount.field_res_partner__customer_global_discount_ids_readonly
+#: model:ir.model.fields,field_description:base_global_discount.field_res_users__customer_global_discount_ids_readonly
+msgid "Sale Global Discounts (readonly)"
+msgstr ""
 
 #. module: base_global_discount
 #: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_scope__sale
