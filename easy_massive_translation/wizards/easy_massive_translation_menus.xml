@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Manuel Regidor <manuel.regidor@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <menuitem
+        id="easy_massive_translation_menu"
+        name="Massive Translation"
+        parent="base.menu_translation"
+        sequence="20"
+    />
+    <menuitem
+        id="export_massive_translation"
+        action="easy_massive_translation.export_massive_translation_action"
+        parent="easy_massive_translation_menu"
+        sequence="30"
+    />
+    <menuitem
+        id="menu_massive_import_translation"
+        action="easy_massive_translation.import_massive_translation_action"
+        parent="easy_massive_translation_menu"
+        sequence="31"
+    />
+</odoo>

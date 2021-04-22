@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Manuel Regidor <manuel.regidor@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="import_massive_translation_view_form" model="ir.ui.view">
+        <field name="name">import.massive.translation.view</field>
+        <field name="model">import.massive.translation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Import Massive Translation">
+                <group>
+                    <field
+                        name="translated_model"
+                        options="{'no_create_edit': True, 'no_create':True}"
+                        placeholder="Select a model"
+                    />
+                    <field name="delimeter" />
+                    <field name="data" filename="name" colspan="4" />
+                </group>
+                <group>
+                    <p
+                        style="color: #E13E3E;"
+                    >NOTE: Modifying the ID values or the first row of the file might result in malfunction. Changes applied on origin fields will perform a change of the value of that field before creating the translations.</p>
+                </group>
+                <footer>
+                    <button
+                        name="action_import"
+                        string="Import"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="import_massive_translation_action" model="ir.actions.act_window">
+        <field name="name">Import Massive Translation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.massive.translation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="import_massive_translation_view_form" />
+        <field name="target">new</field>
+    </record>
+</odoo>
