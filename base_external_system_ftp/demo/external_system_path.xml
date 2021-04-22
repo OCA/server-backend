@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!--- FTP paths-->
+    <record id="external_system_push_path_demo" model="external.system.path">
+        <field name="name">FTP Server Demo push path</field>
+        <field name="remote_path">/push_path</field>
+        <field name="system_id" ref="external_system_ftp_demo" />
+    </record>
+    <record id="external_system_pull_path_demo" model="external.system.path">
+        <field name="name">FTP Server Demo pull path</field>
+        <field name="remote_path">/pull_path</field>
+        <field name="system_id" ref="external_system_ftp_demo" />
+    </record>
+</odoo>

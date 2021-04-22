@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="external_system_ftp_demo" model="external.system">
+        <field name="name">FTP Example Server</field>
+        <field name="system_type">ftp.system.adapter</field>
+        <field name="host">ftp.example.com</field>
+        <field name="username">user</field>
+        <field name="password">password</field>
+    </record>
+</odoo>
