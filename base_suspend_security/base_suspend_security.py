@@ -30,6 +30,3 @@ class BaseSuspendSecurityUid(int):
 
     def __hash__(self):
         return super(BaseSuspendSecurityUid, self).__hash__()
-
-    def __iter__(self):
-        yield super(BaseSuspendSecurityUid, self).__int__()

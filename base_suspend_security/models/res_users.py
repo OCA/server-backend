@@ -24,6 +24,13 @@ from ..base_suspend_security import BaseSuspendSecurityUid
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
+    def browse(self, arg=None, prefetch=None):
+        if isinstance(arg, BaseSuspendSecurityUid):
+            # Required to make _normalize_ids work
+            arg = super(BaseSuspendSecurityUid, arg).__int__()
+
+        return super(ResUsers, self).browse(arg=arg, prefetch=prefetch)
+
     @classmethod
     def _browse(cls, ids, env, prefetch=None, add_prefetch=True):
         """be sure we browse ints, ids laread is normalized"""

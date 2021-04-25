@@ -18,7 +18,7 @@
 ##############################################################################
 {
     "name": "Suspend security",
-    "version": "11.0.1.0.1",
+    "version": "11.0.1.0.2",
     "author": "Therp BV, brain-tec AG, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Hidden/Dependency",
