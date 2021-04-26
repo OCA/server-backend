@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -76,7 +76,7 @@ class BaseImportMatch(models.Model):
             empty dataset if none or multiple matches were found.
         """
         # Get usable rules to perform matches
-        usable = self._usable_rules(model._name, converted_row)
+        usable = self._usable_rules(model._name, tuple(converted_row))
         # Traverse usable combinations
         for combination in usable:
             combination_valid = True
@@ -106,7 +106,7 @@ class BaseImportMatch(models.Model):
         return model
 
     @api.model
-    @tools.ormcache("model_name", "frozenset(fields)")
+    # TODO: add @tools.ormcache for efficiency
     def _usable_rules(self, model_name, fields):
         """Return a set of elements usable for calling ``load()``.
 
