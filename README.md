@@ -19,6 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[base_import_match](base_import_match/) | 14.0.1.0.0 | Try to avoid duplicates before importing
 [base_user_role](base_user_role/) | 14.0.2.1.1 | User roles
 
 [//]: # (end addons)
