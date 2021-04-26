@@ -47,12 +47,6 @@ msgid "Associated group"
 msgstr "Pridružena grupa"
 
 #. module: base_user_role
-#: model:ir.model.fields,help:base_user_role.field_res_users_role__group_category_id
-#, fuzzy
-msgid "Associated group's category"
-msgstr "Pridružena grupa"
-
-#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Index boje"
@@ -237,6 +231,10 @@ msgstr "Korisnici ove grupe automatski nasljeđuju ove grupe"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Pregled"
+
+#, fuzzy
+#~ msgid "Associated group's category"
+#~ msgstr "Pridružena grupa"
 
 #~ msgid "Comment"
 #~ msgstr "Komentar"

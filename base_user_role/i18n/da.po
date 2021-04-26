@@ -46,12 +46,6 @@ msgid "Associated group"
 msgstr "Tilhørende gruppe"
 
 #. module: base_user_role
-#: model:ir.model.fields,help:base_user_role.field_res_users_role__group_category_id
-#, fuzzy
-msgid "Associated group's category"
-msgstr "Tilhørende gruppe"
-
-#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Farve indeks"
@@ -235,6 +229,10 @@ msgstr "Bruger af denne gruppe arver automatisk disse grupper"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Oversigter"
+
+#, fuzzy
+#~ msgid "Associated group's category"
+#~ msgstr "Tilhørende gruppe"
 
 #~ msgid "Comment"
 #~ msgstr "Kommentar"
