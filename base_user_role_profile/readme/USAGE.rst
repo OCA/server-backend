@@ -1,0 +1,1 @@
+Once you have set up at least one profile for a user, use the widget in the top bar to switch user profiles. Note that it is possible to use no profile; in this case, the user will only get the roles that always apply (i.e the ones with no profile_id).
