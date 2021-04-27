@@ -1,6 +1,7 @@
 # Copyright 2014 ABF OSIELL <http://osiell.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class ResUsers(models.Model):
@@ -87,6 +88,29 @@ class ResUsers(models.Model):
                 if role:
                     group_ids += role_groups[role]
             group_ids = list(set(group_ids))  # Remove duplicates IDs
+
+            # Check if the setting for User Types is correct
+            # The check will be done only if roles are defined
+            if user.role_line_ids:
+                all_user_type_group_ids = [
+                    self.env.ref("base.group_user").id,
+                    self.env.ref("base.group_portal").id,
+                    self.env.ref("base.group_public").id,
+                ]
+                current_user_type_group_ids = [
+                    x for x in group_ids if x in all_user_type_group_ids
+                ]
+                if len(current_user_type_group_ids) == 0:
+                    raise UserError(_(
+                        "You should affect a User Type for the user %s."
+                        " (login %s)"
+                    ) % (user.name, user.login))
+                elif len(current_user_type_group_ids) > 1:
+                    raise UserError(_(
+                        "You can not affect many User Types for the user %s."
+                        " (login %s)"
+                    ) % (user.name, user.login))
+
             groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
             groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
             to_add = [(4, gr) for gr in groups_to_add]
