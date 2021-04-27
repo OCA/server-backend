@@ -1,0 +1,179 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * server_action_sort
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-16 18:08+0000\n"
+"PO-Revision-Date: 2020-03-16 18:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__action_id
+msgid "Action"
+msgstr "Action"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__state
+msgid "Action To Do"
+msgstr "Action à effectuer"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Add Followers"
+msgstr "Ajouter des abonnés"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Create Next Activity"
+msgstr "Créer une activité "
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Create a new Record"
+msgstr "Créer un nouvel enregistrement"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Execute Python Code"
+msgstr "Exécuter le code Python"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Execute several actions"
+msgstr "Exécuter plusieurs actions"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__field_id
+msgid "Field"
+msgstr "Champ"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__field_name
+msgid "Field Name"
+msgstr "Nom de Champ"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id
+msgid "Field to Sort"
+msgstr "Champ à trier"
+
+#. module: server_action_sort
+#: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__sort_field_id_model
+msgid "For relationship fields, the technical name of the target model"
+msgstr "Pour les champs de relation, le nom technique du modèle cible"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__desc
+msgid "Inverse Order"
+msgstr "Ordre inverse"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id_model
+msgid "Model of the Field to Sort"
+msgstr "Modèle du champ à trier"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Send Email"
+msgstr "Envoyer par courriel"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: server_action_sort
+#: model:ir.model,name:server_action_sort.model_ir_actions_server
+msgid "Server Action"
+msgstr "Action du serveur"
+
+#. module: server_action_sort
+#: model:ir.model,name:server_action_sort.model_ir_actions_server_sort_line
+msgid "Server Actions Sort Lines"
+msgstr "Ligne de tri d'Action Serveur"
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Sort"
+msgstr "Trier"
+
+#. module: server_action_sort
+#: model:ir.actions.server,name:server_action_sort.sort_action_server_lines
+msgid "Demo - Action Server: Sort Lines"
+msgstr "Démo - Action serveur : Trier les lignes"
+
+#. module: server_action_sort
+#: model_terms:ir.ui.view,arch_db:server_action_sort.view_ir_actions_server_form
+msgid "Sort Options"
+msgstr "Options de tri"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_line_ids
+msgid "Sorting Criterias"
+msgstr "Critères de tri"
+
+#. module: server_action_sort
+#: code:addons/server_action_sort/models/ir_actions_server.py:31
+#, python-format
+msgid "The Action Server %s is not correctly set :\n"
+"No lines defined"
+msgstr "L'action Serveur %s n'est pas correctement paramétré : \n"
+"Pas de lignes définies"
+
+
+#. module: server_action_sort
+#: selection:ir.actions.server,state:0
+msgid "Update the Record"
+msgstr "Mettre à jour l'enregistrement"
+
+#. module: server_action_sort
+#: code:addons/server_action_sort/models/ir_actions_server.py:36
+#, python-format
+msgid "You can not run this Action Server that way.\n"
+" Please use contextual 'Action' menu."
+msgstr "Vous ne pouvez pas exécuter cette action serveur de cette façon.\n"
+" Veuillez utiliser le menu contextuel 'Action'."
+
