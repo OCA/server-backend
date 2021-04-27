@@ -16,6 +16,7 @@
         "data/ir_module_category.xml",
         "views/role.xml",
         "views/user.xml",
+        "wizards/wizard_preview_change_user_role.xml",
     ],
     "installable": True,
 }
