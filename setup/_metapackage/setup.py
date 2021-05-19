@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo14-addon-base_import_match',
         'odoo14-addon-base_user_role',
+        'odoo14-addon-base_user_role_company',
     ],
     classifiers=[
         'Programming Language :: Python',
