@@ -21,6 +21,7 @@ addon | version | summary
 --- | --- | ---
 [base_import_match](base_import_match/) | 14.0.1.0.0 | Try to avoid duplicates before importing
 [base_user_role](base_user_role/) | 14.0.2.1.1 | User roles
+[base_user_role_company](base_user_role_company/) | 14.0.1.0.0 | User roles by company
 
 [//]: # (end addons)
 
