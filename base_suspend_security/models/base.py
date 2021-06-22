@@ -26,3 +26,11 @@ class Base(models.AbstractModel):
                 )
             )
         return super().sudo(user)
+
+    @api.model
+    def check_field_access_rights(self, operation, fields):
+        # Handle suspend_security as if called with SUPERUSER_ID
+        if isinstance(self.env.uid, BaseSuspendSecurityUid):
+            return fields or list(self._fields)
+
+        return super().check_field_access_rights(operation, fields)
