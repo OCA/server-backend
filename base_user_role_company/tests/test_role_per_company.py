@@ -1,5 +1,6 @@
 # Copyright 2021 Open Source Integrators
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import mock
 
 from odoo.tests.common import TransactionCase
 
@@ -60,3 +61,23 @@ class TestUserRoleCompany(TransactionCase):
             "role_id"
         )
         self.assertEqual(active_roles, self.roleA | self.roleC)
+
+    def test_140_session_info(self):
+        "session_info sets active roles"
+        with mock.patch.object(
+                self.env['res.users'].__class__, '_set_session_active_roles'
+        ) as mock_set_session_active_roles, mock.patch(
+                'odoo.addons.base_user_role_company.models.ir_http.request',
+        ) as base_user_role_company_request, mock.patch(
+                'odoo.addons.base_setup.models.ir_http.request',
+        ) as base_setup_request, mock.patch(
+                'odoo.addons.web_tour.models.ir_http.request',
+        ) as web_tour_request, mock.patch(
+                'odoo.addons.web.models.ir_http.request',
+        ) as web_request:
+            base_setup_request.env = self.env
+            web_request.env = self.env
+            web_tour_request.env = self.env
+            self.env['ir.http'].sudo(self.test_user).session_info()
+            mock_set_session_active_roles.assert_called_once()
+            base_user_role_company_request.httprequest.cookies.get.assert_called()
