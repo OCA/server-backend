@@ -28,14 +28,14 @@ class TestUserRoleCompany(TransactionCase):
             "login": "test_user",
             "company_ids": [(6, 0, [self.company1.id, self.company2.id])],
             "role_line_ids": [
-                (0, 0, {"role_id": self.roleA.id}),
+                (0, 0, {"role_id": self.roleA.id, "company_id": None}),
                 (0, 0, {"role_id": self.roleB.id, "company_id": self.company1.id}),
                 (0, 0, {"role_id": self.roleC.id, "company_id": self.company1.id}),
                 (0, 0, {"role_id": self.roleC.id, "company_id": self.company2.id}),
             ],
         }
         self.test_user = self.User.create(user_vals)
-        self.User = self.User.with_user(self.test_user)
+        self.User = self.User.sudo(self.test_user)
 
     def test_110_company_1(self):
         "Company 1 selected: Tech and Settings roles are activated"
