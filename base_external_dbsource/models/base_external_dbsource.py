@@ -8,8 +8,7 @@ from contextlib import contextmanager
 import psycopg2
 
 from odoo import _, api, fields, models, tools
-
-from ..exceptions import ConnectionFailedError, ConnectionSuccessError
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -41,7 +40,7 @@ class BaseExternalDbsource(models.Model):
     #   to allow for override.
     PWD_STRING = "PWD=%s;"
 
-    name = fields.Char("Datasource name", required=True, size=64)
+    name = fields.Char("Datasource name", required=True)
     conn_string = fields.Text(
         "Connection string",
         help="""
@@ -59,7 +58,7 @@ class BaseExternalDbsource(models.Model):
     """,
     )
     conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")
-    password = fields.Char("Password", size=40)
+    password = fields.Char("Password")
     client_cert = fields.Text()
     client_key = fields.Text()
     ca_certs = fields.Char(help="Path to CA Certs file on server.")
@@ -173,13 +172,14 @@ class BaseExternalDbsource(models.Model):
             with self.connection_open():
                 pass
         except Exception as e:
-            raise ConnectionFailedError(
+            raise ValidationError(
                 _("Connection test failed:\n" "Here is what we got instead:\n%s")
                 % tools.ustr(e)
             )
-        raise ConnectionSuccessError(
+        raise ValidationError(
             _("Connection test succeeded:\n" "Everything seems properly set up!")
         )
+
 
     def remote_browse(self, record_ids, *args, **kwargs):
         """It browses for and returns the records from remote by ID

@@ -5,8 +5,7 @@ import mock
 from odoo.sql_db import connection_info_for
 from odoo.tests import common
 
-from ..exceptions import ConnectionFailedError, ConnectionSuccessError
-
+from odoo.exceptions import ValidationError
 
 class TestBaseExternalDbsource(common.TransactionCase):
     def setUp(self):
@@ -63,14 +62,14 @@ class TestBaseExternalDbsource(common.TransactionCase):
 
     def test_connection_success(self):
         """ It should raise for successful connection """
-        with self.assertRaises(ConnectionSuccessError):
+        with self.assertRaises(ValidationError):
             self.dbsource.connection_test()
 
     def test_connection_fail(self):
         """ It should raise for failed/invalid connection """
         with mock.patch.object(self.dbsource, "connection_open") as conn:
             conn.side_effect = Exception
-            with self.assertRaises(ConnectionFailedError):
+            with self.assertRaises(ValidationError):
                 self.dbsource.connection_test()
 
     def test_connection_open_calls_close(self):
