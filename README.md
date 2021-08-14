@@ -17,11 +17,11 @@ TODO: add repo description.
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[base_import_match](base_import_match/) | 14.0.1.0.0 | Try to avoid duplicates before importing
-[base_user_role](base_user_role/) | 14.0.2.1.1 | User roles
-[base_user_role_company](base_user_role_company/) | 14.0.1.0.0 | User roles by company
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[base_import_match](base_import_match/) | 14.0.1.0.0 |  | Try to avoid duplicates before importing
+[base_user_role](base_user_role/) | 14.0.2.1.1 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
+[base_user_role_company](base_user_role_company/) | 14.0.1.0.0 |  | User roles by company
 
 [//]: # (end addons)
 
