@@ -30,11 +30,11 @@ class GlobalDiscount(models.Model):
         return result
 
     def _get_global_discount_vals(self, base, **kwargs):
-        """ Prepare the dict of values to create to obtain the discounted
-            amount
+        """Prepare the dict of values to create to obtain the discounted
+         amount
 
-           :param float base: the amount to discount
-           :return: dict with the discounted amount
+        :param float base: the amount to discount
+        :return: dict with the discounted amount
         """
         self.ensure_one()
         return {
