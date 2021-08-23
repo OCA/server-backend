@@ -25,7 +25,7 @@ class ResPartner(models.Model):
     # HACK: Looks like UI doesn't behave well with Many2many fields and
     # negative groups when the same field is shown. In this case, we want to
     # show the readonly version to any not in the global discount group.
-    # TODO: Check in v14 if it's fixed
+    # TODO: Check in future versions if it's fixed
     customer_global_discount_ids_readonly = fields.Many2many(
         string="Sale Global Discounts (readonly)",
         related="customer_global_discount_ids",

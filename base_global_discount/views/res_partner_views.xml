@@ -19,6 +19,7 @@
                     widget="many2many_tags"
                     groups="!base_global_discount.group_global_discount"
                     attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
+                    readonly="1"
                 />
             </group>
             <group name="purchase" position="inside">
