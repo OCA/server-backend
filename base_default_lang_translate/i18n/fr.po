@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_default_lang_translate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-08 08:47+0000\n"
+"PO-Revision-Date: 2021-09-08 08:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_default_lang_translate
+#: code:addons/base_default_lang_translate/models/res_lang.py:16
+#, python-format
+msgid "Another language is already set by default"
+msgstr "Une autre langue est déjà sélectionnée par défaut"
+
+#. module: base_default_lang_translate
+#: model:ir.model,name:base_default_lang_translate.model_base
+msgid "Base"
+msgstr ""
+
+#. module: base_default_lang_translate
+#: model:ir.model.fields,field_description:base_default_lang_translate.field_res_lang__is_default_lang
+msgid "Default Language"
+msgstr "Langue par défaut"
+
+#. module: base_default_lang_translate
+#: model:ir.model,name:base_default_lang_translate.model_res_lang
+msgid "Languages"
+msgstr "Langues"
