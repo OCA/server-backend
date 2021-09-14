@@ -77,6 +77,7 @@ class BaseImportMatch(models.Model):
         """
         # Get usable rules to perform matches
         usable = self._usable_rules(model._name, converted_row)
+        usable = self.browse(usable)
         # Traverse usable combinations
         for combination in usable:
             combination_valid = True
@@ -126,7 +127,7 @@ class BaseImportMatch(models.Model):
         for record in available:
             if all(f.name in fields for f in record.field_ids):
                 result |= record
-        return result
+        return result.ids
 
 
 class BaseImportMatchField(models.Model):
