@@ -50,13 +50,13 @@ We suggest to use this module with its compagnon `base_user_role`
 Limitations
 ~~~~~~~~~~~
 
-As the time of writing Odoo use `has_group("base.group_user")` to gives the
+At the time of writing, Odoo uses `has_group("base.group_user")` to give the
 backend access.
 This module is only overloading that method to try if user is in the
 `group_backend.group_backend` group (in case of `base.group_user`
 is requested and return `False`) to let access to the odoo backend.
 
-This avoid to overwrite a lot of overwrite in different controllers from
+This avoids to write a lot of overwrite in different controllers from
 different modules ('portal', 'web', 'base', 'website') with hard coded statements
 that check if user is part of the `base.group_user` group.
 
@@ -79,8 +79,8 @@ using `implied_ids` if you really want to link it.
 
 .. note::
 
-   Be aware users can only belongs to one group from the user type category
-   (`base.module_category_user_type`). So your group can't implied_ids to both
+   Be aware users can only belong to one group from the user type category
+   (`base.module_category_user_type`). So your other groups can't inherit both
    internal users and backend users. 
 
 Usage
@@ -88,7 +88,7 @@ Usage
 
 To use this module, you need to:
 
-#. Go to Configuration / Users / Users choose user and set the user type.
+#. Go to Configuration / Users / Users, choose a user and set the user type.
 
 You get a users that is only able to access to the Odoo backend which you
 can attach other groups that not implies other kind of users (`portal`,
