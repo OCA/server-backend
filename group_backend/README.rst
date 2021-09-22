@@ -40,7 +40,7 @@ The problem with the `Internal user` is when you want to gives access to the
 backend to a really thin part of your business to some users, it's quite hard
 to properly maintain those roles over the project life, a lot of models use
 that group (`base.group_user`) by default which makes hard
-to maintains.
+to maintain.
 
 So that helps creating well-defined user groups with more controls.
 
