@@ -180,7 +180,6 @@ class BaseExternalDbsource(models.Model):
             _("Connection test succeeded:\n" "Everything seems properly set up!")
         )
 
-
     def remote_browse(self, record_ids, *args, **kwargs):
         """It browses for and returns the records from remote by ID
 
