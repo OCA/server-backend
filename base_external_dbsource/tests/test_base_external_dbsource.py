@@ -2,10 +2,10 @@
 
 import mock
 
+from odoo.exceptions import ValidationError
 from odoo.sql_db import connection_info_for
 from odoo.tests import common
 
-from odoo.exceptions import ValidationError
 
 class TestBaseExternalDbsource(common.TransactionCase):
     def setUp(self):
