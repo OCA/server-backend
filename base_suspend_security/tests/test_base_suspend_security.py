@@ -29,8 +29,9 @@ class TestBaseSuspendSecurity(TransactionCase):
         self.assertEqual(other_company.name, 'test')
         self.assertEqual(other_company.write_uid.id, user_id)
         # this tests if _normalize_args conversion works
-        self.env['res.users'].browse(
+        user = self.env['res.users'].browse(
             self.env['res.users'].suspend_security().env.uid)
+        self.assertIsInstance(user._ids, tuple)
 
     def test_base_suspend_security_uid(self):
         """ Test corner cases of dunder functions """
