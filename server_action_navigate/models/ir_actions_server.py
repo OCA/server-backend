@@ -13,25 +13,29 @@ class IrActionsServer(models.Model):
 
     navigate_action_id = fields.Many2one(
         string="Navigation Action",
-        comodel_name='ir.actions.act_window',
+        comodel_name="ir.actions.act_window",
         domain="[('res_model', '=', max_navigate_line_model)]",
         help="Define here the action used when the navigation will be executed"
-        " if empty, a generic action will be used.")
+        " if empty, a generic action will be used.",
+    )
 
     navigate_line_ids = fields.One2many(
         comodel_name="ir.actions.server.navigate.line",
-        string="Navigate Lines", inverse_name="action_id")
+        string="Navigate Lines",
+        inverse_name="action_id",
+    )
 
     max_navigate_line_sequence = fields.Integer(
-        string='Max Navigate sequence in lines',
-        compute='_compute_max_navigate_line',
-        store=True
+        string="Max Navigate sequence in lines",
+        compute="_compute_max_navigate_line",
+        store=True,
     )
 
     max_navigate_line_model = fields.Char(
         string="Max Navigate Model in lines",
         compute="_compute_max_navigate_line",
-        store=True)
+        store=True,
+    )
 
     @api.depends("navigate_line_ids", "model_id")
     def _compute_max_navigate_line(self):
@@ -43,11 +47,13 @@ class IrActionsServer(models.Model):
         """
         for action in self:
             action.max_navigate_line_sequence = (
-                max(action.mapped('navigate_line_ids.sequence') or [0]) + 1)
-            action.max_navigate_line_model =\
-                action.navigate_line_ids\
-                and action.navigate_line_ids[-1].field_model\
+                max(action.mapped("navigate_line_ids.sequence") or [0]) + 1
+            )
+            action.max_navigate_line_model = (
+                action.navigate_line_ids
+                and action.navigate_line_ids[-1].field_model
                 or action.model_id.model
+            )
 
     def delete_last_line(self):
         self.ensure_one()
@@ -56,34 +62,34 @@ class IrActionsServer(models.Model):
 
     @api.model
     def run_action_navigate_multi(self, action, eval_context=None):
-        IrModel = self.env['ir.model']
+        IrModel = self.env["ir.model"]
         lines = action.navigate_line_ids
         if not lines:
-            raise UserError(_(
-                "The Action Server %s is not correctly set\n"
-                " : No fields defined"))
+            raise UserError(
+                _("The Action Server %s is not correctly set\n" " : No fields defined")
+            )
         mapped_field_value = ".".join(lines.mapped("field_id.name"))
 
-        item_ids = eval_context['records'].mapped(mapped_field_value).ids
-        domain = "[('id','in',[" + ','.join(map(str, item_ids)) + "])]"
+        item_ids = eval_context["records"].mapped(mapped_field_value).ids
+        domain = "[('id','in',[" + ",".join(map(str, item_ids)) + "])]"
 
         # Use Defined action if defined
         if action.navigate_action_id:
             return_action = action.navigate_action_id
             result = return_action.read()[0]
-            result['domain'] = domain
+            result["domain"] = domain
         else:
             # Otherwise, return a default action
             model_name = action.max_navigate_line_model
-            model = IrModel.search([('model', '=', model_name)])
-            view_mode = 'tree,form'
+            model = IrModel.search([("model", "=", model_name)])
+            view_mode = "tree,form"
             result = {
-                'name': model.name,
-                'domain': domain,
-                'res_model': model_name,
-                'target': 'current',
-                'type': 'ir.actions.act_window',
-                'view_mode': view_mode,
+                "name": model.name,
+                "domain": domain,
+                "res_model": model_name,
+                "target": "current",
+                "type": "ir.actions.act_window",
+                "view_mode": view_mode,
             }
 
         return result

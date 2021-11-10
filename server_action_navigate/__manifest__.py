@@ -12,9 +12,6 @@
     "license": "AGPL-3",
     "depends": ["base"],
     "maintainers": ["legalsylvain"],
-    "data": [
-        "security/ir.model.access.csv",
-        "views/view_ir_actions_server.xml",
-    ],
+    "data": ["security/ir.model.access.csv", "views/view_ir_actions_server.xml"],
     "demo": ["demo/ir_actions_server.xml"],
 }

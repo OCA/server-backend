@@ -12,33 +12,34 @@ class IrActionsServerNavigateLine(models.Model):
 
     sequence = fields.Integer(string="Sequence", default=1)
 
-    field_model = fields.Char(
-        string="Model", related="field_id.relation", store=True)
+    field_model = fields.Char(string="Model", related="field_id.relation", store=True)
 
     action_id = fields.Many2one(
-        comodel_name="ir.actions.server", string="Action",
-        required=True, ondelete="cascade")
+        comodel_name="ir.actions.server",
+        string="Action",
+        required=True,
+        ondelete="cascade",
+    )
 
     field_id = fields.Many2one(
-        comodel_name="ir.model.fields", string="Field",
-        required=True)
+        comodel_name="ir.model.fields", string="Field", required=True
+    )
 
     # when adding a record, onchange is called for every field on the
     # form, also in editable list views
-    @api.onchange('field_id')
+    @api.onchange("field_id")
     def _onchange_field_id(self):
         # check out the docstring of this in odoo/models.py
         lines = self.action_id.resolve_2many_commands(
-            'navigate_line_ids',
-            self.env.context.get('navigate_line_ids', []),
+            "navigate_line_ids", self.env.context.get("navigate_line_ids", []),
         )
         lines = sum(map(self.new, lines), self.browse([]))
         model = lines[-1:].field_id.relation or self.action_id.model_id.model
         return {
-            'domain': {
-                'field_id': [
-                    ('ttype', 'in', ['many2one', 'one2many', 'many2many']),
-                    ('model', '=', model),
+            "domain": {
+                "field_id": [
+                    ("ttype", "in", ["many2one", "one2many", "many2many"]),
+                    ("model", "=", model),
                 ],
             }
         }
