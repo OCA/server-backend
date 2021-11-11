@@ -44,11 +44,25 @@ class ResUsersRole(models.Model):
 
     @api.model
     def create(self, vals):
+        # Run method as super user to avoid problems with new groups creations
+        # by "Administrator/Access Right"
+        is_access_rights = self.env.user.has_group(
+            "base.group_erp_manager",
+        )
+        if self._name == "res.users.role" and is_access_rights:
+            self = self.sudo()
         new_record = super(ResUsersRole, self).create(vals)
         new_record.update_users()
         return new_record
 
     def write(self, vals):
+        # Run method as super user to avoid problems with new groups creations
+        # by "Administrator/Access Right"
+        is_access_rights = self.env.user.has_group(
+            "base.group_erp_manager",
+        )
+        if self._name == "res.users.role" and is_access_rights:
+            self = self.sudo()
         # Workaround to solve issue with broken code in odoo that clear the cache
         # during the write: see odoo/addons/base/models/res_users.py#L226
         groups_vals = {}

@@ -4,5 +4,6 @@
 * Alan Ramos <alan.ramos@jarsa.com.mx> (https://www.jarsa.com.mx)
 * Harald Panten <harald.panten@sygel.es>
 * Kevin Khao <kevin.khao@akretion.com>
+* Tatiana Deribina <tatiana.deribina@sprintit.fi> (https://sprintit.fi)
 
 Do not contact contributors directly about support or help with technical issues.
