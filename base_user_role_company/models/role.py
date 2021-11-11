@@ -14,7 +14,7 @@ class ResUsersRoleLine(models.Model):
         help="If set, this role only applies when this is the main company selected."
         " Otherwise it applies to all companies.",
     )
-    active_role = fields.Boolean(string="Active Role", default=True)
+    active_role = fields.Boolean(default=True)
 
     @api.constrains("user_id", "company_id")
     def _check_company(self):
