@@ -8,9 +8,9 @@ from odoo import api, fields, models
 class IrActionsServerNavigateLine(models.Model):
     _name = "ir.actions.server.navigate.line"
     _description = "Server Actions Navigation Lines"
-    _order = "sequence"
+    _order = "sequence, id"
 
-    sequence = fields.Integer(string="Sequence", default=1)
+    sequence = fields.Integer(string="Sequence")
 
     field_model = fields.Char(string="Model", related="field_id.relation", store=True)
 
