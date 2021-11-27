@@ -1,0 +1,238 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_user_role
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-17 02:07+0000\n"
+"PO-Revision-Date: 2021-09-25 14:34+0000\n"
+"Last-Translator: Mi Di <m.dinh10k@gmail.com>\n"
+"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/oca/teams/"
+"23907/vi_VN/)\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
+msgid "Access Controls"
+msgstr "Kiểm soát quyền truy cập"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__menu_access
+msgid "Access Menu"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
+msgid "Application"
+msgstr "Ứng dụng"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_category_id
+msgid "Associated category"
+msgstr "Danh mục được liên kết"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_id
+msgid "Associated group"
+msgstr "Nhóm được liên kết"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__group_category_id
+msgid "Associated group's category"
+msgstr "Phân loại của nhóm được liên kết"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
+msgid "Color Index"
+msgstr "Danh mục màu"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
+msgid "Created by"
+msgstr "Tạo bởi"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
+msgid "Created on"
+msgstr "Tạo vào"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__is_enabled
+msgid "Enabled"
+msgstr "Được kích hoạt"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_from
+msgid "From"
+msgstr "Từ"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__full_name
+msgid "Group Name"
+msgstr "Tên nhóm"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__share
+msgid "Group created to set access rights for sharing data with some users."
+msgstr ""
+"Nhóm này được tạo để thiết đặt quyền truy cập cho việc chia sẻ dữ liệu với "
+"một số người dùng."
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Groups"
+msgstr "Các nhóm"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__id
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
+msgid "Inherits"
+msgstr "Kế thừa từ"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Internal Notes"
+msgstr "Ghi chú nội bộ"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users____last_update
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line____last_update
+msgid "Last Modified on"
+msgstr "Chỉnh sửa lần cuối vào"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
+msgid "Name"
+msgstr "Tên"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__role_id
+msgid "Role"
+msgstr "Vai trò"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_line_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__line_ids
+msgid "Role lines"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
+#: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
+msgid "Roles"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
+msgid "Roles can be assigned to a user only once at a time"
+msgstr "Vai trò chỉ được gán cho người dùng một lần tại một thời điểm"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
+msgid "Rules"
+msgstr "Tập luật"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
+msgid "Share Group"
+msgstr "Nhóm chia sẻ"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
+msgid "To"
+msgstr "Tới"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_implied_ids
+msgid "Transitively inherits"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
+#: model:ir.cron,cron_name:base_user_role.cron_update_users
+#: model:ir.cron,name:base_user_role.cron_update_users
+msgid "Update user roles"
+msgstr "Cập nhật vai trò người dùng"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__user_id
+msgid "User"
+msgstr "Người dùng"
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_res_users_role
+msgid "User role"
+msgstr "Vai trò người dùng"
+
+#. module: base_user_role
+#: model:ir.module.category,name:base_user_role.ir_module_category_role
+msgid "User roles"
+msgstr "Danh sách vai trò người dùng"
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_res_users
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__users
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Users"
+msgstr "Danh sách người dùng"
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_res_users_role_line
+msgid "Users associated to a role"
+msgstr "Người dùng được gán vào role"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__user_ids
+msgid "Users list"
+msgstr "Danh sách người dùng"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_ids
+msgid "Users of this group automatically inherit those groups"
+msgstr "Người dùng của nhóm này sẽ tự động kế thừa từ các nhóm khác"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
+msgid "Views"
+msgstr ""
