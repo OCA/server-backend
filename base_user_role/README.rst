@@ -23,7 +23,7 @@ User roles
     :target: https://runbot.odoo-community.org/runbot/253/15.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module was written to extend the standard functionality regarding users
 and groups management.
@@ -53,7 +53,7 @@ are able to add and update user accounts in a scalable and reliable way.
 Configuration
 =============
 
-To configure this module, you need to go to *Configuration / Users / Roles*,
+To configure this module, you need to go to *Settings / Users / Roles*,
 and create a new role. From there, you can add groups to compose your role,
 and then associate users to it.
 
@@ -62,19 +62,19 @@ You can also define default roles for a new user by editing the user called
 
 Roles:
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/roles.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/roles.png
    :width: 80 %
    :align: center
 
 Add groups:
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/role_groups.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/role_groups.png
    :width: 80 %
    :align: center
 
 Add users (with dates or not):
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/12.0/base_user_role/static/description/role_users.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/role_users.png
    :width: 80 %
    :align: center
 
@@ -93,7 +93,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -114,6 +114,7 @@ Contributors
 * Alan Ramos <alan.ramos@jarsa.com.mx> (https://www.jarsa.com.mx)
 * Harald Panten <harald.panten@sygel.es>
 * Kevin Khao <kevin.khao@akretion.com>
+* Tatiana Deribina <tatiana.deribina@sprintit.fi> (https://sprintit.fi)
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -150,7 +151,7 @@ promote its widespread use.
 
 Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-sebalix| |maintainer-jcdrubay| |maintainer-novawish|
+|maintainer-sebalix| |maintainer-jcdrubay| |maintainer-novawish| 
 
 This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/15.0/base_user_role>`_ project on GitHub.
 
