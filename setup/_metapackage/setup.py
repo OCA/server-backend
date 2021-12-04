@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-base_import_match',
         'odoo14-addon-base_user_role',
         'odoo14-addon-base_user_role_company',
+        'odoo14-addon-base_user_role_profile',
     ],
     classifiers=[
         'Programming Language :: Python',
