@@ -5,7 +5,7 @@ setuptools.setup(
     odoo_addon={
         'external_dependencies_override': {
             'python': {
-                'MySQLdb': 'mysqlclient==2.0.1'
+                'radicale': 'Radicale==3.1.1'
             }
         }
     },

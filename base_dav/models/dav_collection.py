@@ -3,17 +3,19 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import os
-import time
 from operator import itemgetter
 from urllib.parse import quote_plus
 
 from odoo import api, fields, models, tools
+import logging
 
 import vobject
 
 # pylint: disable=missing-import-error
 from ..controllers.main import PREFIX
 from ..radicale.collection import Collection, FileItem, Item
+
+logger = logging.getLogger(__name__)
 
 
 class DavCollection(models.Model):
@@ -88,6 +90,10 @@ class DavCollection(models.Model):
             'user': self.env.user,
         }
 
+    @api.model
+    def get_logger(self):
+        return logger
+
     @api.multi
     def _eval_domain(self):
         self.ensure_one()
@@ -155,16 +161,12 @@ class DavCollection(models.Model):
         if 'uid' not in vobj.contents:
             vobj.add('uid').value = '%s,%s' % (record._name, record.id)
         if 'rev' not in vobj.contents and 'write_date' in record._fields:
-            vobj.add('rev').value = record.write_date.\
-                replace(':', '').replace(' ', 'T').replace('.', '') + 'Z'
+            vobj.add('rev').value = record.write_date.strftime('%Y-%m-%dT%H%M%SZ')
         return result
 
     @api.model
     def _odoo_to_http_datetime(self, value):
-        return time.strftime(
-            '%a, %d %b %Y %H:%M:%S GMT',
-            time.strptime(value, '%Y-%m-%d %H:%M:%S'),
-        )
+        return value.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
     @api.model
     def _split_path(self, path):
@@ -212,7 +214,8 @@ class DavCollection(models.Model):
                 uuid = record[self.field_uuid.name]
             else:
                 uuid = str(record.id)
-            result.append('/' + '/'.join(path_components + [uuid]))
+            href = '/' + '/'.join(path_components + [uuid])
+            result.append(self.dav_get(collection, href))
         return result
 
     @api.multi
@@ -234,7 +237,6 @@ class DavCollection(models.Model):
         if self.dav_type == 'files':
             # TODO: Handle upload of attachments
             return None
-
         data = self.from_vobject(item)
         record = self.get_record(components)
 
@@ -249,8 +251,8 @@ class DavCollection(models.Model):
             record.write(data)
 
         return Item(
-            collection,
-            item=self.to_vobject(record),
+            collection=collection,
+            vobject_item=self.to_vobject(record),
             href=href,
             last_modified=self._odoo_to_http_datetime(record.write_date),
         )
@@ -294,8 +296,8 @@ class DavCollection(models.Model):
             return None
 
         return Item(
-            collection,
-            item=self.to_vobject(record),
+            collection=collection,
+            vobject_item=self.to_vobject(record),
             href=href,
             last_modified=self._odoo_to_http_datetime(record.write_date),
         )

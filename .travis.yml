@@ -3,7 +3,7 @@ sudo: false
 cache: pip
 
 python:
-  - "3.5"
+  - "3.6"
 
 addons:
   postgresql: "9.6"
@@ -28,6 +28,7 @@ install:
   - travis_install_nightly
 
 script:
+  - pip install pylint-odoo==5.0.5 pylint==2.11.1
   - travis_run_tests
 
 after_success:

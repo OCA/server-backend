@@ -5,6 +5,7 @@
 import datetime
 
 from odoo import api, fields, models, tools
+from odoo.tools.safe_eval import safe_eval
 
 import dateutil
 import vobject
@@ -67,7 +68,7 @@ class DavCollectionFieldMapping(models.Model):
             'tz': tz,
             'vobject': vobject,
         }
-        tools.safe_eval(self.import_code, context, mode="exec", nocopy=True)
+        safe_eval(self.import_code, context, mode="exec", nocopy=True)
         return context.get('result', {})
 
     @api.multi
@@ -137,7 +138,7 @@ class DavCollectionFieldMapping(models.Model):
             'tz': tz,
             'vobject': vobject,
         }
-        tools.safe_eval(self.export_code, context, mode="exec", nocopy=True)
+        safe_eval(self.export_code, context,  mode="exec", nocopy=True)
         return context.get('result', None)
 
     @api.multi

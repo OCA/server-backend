@@ -8,27 +8,27 @@
     </record>
     <record id="field_mapping_addressbook_n" model="dav.collection.field_mapping">
         <field name="name">N</field>
-        <field name="field_id" ref="base.field_res_partner_name" />
+        <field name="field_id" ref="base.field_res_partner__name" />
         <field name="collection_id" ref="collection_addressbook" />
     </record>
     <record id="field_mapping_addressbook_fn" model="dav.collection.field_mapping">
         <field name="name">FN</field>
-        <field name="field_id" ref="base.field_res_partner_display_name" />
+        <field name="field_id" ref="base.field_res_partner__display_name" />
         <field name="collection_id" ref="collection_addressbook" />
     </record>
     <record id="field_mapping_addressbook_photo" model="dav.collection.field_mapping">
         <field name="name">photo</field>
-        <field name="field_id" ref="base.field_res_partner_image" />
+        <field name="field_id" ref="base.field_res_partner__image" />
         <field name="collection_id" ref="collection_addressbook" />
     </record>
     <record id="field_mapping_addressbook_email" model="dav.collection.field_mapping">
         <field name="name">email</field>
-        <field name="field_id" ref="base.field_res_partner_email" />
+        <field name="field_id" ref="base.field_res_partner__email" />
         <field name="collection_id" ref="collection_addressbook" />
     </record>
     <record id="field_mapping_addressbook_tel" model="dav.collection.field_mapping">
         <field name="name">tel</field>
-        <field name="field_id" ref="base.field_res_partner_phone" />
+        <field name="field_id" ref="base.field_res_partner__phone" />
         <field name="collection_id" ref="collection_addressbook" />
     </record>
 </odoo>

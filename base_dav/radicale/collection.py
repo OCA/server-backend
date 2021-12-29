@@ -4,12 +4,13 @@
 import base64
 import os
 import time
-from contextlib import contextmanager
 
 from odoo.http import request
 
 try:
-    from radicale.storage import BaseCollection, Item, get_etag
+    from radicale.storage import BaseCollection, BaseStorage
+    from radicale.item import Item, get_etag
+    from radicale import types
 except ImportError:
     BaseCollection = None
     Item = None
@@ -37,22 +38,20 @@ class FileItem(Item):
         return get_etag(self.item.datas.decode('ascii'))
 
 
-class Collection(BaseCollection):
-    @classmethod
-    def static_init(cls):
-        pass
+class Storage(BaseStorage):
 
     @classmethod
-    def _split_path(cls, path):
-        return list(filter(
-            None, os.path.normpath(path or '').strip('/').split('/')
-        ))
+    @types.contextmanager
+    def acquire_lock(cls, mode, user=None):
+        """We have a database for that"""
+        yield
 
     @classmethod
     def discover(cls, path, depth=None):
         depth = int(depth or "0")
         components = cls._split_path(path)
-        collection = cls(path)
+        collection = Collection(path)
+        collection.logger = collection.collection.get_logger()
         if len(components) > 2:
             # TODO: this probably better should happen in some dav.collection
             # function
@@ -71,10 +70,23 @@ class Collection(BaseCollection):
                 yield collection.get(href)
 
     @classmethod
-    @contextmanager
-    def acquire_lock(cls, mode, user=None):
-        """We have a database for that"""
-        yield
+    def _split_path(cls, path):
+        return list(filter(
+            None, os.path.normpath(path or '').strip('/').split('/')
+        ))
+
+    @classmethod
+    def create_collection(cls, href, collection=None, props=None):
+        return Collection(href)
+
+
+class Collection(BaseCollection):
+
+    @classmethod
+    def _split_path(cls, path):
+        return list(filter(
+            None, os.path.normpath(path or '').strip('/').split('/')
+        ))
 
     @property
     def env(self):
@@ -84,9 +96,13 @@ class Collection(BaseCollection):
     def last_modified(self):
         return self._odoo_to_http_datetime(self.collection.create_date)
 
+    @property
+    def path(self):
+        return '/'.join(self.path_components) or '/'
+
     def __init__(self, path):
         self.path_components = self._split_path(path)
-        self.path = '/'.join(self.path_components) or '/'
+        self._path = '/'.join(self.path_components) or '/'
         self.collection = self.env['dav.collection']
         if len(self.path_components) >= 2 and str(
                 self.path_components[1]
@@ -98,7 +114,7 @@ class Collection(BaseCollection):
     def _odoo_to_http_datetime(self, value):
         return time.strftime(
             '%a, %d %b %Y %H:%M:%S GMT',
-            time.strptime(value, '%Y-%m-%d %H:%M:%S'),
+            value.timetuple(),
         )
 
     def get_meta(self, key=None):
@@ -117,10 +133,12 @@ class Collection(BaseCollection):
         elif key == 'ICAL:calendar-color':
             # TODO: set in dav.collection
             return '#48c9f4'
+        elif key == 'C:calendar-description':
+            return self.collection.name
         self.logger.warning('unsupported metadata %s', key)
 
-    def get(self, href):
-        return self.collection.dav_get(self, href)
+    def get_multi(self, hrefs):
+        return [self.collection.dav_get(self, href) for href in hrefs]
 
     def upload(self, href, vobject_item):
         return self.collection.dav_upload(self, href, vobject_item)
@@ -128,5 +146,5 @@ class Collection(BaseCollection):
     def delete(self, href):
         return self.collection.dav_delete(self, self._split_path(href))
 
-    def list(self):
+    def get_all(self):
         return self.collection.dav_list(self, self.path_components)

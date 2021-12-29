@@ -1,8 +1,8 @@
 # Copyright 2018 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import logging
 from configparser import RawConfigParser as ConfigParser
+import logging
 
 import werkzeug
 from odoo import http
@@ -30,10 +30,10 @@ class Main(http.Controller):
     )
     def handle_dav_request(self, davpath=None):
         config = ConfigParser()
-        for section, values in radicale.config.INITIAL_CONFIG.items():
+        for section, values in radicale.config.DEFAULT_CONFIG_SCHEMA.items():
             config.add_section(section)
             for key, data in values.items():
-                config.set(section, key, data["value"])
+                config.set(section, key, data["value"] if type(data) == dict else data)
         config.set('auth', 'type', 'odoo.addons.base_dav.radicale.auth')
         config.set(
             'storage', 'type', 'odoo.addons.base_dav.radicale.collection'
@@ -42,8 +42,9 @@ class Main(http.Controller):
             'rights', 'type', 'odoo.addons.base_dav.radicale.rights'
         )
         config.set('web', 'type', 'none')
+        request.httprequest.environ['wsgi.errors'] = logging.getLogger('radicale')
         application = radicale.Application(
-            config, logging.getLogger('radicale'),
+            config
         )
 
         response = None
