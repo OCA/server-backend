@@ -68,3 +68,33 @@ class ImportCase(TransactionCase):
         record = self._base_import_record("res.users", "res_users_login")
         record.do(["login", "name"], [], OPTIONS)
         self.assertEqual(self.env.ref("base.user_demo").name, "Demo User Changed")
+
+    def test_res_partner_email_one2many(self):
+        """Change function based on email and import one2many record."""
+        record = self._base_import_record("res.partner", "res_partner_email_one2many")
+        record.do(
+            [
+                "email",
+                "function",
+                "child_ids/name",
+                "child_ids/color",
+                "child_ids/email",
+            ],
+            [],
+            OPTIONS,
+        )
+        self.assertEqual(
+            self.env.ref("base.res_partner_address_4").function, "Bug Fixer"
+        )
+        self.assertTrue(self.env.ref("base.res_partner_address_4").child_ids,)
+        self.assertEqual(
+            self.env.ref("base.res_partner_address_4").child_ids[0].name,
+            "Floyd Stewart Jr.",
+        )
+        self.assertEqual(
+            self.env.ref("base.res_partner_address_4").child_ids[0].email,
+            "floyd.steward.jr@example.com",
+        )
+        self.assertEqual(
+            self.env.ref("base.res_partner_address_4").child_ids[0].color, 666
+        )
