@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo13-addon-base_import_match',
         'odoo13-addon-base_user_role',
         'odoo13-addon-base_user_role_history',
+        'odoo13-addon-server_action_navigate',
     ],
     classifiers=[
         'Programming Language :: Python',
