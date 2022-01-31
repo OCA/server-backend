@@ -33,9 +33,6 @@ class ResUsersRole(models.Model):
         help="Associated group's category",
         readonly=False,
     )
-    comment = fields.Html(
-        string="Internal Notes",
-    )
 
     @api.depends("line_ids.user_id")
     def _compute_user_ids(self):
