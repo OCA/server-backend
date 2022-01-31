@@ -105,6 +105,13 @@ msgid "ID"
 msgstr "Identifiant"
 
 #. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role_line__company_id
+msgid ""
+"If set, this role only applies when this is the main company selected. "
+"Otherwise it applies to all companies."
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Inherits"
 msgstr ""
