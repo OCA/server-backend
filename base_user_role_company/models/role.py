@@ -8,13 +8,14 @@ from odoo.exceptions import ValidationError
 class ResUsersRoleLine(models.Model):
     _inherit = "res.users.role.line"
 
+    allowed_company_ids = fields.Many2many(related="user_id.company_ids")
     company_id = fields.Many2one(
         "res.company",
         "Company",
+        domain="[('id', 'in', allowed_company_ids)]",
         help="If set, this role only applies when this is the main company selected."
         " Otherwise it applies to all companies.",
     )
-    active_role = fields.Boolean(string="Active Role", default=True)
 
     @api.constrains("user_id", "company_id")
     def _check_company(self):
@@ -37,29 +38,3 @@ class ResUsersRoleLine(models.Model):
             "Roles can be assigned to a user only once at a time",
         )
     ]
-
-
-class ResUsers(models.Model):
-    _inherit = "res.users"
-
-    def _get_enabled_roles(self):
-        res = super()._get_enabled_roles()
-        return res.filtered("active_role")
-
-    @api.model
-    def _set_session_active_roles(self, cids):
-        """
-        Based on the selected companies (cids),
-        calculate the roles to enable.
-        A role should be enabled only when it applies to all selected companies.
-        """
-        for role_line in self.env.user.role_line_ids:
-            if not role_line.company_id:
-                role_line.active_role = True
-            elif role_line.company_id.id in cids:
-                is_on_companies = self.env.user.role_line_ids.filtered(
-                    lambda x: x.role_id == role_line.role_id and x.company_id.id in cids
-                )
-                role_line.active_role = len(is_on_companies) == len(cids)
-            else:
-                role_line.active_role = False

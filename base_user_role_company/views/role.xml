@@ -9,8 +9,8 @@
                 expr="//field[@name='role_line_ids']//field[@name='role_id']"
                 position="after"
             >
+                <field name="allowed_company_ids" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <field name="active_role" groups="base.group_no_one" readonly="1" />
             </xpath>
         </field>
     </record>
