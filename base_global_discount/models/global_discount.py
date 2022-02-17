@@ -15,7 +15,6 @@ class GlobalDiscount(models.Model):
         selection=[("sale", "Sales"), ("purchase", "Purchases")],
         default="sale",
         required="True",
-        string="Discount Scope",
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
