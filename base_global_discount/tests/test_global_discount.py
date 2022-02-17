@@ -3,7 +3,7 @@
 from odoo.tests import common
 
 
-class TestGlobalDiscount(common.SavepointCase):
+class TestGlobalDiscount(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
