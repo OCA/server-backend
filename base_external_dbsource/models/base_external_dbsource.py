@@ -165,8 +165,7 @@ class BaseExternalDbsource(models.Model):
         """It tests the connection
 
         Raises:
-            ConnectionSuccessError: On connection success
-            ConnectionFailedError: On connection failed
+            Validation message with the result of the connection (fail or success)
         """
         try:
             with self.connection_open():
