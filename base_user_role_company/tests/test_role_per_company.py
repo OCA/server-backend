@@ -11,11 +11,18 @@ class TestUserRoleCompany(TransactionCase):
         self.Company = self.env["res.company"]
         self.company1 = self.env.ref("base.main_company")
         self.company2 = self.Company.create({"name": "company2"})
+        # GROUPS for roles
+        self.groupA = self.env.ref("base.group_user")
+        self.groupB = self.env.ref("base.group_system")
+        self.groupC = self.env.ref("base.group_partner_manager")
         # ROLES
         self.Role = self.env["res.users.role"]
         self.roleA = self.Role.create({"name": "ROLE All Companies"})
+        self.roleA.implied_ids |= self.groupA
         self.roleB = self.Role.create({"name": "ROLE Company 1"})
+        self.roleB.implied_ids |= self.groupB
         self.roleC = self.Role.create({"name": "ROLE Company 1 and 2"})
+        self.roleC.implied_ids |= self.groupC
         # USER
         # ==Role=== ==Company== C1  C2  C1+C2
         # Role A                Yes Yes Yes
@@ -35,28 +42,22 @@ class TestUserRoleCompany(TransactionCase):
             ],
         }
         self.test_user = self.User.create(user_vals)
-        self.User = self.User.with_user(self.test_user)
 
     def test_110_company_1(self):
-        "Company 1 selected: Tech and Settings roles are activated"
-        self.User._set_session_active_roles([self.company1.id])
-        active_roles = self.test_user.role_line_ids.filtered("active_role").mapped(
-            "role_id"
-        )
-        self.assertEqual(active_roles, self.roleA | self.roleB | self.roleC)
+        "Company 1 selected: Roles A, B and C are enabled"
+        self.test_user.set_groups_from_roles(company_id=self.company1.id)
+        expected = self.groupA | self.groupB | self.groupC
+        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        self.assertEqual(expected, found)
 
     def test_120_company_2(self):
-        "Company 2 selected: only Tech role enabled"
-        self.User._set_session_active_roles([self.company2.id])
-        active_roles = self.test_user.role_line_ids.filtered("active_role").mapped(
-            "role_id"
-        )
-        self.assertEqual(active_roles, self.roleA | self.roleC)
+        "Company 2 selected: Roles A and C are enabled"
+        self.test_user.set_groups_from_roles(company_id=self.company2.id)
+        enabled = self.test_user.groups_id
+        expected = self.groupA | self.groupC
+        found = enabled.filtered(lambda x: x in expected)
+        self.assertEqual(expected, found)
 
-    def test_130_company_1_2(self):
-        "Settings Role enabled for Company 1 and 2"
-        self.User._set_session_active_roles([self.company1.id, self.company2.id])
-        active_roles = self.test_user.role_line_ids.filtered("active_role").mapped(
-            "role_id"
-        )
-        self.assertEqual(active_roles, self.roleA | self.roleC)
+        not_expected = self.groupB
+        found = enabled.filtered(lambda x: x in not_expected)
+        self.assertFalse(found)

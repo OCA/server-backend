@@ -22,10 +22,9 @@ class ResUsers(models.Model):
     def _get_enabled_roles(self):
         res = super()._get_enabled_roles()
         # Enable only the Roles corresponing to the currently selected company
-        if self.env.user.role_line_ids:
-            curr_company = self.env.company
+        if self.role_line_ids:
             res = res.filtered(
-                lambda x: not x.company_id or x.company_id == curr_company
+                lambda x: not x.company_id or x.company_id == self.env.company
             )
         return res
 
