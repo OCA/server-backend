@@ -17,9 +17,9 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: base_user_role_company
-#: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__active_role
-msgid "Active Role"
-msgstr "Ruolo attivo"
+#: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__allowed_company_ids
+msgid "Companies"
+msgstr ""
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__company_id
@@ -81,3 +81,6 @@ msgstr "Utenti"
 #: model:ir.model,name:base_user_role_company.model_res_users_role_line
 msgid "Users associated to a role"
 msgstr "Utenti associati al ruolo"
+
+#~ msgid "Active Role"
+#~ msgstr "Ruolo attivo"
