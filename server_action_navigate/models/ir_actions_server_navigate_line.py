@@ -22,7 +22,10 @@ class IrActionsServerNavigateLine(models.Model):
     )
 
     field_id = fields.Many2one(
-        comodel_name="ir.model.fields", string="Field", required=True
+        comodel_name="ir.model.fields",
+        string="Field",
+        required=True,
+        ondelete="cascade",
     )
 
     # when adding a record, onchange is called for every field on the
