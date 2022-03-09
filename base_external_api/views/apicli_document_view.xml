@@ -1,0 +1,89 @@
+<odoo>
+
+    <record id="view_apicli_document_tree" model="ir.ui.view">
+        <field name="name">apicli.document.tree</field>
+        <field name="model">apicli.document</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="code" />
+                <field name="model_id" />
+                <field name="file_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_apicli_document_form" model="ir.ui.view">
+        <field name="name">apicli.document.form</field>
+        <field name="model">apicli.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" />
+                        <field name="sequence" />
+                        <field name="code" />
+                        <field name="model_id" />
+                        <field name="file_type" />
+                        <field name="endpoint" />
+                        <field
+                            name="template_view_id"
+                            attrs="{'invisible': [('template_text', '!=', False)]}"
+                        />
+                        <field
+                            name="template_text"
+                            placehoder="Text file template"
+                            widget="ace"
+                            options="{'mode': 'python'}"
+                            attrs="{'invisible': [('template_view_id', '!=', False)]}"
+                        />
+                        <field name="validation_view_id" />
+                        <field name="header" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_apicli_document_search" model="ir.ui.view">
+        <field name="name">apicli.document.search</field>
+        <field name="model">apicli.document</field>
+        <field name="arch" type="xml">
+            <search string="Apicli Document">
+                <field name="name" />
+                <field name="code" />
+                <field name="model_id" />
+                <field name="file_type" />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Model"
+                        name='model_id'
+                        context="{'group_by':'model_id'}"
+                    />
+                    <filter
+                        string="File Type"
+                        name='file_type'
+                        context="{'group_by':'file_type'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apicli_document" model="ir.actions.act_window">
+        <field name="name">API Document Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">apicli.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_apicli_document_search" />
+    </record>
+
+    <menuitem
+        id="menu_documents"
+        name="Document Templates"
+        sequence="20"
+        action="action_apicli_document"
+        parent="menu_api_client"
+    />
+</odoo>

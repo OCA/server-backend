@@ -1,0 +1,18 @@
+<odoo>
+
+    <record id="api_document_partners_demo" model="apicli.document">
+        <field name="name">Demo Customer Master Data Template</field>
+        <field name="code">DemoCustomerMaster</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="file_type">xml</field>
+        <field
+            name="endpoint"
+        >/demoapi/{{o.company_id.id or o.env.company.id}}/customers</field>
+        <field
+            name="template_text"
+            type="char"
+            file="base_external_api/static/xml/DemoCustomerMaster.xml"
+        />
+    </record>
+
+</odoo>

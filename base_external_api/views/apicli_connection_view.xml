@@ -1,0 +1,173 @@
+<odoo>
+
+    <record id="view_apicli_connection_tree" model="ir.ui.view">
+        <field name="name">apicli.connection.tree</field>
+        <field name="model">apicli.connection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="address" />
+                <field name="connection_type" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_apicli_connection_form" model="ir.ui.view">
+        <field name="name">apicli.connection.form</field>
+        <field name="model">apicli.connection</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        string="Test Connection"
+                        type="object"
+                        name="api_test"
+                        class="oe_highlight"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="unconfirmed,confirmed"
+                    />
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <field name="active" invisible="1" />
+                    <label for="name" class="oe_edit_only" />
+                    <h1><field name="name" required="True" /></h1>
+                    <group>
+                        <group id="left">
+                            <field name="code" />
+                            <field name="address" />
+                            <field name="connection_type" />
+                            <field name="authentication_type" />
+                        </group>
+                        <group id="right">
+                            <field
+                                name="user"
+                                attrs="{'invisible': [('authentication_type','=','api')]}"
+                            />
+                            <field
+                                name="password"
+                                password="True"
+                                attrs="{'invisible': [('authentication_type','=','api')]}"
+                            />
+                            <field
+                                name="api_tenantid"
+                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                            />
+                            <field
+                                name="api_clientid"
+                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                            />
+                            <field
+                                name="api_secret"
+                                password="True"
+                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page
+                            name="sandbox"
+                            string="Sandbox"
+                            groups="base.group_no_one"
+                        >
+                            <group string="Request">
+                                <group>
+                                    <field name="test_endpoint" />
+                                    <field name="test_verb" />
+                                    <field name="test_headers_add" widget="ace" />
+                                </group>
+                                <group col="1">
+                                    <label for="test_payload" />
+                                    <field
+                                        name="test_payload"
+                                        nolabel="1"
+                                        widget="ace"
+                                    />
+                                    <button
+                                        name="action_test_api_call"
+                                        type="object"
+                                        string="Run"
+                                    />
+                                </group>
+                            </group>
+                            <group string="Response" col="1">
+                                <field name="test_response_status" nolabel="1" />
+                                <field name="test_response" nolabel="1" widget="ace" />
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_apicli_connection_search" model="ir.ui.view">
+        <field name="name">apicli.connection.search</field>
+        <field name="model">apicli.connection</field>
+        <field name="arch" type="xml">
+            <search string="Apicli Connection">
+                <field name="name" />
+                <filter
+                    name="active"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <field name="code" />
+                <field name="connection_type" />
+                <field name="state" />
+                <field name="authentication_type" />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Connection Type"
+                        name='connection_type'
+                        context="{'group_by':'connection_type'}"
+                    />
+                    <filter
+                        string="State"
+                        name='state'
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        string="Authentication Type"
+                        name='authentication_type'
+                        context="{'group_by':'authentication_type'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apicli_connection" model="ir.actions.act_window">
+        <field name="name">API Client Connection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">apicli.connection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_apicli_connection_search" />
+    </record>
+
+    <menuitem
+        id="menu_api_client"
+        name="API Client"
+        sequence="20"
+        parent="base.menu_custom"
+    />
+
+    <menuitem
+        id="menu_connections"
+        name="Connections"
+        sequence="10"
+        action="action_apicli_connection"
+        parent="menu_api_client"
+    />
+
+</odoo>
