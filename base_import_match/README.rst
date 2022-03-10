@@ -137,6 +137,7 @@ Contributors
   * Jairo Llopis
   * Vicent Cubells
   * Ernesto Tejeda
+* Radovan Skolnik <radovan@skolnik.info>
 
 Maintainers
 ~~~~~~~~~~~
