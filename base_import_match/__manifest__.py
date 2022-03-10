@@ -4,7 +4,7 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "13.0.1.0.1",
+    "version": "13.0.1.0.2",
     "category": "Tools",
     "website": "https://tecnativa.com",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
