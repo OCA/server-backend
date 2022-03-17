@@ -14,13 +14,13 @@ Server Actions - Navigate
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/13.0/server_action_navigate
+    :target: https://github.com/OCA/server-backend/tree/14.0/server_action_navigate
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-13-0/server-backend-13-0-server_action_navigate
+    :target: https://translation.odoo-community.org/projects/server-backend-14-0/server-backend-14-0-server_action_navigate
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/253/13.0
+    :target: https://runbot.odoo-community.org/runbot/253/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -43,7 +43,7 @@ Configuration
 
 * Create a new item
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/13.0/server_action_navigate/static/description/ir_actions_server_form.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/14.0/server_action_navigate/static/description/ir_actions_server_form.png
 
 * Set a name that will be used for the Contextual Action
 
@@ -74,12 +74,12 @@ Usage
 
 * click on 'Action' Button
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/13.0/server_action_navigate/static/description/sale_order_tree.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/14.0/server_action_navigate/static/description/sale_order_tree.png
 
 
 * then click on the name of the configured Action and see the results
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/13.0/server_action_navigate/static/description/product_product_tree.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/14.0/server_action_navigate/static/description/product_product_tree.png
 
 Bug Tracker
 ===========
@@ -87,7 +87,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20server_action_navigate%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20server_action_navigate%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -103,6 +103,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Sylvain LE GAL (https://www.twitter.com/legalsylvain)
+* Ashish Hirpara (https://ashish-hirpara.com)
 
 Maintainers
 ~~~~~~~~~~~
@@ -120,11 +121,14 @@ promote its widespread use.
 .. |maintainer-legalsylvain| image:: https://github.com/legalsylvain.png?size=40px
     :target: https://github.com/legalsylvain
     :alt: legalsylvain
+.. |maintainer-ashishhirpara| image:: https://github.com/ashishhirpara.png?size=40px
+    :target: https://github.com/ashishhirpara
+    :alt: ashishhirpara
 
-Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-legalsylvain| 
+|maintainer-legalsylvain| |maintainer-ashishhirpara| 
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/13.0/server_action_navigate>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/14.0/server_action_navigate>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

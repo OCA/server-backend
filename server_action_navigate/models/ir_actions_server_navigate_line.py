@@ -22,19 +22,21 @@ class IrActionsServerNavigateLine(models.Model):
     )
 
     field_id = fields.Many2one(
-        comodel_name="ir.model.fields", string="Field", required=True
+        comodel_name="ir.model.fields",
+        string="Field",
+        required=True,
+        ondelete="cascade",
     )
 
     # when adding a record, onchange is called for every field on the
     # form, also in editable list views
     @api.onchange("field_id")
     def _onchange_field_id(self):
-        # check out the docstring of this in odoo/models.py
-        lines = self.action_id.resolve_2many_commands(
-            "navigate_line_ids",
-            self.env.context.get("navigate_line_ids", []),
-        )
-        lines = sum(map(self.new, lines), self.browse([]))
+
+        lines = self.action_id.new(
+            {"navigate_line_ids": self.env.context.get("navigate_line_ids", [])}
+        ).navigate_line_ids
+
         model = lines[-1:].field_id.relation or self.action_id.model_id.model
         return {
             "domain": {
