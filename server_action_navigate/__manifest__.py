@@ -8,7 +8,7 @@
     "author": "GRAP, " "Odoo Community Association (OCA)",
     "summary": "Navigate between any items of any Odoo Models",
     "category": "Tools",
-    "website": "https://github.com/OCA/server-ux",
+    "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
     "depends": ["base"],
     "maintainers": ["legalsylvain"],
