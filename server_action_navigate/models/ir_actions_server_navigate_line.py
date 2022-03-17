@@ -31,7 +31,8 @@ class IrActionsServerNavigateLine(models.Model):
     def _onchange_field_id(self):
         # check out the docstring of this in odoo/models.py
         lines = self.action_id.resolve_2many_commands(
-            "navigate_line_ids", self.env.context.get("navigate_line_ids", []),
+            "navigate_line_ids",
+            self.env.context.get("navigate_line_ids", []),
         )
         lines = sum(map(self.new, lines), self.browse([]))
         model = lines[-1:].field_id.relation or self.action_id.model_id.model
