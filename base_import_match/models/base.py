@@ -47,7 +47,7 @@ class Base(models.AbstractModel):
                 # To generate externals IDS.
                 match.export_data(fields)
                 ext_id = match.get_external_id()
-                row["id"] = ext_id[match.id] if match else row.get("id", u"")
+                row["id"] = ext_id[match.id] if match else row.get("id", "")
                 # Store the modified row, in the same order as fields
                 newdata.append(tuple(row[f] for f in clean_fields))
             # We will import the patched data to get updates on matches
