@@ -17,6 +17,7 @@
         "data/ir_module_category.xml",
         "views/role.xml",
         "views/user.xml",
+        "views/group.xml",
     ],
     "installable": True,
 }
