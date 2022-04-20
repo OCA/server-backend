@@ -38,7 +38,7 @@ class ResGroups(models.Model):
         compute="_compute_trans_parent_ids",
     )
 
-    role_count = fields = fields.Integer("# Roles", compute="_compute_role_count")
+    role_count = fields.Integer("# Roles", compute="_compute_role_count")
 
     def _compute_role_count(self):
         for group in self:
