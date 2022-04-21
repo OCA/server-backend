@@ -22,7 +22,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_global_discount](base_global_discount/) | 14.0.1.0.0 |  | Base Global Discount
 [base_import_match](base_import_match/) | 14.0.1.0.0 |  | Try to avoid duplicates before importing
-[base_user_role](base_user_role/) | 14.0.2.2.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
+[base_user_role](base_user_role/) | 14.0.2.3.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
 [base_user_role_company](base_user_role_company/) | 14.0.2.0.1 |  | User roles by company
 [base_user_role_profile](base_user_role_profile/) | 14.0.1.0.0 |  | User profiles
 
