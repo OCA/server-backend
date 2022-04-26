@@ -13,7 +13,10 @@ class ResUsers(models.Model):
         default=lambda self: self._default_role_lines(),
     )
     role_ids = fields.One2many(
-        comodel_name="res.users.role", string="Roles", compute="_compute_role_ids"
+        comodel_name="res.users.role",
+        string="Roles",
+        compute="_compute_role_ids",
+        compute_sudo=True,
     )
 
     @api.model
