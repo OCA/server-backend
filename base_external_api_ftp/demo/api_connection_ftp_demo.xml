@@ -1,0 +1,12 @@
+<odoo>
+
+    <record id="api_connection_ftp_demo" model="apicli.connection">
+        <field name="name">Demo FTP</field>
+        <field name="address">127.0.0.0</field>
+        <field name="connection_type">ftp</field>
+        <field name="authentication_type">user_password</field>
+        <field name="user">admin</field>
+        <field name="password">admin</field>
+    </record>
+
+</odoo>

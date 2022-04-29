@@ -10,6 +10,9 @@
     "website": "https://github.com/OCA/server-backend",
     "category": "server",
     "depends": ["base_external_api"],
-    "data": [],
+    "data": [
+        "demo/api_connection_ftp_demo.xml",
+        "data/itemmaster_cron.xml",
+    ],
     "installable": True,
 }

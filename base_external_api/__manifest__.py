@@ -19,7 +19,6 @@
         "views/res_partner_view.xml",
         "demo/api_document_demo.xml",
     ],
-    "demo": [
-    ],
+    "demo": [],
     "installable": True,
 }
