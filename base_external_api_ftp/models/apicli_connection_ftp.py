@@ -90,14 +90,3 @@ class ApicliConnection(models.Model):
         if self.connection_type == "ftp" and file_dict:
             return self._send_ftp_files(file_dict)
         return {"success": True, "message": "OK", "ref": "1"}
-
-    @api.model
-    def cron_upload_itemmaster(self):
-        connection_id = self.env.ref(
-            "base_external_api_ftp.api_connection_ftp_demo", raise_if_not_found=False
-        )
-        for document in self.env["apicli.document"].search([]):
-            # document = self.env["apicli.document"].get_document(code="DemoCustomerMaster")
-            file_dict = document.render(self.env.user)
-            response = connection_id.send(file_dict)
-            _logger.info("Responce: %s" % (response))

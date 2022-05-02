@@ -12,7 +12,6 @@
     "depends": ["base_external_api"],
     "data": [
         "demo/api_connection_ftp_demo.xml",
-        "data/itemmaster_cron.xml",
     ],
     "installable": True,
 }
