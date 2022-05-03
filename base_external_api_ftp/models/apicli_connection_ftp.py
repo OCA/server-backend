@@ -58,8 +58,19 @@ class ApicliConnection(models.Model):
         if self.connection_type == "ftp":
             # Interruped with an error if connection fails
             self._send_ftp_upload(None)
+        return super().api_test()
 
     def _send_ftp_files(self, file_dict):
+        """Send the files to the backend.
+
+        :param file_dict dictionary with 'name' for the filename and
+        'content' for the content
+        :return: A dictionary with:
+         - a boolean 'success': True if the transfer was successful,
+          False otherwise
+         - a string 'message': Message to be displayed to the end user
+         - a string 'ref': Reference of the transfer to request the status
+        """
         temp_dir = tempfile.mkdtemp()
         _logger.info("FTP uploading %d files from %s" % (len(file_dict), temp_dir))
         for file_path, file_content in file_dict.items():
@@ -75,18 +86,31 @@ class ApicliConnection(models.Model):
         shutil.rmtree(temp_dir)
         return {"success": True, "message": "OK"}
 
-    def send(self, file_dict):
-        """Send the files to the backend.
-
-        :param file_dict dictionary with 'name' for the filename and
-        'content' for the content
-        :return: A dictionary with:
-         - a boolean 'success': True if the transfer was successful,
-          False otherwise
-         - a string 'message': Message to be displayed to the end user
-         - a string 'ref': Reference of the transfer to request the status
-        """
-        self and self.ensure_one()
-        if self.connection_type == "ftp" and file_dict:
-            return self._send_ftp_files(file_dict)
-        return {"success": True, "message": "OK", "ref": "1"}
+    def api_call_raw(
+        self,
+        endpoint,
+        verb="GET",
+        headers_add=None,
+        params=None,
+        payload=None,
+        suppress_errors=None,
+        token=None,
+        **kwargs,
+    ):
+        if self.connection_type == "ftp":
+            _logger.debug(
+                "\nFTP upload to %s:\n%s",
+                endpoint,
+                payload,
+            )
+            return self._send_ftp_files({endpoint: payload})
+        return super().api_call_raw(
+            endpoint,
+            verb=verb,
+            headers_add=headers_add,
+            params=params,
+            payload=payload,
+            suppress_errors=suppress_errors,
+            token=token,
+            **kwargs,
+        )

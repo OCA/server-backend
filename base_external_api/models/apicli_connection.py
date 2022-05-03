@@ -121,7 +121,7 @@ class ApicliConnection(models.Model):
     @api.model
     def get_by_code(self, code, error_when_not_found=True):
         """
-        Get the conenction Objjet matching an identifier Code
+        Get the connection Object matching an identifier Code
         """
         domain = []
         if code:
@@ -135,6 +135,7 @@ class ApicliConnection(models.Model):
                     "code": code,
                 }
             )
+        return res
 
     def api_get_token(self):
         # TODO: Implement a sane Basic Auth default
@@ -229,7 +230,7 @@ class ApicliConnection(models.Model):
         if self.connection_type == "http":
             endpoint = "/data/CustomerGroups"
             self.api_call(endpoint)
-            self.state = "confirmed"
+        self.state = "confirmed"
 
     def action_test_api_call(self):
         response = self.api_call_raw(
