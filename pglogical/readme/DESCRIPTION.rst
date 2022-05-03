@@ -1,0 +1,1 @@
+This module supports replication of an Odoo database with `pglogical <https://github.com/2ndQuadrant/pglogical>`__ by also passing DDL to the replicas. You can configure which replica sets to pass DDL to.
