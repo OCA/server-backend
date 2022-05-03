@@ -14,9 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_groups__fields
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__fields
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
 msgid "# Roles"
 msgstr ""
