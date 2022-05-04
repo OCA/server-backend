@@ -61,6 +61,9 @@ class ApicliDocument(models.Model):
             "date": datetime.date,
             "datetime": datetime.datetime,
             "timedelta": datetime.timedelta,
+            "float": float,
+            "int": int,
+            "str": str,
         }
 
     def _render_jinja_template(self, recordset, template_text):
