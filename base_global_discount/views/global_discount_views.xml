@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Tecnativa - David Vidal
+     Copyright 2022 Simone Rubino - TAKOBI
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="global_discount_view_tree" model="ir.ui.view">
@@ -9,6 +10,7 @@
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="discount" />
+                <field name="discount_base" />
                 <field name="discount_scope" />
                 <field name="company_id" />
             </tree>
@@ -23,6 +25,7 @@
                         <field name="name" />
                         <field name="sequence" />
                         <field name="discount" />
+                        <field name="discount_base" />
                         <field name="discount_scope" />
                         <field name="company_id" />
                     </group>

@@ -1,4 +1,5 @@
 # Copyright 2019 Tecnativa - David Vidal
+# Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
 
@@ -8,9 +9,28 @@ class GlobalDiscount(models.Model):
     _description = "Global Discount"
     _order = "sequence, id desc"
 
-    sequence = fields.Integer(help="Gives the order to apply discounts")
-    name = fields.Char(string="Discount Name", required=True)
-    discount = fields.Float(digits="Discount", required=True, default=0.0)
+    sequence = fields.Integer(
+        help="Gives the order to apply discounts",
+    )
+    name = fields.Char(
+        string="Discount Name",
+        required=True,
+    )
+    discount = fields.Float(
+        digits="Discount",
+        required=True,
+        default=0.0,
+    )
+    discount_base = fields.Selection(
+        selection=[
+            ("subtotal", "Subtotal"),
+            ("total", "Total"),
+        ],
+        default="subtotal",
+        required="True",
+        string="Discount Base",
+        help="Amount that will be discounted.",
+    )
     discount_scope = fields.Selection(
         selection=[("sale", "Sales"), ("purchase", "Purchases")],
         default="sale",
