@@ -125,7 +125,7 @@ class ApicliConnection(models.Model):
         """
         domain = []
         if code:
-            domain = [("code", "ilike", code)]
+            domain = [("code", "=", code)]
         res = self.search(domain)
         if len(res) != 1 and error_when_not_found:
             raise exceptions.UserError(
