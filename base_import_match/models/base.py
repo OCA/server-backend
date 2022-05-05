@@ -18,6 +18,14 @@ class Base(models.AbstractModel):
         # We only need to patch this call if there are usable rules for it
         if self.env["base_import.match"]._usable_rules(self._name, fields):
             newdata = list()
+            # Change .id (dbid) by id (xmlid)
+            if ".id" in fields:
+                column = fields.index(".id")
+                fields[column] = "id"
+                # data[0][column] = "id"
+                for values in data:
+                    dbid = int(values[column])
+                    values[column] = self.browse(dbid).get_external_id().get(dbid)
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
