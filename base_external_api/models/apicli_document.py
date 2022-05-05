@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 
 class ApicliDocument(models.Model):
     _name = "apicli.document"
-    _description="Document"
+    _description = "Document"
     _order = "sequence"
     _description = "API Document template"
 

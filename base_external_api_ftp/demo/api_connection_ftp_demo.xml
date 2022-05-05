@@ -2,11 +2,26 @@
 
     <record id="api_connection_ftp_demo" model="apicli.connection">
         <field name="name">Demo FTP</field>
+        <field name="code">DemoFTP</field>
         <field name="address">127.0.0.0</field>
         <field name="connection_type">ftp</field>
         <field name="authentication_type">user_password</field>
         <field name="user">admin</field>
         <field name="password">admin</field>
+    </record>
+
+    <record id="delete_ftp_file" model="ir.cron">
+        <field name="name">Delete FTP File</field>
+        <field name="model_id" ref="base_external_api_ftp.model_apicli_connection" />
+        <field name="state">code</field>
+        <field name="code">
+conn =  model.get_by_code("DemoFTP")
+conn.cron_delete_ftp_file(subdirectory='/tmp')
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
     </record>
 
 </odoo>

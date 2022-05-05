@@ -2,4 +2,5 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from . import apicli_connection
 from . import apicli_document
+from . import apicli_message
 from . import res_partner

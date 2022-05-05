@@ -1,0 +1,79 @@
+<odoo>
+
+    <record id="view_apicli_message_tree" model="ir.ui.view">
+        <field name="name">apicli.message.tree</field>
+        <field name="model">apicli.message</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="connection_id" />
+                <field name="endpoint" />
+                <field name="content" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_apicli_message_form" model="ir.ui.view">
+        <field name="name">apicli.message.form</field>
+        <field name="model">apicli.message</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                   <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,done,error,cancel"
+                    />
+                </header>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="connection_id" />
+                        <field name="endpoint" />
+                        <field name="content" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_apicli_message_search" model="ir.ui.view">
+        <field name="name">apicli.message.search</field>
+        <field name="model">apicli.message</field>
+        <field name="arch" type="xml">
+            <search string="Apicli Message">
+                <field name="endpoint" />
+                <field name="connection_id" />
+                <field name="state" />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="State"
+                        name='state'
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        string="Connection"
+                        name='connection_id'
+                        context="{'group_by':'connection_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apicli_message" model="ir.actions.act_window">
+        <field name="name">API Message</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">apicli.message</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_apicli_message_search" />
+    </record>
+
+    <menuitem
+        id="menu_message"
+        name="Message"
+        sequence="21"
+        action="action_apicli_message"
+        parent="menu_api_client"
+    />
+
+</odoo>

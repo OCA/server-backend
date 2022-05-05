@@ -17,6 +17,7 @@
         "views/apicli_connection_view.xml",
         "views/apicli_document_view.xml",
         "views/res_partner_view.xml",
+        "views/apicli_message.xml",
         "demo/api_document_demo.xml",
     ],
     "demo": [],
