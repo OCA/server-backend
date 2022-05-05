@@ -44,7 +44,7 @@
         <field name="name">Import match tree view</field>
         <field name="model">base_import.match</field>
         <field name="arch" type="xml">
-            <tree string="Import Match">
+            <tree>
                 <field name="name" />
                 <field name="sequence" invisible="True" />
             </tree>
