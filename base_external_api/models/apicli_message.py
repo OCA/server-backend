@@ -16,6 +16,7 @@ class ApicliMessage(models.Model):
             ("draft", "Draft"),
             ("done", "Done"),
             ("error", "Error"),
+            ("todo", "TODO"),
             ("cancel", "Cancelled"),
         ],
         default="draft",

@@ -18,27 +18,36 @@ class ApicliConnection(models.Model):
         selection_add=[("ftp", "FTP")], ondelete={"ftp": "set default"}
     )
 
-    def delete_ftp_file(self, ftp_session, subdirectory):
+    def create_delete_file_message(self, ftp_session, subdirectory):
         from_path, subdir_list, file_list = next(os.walk(subdirectory or "/tmp"))
         for file_name in file_list:
             file_path = os.path.join(from_path, file_name)
-            state = "draft"
-            try:
-                delete_msg = ftp_session.delete(file_name)
-                state = "done"
-            except ftplib.error_perm as error:
-                delete_msg = error
-                state = "error"
-            # delete_msg = ftp_session.delete(file_name)
-            _logger.info("%s: %s" % (file_path, delete_msg))
-            self.env["apicli.message"].create(
+            message_id = self.env["apicli.message"].create(
                 {
                     "connection_id": self.id,
                     "endpoint": file_name,
-                    "content": delete_msg,
-                    "state": state,
+                    "content": "",
+                    "state": "draft",
                 }
             )
+            try:
+                delete_msg = ftp_session.delete(file_name)
+                message_id.write(
+                    {
+                        "content": delete_msg,
+                        "state": "done",
+                    }
+                )
+            except ftplib.error_perm as error:
+                delete_msg = error
+                message_id.write(
+                    {
+                        "content": delete_msg,
+                        "state": "todo",
+                    }
+                )
+            # delete_msg = ftp_session.delete(file_name)
+            _logger.info("%s: %s" % (file_path, delete_msg))
         return True
 
     @api.model
@@ -47,7 +56,7 @@ class ApicliConnection(models.Model):
             ftp.connect(self.address)
             response = ftp.login(self.user, self.password)
             _logger.info("FTP: %s" % (response))
-            self.delete_ftp_file(ftp, subdirectory or "/tmp")
+            self.create_delete_file_message(ftp, subdirectory or "/tmp")
         return True
 
     @api.model

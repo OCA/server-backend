@@ -22,7 +22,7 @@
                    <field
                         name="state"
                         widget="statusbar"
-                        statusbar_visible="draft,done,error,cancel"
+                        statusbar_visible="todo,draft,done,error,cancel"
                     />
                 </header>
                 <sheet>
