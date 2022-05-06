@@ -18,36 +18,25 @@ class ApicliConnection(models.Model):
         selection_add=[("ftp", "FTP")], ondelete={"ftp": "set default"}
     )
 
-    def create_delete_file_message(self, ftp_session, subdirectory):
-        from_path, subdir_list, file_list = next(os.walk(subdirectory or "/tmp"))
-        for file_name in file_list:
-            file_path = os.path.join(from_path, file_name)
-            message_id = self.env["apicli.message"].create(
-                {
-                    "connection_id": self.id,
-                    "endpoint": file_name,
-                    "content": "",
-                    "state": "draft",
-                }
-            )
-            try:
-                delete_msg = ftp_session.delete(file_name)
-                message_id.write(
-                    {
-                        "content": delete_msg,
-                        "state": "done",
-                    }
-                )
-            except ftplib.error_perm as error:
-                delete_msg = error
-                message_id.write(
-                    {
-                        "content": delete_msg,
-                        "state": "todo",
-                    }
-                )
-            # delete_msg = ftp_session.delete(file_name)
-            _logger.info("%s: %s" % (file_path, delete_msg))
+    def create_message_with_content(self, file_path):
+        open_file = open(file_path, "r")
+        return self.env["apicli.message"].create(
+            {
+                "connection_id": self.id,
+                "endpoint": file_path,
+                "content": open_file.read(),
+                "state": "draft",
+            }
+        )
+
+    def delete_file_ftp(self, ftp_session, message_id):
+        try:
+            delete_msg = ftp_session.delete(message_id.endpoint)
+            message_id.write({"state": "todo"})
+            _logger.info("%s: %s" % (message_id.endpoint, delete_msg))
+        except ftplib.error_perm as delete_msg:
+            message_id.write({"state": "cancel"})
+            _logger.info("%s: %s" % (message_id.endpoint, delete_msg))
         return True
 
     @api.model
@@ -56,7 +45,11 @@ class ApicliConnection(models.Model):
             ftp.connect(self.address)
             response = ftp.login(self.user, self.password)
             _logger.info("FTP: %s" % (response))
-            self.create_delete_file_message(ftp, subdirectory or "/tmp")
+            from_path, subdir_list, file_list = next(os.walk(subdirectory or "/tmp"))
+            for file_name in file_list:
+                file_path = os.path.join(from_path, file_name)
+                message_id = self.create_message_with_content(file_path)
+                self.delete_file_ftp(ftp, message_id)
         return True
 
     @api.model

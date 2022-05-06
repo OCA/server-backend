@@ -14,9 +14,9 @@ class ApicliMessage(models.Model):
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
+            ("todo", "TODO"),
             ("done", "Done"),
             ("error", "Error"),
-            ("todo", "TODO"),
             ("cancel", "Cancelled"),
         ],
         default="draft",
