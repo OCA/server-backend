@@ -1,0 +1,72 @@
+<odoo>
+
+    <record id="view_apicli_hook_tree" model="ir.ui.view">
+        <field name="name">apicli.hook.tree</field>
+        <field name="model">apicli.hook</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="sequence" />
+                <field name="model_id" />
+                <field name="match_regexp" />
+                <field name="method_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_apicli_hook_form" model="ir.ui.view">
+        <field name="name">apicli.hook.form</field>
+        <field name="model">apicli.hook</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" />
+                        <field name="sequence" />
+                        <field name="model_id" />
+                        <field name="match_regexp" />
+                        <field name="method_name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_apicli_hook_search" model="ir.ui.view">
+        <field name="name">apicli.hook.search</field>
+        <field name="model">apicli.hook</field>
+        <field name="arch" type="xml">
+            <search string="Apicli Hook">
+                <field name="name" />
+                <field name="sequence" />
+                <field name="model_id" />
+                <field name="match_regexp" />
+                <field name="method_name" />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Model"
+                        name='model_id'
+                        context="{'group_by':'model_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apicli_hook" model="ir.actions.act_window">
+        <field name="name">API Hook</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">apicli.hook</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_apicli_hook_search" />
+    </record>
+
+    <menuitem
+        id="menu_hook"
+        name="Hook"
+        sequence="22"
+        action="action_apicli_hook"
+        parent="menu_api_client"
+    />
+
+</odoo>

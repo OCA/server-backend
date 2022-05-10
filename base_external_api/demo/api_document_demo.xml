@@ -15,4 +15,15 @@
         />
     </record>
 
+    <record id="scan_queue_message_process" model="ir.cron">
+        <field name="name">Process of scan queue message</field>
+        <field name="model_id" ref="base_external_api.model_apicli_message" />
+        <field name="state">code</field>
+        <field name="code">model.scan_queue_process()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+
 </odoo>

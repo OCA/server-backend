@@ -3,4 +3,5 @@
 from . import apicli_connection
 from . import apicli_document
 from . import apicli_message
+from . import apicli_hook
 from . import res_partner

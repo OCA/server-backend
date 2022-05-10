@@ -18,8 +18,10 @@
         "views/apicli_document_view.xml",
         "views/res_partner_view.xml",
         "views/apicli_message.xml",
+        "views/apicli_hook.xml",
         "demo/api_document_demo.xml",
     ],
     "demo": [],
+    "external_dependencies": {"python": ["xmltodict"]},
     "installable": True,
 }

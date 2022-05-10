@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_apicli_connection,access_apicli_connection,model_apicli_connection,base.group_erp_manager,1,1,1,1
 access_apicli_document,access_apicli_document,model_apicli_document,base.group_erp_manager,1,1,1,1
 access_apicli_message,access_apicli_message,model_apicli_message,base.group_erp_manager,1,1,1,1
+access_apicli_hook,access_apicli_hook,model_apicli_hook,base.group_erp_manager,1,1,1,1
