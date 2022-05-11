@@ -5,8 +5,8 @@
         <field name="model">apicli.hook</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle" />
                 <field name="name" />
-                <field name="sequence" />
                 <field name="model_id" />
                 <field name="match_regexp" />
                 <field name="method_name" />

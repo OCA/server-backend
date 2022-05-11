@@ -27,40 +27,38 @@ class ApicliMessage(models.Model):
         default="draft",
     )
 
-    def content_convert(self, endpoint, content):
+    def _parse_content(self):
         data = {}
-        file_extension = endpoint.split(".") and endpoint.split(".")[-1] or None
-        if file_extension == "xml":
-            # XML data convert to dict.
-            data = json.dumps(xmltodict.parse(content))
-        elif file_extension == "json":
-            # JSON data convert to dict.
-            data = json.loads(content)
+        first_char = (self.content or "").lstrip()[:1]
+        if first_char == "<":
+            # XML data convert to dict
+            data = xmltodict.parse(self.content)
+        elif first_char == "{":
+            # JSON data convert to dict
+            data = json.loads(self.content)
         return data
 
-    @api.model
-    def scan_queue_process(self):
-        for message in self.search([("state", "=", "todo")]):
-            selected_hook = False
-            for hook in self.env["apicli.hook"].search(
-                [("method_name", "!=", False), ("model_id", "!=", False)]
-            ):
-                content_match = re.search(hook.match_regexp, message.endpoint, re.I)
-                if content_match:
-                    selected_hook = hook
-                    break
+    def process_messages(self):
+        hooks = self.env["apicli.hook"].search(
+            [("method_name", "!=", False), ("model_id", "!=", False)]
+        )
+        for message in self.filtered(lambda x: x.state == "todo"):
+            selected_hook = hooks.filtered(
+                lambda x: re.search(x.match_regexp, message.endpoint, re.I)
+            )[:1]
             if selected_hook:
-                ref_function = getattr(
-                    self.env[selected_hook.model_id.model],
-                    "{}".format(selected_hook.method_name),
-                )
-                if ref_function:
+                process_model = self.env[selected_hook.model_id.model]
+                process_method = getattr(process_model, selected_hook.method_name)
+                if process_method:
                     datas = {
                         "endpoint": message.endpoint,
                         "raw": message.content,
-                        "parsed": self.content_convert(
-                            message.endpoint, message.content
-                        ),
+                        "parsed": message._parse_content(),
                     }
-                    ref_function(datas)
-        return True
+                    # FIXME: add try/exception and handle success or error
+                    process_method(datas)
+
+    @api.model
+    def scan_queue_process(self):
+        messages = self.search([("state", "=", "todo")])
+        messages.process_messages()
