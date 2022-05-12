@@ -36,14 +36,14 @@ If you don't already have openssh-server installed:
 3. sudo apt-get install openssh-server
 4. sudo service ssh start
 
-5. Then take the following steps to enable sshing to localhost:
+Then take the following steps to enable sshing to localhost:
 
-6. cd ~/.ssh
-7. (skip this step if you already have a ssh key pair generated) $ssh-keygen (to generate a public/private rsa key pair; use the default options)
-8. cat id_rsa.pub >> authorized_keys (to append the key to the authorized_keys file)
-9. chmod 640 authorized_keys (to set restricted permissions)
-10. sudo service ssh restart (to pickup recent changes)
-11. ssh localhost
+5. cd ~/.ssh
+6. (skip this step if you already have a ssh key pair generated) $ssh-keygen (to generate a public/private rsa key pair; use the default options)
+7. cat id_rsa.pub >> authorized_keys (to append the key to the authorized_keys file)
+8. chmod 640 authorized_keys (to set restricted permissions)
+9. sudo service ssh restart (to pickup recent changes)
+10. ssh localhost
 
 
 
