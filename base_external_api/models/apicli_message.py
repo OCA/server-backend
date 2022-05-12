@@ -26,6 +26,7 @@ class ApicliMessage(models.Model):
         ],
         default="draft",
     )
+    result = fields.Text()
 
     def _parse_content(self):
         data = {}
@@ -55,8 +56,13 @@ class ApicliMessage(models.Model):
                         "raw": message.content,
                         "parsed": message._parse_content(),
                     }
-                    # FIXME: add try/exception and handle success or error
-                    process_method(datas)
+                    try:
+                        result = process_method(datas)
+                        message.write(
+                            {"state": "done", "result": result.get("message")}
+                        )
+                    except Exception as error:
+                        message.write({"state": "error", "result": error})
 
     @api.model
     def scan_queue_process(self):

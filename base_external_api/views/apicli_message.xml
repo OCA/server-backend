@@ -30,6 +30,7 @@
                         <field name="connection_id" />
                         <field name="endpoint" />
                         <field name="content" />
+                        <field name="result" />
                     </group>
                 </sheet>
             </form>
