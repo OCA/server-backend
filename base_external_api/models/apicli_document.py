@@ -1,6 +1,5 @@
 # Copyright (C) 2022 - TODAY, Open Source Integrators
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-import base64
 import datetime
 import logging
 
@@ -29,7 +28,7 @@ class ApicliDocument(models.Model):
     endpoint = fields.Char()
     template_view_id = fields.Many2one("ir.ui.view", domain=[("type", "=", "qweb")])
     template_text = fields.Text()
-    validation_view_id = fields.Many2one("ir.ui.view", domain=[("type", "=", "qweb")])
+    validation_text = fields.Text()
     header = fields.Text()
 
     @api.model
@@ -56,8 +55,6 @@ class ApicliDocument(models.Model):
             "self": recordset,
             "now": fields.datetime.now,
             "today": fields.datetime.today,
-            "date_to_string": fields.Date.to_string,
-            "time_to_string": fields.Datetime.to_string,
             "date": datetime.date,
             "datetime": datetime.datetime,
             "timedelta": datetime.timedelta,
@@ -94,10 +91,10 @@ class ApicliDocument(models.Model):
 
     def _validate_document(self, file_text):
         validations = self.filtered(
-            lambda x: x.file_type == "xml" and x.validation_view_id
+            lambda x: x.file_type == "xml" and x.validation_text
         )
         for tmpl in validations:
-            validator = base64.b64decode(tmpl.validation_view_id).decode("utf-8")
+            validator = tmpl.validation_text
             xmlschema = etree.XMLSchema(validator)
             xml_doc = etree.fromstring(file_text)
             result = xmlschema.validate(xml_doc)

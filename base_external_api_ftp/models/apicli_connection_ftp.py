@@ -142,7 +142,7 @@ class ApicliConnection(models.Model):
          - a string 'ref': Reference of the transfer to request the status
         """
         temp_dir = tempfile.mkdtemp()
-        _logger.info("FTP uploading %d files from %s" % (len(file_dict), temp_dir))
+        _logger.info("FTP uploading %d files from %s", len(file_dict), temp_dir)
         for file_path, file_content in file_dict.items():
             if file_path.startswith("/"):
                 file_path = file_path[1:]
@@ -168,11 +168,6 @@ class ApicliConnection(models.Model):
         **kwargs,
     ):
         if self.connection_type == "ftp":
-            _logger.debug(
-                "\nFTP upload to %s:\n%s",
-                endpoint,
-                payload,
-            )
             return self._send_ftp_files({endpoint: payload})
         elif self.connection_type == "sftp":
             _logger.debug(

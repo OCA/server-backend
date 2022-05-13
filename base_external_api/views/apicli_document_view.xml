@@ -38,7 +38,7 @@
                             options="{'mode': 'python'}"
                             attrs="{'invisible': [('template_view_id', '!=', False)]}"
                         />
-                        <field name="validation_view_id" />
+                        <field name="validation_text" />
                         <field name="header" />
                     </group>
                 </sheet>
