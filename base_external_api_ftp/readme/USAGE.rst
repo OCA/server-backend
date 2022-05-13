@@ -13,7 +13,10 @@ To locally install FTP service:
 To locally install SFTP service:
 
 - Install ssh: ``sudo apt install ssh``
-- Edit ``/etc/ssh/sshd_config``, appending the following
+- Edit ``/etc/ssh/sshd_config``, 
+
+Make sure that the line ``PasswordAuthentication no``, if any, is commented (to allow for user/password connection to ssh server).
+Then append the following
   .. code-block::
 
      Match group sftp
@@ -31,19 +34,19 @@ If you're running Ubuntu on Windows Subsystem for Linux, there will not be a pre
 
 If you don't already have openssh-server installed:
 
-1. sudo apt-get upgrade
-2. sudo apt-get update
-3. sudo apt-get install openssh-server
-4. sudo service ssh start
+1. ``sudo apt-get upgrade``
+2. ``sudo apt-get update``
+3. ``sudo apt-get install openssh-server``
+4. ``sudo service ssh start``
 
 Then take the following steps to enable sshing to localhost:
 
-5. cd ~/.ssh
-6. (skip this step if you already have a ssh key pair generated) $ssh-keygen (to generate a public/private rsa key pair; use the default options)
-7. cat id_rsa.pub >> authorized_keys (to append the key to the authorized_keys file)
-8. chmod 640 authorized_keys (to set restricted permissions)
-9. sudo service ssh restart (to pickup recent changes)
-10. ssh localhost
+5. ``cd ~/.ssh``
+6. (skip this step if you already have a ssh key pair generated) ``ssh-keygen`` (to generate a public/private rsa key pair; use the default options)
+7. ``cat id_rsa.pub >> authorized_keys`` (to append the key to the authorized_keys file)
+8. ``chmod 640 authorized_keys`` (to set restricted permissions)
+9. ``sudo service ssh restart`` (to pickup recent changes)
+10. ``ssh localhost``
 
 
 
