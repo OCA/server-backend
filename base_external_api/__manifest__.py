@@ -20,6 +20,7 @@
         "views/apicli_message.xml",
         "views/apicli_hook.xml",
         "demo/api_document_demo.xml",
+        "demo/partner_master_data.xml",
     ],
     "demo": [],
     "external_dependencies": {"python": ["xmltodict"]},

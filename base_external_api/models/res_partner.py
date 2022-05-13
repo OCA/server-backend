@@ -19,3 +19,15 @@ class Partner(models.Model):
         res = self._render_api_demo()
         for k, v in res.items():
             _logger.info("=> %s:\n%s", k, v)
+
+    def render_partner_master(self):
+        tmpl = self.env["apicli.document"].get_document(code="PartnerMaster")
+        res = tmpl.render(self)
+        _logger.info(res)
+        return res
+
+    def action_upload_partner_master(self):
+        conn = self.env["apicli.connection"].get_by_code("DemoFTP")
+        partner_master_dict = self.render_partner_master()
+        for name, payload in partner_master_dict.items():
+            conn.api_call(name, payload=payload)
