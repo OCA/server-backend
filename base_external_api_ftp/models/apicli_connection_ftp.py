@@ -21,54 +21,53 @@ class ApicliConnection(models.Model):
         ondelete={"ftp": "set default", "sftp": "set default"},
     )
 
-    def create_message_with_content(self, file_path):
-        with open(file_path, "r") as open_file:
-            content = open_file.read()
-        return self.env["apicli.message"].create(
-            {
-                "connection_id": self.id,
-                "endpoint": file_path,
-                "content": content,
-                "state": "draft",
-            }
-        )
-
-    def delete_file_ftp(self, ftp_session, message_id):
+    def _delete_file_ftp(self, ftp_session, message):
         if self.connection_type in ["ftp", "sftp"]:
             if self.connection_type == "ftp":
                 ftp_rm = ftp_session.delete
             else:
                 ftp_rm = ftp_session.remove
             try:
-                delete_msg = ftp_rm(message_id.endpoint)
-                message_id.write({"state": "todo"})
-                _logger.info("%s: %s" % (message_id.endpoint, delete_msg))
+                delete_msg = ftp_rm(message.endpoint)
+                message.write({"state": "todo"})
+                _logger.info("%s: %s" % (message.endpoint, delete_msg))
             except ftplib.error_perm as delete_msg:
-                message_id.write({"state": "cancel"})
-                _logger.info("%s: %s" % (message_id.endpoint, delete_msg))
+                message.write({"state": "cancel"})
+                _logger.info("%s: %s" % (message.endpoint, delete_msg))
             return True
 
+    def _download_each_file(self, subdirectory, ftp):
+        # FIXME: list the FTP server files in subdirectory, not local files!
+        from_path, subdir_list, file_list = next(os.walk(subdirectory))
+        for file_name in file_list:
+            file_path = os.path.join(from_path, file_name)
+            # FIXME dowload remote file and read its content, not a local file
+            with open(file_path, "r") as open_file:
+                content = open_file.read()
+            message = self.env["apicli.message"].create(
+                {
+                    "connection_id": self.id,
+                    "endpoint": file_path,
+                    "content": content,
+                    "state": "draft",
+                }
+            )
+            self._delete_file_ftp(ftp, message)
+
     @api.model
-    def cron_delete_ftp_file(self, subdirectory="/tmp"):
-        if self.connection_type == "ftp":
-            with ftplib.FTP() as ftp:
-                ftp.connect(self.address)
-                response = ftp.login(self.user, self.password)
-                _logger.info("FTP: %s" % (response))
-                from_path, subdir_list, file_list = next(os.walk(subdirectory))
-                for file_name in file_list:
-                    file_path = os.path.join(from_path, file_name)
-                    message_id = self.create_message_with_content(file_path)
-                    self.delete_file_ftp(ftp, message_id)
-        elif self.connection_type == "sftp":
-            with pysftp.Connection(
-                self.address, username=self.user, password=self.password
-            ) as sftp:
-                from_path, subdir_list, file_list = next(os.walk(subdirectory))
-                for file_name in file_list:
-                    file_path = os.path.join(from_path, file_name)
-                    message_id = self.create_message_with_content(file_path)
-                    self.delete_file_ftp(sftp, message_id)
+    def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
+        for conn in self.get_by_code(conn_code, error_when_not_found=False):
+            if conn.connection_type == "ftp":
+                with ftplib.FTP() as ftp:
+                    ftp.connect(conn.address)
+                    response = ftp.login(conn.user, conn.password)
+                    _logger.debug("FTP connection: %s" % (response))
+                    conn._download_each_file(subdirectory, ftp)
+            elif conn.connection_type == "sftp":
+                with pysftp.Connection(
+                    conn.address, username=conn.user, password=conn.password
+                ) as sftp:
+                    conn._download_each_file(subdirectory, sftp)
         return True
 
     @api.model
@@ -158,14 +157,8 @@ class ApicliConnection(models.Model):
         token=None,
         **kwargs,
     ):
-        if self.connection_type == "ftp":
-            return self._send_ftp_files({endpoint: payload})
-        elif self.connection_type == "sftp":
-            _logger.debug(
-                "\nSFTP upload to %s:\n%s",
-                endpoint,
-                payload,
-            )
+        if self.connection_type in ("ftp", "sftp"):
+            _logger.debug("\nSFTP upload to %s:\n%s", endpoint, payload)
             return self._send_ftp_files({endpoint: payload})
         return super().api_call_raw(
             endpoint,

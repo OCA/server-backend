@@ -19,6 +19,7 @@ class ApicliConnection(models.Model):
     @api.depends(
         "authentication_type",
         "connection_type",
+        "code",
         "user",
         "password",
         "api_tenantid",
@@ -119,13 +120,13 @@ class ApicliConnection(models.Model):
             return msg
 
     @api.model
-    def get_by_code(self, code, error_when_not_found=True):
+    def get_by_code(self, code=None, error_when_not_found=True):
         """
         Get the connection Object matching an identifier Code
         """
         domain = []
         if code:
-            domain = [("code", "=", code)]
+            domain = [("code", "=like", code)]
         res = self.search(domain)
         if len(res) != 1 and error_when_not_found:
             raise exceptions.UserError(

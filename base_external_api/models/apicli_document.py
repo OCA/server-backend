@@ -40,6 +40,10 @@ class ApicliDocument(models.Model):
             domain.append(("code", "=", code))
         return self.search(domain, limit=1)
 
+    @api.model
+    def get_by_code(self, code):
+        return self.get_document(code=code)
+
     def render(self, recordset):
         self.ensure_one()  # TODO: support many docs?
         endpoint = self._render_endpoint(recordset)

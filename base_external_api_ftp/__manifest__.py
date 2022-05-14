@@ -14,6 +14,9 @@
         "python": ["pysftp"],
     },
     "data": [
+        "data/api_connection_ftp_data.xml",
+    ],
+    "demo": [
         "demo/api_connection_ftp_demo.xml",
     ],
     "installable": True,
