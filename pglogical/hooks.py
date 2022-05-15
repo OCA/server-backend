@@ -4,6 +4,11 @@ import logging
 from odoo.sql_db import Cursor
 from odoo.tools import config
 
+try:
+    import sqlparse
+except ImportError:
+    sqlparse = None
+
 SECTION_NAME = "pglogical"
 
 
@@ -24,6 +29,9 @@ def post_load():
     if not replication_sets:
         _logger.error("no replication sets defined, not doing anything")
         return
+    if not sqlparse:
+        _logger.error("DDL replication not supported - sqlparse is not available")
+        return
     if config["test_enable"]:
         _logger.info("test mode enabled, not doing anything")
         return
@@ -33,7 +41,8 @@ def post_load():
 
     def execute(self, query, params=None, log_exceptions=None):
         """Wrap DDL in pglogical.replicate_ddl_command"""
-        if (query[:6] == "CREATE" or query[:5] == "ALTER" or query[:4] == "DROP") and (
+        parsed_queries = [x.get_type() for x in sqlparse.parse(query)]
+        if any(q in ["CREATE", "ALTER", "DROP"] for q in parsed_queries) and (
             # don't replicate constraints, triggers, indexes
             "CONSTRAINT" not in query
             and "TRIGGER" not in query

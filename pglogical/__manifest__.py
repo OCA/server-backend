@@ -10,4 +10,7 @@
     "author": "Hunki Enterprises BV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "post_load": "post_load",
+    'external_dependencies': {
+        'python': ['sqlparse'],
+    },
 }
