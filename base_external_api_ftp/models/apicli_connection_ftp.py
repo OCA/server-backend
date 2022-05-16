@@ -4,6 +4,7 @@ import ftplib
 import logging
 import os
 import shutil
+import urllib.request as request
 import tempfile
 
 import pysftp
@@ -37,25 +38,42 @@ class ApicliConnection(models.Model):
             return True
 
     def _download_each_file(self, subdirectory, ftp):
-        # FIXME: list the FTP server files in subdirectory, not local files!
-        from_path, subdir_list, file_list = next(os.walk(subdirectory))
-        for file_name in file_list:
-            file_path = os.path.join(from_path, file_name)
-            # FIXME dowload remote file and read its content, not a local file
+        ftp.cwd(subdirectory)
+        for file_name in ftp.nlst():
+            file_path = subdirectory + '/' + file_name
             with open(file_path, "r") as open_file:
                 content = open_file.read()
-            message = self.env["apicli.message"].create(
-                {
-                    "connection_id": self.id,
-                    "endpoint": file_path,
-                    "content": content,
-                    "state": "draft",
-                }
-            )
-            self._delete_file_ftp(ftp, message)
+                message = self.env["apicli.message"].create(
+                    {
+                        "connection_id": self.id,
+                        "endpoint": file_path,
+                        "content": content,
+                        "state": "draft",
+                    }
+                )
+                self._delete_file_ftp(ftp, message)
+            ftp.retrbinary("RETR " + file_name, open(file_path, 'wb').write)
+
+        # # FIXME: list the FTP server files in subdirectory, not local files!
+        # from_path, subdir_list, file_list = next(os.walk(subdirectory))
+        # for file_name in file_list:
+        #     file_path = os.path.join(from_path, file_name)
+        #     # FIXME dowload remote file and read its content, not a local file
+        #     with open(file_path, "r") as open_file:
+        #         content = open_file.read()
+        #     message = self.env["apicli.message"].create(
+        #         {
+        #             "connection_id": self.id,
+        #             "endpoint": file_path,
+        #             "content": content,
+        #             "state": "draft",
+        #         }
+        #     )
+        #     self._delete_file_ftp(ftp, message)
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
+        conn_code = "RadialFTP"
         for conn in self.get_by_code(conn_code, error_when_not_found=False):
             if conn.connection_type == "ftp":
                 with ftplib.FTP() as ftp:
