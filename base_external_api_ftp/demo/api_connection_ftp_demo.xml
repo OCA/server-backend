@@ -1,15 +1,13 @@
-<odoo>
+<odoo noupdate="1">
 
-    <data noupdate="1">
-        <record id="api_connection_ftp_demo" model="apicli.connection">
-            <field name="name">Demo FTP</field>
-            <field name="code">DemoFTP</field>
-            <field name="address">localhost</field>
-            <field name="connection_type">ftp</field>
-            <field name="authentication_type">user_password</field>
-            <field name="user">admin</field>
-            <field name="password">admin</field>
-        </record>
-    </data>
+    <record id="api_connection_ftp_demo" model="apicli.connection">
+        <field name="name">Demo FTP</field>
+        <field name="code">DemoFTP</field>
+        <field name="address">localhost</field>
+        <field name="connection_type">ftp</field>
+        <field name="authentication_type">user_password</field>
+        <field name="user">admin</field>
+        <field name="password">admin</field>
+    </record>
 
 </odoo>
