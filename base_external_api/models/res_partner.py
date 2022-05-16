@@ -31,3 +31,7 @@ class Partner(models.Model):
         partner_master_dict = self.render_partner_master()
         for name, payload in partner_master_dict.items():
             conn.api_call(name, payload=payload)
+
+    def action_download_partner_master(self):
+        conn = self.env["apicli.connection"].get_by_code("DemoFTP")
+        conn.cron_download_ftp_files(subdirectory="~/Inbox")

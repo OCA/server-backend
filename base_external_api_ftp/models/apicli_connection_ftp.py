@@ -42,7 +42,7 @@ class ApicliConnection(models.Model):
         for file_name in ftp.nlst():
             file_path = subdirectory + "/" + file_name
             # Read File content
-            with open(file_path, "r") as open_file:
+            with ftp.open(file_path, "r") as open_file:
                 content = open_file.read()
                 message = self.env["apicli.message"].create(
                     {
@@ -75,7 +75,7 @@ class ApicliConnection(models.Model):
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
-        conn_code = "RadialFTP"
+        conn_code = "DemoFTP"
         for conn in self.get_by_code(conn_code, error_when_not_found=False):
             if conn.connection_type == "ftp":
                 with ftplib.FTP() as ftp:
@@ -112,7 +112,7 @@ class ApicliConnection(models.Model):
                 ftp_session, os.path.join(from_local_dir, subdir), subdir
             )
 
-    def _send_ftp_upload(self, from_local_dir, to_server_dir="."):
+    def _send_ftp_upload(self, from_local_dir, to_server_dir="Inbox"):
         """Send (S)FTP files to the temp.
 
         This method is used to upload all file in temp directory.
