@@ -5,6 +5,7 @@ import logging
 import os
 import shutil
 import tempfile
+from io import BytesIO
 
 import pysftp
 
@@ -42,8 +43,9 @@ class ApicliConnection(models.Model):
         for file_name in ftp.nlst():
             file_path = subdirectory + "/" + file_name
             # Read File content
-            with ftp.open(file_path, "r") as open_file:
-                content = open_file.read()
+            with BytesIO() as r:
+                ftp.retrbinary("RETR " + file_path, r.write)
+                content = r.getvalue()
                 message = self.env["apicli.message"].create(
                     {
                         "connection_id": self.id,
@@ -54,7 +56,7 @@ class ApicliConnection(models.Model):
                 )
                 self._delete_file_ftp(ftp, message)
             # Download remote file
-            ftp.retrbinary("RETR " + file_name, open(file_path, "wb").write)
+        #  ftp.retrbinary("RETR " + file_name, open(file_path, "wb").write)
 
         # # FIXME: list the FTP server files in subdirectory, not local files!
         # from_path, subdir_list, file_list = next(os.walk(subdirectory))
@@ -75,7 +77,8 @@ class ApicliConnection(models.Model):
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
-        conn_code = "DemoFTP"
+        if conn_code is None:
+            conn_code = "DemoFTP"
         for conn in self.get_by_code(conn_code, error_when_not_found=False):
             if conn.connection_type == "ftp":
                 with ftplib.FTP() as ftp:
