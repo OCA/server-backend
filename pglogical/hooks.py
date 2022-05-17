@@ -41,16 +41,21 @@ def post_load():
 
     def execute(self, query, params=None, log_exceptions=None):
         """Wrap DDL in pglogical.replicate_ddl_command"""
-        parsed_queries = [x.get_type() for x in sqlparse.parse(query)]
-        if any(q in ["CREATE", "ALTER", "DROP"] for q in parsed_queries) and (
-            # don't replicate constraints, triggers, indexes
-            "CONSTRAINT" not in query
-            and "TRIGGER" not in query
-            and "INDEX" not in query
-        ):
-            mogrified = self.mogrify(query, params).decode("utf8")
-            query = "SELECT pglogical.replicate_ddl_command(%s, %s)"
-            params = (mogrified, execute.replication_sets)
+        # short circuit statements that must be as fast as possible
+        if query[:6] != "SELECT":
+            parsed_queries = sqlparse.parse(query)
+            if any(
+                    parsed_query.get_type() in ("CREATE", "ALTER", "DROP")
+                    for parsed_query in parsed_queries
+            ) and not any(
+                    token.is_keyword and token.normalized in
+                    # don't replicate constraints, triggers, indexes
+                    ("CONSTRAINT", "TRIGGER", "INDEX")
+                    for parsed in parsed_queries for token in parsed.tokens[1:]
+            ):
+                mogrified = self.mogrify(query, params).decode("utf8")
+                query = "SELECT pglogical.replicate_ddl_command(%s, %s)"
+                params = (mogrified, execute.replication_sets)
         return execute.origin(self, query, params=params, log_exceptions=log_exceptions)
 
     execute.origin = execute_org
