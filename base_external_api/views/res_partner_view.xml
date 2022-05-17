@@ -26,7 +26,9 @@
         <field name="binding_model_id" ref="base.model_res_partner" />
         <field name='groups_id' eval="[(4, ref('base.group_no_one'))]" />
         <field name="state">code</field>
-        <field name="code">records.action_download_partner_master()</field>
+        <field
+            name="code"
+        >records.action_download_partner_master(subdirectory="./Inbox",conn_code="DemoFTP")</field>
     </record>
 
 </odoo>

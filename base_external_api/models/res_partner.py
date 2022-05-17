@@ -30,8 +30,8 @@ class Partner(models.Model):
         conn = self.env["apicli.connection"].get_by_code("DemoFTP")
         partner_master_dict = self.render_partner_master()
         for name, payload in partner_master_dict.items():
-            conn.api_call(name, payload=payload)
+            conn.api_call(name, payload=payload, to_server_dir="Inbox")
 
-    def action_download_partner_master(self):
+    def action_download_partner_master(self, subdirectory, conn_code):
         conn = self.env["apicli.connection"].get_by_code("DemoFTP")
-        conn.cron_download_ftp_files(subdirectory="./Inbox")
+        conn.cron_download_ftp_files(subdirectory=subdirectory, conn_code=conn_code)
