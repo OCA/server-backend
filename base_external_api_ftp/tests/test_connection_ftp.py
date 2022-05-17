@@ -19,4 +19,4 @@ class TestFTPConnection(TransactionCase):
 
     def test_delete_file_ftp(self):
         "tests the files deletion"
-        self.assertTrue(self.demo_connection.cron_delete_ftp_file)
+        self.assertTrue(self.demo_connection.cron_download_ftp_files)

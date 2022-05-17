@@ -34,4 +34,4 @@ class Partner(models.Model):
 
     def action_download_partner_master(self):
         conn = self.env["apicli.connection"].get_by_code("DemoFTP")
-        conn.cron_download_ftp_files(subdirectory="~/Inbox")
+        conn.cron_download_ftp_files(subdirectory="./Inbox")

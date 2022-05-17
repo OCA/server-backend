@@ -5,7 +5,7 @@
         <field name="model_id" ref="base_external_api_ftp.model_apicli_connection" />
         <field name="state">code</field>
         <field name="code">
-model.cron_download_ftp_files(subdirectory="/Inbox")</field>
+model.cron_download_ftp_files(subdirectory="Inbox")</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
