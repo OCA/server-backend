@@ -176,7 +176,12 @@ class ApicliConnection(models.Model):
         **kwargs,
     ):
         if self.connection_type in ("ftp", "sftp"):
-            _logger.debug("\n%s upload to %s:\n%s", self.connection_type.upper(), endpoint, payload)
+            _logger.debug(
+                "\n%s upload to %s:\n%s",
+                self.connection_type.upper(),
+                endpoint,
+                payload,
+            )
             return self._send_ftp_files({endpoint: payload}, to_server_dir)
         return super().api_call_raw(
             endpoint,
