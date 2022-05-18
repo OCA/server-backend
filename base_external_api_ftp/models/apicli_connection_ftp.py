@@ -134,7 +134,7 @@ class ApicliConnection(models.Model):
     def api_test(self):
         if self.connection_type == "ftp" or self.connection_type == "sftp":
             # Interruped with an error if connection fails
-            self._send_ftp_upload(None)
+            self._send_ftp_upload(None, to_server_dir=None)
         return super().api_test()
 
     def _send_ftp_files(self, file_dict, to_server_dir):
