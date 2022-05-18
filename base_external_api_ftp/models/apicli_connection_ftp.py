@@ -109,7 +109,7 @@ class ApicliConnection(models.Model):
                 ftp_session, os.path.join(from_local_dir, subdir), subdir
             )
 
-    def _send_ftp_upload(self, from_local_dir, to_server_dir):
+    def _send_ftp_upload(self, from_local_dir, to_server_dir="."):
         """Send (S)FTP files to the temp.
 
         This method is used to upload all file in temp directory.
@@ -134,10 +134,10 @@ class ApicliConnection(models.Model):
     def api_test(self):
         if self.connection_type in ("ftp", "sftp"):
             # Interruped with an error if connection fails
-            self._send_ftp_upload(None, to_server_dir=None)
+            self._send_ftp_upload(None)
         return super().api_test()
 
-    def _send_ftp_files(self, file_dict, to_server_dir):
+    def _send_ftp_files(self, file_dict):
         """Send the files to the backend.
 
         :param file_dict dictionary with 'name' for the filename and
@@ -159,14 +159,13 @@ class ApicliConnection(models.Model):
             os.makedirs(full_dir, exist_ok=True)
             with open(full_path, "w") as file_obj:
                 file_obj.write(file_content)
-        self._send_ftp_upload(temp_dir, to_server_dir)
+        self._send_ftp_upload(temp_dir)
         shutil.rmtree(temp_dir)
         return {"success": True, "message": "OK"}
 
     def api_call_raw(
         self,
         endpoint,
-        to_server_dir,
         verb="GET",
         headers_add=None,
         params=None,
@@ -182,7 +181,7 @@ class ApicliConnection(models.Model):
                 endpoint,
                 payload,
             )
-            return self._send_ftp_files({endpoint: payload}, to_server_dir)
+            return self._send_ftp_files({endpoint: payload})
         return super().api_call_raw(
             endpoint,
             verb=verb,

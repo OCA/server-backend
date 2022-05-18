@@ -200,7 +200,6 @@ class ApicliConnection(models.Model):
     def api_call(
         self,
         endpoint,
-        to_server_dir,
         verb="GET",
         headers_add=None,
         params=None,
@@ -215,7 +214,6 @@ class ApicliConnection(models.Model):
         """
         response = self.api_call_raw(
             endpoint,
-            to_server_dir,
             verb,
             headers_add,
             params,
@@ -232,7 +230,7 @@ class ApicliConnection(models.Model):
     def api_test(self):
         if self.connection_type == "http":
             endpoint = "/data/CustomerGroups"
-            self.api_call(endpoint, to_server_dir="Inbox")
+            self.api_call(endpoint)
         self.state = "confirmed"
 
     def action_test_api_call(self):
