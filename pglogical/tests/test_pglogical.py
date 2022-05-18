@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from odoo.sql_db import Cursor
 from odoo.tests.common import TransactionCase
 from odoo.tools.config import config
-from ..hooks import post_load
+from ..hooks import post_load, schema_qualify, sqlparse
 
 
 class TestPglogical(TransactionCase):
@@ -58,6 +58,20 @@ class TestPglogical(TransactionCase):
             ],
         )
 
+        with self._config(dict(pglogical={"replication_sets": "ddl_sql"})),\
+                self.assertLogs("odoo.addons.pglogical") as log,\
+                mock.patch("odoo.addons.pglogical.hooks.sqlparse") as mock_sqlparse:
+            mock_sqlparse.__bool__.return_value = False
+            post_load()
+
+        self.assertEqual(
+            log.output,
+            [
+                "ERROR:odoo.addons.pglogical:"
+                "DDL replication not supported - sqlparse is not available"
+            ],
+        )
+
     def test_patching(self):
         """Test patching the cursor succeeds"""
         with self._config(dict(pglogical=dict(replication_sets="set1,set2"))):
@@ -90,3 +104,31 @@ class TestPglogical(TransactionCase):
                 )
             finally:
                 Cursor.execute = getattr(Cursor.execute, "origin", Cursor.execute)
+
+    def test_schema_qualify(self):
+        """Test that schema qualifications are the only changes"""
+        for statement in (
+                'create table if not exists testtable',
+                'drop table testtable',
+                'alter table testtable',
+                '''create table
+                testtable
+                (col1 int, col2 int); select * from test''',
+                'alter table testschema.test drop column somecol',
+                '    DROP view if exists testtable',
+                'truncate table testtable',
+                '''CREATE FUNCTION testtable(integer, integer) RETURNS integer
+                AS 'select $1 + $2;'
+                LANGUAGE SQL
+                IMMUTABLE
+                RETURNS NULL ON NULL INPUT''',
+                'drop table',
+                "alter table 'test'",
+        ):
+            qualified_query = ''.join(
+                ''.join(str(token) for token in schema_qualify(parsed_query))
+                for parsed_query in sqlparse.parse(statement)
+            )
+            self.assertEqual(
+                qualified_query, statement.replace('testtable', 'public.testtable')
+            )
