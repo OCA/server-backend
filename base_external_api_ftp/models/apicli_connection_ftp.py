@@ -132,7 +132,7 @@ class ApicliConnection(models.Model):
                     sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
 
     def api_test(self):
-        if self.connection_type == "ftp" or self.connection_type == "sftp":
+        if self.connection_type in ("ftp", "sftp"):
             # Interruped with an error if connection fails
             self._send_ftp_upload(None, to_server_dir=None)
         return super().api_test()
@@ -176,7 +176,7 @@ class ApicliConnection(models.Model):
         **kwargs,
     ):
         if self.connection_type in ("ftp", "sftp"):
-            _logger.debug("\nSFTP upload to %s:\n%s", endpoint, payload)
+            _logger.debug("\n%s upload to %s:\n%s", self.connection_type.upper(), endpoint, payload)
             return self._send_ftp_files({endpoint: payload}, to_server_dir)
         return super().api_call_raw(
             endpoint,
