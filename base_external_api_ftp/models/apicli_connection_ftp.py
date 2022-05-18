@@ -85,6 +85,8 @@ class ApicliConnection(models.Model):
                     conn.address, username=conn.user, password=conn.password
                 ) as sftp:
                     conn._download_each_file(subdirectory, sftp)
+
+        self.env["apicli.message"].process_messages()
         return True
 
     @api.model
