@@ -86,8 +86,7 @@ class ApicliConnection(models.Model):
                 ) as sftp:
                     conn._download_each_file(subdirectory, sftp)
 
-        messages = self.env["apicli.message"].search([("state", "=", "todo")])
-        messages.process_messages()
+        self.env["apicli.message"].scan_queue_process()
         return True
 
     @api.model
