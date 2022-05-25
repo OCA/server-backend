@@ -42,6 +42,11 @@ msgid "Access Menu"
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
+msgid "Active"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
 msgid "Application"
 msgstr "Ứng dụng"
@@ -65,6 +70,11 @@ msgstr "Phân loại của nhóm được liên kết"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Danh mục màu"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+msgid "Comment"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -123,7 +133,6 @@ msgid "Inherits"
 msgstr "Kế thừa từ"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Internal Notes"
 msgstr "Ghi chú nội bộ"

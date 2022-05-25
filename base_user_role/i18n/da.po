@@ -41,6 +41,11 @@ msgid "Access Menu"
 msgstr "Menu adgang"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
+msgid "Active"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
 msgid "Application"
 msgstr "Applikation"
@@ -66,6 +71,11 @@ msgstr "Tilhørende gruppe"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Farve indeks"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+msgid "Comment"
+msgstr "Kommentar"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -124,7 +134,6 @@ msgid "Inherits"
 msgstr "Arver"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Internal Notes"
 msgstr ""
@@ -284,9 +293,6 @@ msgstr "Bruger af denne gruppe arver automatisk disse grupper"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Oversigter"
-
-#~ msgid "Comment"
-#~ msgstr "Kommentar"
 
 #~ msgid "If checked, this group is usable as a portal."
 #~ msgstr "Hvis slået til kan denne gruppe anvendes som portal."
