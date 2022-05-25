@@ -27,6 +27,7 @@ class ApicliMessage(models.Model):
         default="draft",
     )
     result = fields.Text()
+    processed_hook_id = fields.Many2one("apicli.hook", readonly=True)
 
     def _parse_content(self):
         data = {}
@@ -59,10 +60,20 @@ class ApicliMessage(models.Model):
                     try:
                         result = process_method(datas)
                         message.write(
-                            {"state": "done", "result": result.get("message")}
+                            {
+                                "state": "done",
+                                "result": result.get("message"),
+                                "processed_hook_id": selected_hook.id,
+                            }
                         )
                     except Exception as error:
-                        message.write({"state": "error", "result": error})
+                        message.write(
+                            {
+                                "state": "error",
+                                "result": error,
+                                "processed_hook_id": selected_hook.id,
+                            }
+                        )
 
     @api.model
     def scan_queue_process(self):

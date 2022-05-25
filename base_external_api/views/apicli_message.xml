@@ -5,9 +5,9 @@
         <field name="model">apicli.message</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="create_date" />
                 <field name="connection_id" />
                 <field name="endpoint" />
-                <field name="content" />
                 <field name="state" />
             </tree>
         </field>
@@ -27,10 +27,11 @@
                     />
                 </header>
                 <sheet>
-                    <group col="4" colspan="4">
+                    <group>
                         <field name="connection_id" />
                         <field name="endpoint" />
                         <field name="content" />
+                        <field name="processed_hook_id" />
                         <field name="result" />
                     </group>
                 </sheet>
@@ -72,7 +73,7 @@
 
     <menuitem
         id="menu_message"
-        name="Message"
+        name="API Messages"
         sequence="21"
         action="action_apicli_message"
         parent="menu_api_client"
