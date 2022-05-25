@@ -93,6 +93,7 @@ class ResUsersRoleLine(models.Model):
     _name = "res.users.role.line"
     _description = "Users associated to a role"
 
+    active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
         comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
     )
