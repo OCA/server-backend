@@ -24,7 +24,7 @@ class ResUsers(models.Model):
         default_user = self.env.ref("base.default_user", raise_if_not_found=False)
         default_values = []
         if default_user:
-            for role_line in default_user.role_line_ids:
+            for role_line in default_user.with_context(active_test=False).role_line_ids:
                 default_values.append(
                     {
                         "role_id": role_line.role_id.id,
