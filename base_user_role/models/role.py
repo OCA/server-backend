@@ -39,40 +39,39 @@ class ResUsersRole(models.Model):
 
     @api.depends("line_ids.user_id")
     def _compute_user_ids(self):
-        for role in self:
+        for role in self.sudo() if self._bypass_rules() else self:
             role.user_ids = role.line_ids.mapped("user_id")
 
     @api.model
-    def create(self, vals):
-        # Run method as super user to avoid problems with new groups creations
-        # by "Administrator/Access Right"
-        is_access_rights = self.env.user.has_group(
-            "base.group_erp_manager",
+    def _bypass_rules(self):
+        # Run methods as super user to avoid problems by "Administrator/Access Right"
+        return self._name == "res.users.role" and self.env.user.has_group(
+            "base.group_erp_manager"
         )
-        if self._name == "res.users.role" and is_access_rights:
-            self = self.sudo()
-        new_record = super(ResUsersRole, self).create(vals)
+
+    @api.model
+    def create(self, vals):
+        model = (self.sudo() if self._bypass_rules() else self).browse()
+        new_record = super(ResUsersRole, model).create(vals)
         new_record.update_users()
         return new_record
 
+    def read(self, fields=None, load="_classic_read"):
+        recs = self.sudo() if self._bypass_rules() else self
+        return super(ResUsersRole, recs).read(fields, load)
+
     def write(self, vals):
-        # Run method as super user to avoid problems with new groups creations
-        # by "Administrator/Access Right"
-        is_access_rights = self.env.user.has_group(
-            "base.group_erp_manager",
-        )
-        if self._name == "res.users.role" and is_access_rights:
-            self = self.sudo()
-        # Workaround to solve issue with broken code in odoo that clear the cache
-        # during the write: see odoo/addons/base/models/res_users.py#L226
+        recs = self.sudo() if self._bypass_rules() else self
+        # Workaround to solve issue with broken code in odoo that clear the
+        # cache during the write: see odoo/addons/base/models/res_users.py#L226
         groups_vals = {}
-        for field in self.group_id._fields:
+        for field in recs.group_id._fields:
             if field in vals:
                 groups_vals[field] = vals.pop(field)
         if groups_vals:
-            self.group_id.write(groups_vals)
-        res = super(ResUsersRole, self).write(vals)
-        self.update_users()
+            recs.group_id.write(groups_vals)
+        res = super(ResUsersRole, recs).write(vals)
+        recs.update_users()
         return res
 
     def unlink(self):
