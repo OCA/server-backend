@@ -3,34 +3,41 @@
 import datetime
 
 from odoo import fields
+from odoo.exceptions import AccessError
 from odoo.tests.common import TransactionCase
 
 
 class TestUserRole(TransactionCase):
-    def setUp(self):
-        super(TestUserRole, self).setUp()
-        self.user_model = self.env["res.users"]
-        self.role_model = self.env["res.users.role"]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(cls.env.context, tracking_disable=True, no_reset_password=True)
+        )
+        cls.user_model = cls.env["res.users"]
+        cls.role_model = cls.env["res.users.role"]
 
-        self.default_user = self.env.ref("base.default_user")
-        self.user_id = self.user_model.create(
+        cls.company1 = cls.env.ref("base.main_company")
+        cls.company2 = cls.env["res.company"].create({"name": "company2"})
+        cls.default_user = cls.env.ref("base.default_user")
+        cls.user_id = cls.user_model.create(
             {"name": "USER TEST (ROLES)", "login": "user_test_roles"}
         )
 
         # ROLE_1
-        self.group_user_id = self.env.ref("base.group_user")
-        self.group_no_one_id = self.env.ref("base.group_no_one")
+        cls.group_user_id = cls.env.ref("base.group_user")
+        cls.group_no_one_id = cls.env.ref("base.group_no_one")
         vals = {
             "name": "ROLE_1",
-            "implied_ids": [(6, 0, [self.group_user_id.id, self.group_no_one_id.id])],
+            "implied_ids": [(6, 0, [cls.group_user_id.id, cls.group_no_one_id.id])],
         }
-        self.role1_id = self.role_model.create(vals)
+        cls.role1_id = cls.role_model.create(vals)
 
         # ROLE_2
         # Must have group_user in order to have sufficient groups. Check:
         # github.com/odoo/odoo/commit/c3717f3018ce0571aa41f70da4262cc946d883b4
-        self.group_multi_currency_id = self.env.ref("base.group_multi_currency")
-        self.group_settings_id = self.env.ref("base.group_system")
+        cls.group_multi_currency_id = cls.env.ref("base.group_multi_currency")
+        cls.group_settings_id = cls.env.ref("base.group_system")
         vals = {
             "name": "ROLE_2",
             "implied_ids": [
@@ -38,16 +45,41 @@ class TestUserRole(TransactionCase):
                     6,
                     0,
                     [
-                        self.group_user_id.id,
-                        self.group_multi_currency_id.id,
-                        self.group_settings_id.id,
+                        cls.group_user_id.id,
+                        cls.group_multi_currency_id.id,
+                        cls.group_settings_id.id,
                     ],
                 )
             ],
         }
-        self.role2_id = self.role_model.create(vals)
-        self.company1 = self.env.ref("base.main_company")
-        self.company2 = self.env["res.company"].create({"name": "company2"})
+        cls.role2_id = cls.role_model.create(vals)
+
+        # Setup for multi-company testing
+        cls.multicompany_user_1 = cls.user_model.create(
+            {
+                "name": "User 2",
+                "company_id": cls.company1.id,
+                "company_ids": [(6, 0, [cls.company1.id, cls.company2.id])],
+                "groups_id": [(6, 0, cls.env.ref("base.group_erp_manager").ids)],
+                "login": "multicompany_user_1",
+            }
+        )
+        cls.multicompany_user_2 = cls.user_model.create(
+            {
+                "name": "User 2",
+                "company_id": cls.company2.id,
+                "company_ids": [(6, 0, [cls.company2.id])],
+                "groups_id": [(6, 0, cls.env.ref("base.group_user").ids)],
+                "login": "multicompany_user_2",
+            }
+        )
+        cls.multicompany_role = cls.role_model.create(
+            {
+                "name": "MULTICOMPANY_ROLE",
+                "implied_ids": [(6, 0, [cls.group_user_id.id])],
+                "line_ids": [(0, 0, {"user_id": cls.multicompany_user_2.id})],
+            }
+        )
 
     def test_role_1(self):
         self.user_id.write({"role_line_ids": [(0, 0, {"role_id": self.role1_id.id})]})
@@ -169,3 +201,23 @@ class TestUserRole(TransactionCase):
         )
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
         self.assertEqual(user.role_ids, roles)
+
+    def test_role_multicompany(self):
+        """Test AccessError when admin-like user accesses a role"""
+        role = self.multicompany_role.with_user(self.multicompany_user_1)
+        # Dummy read to check that multicompany user 1 has read access
+        role.read()
+        # Dummy read to check that multicompany user 1 has read access on the
+        # whole role, even if it's using a different company than multicompany
+        # user 2 (which is included in the role)
+        role.with_context(allowed_company_ids=self.company1.ids).read()
+        # Downgrade multicompany user 1 to common user
+        self.multicompany_user_1.write(
+            {"groups_id": [(6, 0, self.env.ref("base.group_user").ids)]}
+        )
+        # Check that the user cannot read multicompany data again since it lost
+        # its admin privileges
+        with self.assertRaisesRegex(
+            AccessError, "You are not allowed to access 'User role'"
+        ):
+            role.read()
