@@ -52,16 +52,12 @@
                         <group id="right">
                             <field
                                 name="user"
-                                attrs="{'invisible': [('authentication_type','=','api')]}"
+                                attrs="{'invisible': [('authentication_type','=','api_key')]}"
                             />
                             <field
                                 name="password"
                                 password="True"
-                                attrs="{'invisible': [('authentication_type','=','api')]}"
-                            />
-                            <field
-                                name="api_tenantid"
-                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                                attrs="{'invisible': [('authentication_type','=','api_key')]}"
                             />
                             <field
                                 name="api_clientid"
@@ -71,6 +67,11 @@
                                 name="api_secret"
                                 password="True"
                                 attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                            />
+                            <field
+                                name="headers_add"
+                                widget="ace"
+                                attrs="{'invisible': [('connection_type','!=','http')]}"
                             />
                         </group>
                     </group>

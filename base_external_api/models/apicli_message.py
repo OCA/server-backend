@@ -57,6 +57,7 @@ class ApicliMessage(models.Model):
                         "raw": message.content,
                         "parsed": message._parse_content(),
                     }
+                    result = process_method(datas)  # FIXME
                     try:
                         result = process_method(datas)
                         message.write(

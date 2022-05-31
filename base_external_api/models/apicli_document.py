@@ -30,6 +30,7 @@ class ApicliDocument(models.Model):
     template_text = fields.Text()
     validation_text = fields.Text()
     header = fields.Text()
+    active = fields.Boolean(default=True)
 
     @api.model
     def get_document(self, model=None, code=None):

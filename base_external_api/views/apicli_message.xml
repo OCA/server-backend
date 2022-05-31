@@ -30,7 +30,7 @@
                     <group>
                         <field name="connection_id" />
                         <field name="endpoint" />
-                        <field name="content" />
+                        <field name="content" wodget="ace" />
                         <field name="processed_hook_id" />
                         <field name="result" />
                     </group>

@@ -30,6 +30,7 @@
                             <field name="code" />
                             <field name="sequence" />
                             <field name="file_type" />
+                            <field name="active" />
                         </group>
                     </group>
                     <group>
@@ -44,7 +45,7 @@
                             options="{'mode': 'python'}"
                             attrs="{'invisible': [('template_view_id', '!=', False)]}"
                         />
-                        <field name="validation_text" />
+                        <field name="validation_text" widget="ace" />
                         <field name="header" />
                     </group>
                 </sheet>

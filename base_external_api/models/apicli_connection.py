@@ -22,7 +22,6 @@ class ApicliConnection(models.Model):
         "code",
         "user",
         "password",
-        "api_tenantid",
         "api_clientid",
         "api_secret",
         "active",
@@ -34,22 +33,28 @@ class ApicliConnection(models.Model):
 
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
-    code = fields.Char(help="Identifier that custom code ca use to use this connection")
+    code = fields.Char(
+        help="Identifier that custom code can use to lookup this connection"
+    )
     address = fields.Char(required=True)
     connection_type = fields.Selection(
         [("http", "HTTP(S)")], default="http", required=True
     )
     authentication_type = fields.Selection(
-        [("user_password", "User and Password"), ("api", "API Key")],
+        [
+            ("user_password", "User and Password"),
+            ("api_key", "API Key"),
+            ("api", "API Key (Deprecated)"),  # TODO: remove
+        ],
         default="user_password",
         required=True,
     )
     user = fields.Char()
     password = fields.Char()
-    api_tenantid = fields.Char(string="API Tenant ID")
     api_clientid = fields.Char(string="API Client ID")
     api_key = fields.Char(string="API Key")
     api_secret = fields.Char(string="API Secret")
+    headers_add = fields.Text()
     state = fields.Selection(
         selection=[("unconfirmed", "Unconfirmed"), ("confirmed", "Confirmed")],
         default="unconfirmed",
@@ -89,14 +94,9 @@ class ApicliConnection(models.Model):
         Build the message Request Header
         """
         if self.connection_type == "http":
-            headers = {
-                # TODO: move to D365 specific connector!
-                "Accept": "application/json, */*",
-                "content-type": "application/json; charset=utf-8",
-                "OData-MaxVersion": "4.0",
-                "OData-Version": "4.0",
-                "If-None-Match": "null",
-            }
+            headers = json.loads(self.header_add or "{}")
+            if self.authentication_type == "api_key":
+                headers["apikey"] = self.api_key
             if token:
                 headers["Authorization"] = "Bearer " + token
             if headers_add:
