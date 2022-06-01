@@ -94,7 +94,7 @@ class ApicliConnection(models.Model):
         Build the message Request Header
         """
         if self.connection_type == "http":
-            headers = json.loads(self.header_add or "{}")
+            headers = json.loads(self.headers_add or "{}")
             if self.authentication_type == "api_key":
                 headers["apikey"] = self.api_key
             if token:
