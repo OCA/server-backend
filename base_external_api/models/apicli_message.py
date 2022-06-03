@@ -12,6 +12,7 @@ class ApicliMessage(models.Model):
     _name = "apicli.message"
     _description = "API Client message"
     _rec_name = "endpoint"
+    _order = "id desc"
 
     connection_id = fields.Many2one("apicli.connection")
     endpoint = fields.Char()
@@ -26,8 +27,8 @@ class ApicliMessage(models.Model):
         ],
         default="draft",
     )
-    result = fields.Text()
-    processed_hook_id = fields.Many2one("apicli.hook", readonly=True)
+    result = fields.Text(readonly=True)
+    processed_hook_id = fields.Many2one("apicli.hook")
 
     def _parse_content(self):
         data = {}
@@ -40,7 +41,7 @@ class ApicliMessage(models.Model):
             data = json.loads(self.content)
         return data
 
-    def process_messages(self):
+    def process_messages(self, stop_on_error=False):
         hooks = self.env["apicli.hook"].search(
             [("method_name", "!=", False), ("model_id", "!=", False)]
         )
@@ -57,24 +58,26 @@ class ApicliMessage(models.Model):
                         "raw": message.content,
                         "parsed": message._parse_content(),
                     }
-                    result = process_method(datas)  # FIXME
-                    try:
+                    if stop_on_error:
                         result = process_method(datas)
-                        message.write(
-                            {
-                                "state": "done",
-                                "result": result.get("message"),
-                                "processed_hook_id": selected_hook.id,
-                            }
-                        )
-                    except Exception as error:
-                        message.write(
-                            {
-                                "state": "error",
-                                "result": error,
-                                "processed_hook_id": selected_hook.id,
-                            }
-                        )
+                    else:
+                        try:
+                            result = process_method(datas)
+                            message.write(
+                                {
+                                    "state": "done",
+                                    "result": result.get("message"),
+                                    "processed_hook_id": selected_hook.id,
+                                }
+                            )
+                        except Exception as error:
+                            message.write(
+                                {
+                                    "state": "error",
+                                    "result": error,
+                                    "processed_hook_id": selected_hook.id,
+                                }
+                            )
 
     @api.model
     def scan_queue_process(self):

@@ -4,7 +4,11 @@
         <field name="name">apicli.message.tree</field>
         <field name="model">apicli.message</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree
+                decoration-bf="state == 'todo'"
+                decoration-danger="state == 'error'"
+                decoration-muted="state in ('cancel', 'draft')"
+            >
                 <field name="create_date" />
                 <field name="connection_id" />
                 <field name="endpoint" />
@@ -30,9 +34,9 @@
                     <group>
                         <field name="connection_id" />
                         <field name="endpoint" />
-                        <field name="content" wodget="ace" />
                         <field name="processed_hook_id" />
                         <field name="result" />
+                        <field name="content" wodget="ace" />
                     </group>
                 </sheet>
             </form>
@@ -60,6 +64,17 @@
                     />
                 </group>
             </search>
+        </field>
+    </record>
+
+    <record id="action_process_messages" model="ir.actions.server">
+        <field name="name">Process Messages</field>
+        <field name="model_id" ref="base_external_api.model_apicli_message" />
+        <field name="binding_model_id" ref="base_external_api.model_apicli_message" />
+        <field name='groups_id' eval="[(4, ref('base.group_no_one'))]" />
+        <field name="state">code</field>
+        <field name="code">
+            records.process_messages(stop_on_error=True)
         </field>
     </record>
 
