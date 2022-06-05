@@ -52,26 +52,37 @@
                         <group id="right">
                             <field
                                 name="user"
-                                attrs="{'invisible': [('authentication_type','=','api_key')]}"
+                                attrs="{'invisible': ['!', ('authentication_type','=','user_password')]}"
                             />
                             <field
                                 name="password"
                                 password="True"
-                                attrs="{'invisible': [('authentication_type','=','api_key')]}"
+                                attrs="{'invisible': ['!', ('authentication_type','=','user_password')]}"
                             />
                             <field
                                 name="api_clientid"
-                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                                attrs="{'invisible': ['!', ('authentication_type','=','api_secret')]}"
                             />
                             <field
                                 name="api_secret"
                                 password="True"
-                                attrs="{'invisible': [('authentication_type','=','user_password')]}"
+                                attrs="{'invisible': ['!', ('authentication_type','=','api_secret')]}"
+                            />
+                            <field
+                                name="api_key"
+                                password="True"
+                                attrs="{'invisible': ['!', ('authentication_type','=','api_key')]}"
                             />
                             <field
                                 name="headers_add"
                                 widget="ace"
                                 attrs="{'invisible': [('connection_type','!=','http')]}"
+                                groups="base.group_no_one"
+                            />
+                            <field
+                                name="test_button_endpoint"
+                                attrs="{'invisible': [('connection_type','!=','http')]}"
+                                groups="base.group_no_one"
                             />
                         </group>
                     </group>

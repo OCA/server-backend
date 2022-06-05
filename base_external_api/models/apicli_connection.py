@@ -43,6 +43,7 @@ class ApicliConnection(models.Model):
     authentication_type = fields.Selection(
         [
             ("user_password", "User and Password"),
+            ("api_secret", "API Client and Secret"),
             ("api_key", "API Key"),
             ("api", "API Key (Deprecated)"),  # TODO: remove
         ],
@@ -64,6 +65,7 @@ class ApicliConnection(models.Model):
         required=True,
         store=True,
     )
+    test_button_endpoint = fields.Char()
 
     test_endpoint = fields.Char()
     test_verb = fields.Char(default="GET")
@@ -227,10 +229,18 @@ class ApicliConnection(models.Model):
         else:
             return response
 
-    def api_test(self):
+    def _api_test_call(self):
+        """
+        Extend to implement connection test call
+        """
         if self.connection_type == "http":
-            endpoint = "/data/CustomerGroups"
-            self.api_call(endpoint)
+            self.api_call(self.test_button_endpoint)
+            return True
+        return False
+
+    def api_test(self):
+        if not self._api_test_call():
+            raise exceptions.UserError(_("Connection test not succesfull"))
         self.state = "confirmed"
 
     def action_test_api_call(self):
