@@ -38,6 +38,7 @@ class ApicliConnection(models.Model):
             return True
 
     def _download_each_file(self, subdirectory, ftp):
+        Message = self.env["apicli.message"]
         if self.connection_type in ["ftp", "sftp"]:
             if self.connection_type == "ftp":
                 ftp.cwd(subdirectory)
@@ -55,7 +56,7 @@ class ApicliConnection(models.Model):
                 # with_env replace original env for this method
                 # A good comment here of why this isolated transaction is required.
                 # isolated transaction to commit
-                Message = self.env["apicli.message"]
+
                 with BytesIO() as r:
                     if self.connection_type == "ftp":
                         file_path = file_name
@@ -67,36 +68,34 @@ class ApicliConnection(models.Model):
                             content = open_file.read()
                     # Commit before deleting the file, to make sure the message/file content
                     # is registered in the system, even if an unexpected error occurs
-                    with api.Environment.manage():
-                        with registry(self.env.cr.dbname).cursor() as new_cr:
-                            new_env = api.Environment(
-                                new_cr, self.env.uid, self.env.context
+                    with registry(self.env.cr.dbname).cursor() as new_cr:
+                        new_env = api.Environment(
+                            new_cr, self.env.uid, self.env.context
+                        )
+                        # Save Downloaded remote file content
+                        messageId = (
+                            self.with_env(new_env)
+                            .env["apicli.message"]
+                            .create(
+                                {
+                                    "connection_id": self.id,
+                                    "endpoint": file_path,
+                                    "content": content,
+                                    "state": "draft",
+                                }
                             )
-                            # Save Downloaded remote file content
-                            messageId = (
-                                self.with_env(new_env)
-                                .env["apicli.message"]
-                                .create(
-                                    {
-                                        "connection_id": self.id,
-                                        "endpoint": file_path,
-                                        "content": content,
-                                        "state": "draft",
-                                    }
-                                )
-                                .id
-                            )
+                            .id
+                        )
                     # Apparently we need a new environment so the db is properly
                     # updated and the new message properly received.
-                    with api.Environment.manage():
-                        with registry(self.env.cr.dbname).cursor() as new_cr:
-                            new_env = api.Environment(
-                                new_cr, self.env.uid, self.env.context
-                            )
-                            message = Message.with_env(new_env).search(
-                                [("id", "=", messageId)]
-                            )
-                            self._delete_file_ftp(ftp, message)
+                    with registry(self.env.cr.dbname).cursor() as new_cr:
+                        new_env = api.Environment(
+                            new_cr, self.env.uid, self.env.context
+                        )
+                        message = Message.with_env(new_env).search(
+                            [("id", "=", messageId)]
+                        )
+                        self._delete_file_ftp(ftp, message)
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
@@ -112,7 +111,6 @@ class ApicliConnection(models.Model):
                     conn.address, username=conn.user, password=conn.password
                 ) as sftp:
                     conn._download_each_file(subdirectory, sftp)
-
         self.env["apicli.message"].scan_queue_process()
         return True
 

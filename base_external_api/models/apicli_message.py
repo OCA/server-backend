@@ -5,7 +5,7 @@ import re
 
 import xmltodict
 
-from odoo import api, fields, models
+from odoo import api, fields, models, registry
 
 
 class ApicliMessage(models.Model):
@@ -42,6 +42,7 @@ class ApicliMessage(models.Model):
         return data
 
     def process_messages(self, stop_on_error=False):
+
         hooks = self.env["apicli.hook"].search(
             [("method_name", "!=", False), ("model_id", "!=", False)]
         )
@@ -81,5 +82,7 @@ class ApicliMessage(models.Model):
 
     @api.model
     def scan_queue_process(self):
-        messages = self.search([("state", "=", "todo")])
-        messages.process_messages()
+        with registry(self.env.cr.dbname).cursor() as new_cr:
+            new_env = api.Environment(new_cr, self.env.uid, self.env.context)
+            messages = self.with_env(new_env).search([("state", "=", "todo")])
+            messages.process_messages()
