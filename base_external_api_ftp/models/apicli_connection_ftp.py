@@ -9,7 +9,7 @@ from io import BytesIO
 
 import pysftp
 
-from odoo import api, fields, models
+from odoo import api, fields, models, registry
 
 _logger = logging.getLogger(__name__)
 
@@ -49,8 +49,13 @@ class ApicliConnection(models.Model):
                 ftp_listdir = ftp.listdir(subdirectory)
             # List of FTP server files in subdirectory
             for file_name in ftp_listdir:
-
                 # Read File content
+
+                # Create a new environment with new cursor database
+                # with_env replace original env for this method
+                # A good comment here of why this isolated transaction is required.
+                # isolated transaction to commit
+                Message = self.env["apicli.message"]
                 with BytesIO() as r:
                     if self.connection_type == "ftp":
                         file_path = file_name
@@ -60,16 +65,38 @@ class ApicliConnection(models.Model):
                         file_path = subdirectory + "/" + file_name
                         with ftp.open(file_path, "r") as open_file:
                             content = open_file.read()
-                    # Save Downloaded remote file content
-                    message = self.env["apicli.message"].create(
-                        {
-                            "connection_id": self.id,
-                            "endpoint": file_path,
-                            "content": content,
-                            "state": "draft",
-                        }
-                    )
-                    self._delete_file_ftp(ftp, message)
+                    # Commit before deleting the file, to make sure the message/file content
+                    # is registered in the system, even if an unexpected error occurs
+                    with api.Environment.manage():
+                        with registry(self.env.cr.dbname).cursor() as new_cr:
+                            new_env = api.Environment(
+                                new_cr, self.env.uid, self.env.context
+                            )
+                            # Save Downloaded remote file content
+                            messageId = (
+                                self.with_env(new_env)
+                                .env["apicli.message"]
+                                .create(
+                                    {
+                                        "connection_id": self.id,
+                                        "endpoint": file_path,
+                                        "content": content,
+                                        "state": "draft",
+                                    }
+                                )
+                                .id
+                            )
+                    # Apparently we need a new environment so the db is properly
+                    # updated and the new message properly received.
+                    with api.Environment.manage():
+                        with registry(self.env.cr.dbname).cursor() as new_cr:
+                            new_env = api.Environment(
+                                new_cr, self.env.uid, self.env.context
+                            )
+                            message = Message.with_env(new_env).search(
+                                [("id", "=", messageId)]
+                            )
+                            self._delete_file_ftp(ftp, message)
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):
