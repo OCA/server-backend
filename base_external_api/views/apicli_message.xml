@@ -36,7 +36,7 @@
                         <field name="endpoint" />
                         <field name="processed_hook_id" />
                         <field name="result" />
-                        <field name="content" wodget="ace" />
+                        <field name="content" widget="ace" />
                     </group>
                 </sheet>
             </form>
