@@ -66,6 +66,7 @@ class ApicliMessage(models.Model):
                         try:
                             result = process_method(datas)
                         except Exception as error:
+                            errored = True
                             message.write(
                                 {
                                     "state": "error",
