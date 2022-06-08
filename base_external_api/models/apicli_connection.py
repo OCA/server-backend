@@ -178,7 +178,7 @@ class ApicliConnection(models.Model):
                 "\nRequest for %s %s:\n%s",
                 request_url,
                 verb,
-                pprint.pformat(payload, indent=1),
+                payload if type(payload) is str else pprint.pformat(payload, indent=1),
             )
             response = requests.request(
                 verb,
