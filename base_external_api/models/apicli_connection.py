@@ -239,6 +239,10 @@ class ApicliConnection(models.Model):
         return False
 
     def api_test(self):
+        """
+        Do not extend this method.
+        Instead extend _api_test_call() to implement the conenction specific tests
+        """
         if not self._api_test_call():
             raise exceptions.UserError(_("Connection test not succesfull"))
         self.state = "confirmed"

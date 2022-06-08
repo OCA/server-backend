@@ -158,11 +158,13 @@ class ApicliConnection(models.Model):
                 if from_local_dir:
                     sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
 
-    def api_test(self):
+    def _api_test_call(self):
+        res = super()._api_test_call()
         if self.connection_type in ("ftp", "sftp"):
             # Interruped with an error if connection fails
             self._send_ftp_upload(None)
-        return super().api_test()
+            return True
+        return res
 
     def _send_ftp_files(self, file_dict):
         """Send the files to the backend.
