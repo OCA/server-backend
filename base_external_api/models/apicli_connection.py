@@ -6,6 +6,7 @@ import pprint
 import urllib.parse
 
 import requests
+import xmltodict
 
 from odoo import _, api, exceptions, fields, models
 
@@ -173,7 +174,7 @@ class ApicliConnection(models.Model):
                 token = self.api_get_token()
             request_headers = self._build_headers(headers_add, token)
             request_params = self._build_params(params)
-            request_data = payload and json.dumps(payload) or ""
+            request_data = payload if type(payload) is str else json.dumps(payload)
             _logger.debug(
                 "\nRequest for %s %s:\n%s",
                 request_url,
@@ -184,7 +185,7 @@ class ApicliConnection(models.Model):
                 verb,
                 request_url,
                 params=request_params,
-                data=request_data,
+                data=request_data or "",
                 headers=request_headers,
             )
             _logger.debug(
@@ -198,6 +199,18 @@ class ApicliConnection(models.Model):
             if not suppress_errors:
                 self.api_check_error(response)
             return response
+
+    @api.model
+    def response_to_dict(self, response):
+        data_dict = {}
+        try:
+            data_dict = response.json()
+        except Exception:
+            try:
+                data_dict = xmltodict.parse(response.text)
+            except Exception:
+                data_dict = {"message": response.text}
+        return data_dict
 
     def api_call(
         self,
@@ -224,10 +237,8 @@ class ApicliConnection(models.Model):
             token,
             **kwargs,
         )
-        if isinstance(response, requests.Response) and response.ok:
-            return response.json()
-        else:
-            return response
+        res = self.response_to_dict(response)
+        return res
 
     def _api_test_call(self):
         """
