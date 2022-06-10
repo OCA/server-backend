@@ -7,6 +7,7 @@ import jinja2
 from lxml import etree
 
 from odoo import api, fields, models
+from odoo.tools import html2plaintext
 
 _logger = logging.getLogger(__name__)
 
@@ -66,6 +67,7 @@ class ApicliDocument(models.Model):
             "float": float,
             "int": int,
             "str": str,
+            "html2plaintext": html2plaintext,
         }
 
     def _render_jinja_template(self, recordset, template_text):
