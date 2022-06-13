@@ -29,6 +29,13 @@ class ApicliMessage(models.Model):
     )
     result = fields.Text(readonly=True)
     processed_hook_id = fields.Many2one("apicli.hook", readonly=True)
+    direction = fields.Selection(
+        selection=[
+            ("in", "Incoming"),
+            ("out", "Outgoing"),
+        ],
+        default="in",
+    )
 
     def _parse_content(self):
         data = {}
