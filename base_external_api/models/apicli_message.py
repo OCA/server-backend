@@ -28,6 +28,7 @@ class ApicliMessage(models.Model):
         default="draft",
     )
     result = fields.Text(readonly=True)
+    warning = fields.Boolean(readonly=True)
     processed_hook_id = fields.Many2one("apicli.hook", readonly=True)
     direction = fields.Selection(
         selection=[
@@ -82,10 +83,12 @@ class ApicliMessage(models.Model):
                                 }
                             )
                     if not errored:
+                        resultMessage = result.get("message", "")
                         message.write(
                             {
                                 "state": "done",
-                                "result": result.get("message"),
+                                "result": resultMessage,
+                                "warning": resultMessage != "",
                                 "processed_hook_id": selected_hook.id,
                             }
                         )
