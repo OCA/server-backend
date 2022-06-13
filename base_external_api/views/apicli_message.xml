@@ -38,6 +38,7 @@
                         <field name="endpoint" />
                         <field name="processed_hook_id" />
                         <field name="direction" />
+                        <field name="warnings" />
                         <field name="result" />
                         <field name="content" widget="ace" />
                     </group>
