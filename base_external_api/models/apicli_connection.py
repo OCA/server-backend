@@ -204,7 +204,10 @@ class ApicliConnection(models.Model):
     def response_to_dict(self, response):
         data_dict = {}
         try:
-            data_dict = response.json()
+            if type(response) is dict:
+                data_dict = response
+            else:
+                data_dict = response.json()
         except Exception:
             try:
                 data_dict = xmltodict.parse(response.text)
