@@ -1,0 +1,17 @@
+<odoo>
+
+    <record id="view_apicli_connection_form_ext" model="ir.ui.view">
+        <field name="model">apicli.connection</field>
+        <field name="inherit_id" ref="base_external_api.view_apicli_connection_form" />
+        <field name="arch" type="xml">
+            <field name="api_key" position="after">
+                <field
+                    name="rsa_key"
+                    widget="ace"
+                    attrs="{'invisible': [('authentication_type', '!=', 'rsa-key')]}"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>

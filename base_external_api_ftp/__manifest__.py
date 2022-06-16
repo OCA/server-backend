@@ -11,11 +11,12 @@
     "category": "server",
     "depends": ["base_external_api"],
     "external_dependencies": {
-        "python": ["pysftp"],
+        "python": ["paramiko", "pysftp"],
     },
     "demo": [
         "demo/api_connection_ftp_demo.xml",
         "demo/api_connection_ftp_data.xml",
     ],
+    "data": ["views/apicli_connection_view.xml"],
     "installable": True,
 }

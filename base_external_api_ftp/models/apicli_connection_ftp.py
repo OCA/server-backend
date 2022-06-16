@@ -5,8 +5,9 @@ import logging
 import os
 import shutil
 import tempfile
-from io import BytesIO
+from io import BytesIO, StringIO
 
+import paramiko
 import pysftp
 
 from odoo import api, fields, models, registry
@@ -21,6 +22,11 @@ class ApicliConnection(models.Model):
         selection_add=[("ftp", "FTP"), ("sftp", "SFTP")],
         ondelete={"ftp": "set default", "sftp": "set default"},
     )
+    authentication_type = fields.Selection(
+        selection_add=[("rsa-key", "RSA Key")],
+        ondelete={"rsa-key": "set default"},
+    )
+    rsa_key = fields.Text()  # TODO: obfuscate the key field content?
 
     def _delete_file_ftp(self, ftp_session, message):
         if self.connection_type in ["ftp", "sftp"]:
@@ -151,12 +157,22 @@ class ApicliConnection(models.Model):
                 if from_local_dir:
                     self._ftp_upload_directory(ftp, from_local_dir, to_server_dir)
         elif self.connection_type == "sftp":
-            with pysftp.Connection(
-                self.address, username=self.user, password=self.password
-            ) as sftp:
-                _logger.info("SFTP: local_dir %s", from_local_dir)
-                if from_local_dir:
-                    sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
+            if self.authentication_type == "user_password":
+                with pysftp.Connection(
+                    self.address, username=self.user, password=self.password
+                ) as sftp:
+                    _logger.info("SFTP: local_dir %s", from_local_dir)
+                    if from_local_dir:
+                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
+            elif self.authentication_type == "rsa-key":
+                key = self.rsa_key
+                pkey = paramiko.RSAKey.from_private_key(StringIO(key))
+                with pysftp.Connection(
+                    self.address, username=self.user, private_key=pkey
+                ) as sftp:
+                    _logger.info("SFTP: local_dir %s", from_local_dir)
+                    if from_local_dir:
+                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
 
     def _api_test_call(self):
         res = super()._api_test_call()
