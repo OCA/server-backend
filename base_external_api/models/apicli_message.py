@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import json
 import re
+from datetime import datetime, timedelta
 
 import xmltodict
 
@@ -38,6 +39,7 @@ class ApicliMessage(models.Model):
         ],
         default="in",
     )
+    log_object = fields.Text()
 
     def _parse_content(self):
         data = {}
@@ -51,6 +53,11 @@ class ApicliMessage(models.Model):
         return data
 
     def process_messages(self, stop_on_error=False):
+        Activity = self.env["mail.activity"]
+        activity_Type_ToDo = self.env.ref("mail.mail_activity_data_todo")
+        assignToUser = self.env["res.users"].search(
+            [("login", "=", "dcordeiro@opensourceintegrators.com")]
+        )  # TODO this needs to change to the User to assign the error activity to
 
         hooks = self.env["apicli.hook"].search(
             [("method_name", "!=", False), ("model_id", "!=", False)]
@@ -83,6 +90,20 @@ class ApicliMessage(models.Model):
                                     "processed_hook_id": selected_hook.id,
                                 }
                             )
+                            # adds a day to current day
+                            due_date = datetime.now() + timedelta(days=1)
+                            Activity.create(
+                                {
+                                    "res_id": 1,  # TODO this needs to be something else !,
+                                    "res_model_id": selected_hook.model_id.id,
+                                    "activity_type_id": activity_Type_ToDo.id,
+                                    "date_deadline": due_date,
+                                    "user_id": assignToUser.id,
+                                    "summary": "Analyze error",
+                                    "note": "Analyze the error",
+                                }
+                            )
+
                     if not errored:
                         resultMessage = result.get("message", "")
                         resultWarnings = result.get("warnings", "")

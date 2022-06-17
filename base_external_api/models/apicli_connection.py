@@ -224,6 +224,7 @@ class ApicliConnection(models.Model):
         payload=None,
         suppress_errors=None,
         token=None,
+        log_object="apicli.message",
         store_message=True,
         **kwargs,
     ):
@@ -250,6 +251,7 @@ class ApicliConnection(models.Model):
                     "content": payload,
                     "state": "done",
                     "direction": "out",
+                    "log_object": log_object,
                 }
             )
         return res
@@ -266,7 +268,7 @@ class ApicliConnection(models.Model):
     def api_test(self):
         """
         Do not extend this method.
-        Instead extend _api_test_call() to implement the conenction specific tests
+        Instead extend _api_test_call() to implement the connection specific tests
         """
         if not self._api_test_call():
             raise exceptions.UserError(_("Connection test not succesfull"))
