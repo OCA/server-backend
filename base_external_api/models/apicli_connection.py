@@ -224,6 +224,7 @@ class ApicliConnection(models.Model):
         payload=None,
         suppress_errors=None,
         token=None,
+        store_message=True,
         **kwargs,
     ):
         """
@@ -241,6 +242,16 @@ class ApicliConnection(models.Model):
             **kwargs,
         )
         res = self.response_to_dict(response)
+        if store_message:
+            self.env["apicli.message"].create(
+                {
+                    "connection_id": self.id,
+                    "endpoint": endpoint,
+                    "content": payload,
+                    "state": "done",
+                    "direction": "out",
+                }
+            )
         return res
 
     def _api_test_call(self):
