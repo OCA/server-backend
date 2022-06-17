@@ -5,6 +5,7 @@ import logging
 import os
 import shutil
 import tempfile
+from base64 import decodebytes
 from io import BytesIO, StringIO
 
 import paramiko
@@ -27,6 +28,9 @@ class ApicliConnection(models.Model):
         ondelete={"rsa-key": "set default"},
     )
     rsa_key = fields.Text()  # TODO: obfuscate the key field content?
+    server_public_key = (
+        fields.Text()
+    )  # server public key in form AAA... (just the bytes part)
 
     def _delete_file_ftp(self, ftp_session, message):
         if self.connection_type in ["ftp", "sftp"]:
@@ -158,12 +162,21 @@ class ApicliConnection(models.Model):
                     self._ftp_upload_directory(ftp, from_local_dir, to_server_dir)
         elif self.connection_type == "sftp":
             if self.authentication_type == "user_password":
+                keydata = str.encode(self.server_public_key)
+                key = paramiko.RSAKey(data=decodebytes(keydata))
+                cnopts = pysftp.CnOpts()
+                cnopts.hostkeys.add(self.address, "ssh-rsa", key)
                 with pysftp.Connection(
-                    self.address, username=self.user, password=self.password
+                    self.address,
+                    username=self.user,
+                    password=self.password,
+                    cnopts=cnopts,
                 ) as sftp:
                     _logger.info("SFTP: local_dir %s", from_local_dir)
                     if from_local_dir:
-                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
+                        # server does not allow modification of file attributes,
+                        # so preserve_mtime needs to be false
+                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=False)
             elif self.authentication_type == "rsa-key":
                 key = self.rsa_key
                 pkey = paramiko.RSAKey.from_private_key(StringIO(key))
@@ -172,7 +185,7 @@ class ApicliConnection(models.Model):
                 ) as sftp:
                     _logger.info("SFTP: local_dir %s", from_local_dir)
                     if from_local_dir:
-                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=True)
+                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=False)
 
     def _api_test_call(self):
         res = super()._api_test_call()

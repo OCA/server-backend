@@ -10,7 +10,13 @@
                     widget="ace"
                     attrs="{'invisible': [('authentication_type', '!=', 'rsa-key')]}"
                 />
+                 <field
+                    name="server_public_key"
+                    widget="ace"
+                    attrs="{'invisible': [('connection_type','!=','sftp')]}"
+                />
             </field>
+
         </field>
     </record>
 
