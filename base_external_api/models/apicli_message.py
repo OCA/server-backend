@@ -91,18 +91,20 @@ class ApicliMessage(models.Model):
                                 }
                             )
                             # adds a day to current day
-                            due_date = datetime.now() + timedelta(days=1)
-                            Activity.create(
-                                {
-                                    "res_id": 1,  # TODO this needs to be something else !,
-                                    "res_model_id": selected_hook.model_id.id,
-                                    "activity_type_id": activity_Type_ToDo.id,
-                                    "date_deadline": due_date,
-                                    "user_id": assignToUser.id,
-                                    "summary": "Analyze error",
-                                    "note": "Analyze the error",
-                                }
-                            )
+                            if assignToUser:
+                                due_date = datetime.now() + timedelta(days=1)
+                                Activity.create(
+                                    {
+                                        # TODO this needs to be something else !,
+                                        "res_id": 1,
+                                        "res_model_id": selected_hook.model_id.id,
+                                        "activity_type_id": activity_Type_ToDo.id,
+                                        "date_deadline": due_date,
+                                        "user_id": assignToUser.id,
+                                        "summary": "Analyze error",
+                                        "note": "Analyze the error",
+                                    }
+                                )
 
                     if not errored:
                         resultMessage = result.get("message", "")
