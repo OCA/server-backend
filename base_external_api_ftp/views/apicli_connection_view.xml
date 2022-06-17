@@ -12,7 +12,6 @@
                 />
                  <field
                     name="server_public_key"
-                    widget="ace"
                     attrs="{'invisible': [('connection_type','!=','sftp')]}"
                 />
             </field>

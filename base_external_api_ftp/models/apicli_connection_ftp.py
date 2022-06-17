@@ -168,11 +168,12 @@ class ApicliConnection(models.Model):
                 if from_local_dir:
                     self._ftp_upload_directory(ftp, from_local_dir, to_server_dir)
         elif self.connection_type == "sftp":
-            if self.authentication_type == "user_password":
+            cnopts = pysftp.CnOpts()
+            if self.server_public_key:
                 keydata = str.encode(self.server_public_key)
                 key = paramiko.RSAKey(data=decodebytes(keydata))
-                cnopts = pysftp.CnOpts()
                 cnopts.hostkeys.add(self.address, "ssh-rsa", key)
+            if self.authentication_type == "user_password":
                 with pysftp.Connection(
                     self.address,
                     username=self.user,
@@ -181,18 +182,19 @@ class ApicliConnection(models.Model):
                 ) as sftp:
                     _logger.info("SFTP: local_dir %s", from_local_dir)
                     if from_local_dir:
-                        # server does not allow modification of file attributes,
-                        # so preserve_mtime needs to be false
-                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=False)
+                        sftp.put_r(from_local_dir, to_server_dir)
             elif self.authentication_type == "rsa-key":
                 key = self.rsa_key
                 pkey = paramiko.RSAKey.from_private_key(StringIO(key))
                 with pysftp.Connection(
-                    self.address, username=self.user, private_key=pkey
+                    self.address,
+                    username=self.user,
+                    private_key=pkey,
+                    cnopts=cnopts,
                 ) as sftp:
                     _logger.info("SFTP: local_dir %s", from_local_dir)
                     if from_local_dir:
-                        sftp.put_r(from_local_dir, to_server_dir, preserve_mtime=False)
+                        sftp.put_r(from_local_dir, to_server_dir)
 
     def _api_test_call(self):
         res = super()._api_test_call()
