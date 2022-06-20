@@ -23,9 +23,20 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
+msgid "# Roles"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
 msgid "Access Controls"
 msgstr "Controles de Acceso"
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_res_groups
+msgid "Access Groups"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__menu_access
@@ -70,7 +81,6 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
 msgid "Display Name"
@@ -104,7 +114,6 @@ msgid "Groups"
 msgstr "Grupos"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
 msgid "ID"
@@ -122,7 +131,14 @@ msgid "Internal Notes"
 msgstr "Notas internas"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users____last_update
+#: model:ir.model.fields,help:base_user_role.field_res_groups__parent_ids
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__parent_ids
+msgid ""
+"Inverse relation for the Inherits field. The groups from which this group is "
+"inheriting"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line____last_update
 msgid "Last Modified on"
@@ -146,6 +162,26 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_parent_ids
+msgid "Parent Groups"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__parent_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__parent_ids
+msgid "Parents"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_groups__role_id
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__role_id
+msgid "Relation for the groups that represents a role"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_id
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__role_id
 msgid "Role"
 msgstr "Rol"
@@ -158,8 +194,11 @@ msgstr "Líneas del rol"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
 #: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
+#: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
 msgid "Roles"
@@ -170,6 +209,12 @@ msgstr "Roles"
 #, fuzzy
 msgid "Roles can be assigned to a user only once at a time"
 msgstr "Los roles se pueden asignar a un usuario solo una vez a la vez"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
+msgid "Roles in which the group is involved"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
@@ -236,6 +281,7 @@ msgid "Users of this group automatically inherit those groups"
 msgstr "Los usuarios de este grupo automáticamente heredan esos grupos"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Vistas"
