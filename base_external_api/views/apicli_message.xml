@@ -33,6 +33,13 @@
                     />
                 </header>
                 <sheet>
+                <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <field name="active" invisible="1" />
                     <group>
                         <field name="connection_id" />
                         <field name="endpoint" />
@@ -52,6 +59,11 @@
         <field name="model">apicli.message</field>
         <field name="arch" type="xml">
             <search string="Apicli Message">
+                <filter
+                    name="active"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
                 <field name="endpoint" />
                 <field name="connection_id" />
                 <field name="state" />

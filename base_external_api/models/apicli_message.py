@@ -15,6 +15,7 @@ class ApicliMessage(models.Model):
     _rec_name = "endpoint"
     _order = "id desc"
 
+    active = fields.Boolean(default=True)
     connection_id = fields.Many2one("apicli.connection")
     endpoint = fields.Char()
     content = fields.Text()
