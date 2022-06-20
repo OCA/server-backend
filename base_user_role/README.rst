@@ -115,6 +115,7 @@ Contributors
 * Harald Panten <harald.panten@sygel.es>
 * Kevin Khao <kevin.khao@akretion.com>
 * Tatiana Deribina <tatiana.deribina@sprintit.fi> (https://sprintit.fi)
+* Guillem Casassas <guillem.casassas@forgeflow.com>
 
 Do not contact contributors directly about support or help with technical issues.
 
