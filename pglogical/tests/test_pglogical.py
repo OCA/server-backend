@@ -124,11 +124,15 @@ class TestPglogical(TransactionCase):
                 RETURNS NULL ON NULL INPUT''',
                 'drop table',
                 "alter table 'test'",
+                'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
         ):
             qualified_query = ''.join(
                 ''.join(str(token) for token in schema_qualify(parsed_query))
                 for parsed_query in sqlparse.parse(statement)
             )
             self.assertEqual(
-                qualified_query, statement.replace('testtable', 'public.testtable')
+                qualified_query,
+                statement.replace('testtable', 'public.testtable').replace(
+                    '"public.testtable"', 'public."testtable"'
+                )
             )

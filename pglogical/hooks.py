@@ -20,6 +20,7 @@ def schema_qualify(parsed_query, schema="public"):
     token_iterator = parsed_query.flatten()
     Name = sqlparse.tokens.Name
     Punctuation = sqlparse.tokens.Punctuation
+    Symbol = sqlparse.tokens.String.Symbol
     is_qualified = False
     for token in token_iterator:
         yield token
@@ -39,7 +40,7 @@ def schema_qualify(parsed_query, schema="public"):
                 yield next_token
             if not next_token:
                 continue
-            if next_token.ttype != Name:
+            if next_token.ttype not in (Name, Symbol):
                 yield next_token
                 continue
 
