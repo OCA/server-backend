@@ -32,19 +32,19 @@ class ApicliConnection(models.Model):
         fields.Text()
     )  # server public key in form AAA... (just the bytes part)
 
-    def _delete_file_ftp(self, ftp_session, message):
+    def _delete_file_ftp(self, ftp_session, message, file_path):
         if self.connection_type in ["ftp", "sftp"]:
             if self.connection_type == "ftp":
                 ftp_rm = ftp_session.delete
             else:
                 ftp_rm = ftp_session.remove
             try:
-                delete_msg = ftp_rm(message.endpoint)
+                delete_msg = ftp_rm(file_path)
                 message.write({"state": "todo"})
-                _logger.info("%s: %s" % (message.endpoint, delete_msg))
+                _logger.info("%s: %s" % (file_path, delete_msg))
             except ftplib.error_perm as delete_msg:
                 message.write({"state": "cancel"})
-                _logger.info("%s: %s" % (message.endpoint, delete_msg))
+                _logger.info("%s: %s" % (file_path, delete_msg))
             return True
 
     def _download_each_file(self, subdirectory, ftp):
@@ -89,7 +89,7 @@ class ApicliConnection(models.Model):
                             .create(
                                 {
                                     "connection_id": self.id,
-                                    "endpoint": file_path,
+                                    "endpoint": file_name,
                                     "content": content,
                                     "state": "draft",
                                 }
@@ -105,7 +105,7 @@ class ApicliConnection(models.Model):
                         message = Message.with_env(new_env).search(
                             [("id", "=", messageId)]
                         )
-                        self._delete_file_ftp(ftp, message)
+                        self._delete_file_ftp(ftp, message, file_path)
 
     @api.model
     def cron_download_ftp_files(self, subdirectory="/", conn_code=None):

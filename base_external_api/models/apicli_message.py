@@ -59,7 +59,6 @@ class ApicliMessage(models.Model):
         assignToUser = self.env["res.users"].search(
             [("login", "=", "dcordeiro@opensourceintegrators.com")]
         )  # TODO this needs to change to the User to assign the error activity to
-
         hooks = self.env["apicli.hook"].search(
             [("method_name", "!=", False), ("model_id", "!=", False)]
         )
