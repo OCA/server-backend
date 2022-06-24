@@ -117,10 +117,10 @@ class ApicliConnection(models.Model):
                     _logger.debug("FTP connection: %s" % (response))
                     conn._download_each_file(subdirectory, ftp)
             elif conn.connection_type == "sftp":
-                keydata = str.encode(self.server_public_key)
+                keydata = str.encode(conn.server_public_key)
                 key = paramiko.RSAKey(data=decodebytes(keydata))
                 cnopts = pysftp.CnOpts()
-                cnopts.hostkeys.add(self.address, "ssh-rsa", key)
+                cnopts.hostkeys.add(conn.address, "ssh-rsa", key)
                 with pysftp.Connection(
                     conn.address,
                     username=conn.user,
