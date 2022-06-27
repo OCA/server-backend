@@ -13,7 +13,6 @@ class ResGroups(models.Model):
         inverse_name="group_id",
         help="Relation for the groups that represents a role",
     )
-
     role_ids = fields.Many2many(
         comodel_name="res.users.role",
         relation="res_groups_implied_roles_rel",
@@ -21,7 +20,6 @@ class ResGroups(models.Model):
         compute="_compute_role_ids",
         help="Roles in which the group is involved",
     )
-
     parent_ids = fields.Many2many(
         "res.groups",
         "res_groups_implied_rel",
@@ -31,13 +29,11 @@ class ResGroups(models.Model):
         help="Inverse relation for the Inherits field. "
         "The groups from which this group is inheriting",
     )
-
     trans_parent_ids = fields.Many2many(
         comodel_name="res.groups",
         string="Parent Groups",
         compute="_compute_trans_parent_ids",
     )
-
     role_count = fields.Integer("# Roles", compute="_compute_role_count")
 
     def _compute_role_count(self):
