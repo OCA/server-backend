@@ -7,7 +7,7 @@ import jinja2
 from lxml import etree
 
 from odoo import api, fields, models
-from odoo.tools import html2plaintext
+from odoo.tools import html2plaintext, is_html_empty
 
 _logger = logging.getLogger(__name__)
 
@@ -68,6 +68,7 @@ class ApicliDocument(models.Model):
             "int": int,
             "str": str,
             "html2plaintext": html2plaintext,
+            "is_html_empty": is_html_empty,
         }
 
     def _render_jinja_template(self, recordset, template_text):
