@@ -41,7 +41,7 @@ class ResUsersRole(models.Model):
 
     @api.model
     def create(self, vals):
-        new_record = super(ResUsersRole, self).create(vals)
+        new_record = super(ResUsersRole, self.sudo()).create(vals)
         new_record.update_users()
         return new_record
 

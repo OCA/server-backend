@@ -180,3 +180,21 @@ class TestUserRole(TransactionCase):
         self.role1_id.write({"name": "foo", "comment": "FOO"})
         self.assertEqual(self.role1_id.group_id.name, "foo")
         self.assertEqual(self.role1_id.group_id.comment, "FOO")
+
+    def test_user_with_access_rights_can_create_role(self):
+        self.user_id.write(
+            {
+                "groups_id": [
+                    (
+                        6,
+                        0,
+                        [
+                            self.env.ref("base.group_user").id,
+                            self.env.ref("base.group_erp_manager").id,
+                        ],
+                    )
+                ]
+            }
+        )
+        # user with group `base.group_erp_manager` (Access Rights) can create roles
+        self.role_model.with_user(self.user_id.id).create({"name": "ROLE_3"})
