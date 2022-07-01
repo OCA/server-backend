@@ -3,3 +3,7 @@ access_apicli_connection,access_apicli_connection,model_apicli_connection,base.g
 access_apicli_document,access_apicli_document,model_apicli_document,base.group_erp_manager,1,1,1,1
 access_apicli_message,access_apicli_message,model_apicli_message,base.group_erp_manager,1,1,1,1
 access_apicli_hook,access_apicli_hook,model_apicli_hook,base.group_erp_manager,1,1,1,1
+access_apicli_connection_user,access_apicli_connection_user,model_apicli_connection,base.group_user,1,0,0,0
+access_apicli_document_user,access_apicli_documen_usert,model_apicli_document,base.group_user,1,0,0,0
+access_apicli_message_user,access_apicli_message_user,model_apicli_message,base.group_user,1,1,1,0
+access_apicli_hook_user,access_apicli_hook_user,model_apicli_hook,base.group_user,1,0,0,0
