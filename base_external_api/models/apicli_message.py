@@ -14,6 +14,7 @@ class ApicliMessage(models.Model):
     _description = "API Client message"
     _rec_name = "endpoint"
     _order = "id desc"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     active = fields.Boolean(default=True)
     connection_id = fields.Many2one("apicli.connection")
@@ -54,8 +55,6 @@ class ApicliMessage(models.Model):
         return data
 
     def process_messages(self, stop_on_error=False):
-        Activity = self.env["mail.activity"]
-        activity_Type_ToDo = self.env.ref("mail.mail_activity_data_todo")
         assignToUser = self.env["res.users"].search(
             [("login", "=", "dcordeiro@opensourceintegrators.com")]
         )  # TODO this needs to change to the User to assign the error activity to
@@ -93,19 +92,13 @@ class ApicliMessage(models.Model):
                             # adds a day to current day
                             if assignToUser:
                                 due_date = datetime.now() + timedelta(days=1)
-                                Activity.create(
-                                    {
-                                        # TODO this needs to be something else !,
-                                        "res_id": 1,
-                                        "res_model_id": selected_hook.model_id.id,
-                                        "activity_type_id": activity_Type_ToDo.id,
-                                        "date_deadline": due_date,
-                                        "user_id": assignToUser.id,
-                                        "summary": "Analyze error",
-                                        "note": "Analyze the error",
-                                    }
+                                message.activity_schedule(
+                                    date_deadline=due_date,
+                                    act_type_xmlid="mail.mail_activity_data_todo",
+                                    summary="Follow Up - Errors parsing API message",
+                                    note=error,
+                                    user_id=assignToUser.id,
                                 )
-
                     if not errored:
                         resultMessage = result.get("message", "")
                         resultWarnings = result.get("warnings", "")

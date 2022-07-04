@@ -11,7 +11,7 @@
     "maintainer": "Open Source Integrators",
     "website": "https://github.com/OCA/server-backend",
     "category": "server",
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/apicli_connection_view.xml",
