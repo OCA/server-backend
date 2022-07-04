@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import json
 import re
-from datetime import datetime, timedelta
 
 import xmltodict
 
@@ -55,9 +54,9 @@ class ApicliMessage(models.Model):
         return data
 
     def process_messages(self, stop_on_error=False):
-        assignToUser = self.env["res.users"].search(
-            [("login", "=", "dcordeiro@opensourceintegrators.com")]
-        )  # TODO this needs to change to the User to assign the error activity to
+        # assignToUser = self.env["res.users"].search(
+        #    [("login", "=", "dcordeiro@opensourceintegrators.com")]
+        # ) TODO this needs to change to the User to assign the error activity to
         hooks = self.env["apicli.hook"].search(
             [("method_name", "!=", False), ("model_id", "!=", False)]
         )
@@ -89,16 +88,16 @@ class ApicliMessage(models.Model):
                                     "processed_hook_id": selected_hook.id,
                                 }
                             )
+                            # if assignToUser:
                             # adds a day to current day
-                            if assignToUser:
-                                due_date = datetime.now() + timedelta(days=1)
-                                message.activity_schedule(
-                                    date_deadline=due_date,
-                                    act_type_xmlid="mail.mail_activity_data_todo",
-                                    summary="Follow Up - Errors parsing API message",
-                                    note=error,
-                                    user_id=assignToUser.id,
-                                )
+                            #    due_date = datetime.now() + timedelta(days=1)
+                            #    message.activity_schedule(
+                            #        date_deadline=due_date,
+                            #        act_type_xmlid="mail.mail_activity_data_todo",
+                            #        summary="Follow Up - Errors parsing API message",
+                            #        note=error,
+                            #        user_id=assignToUser.id,
+                            #   )
                     if not errored:
                         resultMessage = result.get("message", "")
                         resultWarnings = result.get("warnings", "")
