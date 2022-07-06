@@ -35,6 +35,12 @@ def schema_qualify(parsed_query, schema="public"):
                     # this is invalid sql
                     next_token = False
                     break
+                if next_token.is_keyword and next_token.normalized in (
+                        'TEMP', 'TEMPORARY'
+                ):
+                    # don't qualify CREATE TEMP TABLE statements
+                    is_qualified = True
+                    break
                 if not (next_token.is_whitespace or next_token.is_keyword):
                     break
                 yield next_token

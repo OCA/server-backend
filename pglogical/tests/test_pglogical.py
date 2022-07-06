@@ -125,6 +125,7 @@ class TestPglogical(TransactionCase):
                 'drop table',
                 "alter table 'test'",
                 'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
+                'CREATE TEMP TABLE "temptable" (col1 char)',
         ):
             qualified_query = ''.join(
                 ''.join(str(token) for token in schema_qualify(parsed_query))
