@@ -40,6 +40,7 @@ class ResGroups(models.Model):
         comodel_name="res.groups",
         string="Parent Groups",
         compute="_compute_trans_parent_ids",
+        recursive=True,
     )
 
     role_count = fields.Integer("# Roles", compute="_compute_role_count")
