@@ -13,7 +13,8 @@ class ExternalSystem(models.Model):
     _description = "External System"
 
     name = fields.Char(
-        required=True, help="This is the canonical (humanized) name for the system.",
+        required=True,
+        help="This is the canonical (humanized) name for the system.",
     )
     host = fields.Char(
         help="This is the domain or IP address that the system can be reached " "at.",
@@ -56,7 +57,10 @@ class ExternalSystem(models.Model):
         default=lambda s: [(6, 0, s.env.user.company_id.ids)],
         help="Access to this system is restricted to these companies.",
     )
-    system_type = fields.Selection(selection="_get_system_types", required=True,)
+    system_type = fields.Selection(
+        selection="_get_system_types",
+        required=True,
+    )
     interface = fields.Reference(
         selection="_get_system_types",
         readonly=True,

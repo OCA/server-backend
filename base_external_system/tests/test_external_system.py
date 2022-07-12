@@ -43,12 +43,15 @@ class TestExternalSystem(Common):
             {"name": "Test", "system_type": "external.system.os"}
         )
         self.assertEqual(
-            record.interface._name, "external.system.os",
+            record.interface._name,
+            "external.system.os",
         )
 
     def test_create_context_override(self):
         """It should allow for interface create override with context."""
-        model = self.env["external.system"].with_context(no_create_interface=True,)
+        model = self.env["external.system"].with_context(
+            no_create_interface=True,
+        )
         record = model.create({"name": "Test", "system_type": "external.system.os"})
         self.assertFalse(record.interface)
 
