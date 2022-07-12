@@ -39,7 +39,7 @@ def schema_qualify(tokens, temp_tables, keywords=None, schema="public"):
         elif token.__class__ == Identifier and not token.is_wildcard():
             str_token = str(token)
             needs_qualification = "." not in str_token
-            # qualify tokens that are direct children of a statement as in ALTER TABLE ...
+            # qualify tokens that are direct children of a statement as in ALTER TABLE
             if token.parent.__class__ == Statement:
                 pass
             # or of an expression parsed as function as in CREATE TABLE table
