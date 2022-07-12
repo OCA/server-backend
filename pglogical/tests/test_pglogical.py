@@ -114,7 +114,7 @@ class TestPglogical(TransactionCase):
                 'alter table testtable',
                 '''create table
                 testtable
-                (col1 int, col2 int); select * from test''',
+                (col1 int, col2 int); select * from testtable''',
                 'alter table testschema.test drop column somecol',
                 '    DROP view if exists testtable',
                 'truncate table testtable',
@@ -128,6 +128,8 @@ class TestPglogical(TransactionCase):
                 'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
                 'CREATE TEMP TABLE "temptable" (col1 char) INHERITS (ir_translation)',
                 'DROP TABLE "temptable"',
+                'create view testtable as select col1, col2 from testtable join '
+                'testtable test1 on col3=test1.col4)',
         ):
             qualified_query = ''.join(
                 ''.join(str(token) for token in schema_qualify(parsed_query, temp_tables))

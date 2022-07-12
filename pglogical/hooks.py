@@ -10,7 +10,9 @@ except ImportError:
     sqlparse = None
 
 SECTION_NAME = "pglogical"
-DDL_KEYWORDS = ("CREATE", "ALTER", "DROP", "TRUNCATE", "INHERITS")
+DDL_KEYWORDS = ("CREATE", "ALTER", "DROP", "TRUNCATE")
+QUALIFY_KEYWORDS = DDL_KEYWORDS + ("INHERITS", "FROM", "JOIN")
+NO_QUALIFY_KEYWORDS = ("COLUMN",)
 
 
 def schema_qualify(parsed_query, temp_tables, schema="public"):
@@ -22,13 +24,10 @@ def schema_qualify(parsed_query, temp_tables, schema="public"):
     Name = sqlparse.tokens.Name
     Punctuation = sqlparse.tokens.Punctuation
     Symbol = sqlparse.tokens.String.Symbol
-    is_qualified = False
     is_temp_table = False
     for token in token_iterator:
         yield token
-        if token.is_keyword and token.normalized == "INHERITS":
-            is_qualified = False
-        if not is_qualified and token.is_keyword and token.normalized in DDL_KEYWORDS:
+        if token.is_keyword and token.normalized in QUALIFY_KEYWORDS:
             # we check if the name coming after {create,drop,alter} object keywords
             # is schema qualified, and if not, add the schema we got passed
             next_token = False
@@ -43,13 +42,17 @@ def schema_qualify(parsed_query, temp_tables, schema="public"):
                         'TEMP', 'TEMPORARY'
                 ):
                     # don't qualify CREATE TEMP TABLE statements
-                    is_qualified = True
                     is_temp_table = True
+                    break
+                if next_token.is_keyword and next_token.normalized in NO_QUALIFY_KEYWORDS:
+                    yield next_token
+                    next_token = False
                     break
                 if not (next_token.is_whitespace or next_token.is_keyword):
                     break
                 yield next_token
             if is_temp_table:
+                is_temp_table = False
                 yield next_token
                 while True:
                     try:
@@ -89,8 +92,6 @@ def schema_qualify(parsed_query, temp_tables, schema="public"):
 
             if next_token:
                 yield next_token
-
-            is_qualified = True
 
 
 def post_load():
