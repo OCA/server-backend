@@ -58,9 +58,11 @@ class TestPglogical(TransactionCase):
             ],
         )
 
-        with self._config(dict(pglogical={"replication_sets": "ddl_sql"})),\
-                self.assertLogs("odoo.addons.pglogical") as log,\
-                mock.patch("odoo.addons.pglogical.hooks.sqlparse") as mock_sqlparse:
+        with self._config(
+            dict(pglogical={"replication_sets": "ddl_sql"})
+        ), self.assertLogs("odoo.addons.pglogical") as log, mock.patch(
+            "odoo.addons.pglogical.hooks.sqlparse"
+        ) as mock_sqlparse:
             mock_sqlparse.__bool__.return_value = False
             post_load()
 
@@ -109,35 +111,38 @@ class TestPglogical(TransactionCase):
         """Test that schema qualifications are the only changes"""
         temp_tables = []
         for statement in (
-                'create table if not exists testtable',
-                'drop table testtable',
-                'alter table testtable',
-                '''create table
+            "create table if not exists testtable",
+            "drop table testtable",
+            "alter table testtable",
+            """create table
                 testtable
-                (col1 int, col2 int); select * from testtable''',
-                'alter table testschema.test drop column somecol',
-                '    DROP view if exists testtable',
-                'truncate table testtable',
-                '''CREATE FUNCTION testtable(integer, integer) RETURNS integer
+                (col1 int, col2 int); select * from testtable""",
+            "alter table testschema.test drop column somecol",
+            "    DROP view if exists testtable",
+            "truncate table testtable",
+            """CREATE FUNCTION testtable(integer, integer) RETURNS integer
                 AS 'select $1 + $2;'
                 LANGUAGE SQL
                 IMMUTABLE
-                RETURNS NULL ON NULL INPUT''',
-                'drop table',
-                "alter table 'test'",
-                'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
-                'CREATE TEMP TABLE "temptable" (col1 char) INHERITS (ir_translation)',
-                'DROP TABLE "temptable"',
-                'create view testtable as select col1, col2 from testtable join '
-                'testtable test1 on col3=test1.col4)',
+                RETURNS NULL ON NULL INPUT""",
+            "drop table",
+            "alter table 'test'",
+            'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
+            'CREATE TEMP TABLE "temptable" (col1 char) INHERITS (testtable)',
+            'DROP TABLE "temptable"',
+            "create view testtable as select col1, col2 from testtable join "
+            "testtable test1 on col3=test1.col4)",
+            'CREATE TABLE public."ir_model" (id SERIAL NOT NULL, PRIMARY KEY(id))',
         ):
-            qualified_query = ''.join(
-                ''.join(str(token) for token in schema_qualify(parsed_query, temp_tables))
+            qualified_query = "".join(
+                "".join(
+                    str(token) for token in schema_qualify(parsed_query, temp_tables)
+                )
                 for parsed_query in sqlparse.parse(statement)
             )
             self.assertEqual(
                 qualified_query,
-                statement.replace('testtable', 'public.testtable').replace(
+                statement.replace("testtable", "public.testtable").replace(
                     '"public.testtable"', 'public."testtable"'
-                )
+                ),
             )
