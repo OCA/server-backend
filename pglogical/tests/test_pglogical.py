@@ -107,6 +107,7 @@ class TestPglogical(TransactionCase):
 
     def test_schema_qualify(self):
         """Test that schema qualifications are the only changes"""
+        temp_tables = []
         for statement in (
                 'create table if not exists testtable',
                 'drop table testtable',
@@ -125,10 +126,11 @@ class TestPglogical(TransactionCase):
                 'drop table',
                 "alter table 'test'",
                 'ALTER TABLE "testtable" ADD COLUMN "test_field" double precision',
-                'CREATE TEMP TABLE "temptable" (col1 char)',
+                'CREATE TEMP TABLE "temptable" (col1 char) INHERITS (ir_translation)',
+                'DROP TABLE "temptable"',
         ):
             qualified_query = ''.join(
-                ''.join(str(token) for token in schema_qualify(parsed_query))
+                ''.join(str(token) for token in schema_qualify(parsed_query, temp_tables))
                 for parsed_query in sqlparse.parse(statement)
             )
             self.assertEqual(
