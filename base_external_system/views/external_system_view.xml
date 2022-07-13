@@ -53,7 +53,7 @@
         <field name="name">external.system.view.tree</field>
         <field name="model">external.system</field>
         <field name="arch" type="xml">
-            <tree string="External Systems">
+            <tree>
                 <field name="name" />
                 <field name="host" />
                 <field name="port" />
