@@ -16,8 +16,9 @@ class TestExternalSystemOs(Common):
     @classmethod
     def tearDownClass(cls):
         """Set the working dir back to origin, just in case."""
-        super(TestExternalSystemOs, cls).tearDownClass()
+        result = super(TestExternalSystemOs, cls).tearDownClass()
         os.chdir(cls.working_dir)
+        return result
 
     def setUp(self):
         super(TestExternalSystemOs, self).setUp()
