@@ -1,3 +1,4 @@
+TEST
 
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=15.0)
 [![Pre-commit Status](https://github.com/OCA/server-backend/actions/workflows/pre-commit.yml/badge.svg?branch=15.0)](https://github.com/OCA/server-backend/actions/workflows/pre-commit.yml?query=branch%3A15.0)
