@@ -137,7 +137,9 @@ class TestUserRole(TransactionCase):
 
     def test_role_unlink(self):
         # Get role1 groups
-        role1_group_ids = self.role1_id.implied_ids.ids
+        role1_group_ids = (
+            self.role1_id.implied_ids.ids + self.role1_id.trans_implied_ids.ids
+        )
         role1_group_ids.append(self.role1_id.group_id.id)
         role1_group_ids = sorted(set(role1_group_ids))
 
@@ -161,7 +163,9 @@ class TestUserRole(TransactionCase):
 
     def test_role_line_unlink(self):
         # Get role1 groups
-        role1_group_ids = self.role1_id.implied_ids.ids
+        role1_group_ids = (
+            self.role1_id.implied_ids.ids + self.role1_id.trans_implied_ids.ids
+        )
         role1_group_ids.append(self.role1_id.group_id.id)
         role1_group_ids = sorted(set(role1_group_ids))
 
