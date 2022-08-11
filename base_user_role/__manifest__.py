@@ -4,7 +4,7 @@
 
 {
     "name": "User roles",
-    "version": "13.0.1.3.2",
+    "version": "13.0.1.4.0",
     "category": "Tools",
     "author": "ABF OSIELL, Odoo Community Association (OCA)",
     "license": "LGPL-3",
