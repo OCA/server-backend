@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo12-addon-base_user_role_history',
         'odoo12-addon-base_user_role_profile',
         'odoo12-addon-base_user_role_profile_example',
+        'odoo12-addon-pglogical',
         'odoo12-addon-server_action_navigate',
     ],
     classifiers=[
