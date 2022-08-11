@@ -41,6 +41,11 @@ msgid "Access Menu"
 msgstr "Meni dostopa"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
+msgid "Active"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
 msgid "Application"
 msgstr "Aplikacija"
@@ -66,6 +71,11 @@ msgstr "Povezana skupina"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Barvni indeks"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+msgid "Comment"
+msgstr "Komentar"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -122,7 +132,6 @@ msgid "Inherits"
 msgstr "Podeduje"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Internal Notes"
 msgstr ""
@@ -283,6 +292,3 @@ msgstr "Uporabniki v tej skupini samodejno podedujejo te skupine"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
 msgstr "Prikazi"
-
-#~ msgid "Comment"
-#~ msgstr "Komentar"
