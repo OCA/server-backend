@@ -33,9 +33,6 @@ class ResUsersRole(models.Model):
         help="Associated group's category",
         readonly=False,
     )
-    comment = fields.Html(
-        string="Internal Notes",
-    )
 
     @api.depends("line_ids.user_id")
     def _compute_user_ids(self):
@@ -96,6 +93,7 @@ class ResUsersRoleLine(models.Model):
     _name = "res.users.role.line"
     _description = "Users associated to a role"
 
+    active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
         comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
     )
