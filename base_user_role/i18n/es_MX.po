@@ -42,6 +42,11 @@ msgid "Access Menu"
 msgstr "Menú de Acceso"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
+msgid "Active"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
 msgid "Application"
 msgstr "Aplicación"
@@ -65,6 +70,11 @@ msgstr "Categoría del grupo asociado"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Indice de color"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
+msgid "Comment"
+msgstr "Comentario"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -123,7 +133,6 @@ msgid "Inherits"
 msgstr "Hereda"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Internal Notes"
 msgstr ""
@@ -288,6 +297,3 @@ msgstr "Vistas"
 
 #~ msgid "User \"{}\" does not have access to the company \"{}\""
 #~ msgstr "El usuario \"{}\" no tiene acceso a la empresa \"{}\""
-
-#~ msgid "Comment"
-#~ msgstr "Comentario"
