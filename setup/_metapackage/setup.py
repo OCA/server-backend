@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo14-addon-base_user_role',
         'odoo14-addon-base_user_role_company',
         'odoo14-addon-base_user_role_profile',
+        'odoo14-addon-server_action_navigate',
     ],
     classifiers=[
         'Programming Language :: Python',

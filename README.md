@@ -1,4 +1,5 @@
-[![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat/253/14.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-server-backend-253)
+
+[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=14.0)
 [![Build Status](https://travis-ci.com/OCA/server-backend.svg?branch=14.0)](https://travis-ci.com/OCA/server-backend)
 [![codecov](https://codecov.io/gh/OCA/server-backend/branch/14.0/graph/badge.svg)](https://codecov.io/gh/OCA/server-backend)
 [![Translation Status](https://translation.odoo-community.org/widgets/server-backend-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/server-backend-14-0/?utm_source=widget)
@@ -20,10 +21,11 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_global_discount](base_global_discount/) | 14.0.1.0.0 |  | Base Global Discount
-[base_import_match](base_import_match/) | 14.0.1.0.0 |  | Try to avoid duplicates before importing
-[base_user_role](base_user_role/) | 14.0.2.2.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
-[base_user_role_company](base_user_role_company/) | 14.0.1.1.0 |  | User roles by company
+[base_import_match](base_import_match/) | 14.0.1.0.1 |  | Try to avoid duplicates before importing
+[base_user_role](base_user_role/) | 14.0.2.4.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
+[base_user_role_company](base_user_role_company/) | 14.0.2.0.1 |  | User roles by company
 [base_user_role_profile](base_user_role_profile/) | 14.0.1.0.0 |  | User profiles
+[server_action_navigate](server_action_navigate/) | 14.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) [![ashishhirpara](https://github.com/ashishhirpara.png?size=30px)](https://github.com/ashishhirpara) | Navigate between any items of any Odoo Models
 
 [//]: # (end addons)
 
@@ -33,12 +35,11 @@ addon | version | maintainers | summary
 
 This repository is licensed under [AGPL-3.0](LICENSE).
 
-However, each module can have a totally different license, as long as they adhere to OCA
+However, each module can have a totally different license, as long as they adhere to Odoo Community Association (OCA)
 policy. Consult each module's `__manifest__.py` file, which contains a `license` key
 that explains its license.
 
 ----
-
 OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit
 organization whose mission is to support the collaborative development of Odoo features
 and promote its widespread use.

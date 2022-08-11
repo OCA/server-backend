@@ -114,6 +114,7 @@ Contributors
 * Alan Ramos <alan.ramos@jarsa.com.mx> (https://www.jarsa.com.mx)
 * Harald Panten <harald.panten@sygel.es>
 * Kevin Khao <kevin.khao@akretion.com>
+* Guillem Casassas <guillem.casassas@forgeflow.com>
 
 Do not contact contributors directly about support or help with technical issues.
 

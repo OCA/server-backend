@@ -42,7 +42,7 @@ class BaseImportMatch(models.Model):
     def _compute_name(self):
         """Automatic self-descriptive name for the setting records."""
         for one in self:
-            one.name = u"{}: {}".format(
+            one.name = "{}: {}".format(
                 one.model_id.display_name,
                 " + ".join(one.field_ids.mapped("display_name")),
             )
@@ -77,6 +77,7 @@ class BaseImportMatch(models.Model):
         """
         # Get usable rules to perform matches
         usable = self._usable_rules(model._name, converted_row)
+        usable = self.browse(usable)
         # Traverse usable combinations
         for combination in usable:
             combination_valid = True
@@ -126,7 +127,7 @@ class BaseImportMatch(models.Model):
         for record in available:
             if all(f.name in fields for f in record.field_ids):
                 result |= record
-        return result
+        return result.ids
 
 
 class BaseImportMatchField(models.Model):
@@ -163,7 +164,7 @@ class BaseImportMatchField(models.Model):
     def name_get(self):
         result = []
         for one in self:
-            pattern = u"{name} ({cond})" if one.conditional else u"{name}"
+            pattern = "{name} ({cond})" if one.conditional else "{name}"
             name = pattern.format(
                 name=one.field_id.name,
                 cond=one.imported_value,
