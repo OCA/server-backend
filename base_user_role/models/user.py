@@ -40,11 +40,11 @@ class ResUsers(models.Model):
         for user in self:
             user.role_ids = user.role_line_ids.mapped("role_id")
 
-    @api.model
-    def create(self, vals):
-        new_record = super(ResUsers, self).create(vals)
-        new_record.set_groups_from_roles()
-        return new_record
+    @api.model_create_multi
+    def create(self, vals_list):
+        new_records = super(ResUsers, self).create(vals_list)
+        new_records.set_groups_from_roles()
+        return new_records
 
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
