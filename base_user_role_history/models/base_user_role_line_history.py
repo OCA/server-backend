@@ -114,5 +114,4 @@ class BaseUserRoleLineHistory(models.Model):
         )
         # Create the history lines with sudo
         # (nobody has the create right)
-        for role_history_vals in role_history_line_vals_by_role_line.values():
-            self.sudo().create(role_history_vals)
+        self.sudo().create(list(role_history_line_vals_by_role_line.values()))

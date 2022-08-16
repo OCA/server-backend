@@ -34,26 +34,31 @@ class ResUsers(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        for vals in vals_list:
-            if "role_line_ids" not in vals:
-                return res
+        if all("role_line_ids" not in vals for vals in vals_list):
+            return res
         new_role_line_values_by_user = res._get_role_line_values_by_user()
+        new_role_line_to_create = {}
+        users = self.browse()
+        for user, lines in new_role_line_values_by_user.items():
+            if lines:
+                new_role_line_to_create[user] = lines
+                user |= user
         self.env["base.user.role.line.history"].create_from_vals(
-            {}, new_role_line_values_by_user
+            {}, new_role_line_to_create
         )
-        res.last_role_line_modification = fields.Datetime.now()
+        users.last_role_line_modification = fields.Datetime.now()
         return res
 
     def write(self, vals):
         if "role_line_ids" not in vals:
             return super().write(vals)
         old_role_line_values_by_user = self._get_role_line_values_by_user()
+        vals["last_role_line_modification"] = fields.Datetime.now()
         res = super().write(vals)
         new_role_line_values_by_user = self._get_role_line_values_by_user()
         self.env["base.user.role.line.history"].create_from_vals(
             old_role_line_values_by_user, new_role_line_values_by_user
         )
-        self.write({"last_role_line_modification": fields.Datetime.now()})
         return res
 
     def show_role_lines_history(self):  # pragma: no cover
