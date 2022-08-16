@@ -3,14 +3,14 @@
 
 from datetime import date, timedelta
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestBaseUserRoleHistory(SavepointCase):
+class TestBaseUserRoleHistory(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestBaseUserRoleHistory, cls).setUpClass()
-
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         # MODELS
 
         cls.history_line_model = cls.env["base.user.role.line.history"]
