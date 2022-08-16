@@ -46,12 +46,12 @@ class ResUsersRole(models.Model):
             "base.group_erp_manager"
         )
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         model = (self.sudo() if self._bypass_rules() else self).browse()
-        new_record = super(ResUsersRole, model).create(vals)
-        new_record.update_users()
-        return new_record
+        new_records = super(ResUsersRole, model).create(vals_list)
+        new_records.update_users()
+        return new_records
 
     def read(self, fields=None, load="_classic_read"):
         recs = self.sudo() if self._bypass_rules() else self
