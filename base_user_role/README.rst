@@ -14,16 +14,16 @@ User roles
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/15.0/base_user_role
+    :target: https://github.com/OCA/server-backend/tree/16.0/base_user_role
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-15-0/server-backend-15-0-base_user_role
+    :target: https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_user_role
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/253/15.0
+    :target: https://runbot.odoo-community.org/runbot/253/16.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module was written to extend the standard functionality regarding users
 and groups management.
@@ -62,19 +62,19 @@ You can also define default roles for a new user by editing the user called
 
 Roles:
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/roles.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/roles.png
    :width: 80 %
    :align: center
 
 Add groups:
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/role_groups.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_groups.png
    :width: 80 %
    :align: center
 
 Add users (with dates or not):
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_user_role/static/description/role_users.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_users.png
    :width: 80 %
    :align: center
 
@@ -152,8 +152,8 @@ promote its widespread use.
 
 Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-sebalix| |maintainer-jcdrubay| |maintainer-novawish| 
+|maintainer-sebalix| |maintainer-jcdrubay| |maintainer-novawish|
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/15.0/base_user_role>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/16.0/base_user_role>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
