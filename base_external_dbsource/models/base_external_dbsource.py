@@ -95,7 +95,7 @@ class BaseExternalDbsource(models.Model):
     # Interface
 
     def change_table(self, name):
-        """ Change the table that is used for CRUD operations """
+        """Change the table that is used for CRUD operations"""
         self.current_table = name
 
     def connection_close(self, connection):
