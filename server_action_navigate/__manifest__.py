@@ -10,7 +10,7 @@
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
-    "depends": ["base", "base_automation"],
+    "depends": ["base_automation"],
     "maintainers": ["legalsylvain", "ashishhirpara"],
     "data": ["security/ir.model.access.csv", "views/view_ir_actions_server.xml"],
     "demo": ["demo/ir_actions_server.xml"],
