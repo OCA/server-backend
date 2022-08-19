@@ -19,6 +19,7 @@ msgid "Action"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__state
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__state
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__state
 msgid "Action To Do"
@@ -35,6 +36,7 @@ msgid "Created on"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_base_automation__navigate_action_id
 #: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__navigate_action_id
 #: model:ir.model.fields,help:server_action_navigate.field_ir_cron__navigate_action_id
 msgid ""
@@ -86,12 +88,14 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__max_navigate_line_model
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__max_navigate_line_model
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__max_navigate_line_model
 msgid "Max Navigate Model in lines"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__max_navigate_line_sequence
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__max_navigate_line_sequence
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__max_navigate_line_sequence
 msgid "Max Navigate sequence in lines"
@@ -108,12 +112,14 @@ msgid "Navigate"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_line_ids
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_line_ids
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_line_ids
 msgid "Navigate Lines"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_action_id
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_action_id
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_action_id
 msgid "Navigation Action"
@@ -153,6 +159,7 @@ msgid ""
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_base_automation__state
 #: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__state
 #: model:ir.model.fields,help:server_action_navigate.field_ir_cron__state
 msgid ""
