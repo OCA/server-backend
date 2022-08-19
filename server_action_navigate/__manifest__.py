@@ -4,7 +4,7 @@
 
 {
     "name": "Server Actions - Navigate",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "author": "GRAP, Odoo Community Association (OCA)",
     "summary": "Navigate between any items of any Odoo Models",
     "category": "Tools",
