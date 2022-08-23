@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_global_discount
+# 	* base_global_discount
 #
 msgid ""
 msgstr ""
@@ -15,6 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.3.2\n"
+
+#. module: base_global_discount
+#: model:ir.model.fields,help:base_global_discount.field_global_discount__discount_base
+msgid "Amount that will be discounted."
+msgstr ""
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__company_id
@@ -40,6 +45,11 @@ msgstr "Creato il"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__discount
 msgid "Discount"
 msgstr "Sconto"
+
+#. module: base_global_discount
+#: model:ir.model.fields,field_description:base_global_discount.field_global_discount__discount_base
+msgid "Discount Base"
+msgstr ""
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__name
@@ -139,3 +149,13 @@ msgstr "Vendite"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__sequence
 msgid "Sequence"
 msgstr "Sequenza"
+
+#. module: base_global_discount
+#: selection:global.discount,discount_base:0
+msgid "Subtotal"
+msgstr ""
+
+#. module: base_global_discount
+#: selection:global.discount,discount_base:0
+msgid "Total"
+msgstr ""
