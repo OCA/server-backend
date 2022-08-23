@@ -1,4 +1,5 @@
 # Copyright 2019 Tecnativa - David Vidal
+# Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
 from odoo.addons import decimal_precision as dp
@@ -20,6 +21,16 @@ class GlobalDiscount(models.Model):
         digits=dp.get_precision('Discount'),
         required=True,
         default=0.0,
+    )
+    discount_base = fields.Selection(
+        selection=[
+            ('subtotal', 'Subtotal'),
+            ('total', 'Total'),
+        ],
+        default='subtotal',
+        required='True',
+        string='Discount Base',
+        help='Amount that will be discounted.',
     )
     discount_scope = fields.Selection(
         selection=[
