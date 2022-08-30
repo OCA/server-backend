@@ -40,8 +40,8 @@ msgstr ""
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
-"\"%s\" method not found, check that all assets are installed for the %s "
-"connector type."
+"\"%(method)s\" method not found, check that all assets are installed for the "
+"%(connector)s connector type."
 msgstr ""
 
 #. module: base_external_dbsource
@@ -57,6 +57,11 @@ msgstr ""
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 msgid "Client Key"
+msgstr ""
+
+#. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
+msgid "Company"
 msgstr ""
 
 #. module: base_external_dbsource
@@ -120,11 +125,6 @@ msgstr "Zobrazovaný název"
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
-msgstr ""
-
-#. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
-msgid "External DB Sources"
 msgstr ""
 
 #. module: base_external_dbsource

@@ -40,8 +40,8 @@ msgstr ""
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
-"\"%s\" method not found, check that all assets are installed for the %s "
-"connector type."
+"\"%(method)s\" method not found, check that all assets are installed for the "
+"%(connector)s connector type."
 msgstr ""
 
 #. module: base_external_dbsource
@@ -57,6 +57,11 @@ msgstr ""
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 msgid "Client Key"
+msgstr ""
+
+#. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
+msgid "Company"
 msgstr ""
 
 #. module: base_external_dbsource
@@ -124,11 +129,6 @@ msgid "External DB Source"
 msgstr "Dışarı "
 
 #. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
-msgid "External DB Sources"
-msgstr "Dış Veritabanı Kaynakları"
-
-#. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
@@ -191,3 +191,6 @@ msgstr "Bağlantıyı Dene"
 #, python-format
 msgid "query is a required argument"
 msgstr ""
+
+#~ msgid "External DB Sources"
+#~ msgstr "Dış Veritabanı Kaynakları"

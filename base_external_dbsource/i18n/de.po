@@ -54,11 +54,9 @@ msgstr ""
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
-"\"%s\" method not found, check that all assets are installed for the %s "
-"connector type."
+"\"%(method)s\" method not found, check that all assets are installed for the "
+"%(connector)s connector type."
 msgstr ""
-"\"%s\" Verfahren nicht gefunden, prüfen Sie das Vorhandensein aller "
-"Voraussetzungen für Verbindungsart %s."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
@@ -77,6 +75,11 @@ msgstr "Client-Zert"
 #, fuzzy
 msgid "Client Key"
 msgstr "Client-Schlüssel"
+
+#. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
+msgid "Company"
+msgstr ""
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
@@ -142,11 +145,6 @@ msgid "External DB Source"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
-msgid "External DB Sources"
-msgstr ""
-
-#. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
@@ -209,3 +207,11 @@ msgstr ""
 #, python-format
 msgid "query is a required argument"
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "\"%s\" method not found, check that all assets are installed for the %s "
+#~ "connector type."
+#~ msgstr ""
+#~ "\"%s\" Verfahren nicht gefunden, prüfen Sie das Vorhandensein aller "
+#~ "Voraussetzungen für Verbindungsart %s."
