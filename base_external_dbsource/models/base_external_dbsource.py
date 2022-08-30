@@ -63,13 +63,12 @@ class BaseExternalDbsource(models.Model):
         default=lambda self: self.env.user.company_id,
     )
     conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")
-    password = fields.Char("Password")
+    password = fields.Char()
     client_cert = fields.Text()
     client_key = fields.Text()
     ca_certs = fields.Char(help="Path to CA Certs file on server.")
     connector = fields.Selection(
         CONNECTORS,
-        "Connector",
         required=True,
         help="If a connector is missing from the list, check the server "
         "log to confirm that the required components were detected.",
@@ -151,12 +150,12 @@ class BaseExternalDbsource(models.Model):
             try:
                 query = kwargs["sqlquery"]
             except KeyError:
-                raise TypeError(_("query is a required argument"))
+                raise TypeError(_("query is a required argument")) from KeyError
         if not execute_params:
             try:
                 execute_params = kwargs["sqlparams"]
-            except KeyError:
-                pass
+            except KeyError as e:
+                _logger.debug(e)
 
         method = self._get_adapter_method("execute")
         rows, cols = method(query, execute_params, metadata)
@@ -179,7 +178,7 @@ class BaseExternalDbsource(models.Model):
             raise ValidationError(
                 _("Connection test failed:\n" "Here is what we got instead:\n%s")
                 % tools.ustr(e)
-            )
+            ) from e
         raise ValidationError(
             _("Connection test succeeded:\n" "Everything seems properly set up!")
         )
@@ -330,7 +329,9 @@ class BaseExternalDbsource(models.Model):
         except AttributeError:
             raise NotImplementedError(
                 _(
-                    '"%s" method not found, check that all assets are installed '
-                    "for the %s connector type."
+                    '"%(method)s" method not found, check that all assets are installed '
+                    "for the %(connector)s connector type.",
+                    method=method,
+                    conector=self.connector,
                 )
-            ) % (method, self.connector)
+            ) from AttributeError
