@@ -181,6 +181,10 @@ class ApicliConnection(models.Model):
                 verb,
                 payload if type(payload) is str else pprint.pformat(payload, indent=1),
             )
+            # force conversion to utf-8 to avoid error:
+            # Body ('’') is not valid Latin-1.
+            # Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+            request_data = request_data.encode("utf-8")
             response = requests.request(
                 verb,
                 request_url,
