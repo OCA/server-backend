@@ -137,16 +137,8 @@ class TestUserRole(TransactionCase):
 
     def test_role_unlink(self):
         # Get role1 and role2 groups
-        role1_groups = (
-            self.role1_id.implied_ids
-            | self.role1_id.trans_implied_ids
-            | self.role1_id.group_id
-        )
-        role2_groups = (
-            self.role2_id.implied_ids
-            | self.role2_id.trans_implied_ids
-            | self.role2_id.group_id
-        )
+        role1_groups = self.role1_id.trans_implied_ids | self.role1_id.group_id
+        role2_groups = self.role2_id.trans_implied_ids | self.role2_id.group_id
 
         # Configure the user with role1 and role2
         self.user_id.write(
@@ -173,16 +165,8 @@ class TestUserRole(TransactionCase):
 
     def test_role_line_unlink(self):
         # Get role1 and role2 groups
-        role1_groups = (
-            self.role1_id.implied_ids
-            | self.role1_id.trans_implied_ids
-            | self.role1_id.group_id
-        )
-        role2_groups = (
-            self.role2_id.implied_ids
-            | self.role2_id.trans_implied_ids
-            | self.role2_id.group_id
-        )
+        role1_groups = self.role1_id.trans_implied_ids | self.role1_id.group_id
+        role2_groups = self.role2_id.trans_implied_ids | self.role2_id.group_id
 
         # Configure the user with role1 and role2
         self.user_id.write(
