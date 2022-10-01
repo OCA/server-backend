@@ -14,6 +14,7 @@ DDL_KEYWORDS = set(["CREATE", "ALTER", "DROP", "TRUNCATE"])
 QUALIFY_KEYWORDS = DDL_KEYWORDS | set(["FROM", "INHERITS", "JOIN"])
 NO_QUALIFY_KEYWORDS = set(["AS", "COLUMN", "ON", "RETURNS", "SELECT"])
 TEMPORARY = set(["TEMP", "TEMPORARY"])
+FUNCTION_LIKE = set(["FUNCTION"])
 
 
 def schema_qualify(tokens, temp_tables, keywords=None, schema="public"):
@@ -55,11 +56,14 @@ def schema_qualify(tokens, temp_tables, keywords=None, schema="public"):
                 needs_qualification &= (
                     keywords and (keywords[-1] in QUALIFY_KEYWORDS) or False
                 )
-            # and also not if this is a temporary table
+            # and also not if this is a temporary table or a function
             if needs_qualification:
                 if len(keywords) > 1 and keywords[-2] in TEMPORARY:
                     needs_qualification = False
                     temp_tables.append(str_token)
+                elif len(keywords) > 0 and keywords[-1] in FUNCTION_LIKE:
+                    # don't qualify function or names
+                    needs_qualification = not token.within(Parenthesis)
                 elif str_token in temp_tables:
                     needs_qualification = False
                     temp_tables.remove(str_token)
@@ -112,7 +116,7 @@ def post_load():
             ) and not any(
                 token.is_keyword and token.normalized in
                 # don't replicate constraints, triggers, indexes
-                ("CONSTRAINT", "TRIGGER", "INDEX")
+                ("AGGREGATE", "CONSTRAINT", "TRIGGER", "INDEX")
                 for parsed in parsed_queries
                 for token in parsed.tokens[1:]
             ):
