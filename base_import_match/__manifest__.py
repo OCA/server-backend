@@ -4,7 +4,7 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
