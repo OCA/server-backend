@@ -4,10 +4,11 @@
 
 {
     "name": "User roles",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.1.1",
     "category": "Tools",
     "author": "ABF OSIELL, Odoo Community Association (OCA)",
     "license": "LGPL-3",
+    "development_status": "Production/Stable",
     "maintainers": ["sebalix", "jcdrubay", "novawish"],
     "website": "https://github.com/OCA/server-backend",
     "depends": ["base"],
