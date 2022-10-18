@@ -8,6 +8,7 @@
     "category": "Tools",
     "author": "ABF OSIELL, Odoo Community Association (OCA)",
     "license": "LGPL-3",
+    "development_status": "Production/Stable",
     "maintainers": ["sebalix", "jcdrubay", "novawish"],
     "website": "https://github.com/OCA/server-backend",
     "depends": ["base"],
