@@ -253,6 +253,7 @@ msgid "Update user roles"
 msgstr "Korisničke role"
 
 #. module: base_user_role
+#: model:ir.model,name:base_user_role.model_res_users
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__user_id
 msgid "User"
 msgstr "Korisnik"
@@ -268,7 +269,6 @@ msgid "User roles"
 msgstr "Korisničke role"
 
 #. module: base_user_role
-#: model:ir.model,name:base_user_role.model_res_users
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__users
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Users"
