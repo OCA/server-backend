@@ -40,6 +40,12 @@ msgid "Access Menu"
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_ids
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Access Rights"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
 msgid "Active"
 msgstr ""
@@ -160,6 +166,11 @@ msgid "Last Updated on"
 msgstr "Senast uppdaterad"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_count
+msgid "Model Access Count"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
 msgid "Name"
 msgstr "Namn"
@@ -174,6 +185,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__parent_ids
 msgid "Parents"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Record Rules"
 msgstr ""
 
 #. module: base_user_role
@@ -221,6 +238,11 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
 msgid "Rules"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rules_count
+msgid "Rules Count"
 msgstr ""
 
 #. module: base_user_role
