@@ -2,7 +2,6 @@
 
 import mock
 
-from odoo.exceptions import ValidationError
 from odoo.sql_db import connection_info_for
 from odoo.tests import common
 
@@ -59,31 +58,6 @@ class TestBaseExternalDbsource(common.TransactionCase):
         self.assertEqual(self.dbsource.conn_string_full, expect)
 
     # Interface
-
-    def test_connection_success(self):
-        """It should raise for successful connection"""
-        with self.assertRaises(ValidationError):
-            self.dbsource.connection_test()
-
-    def test_connection_fail(self):
-        """It should raise for failed/invalid connection"""
-        with mock.patch.object(type(self.dbsource), "connection_open") as conn:
-            conn.side_effect = Exception
-            with self.assertRaises(ValidationError):
-                self.dbsource.connection_test()
-
-    def test_connection_open_calls_close(self):
-        """It should close connection after context ends"""
-        with mock.patch.object(type(self.dbsource), "connection_close") as close:
-            with self.dbsource.connection_open():
-                pass
-            close.assert_called_once()
-
-    def test_connection_close(self):
-        """It should call adapter's close method"""
-        args = [mock.MagicMock()]
-        res, adapter = self._test_adapter_method("connection_close", args=args)
-        adapter.assert_called_once_with(args[0])
 
     def test_execute_asserts_query_arg(self):
         """It should raise a TypeError if query and sqlquery not in args"""
