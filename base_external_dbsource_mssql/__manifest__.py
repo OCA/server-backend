@@ -9,7 +9,7 @@
     "website": "https://github.com/OCA/server-backend",
     "license": "LGPL-3",
     "depends": ["base_external_dbsource_sqlite"],
-    "external_dependencies": {"python": ["sqlalchemy", "pymssql"]},
+    "external_dependencies": {"python": ["sqlalchemy", "pymssql<=2.2.5"]},
     "demo": ["demo/base_external_dbsource.xml"],
     "installable": True,
 }
