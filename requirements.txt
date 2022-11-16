@@ -1,4 +1,4 @@
 sqlalchemy
 mysqlclient==2.0.1
-pymssql
+pymssql<=2.2.5
 sqlparse
