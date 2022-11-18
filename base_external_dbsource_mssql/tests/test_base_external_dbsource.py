@@ -11,7 +11,7 @@ ADAPTER = (
 
 class TestBaseExternalDbsource(common.TransactionCase):
     def setUp(self):
-        super(TestBaseExternalDbsource, self).setUp()
+        super().setUp()
         self.dbsource = self.env.ref("base_external_dbsource_mssql.demo_mssql")
 
     def test_connection_close_mssql(self):
@@ -23,7 +23,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
     def test_connection_open_mssql(self):
         """It should call SQLAlchemy open"""
         with mock.patch.object(
-            self.dbsource, "_connection_open_sqlalchemy"
+            type(self.dbsource), "_connection_open_sqlalchemy"
         ) as parent_method:
             self.dbsource.connection_open_mssql()
             parent_method.assert_called_once_with()
@@ -31,6 +31,8 @@ class TestBaseExternalDbsource(common.TransactionCase):
     def test_excecute_mssql(self):
         """It should pass args to SQLAlchemy execute"""
         expect = "sqlquery", "sqlparams", "metadata"
-        with mock.patch.object(self.dbsource, "_execute_sqlalchemy") as parent_method:
+        with mock.patch.object(
+            type(self.dbsource), "_execute_sqlalchemy"
+        ) as parent_method:
             self.dbsource.execute_mssql(*expect)
             parent_method.assert_called_once_with(*expect)
