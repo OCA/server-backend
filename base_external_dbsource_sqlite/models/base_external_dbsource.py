@@ -1,28 +1,14 @@
 # Copyright 2011 Daniel Reis
 # Copyright 2016 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-
-import logging
+import sqlalchemy
 
 from odoo import models
 
-_logger = logging.getLogger(__name__)
+from odoo.addons.base_external_dbsource.models import base_external_dbsource
 
-try:
-    from odoo.addons.base_external_dbsource.models import base_external_dbsource
-
-    CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
-    try:
-        import sqlalchemy
-
-        CONNECTORS.append(("sqlite", "SQLite"))
-    except ImportError:
-        _logger.info(
-            "SQLAlchemy library not available. Please "
-            'install "sqlalchemy" python package.'
-        )
-except ImportError:
-    _logger.info("base_external_dbsource Odoo module not found.")
+CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
+CONNECTORS.append(("sqlite", "SQLite"))
 
 
 class BaseExternalDbsource(models.Model):
