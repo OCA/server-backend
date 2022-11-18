@@ -2,27 +2,16 @@
 # Copyright 2016 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-import logging
+import pymssql
 
 from odoo import models
 
-_logger = logging.getLogger(__name__)
+from odoo.addons.base_external_dbsource.models import base_external_dbsource
 
-try:
-    from odoo.addons.base_external_dbsource.models import base_external_dbsource
+CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
+CONNECTORS.append(("mssql", "Microsoft SQL Server"))
 
-    CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
-    try:
-        import pymssql
-
-        CONNECTORS.append(("mssql", "Microsoft SQL Server"))
-        assert pymssql
-    except (ImportError, AssertionError):
-        _logger.info(
-            'MS SQL Server not available. Please install "pymssql" ' "python package."
-        )
-except ImportError:
-    _logger.info("base_external_dbsource Odoo module not found.")
+assert pymssql
 
 
 class BaseExternalDbsource(models.Model):
