@@ -6,7 +6,7 @@
     "version": "13.0.1.0.0",
     "category": "Tools",
     "author": "Daniel Reis, LasLabs, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/server-tools",
+    "website": "https://github.com/OCA/server-backend",
     "license": "LGPL-3",
     "depends": ["base_external_dbsource"],
     "external_dependencies": {"python": ["sqlalchemy"]},

@@ -16,13 +16,13 @@ class TestBaseExternalDbsource(common.TransactionCase):
         self.dbsource = self.env.ref("base_external_dbsource_sqlite.demo_sqlite")
 
     def test_connection_close_sqlite(self):
-        """ It should close the connection """
+        """It should close the connection"""
         connection = mock.MagicMock()
         res = self.dbsource.connection_close_sqlite(connection)
         self.assertEqual(res, connection.close())
 
     def test_connection_open_sqlite(self):
-        """ It should call SQLAlchemy open """
+        """It should call SQLAlchemy open"""
         with mock.patch.object(
             self.dbsource, "_connection_open_sqlalchemy"
         ) as parent_method:
@@ -30,14 +30,14 @@ class TestBaseExternalDbsource(common.TransactionCase):
             parent_method.assert_called_once_with()
 
     def test_excecute_sqlite(self):
-        """ It should pass args to SQLAlchemy execute """
+        """It should pass args to SQLAlchemy execute"""
         expect = "sqlquery", "sqlparams", "metadata"
         with mock.patch.object(self.dbsource, "_execute_sqlalchemy") as parent_method:
             self.dbsource.execute_sqlite(*expect)
             parent_method.assert_called_once_with(*expect)
 
     def test_execute_sqlit_without_sqlparams(self):
-        """ It should pass args to SQLAlchemy execute """
+        """It should pass args to SQLAlchemy execute"""
         expect = "sqlquery", None, "metadata"
         with mock.patch.object(self.dbsource, "_execute_sqlalchemy") as parent_method:
             self.dbsource.execute_sqlite(*expect)
