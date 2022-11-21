@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_external_dbsource](base_external_dbsource/) | 15.0.1.0.0 |  | External Database Sources
+[base_external_dbsource_mssql](base_external_dbsource_mssql/) | 15.0.1.0.0 |  | External Database Source - MSSQL
 [base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 15.0.1.0.0 |  | External Database Source - SQLite
 [base_global_discount](base_global_discount/) | 15.0.1.0.0 |  | Base Global Discount
 [base_import_match](base_import_match/) | 15.0.1.0.1 |  | Try to avoid duplicates before importing
