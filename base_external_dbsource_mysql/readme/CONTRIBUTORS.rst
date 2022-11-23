@@ -2,5 +2,8 @@
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Gervais Naoussi <gervaisnaoussi@gmail.com>
 * Dave Lasley <dave@laslabs.com>
-* Sergio Teruel <sergio.teruel@tecnativa.com>
+
+* `Tecnativa <https://www.tecnativa.com>`_:
+
+    * Sergio Teruel
 * David Alonso <david.alonso@solvos.es>
