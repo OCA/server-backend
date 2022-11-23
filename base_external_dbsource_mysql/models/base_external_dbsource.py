@@ -12,7 +12,7 @@ base_external_dbsource.BaseExternalDbsource.CONNECTORS.append(("mysql", "MySQL")
 
 
 class BaseExternalDbsource(models.Model):
-    """ It provides logic for connection to a MySQL data source. """
+    """It provides logic for connection to a MySQL data source."""
 
     _inherit = "base.external.dbsource"
 
