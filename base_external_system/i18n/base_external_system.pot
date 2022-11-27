@@ -1,0 +1,317 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_external_system
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__company_ids
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__company_ids
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__company_ids
+msgid "Access to this system is restricted to these companies."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__company_ids
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__company_ids
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__company_ids
+msgid "Companies"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.constraint,message:base_external_system.constraint_external_system_name_uniq
+msgid "Connection name must be unique."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__create_uid
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__create_uid
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__create_date
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__create_date
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__display_name
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__display_name
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model,name:base_external_system.model_external_system
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
+msgid "External System"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model,name:base_external_system.model_external_system_adapter
+msgid "External System Adapter"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model,name:base_external_system.model_external_system_os
+msgid "External System OS"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.actions.act_window,name:base_external_system.external_system_action
+#: model:ir.ui.menu,name:base_external_system.menu_external_system
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_tree
+msgid "External Systems"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__fingerprint
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__fingerprint
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__fingerprint
+msgid "Fingerprint"
+msgstr ""
+
+#. module: base_external_system
+#: code:addons/base_external_system/models/external_system.py:0
+#, python-format
+msgid "Fingerprint cannot be empty when Ignore Fingerprint is not checked."
+msgstr ""
+
+#. module: base_external_system
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__host
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__host
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__host
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
+msgid "Host"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__id
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__id
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__id
+msgid "ID"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__ignore_fingerprint
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__ignore_fingerprint
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__ignore_fingerprint
+msgid "Ignore Fingerprint"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__interface
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__interface
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__interface
+msgid "Interface"
+msgstr ""
+
+#. module: base_external_system
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
+msgid "Keys"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system____last_update
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter____last_update
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__write_uid
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__write_uid
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__write_date
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__write_date
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__name
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__name
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__name
+msgid "Name"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__password
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__password
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__password
+msgid "Password"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__port
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__port
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__port
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
+msgid "Port"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__private_key
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__private_key
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__private_key
+msgid "Private Key"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__private_key_password
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__private_key_password
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__private_key_password
+msgid "Private Key Password"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__remote_path
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__remote_path
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__remote_path
+msgid "Remote Path"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__remote_path
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__remote_path
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__remote_path
+msgid "Restrict to this directory path on the remote, if applicable."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__ignore_fingerprint
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__ignore_fingerprint
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__ignore_fingerprint
+msgid ""
+"Set this to `True` in order to ignore an invalid/unknown fingerprint from "
+"the system."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__system_id
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__system_id
+msgid "System"
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__system_type
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__system_type
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__system_type
+msgid "System Type"
+msgstr ""
+
+#. module: base_external_system
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
+msgid "Test Connection"
+msgstr ""
+
+#. module: base_external_system
+#: code:addons/base_external_system/models/external_system_adapter.py:0
+#, python-format
+msgid "The connection was a success."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__name
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__name
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__name
+msgid "This is the canonical (humanized) name for the system."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__host
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__host
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__host
+msgid "This is the domain or IP address that the system can be reached at."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__fingerprint
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__fingerprint
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__fingerprint
+msgid ""
+"This is the fingerprint that is advertised by this system in order to "
+"validate its identity."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__interface
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__interface
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__interface
+msgid ""
+"This is the interface that this system represents. It is created "
+"automatically upon creation of the external system."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__password
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__password
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__password
+msgid ""
+"This is the password that is used for authenticating to this system, if "
+"applicable."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__private_key_password
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__private_key_password
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__private_key_password
+msgid ""
+"This is the password to unlock the private key that was provided for this "
+"sytem."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__port
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__port
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__port
+msgid "This is the port number that the system is listening on."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__private_key
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__private_key
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__private_key
+msgid ""
+"This is the private key that is used for authenticating to this system, if "
+"applicable."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,help:base_external_system.field_external_system__username
+#: model:ir.model.fields,help:base_external_system.field_external_system_adapter__username
+#: model:ir.model.fields,help:base_external_system.field_external_system_os__username
+msgid ""
+"This is the username that is used for authenticating to this system, if "
+"applicable."
+msgstr ""
+
+#. module: base_external_system
+#: model:ir.model.fields,field_description:base_external_system.field_external_system__username
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__username
+#: model:ir.model.fields,field_description:base_external_system.field_external_system_os__username
+#: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
+msgid "Username"
+msgstr ""
