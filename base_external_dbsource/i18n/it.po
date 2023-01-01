@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-06 02:24+0000\n"
-"PO-Revision-Date: 2021-10-26 19:35+0000\n"
-"Last-Translator: Sergio Corato <sergiocorato@gmail.com>\n"
+"PO-Revision-Date: 2023-01-01 14:45+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -134,12 +134,12 @@ msgstr "Nome da visualizzare"
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
-msgstr "Sorgente DB Esterna"
+msgstr "Sorgente DiBa Esterna"
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
 msgid "External DB Sources"
-msgstr "Sorgenti DB Esterne"
+msgstr "Sorgenti DiBa Esterne"
 
 #. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
