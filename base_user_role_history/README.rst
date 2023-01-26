@@ -23,7 +23,7 @@ Base User Role History
     :target: https://runbot.odoo-community.org/runbot/253/16.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This addon provides history for roles modifications on users.
 Each time a role is added/updated/unlinked on a user, a new role history line
@@ -90,7 +90,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-ThomasBinsfeld|
+|maintainer-ThomasBinsfeld| 
 
 This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/16.0/base_user_role_history>`_ project on GitHub.
 
