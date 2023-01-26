@@ -265,7 +265,6 @@ msgstr "Hereta transitivament"
 #. module: base_user_role
 #: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
 #: model:ir.cron,cron_name:base_user_role.cron_update_users
-#: model:ir.cron,name:base_user_role.cron_update_users
 msgid "Update user roles"
 msgstr "Actualitzar els rols d'usuari"
 
