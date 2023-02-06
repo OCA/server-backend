@@ -104,14 +104,19 @@ class ExternalSystem(models.Model):
         with self.interface.client() as client:
             yield client
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         """Create the interface for the record and assign to ``interface``."""
-        record = super(ExternalSystem, self).create(vals)
-        if not self.env.context.get("no_create_interface"):
-            interface = self.env[vals["system_type"]].create({"system_id": record.id})
-            record.interface = interface
-        return record
+        records = self.browse([])
+        for vals in vals_list:
+            record = super(ExternalSystem, self).create(vals)
+            if not self.env.context.get("no_create_interface"):
+                interface = self.env[vals["system_type"]].create(
+                    {"system_id": record.id}
+                )
+                record.interface = interface
+            records += record
+        return records
 
     def action_test_connection(self):
         """Test the connection to the external system."""

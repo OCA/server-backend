@@ -4,7 +4,7 @@
 {
     "name": "Base External System",
     "summary": "Data models allowing for connection to external systems.",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Base",
     "website": "https://github.com/OCA/server-backend",
     "author": "LasLabs, " "Odoo Community Association (OCA)",
