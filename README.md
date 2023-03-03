@@ -9,7 +9,7 @@
 
 # server-backend
 
-TODO: add repo description.
+Mainly base modules used by others
 
 <!-- /!\ do not modify below this line -->
 
