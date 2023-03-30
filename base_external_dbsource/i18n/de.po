@@ -51,6 +51,7 @@ msgstr ""
 "    "
 
 #. module: base_external_dbsource
+#. odoo-python
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
@@ -93,6 +94,7 @@ msgid "Connection string"
 msgstr ""
 
 #. module: base_external_dbsource
+#. odoo-python
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
@@ -102,6 +104,7 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
+#. odoo-python
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
@@ -203,6 +206,7 @@ msgid "Test Connection"
 msgstr ""
 
 #. module: base_external_dbsource
+#. odoo-python
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid "query is a required argument"

@@ -7,3 +7,4 @@
 
   * Sergio Teruel
   * Jairo Llopis
+  * Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
