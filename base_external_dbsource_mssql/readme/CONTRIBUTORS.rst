@@ -4,3 +4,4 @@
 * Dave Lasley <dave@laslabs.com>
 * `Tecnativa <https://www.tecnativa.com>`_:
     * Sergio Teruel
+* Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
