@@ -4,12 +4,7 @@
 
 import pymssql
 
-from odoo import models
-
-from odoo.addons.base_external_dbsource.models import base_external_dbsource
-
-CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
-CONNECTORS.append(("mssql", "Microsoft SQL Server"))
+from odoo import fields, models
 
 assert pymssql
 
@@ -19,6 +14,9 @@ class BaseExternalDbsource(models.Model):
 
     _inherit = "base.external.dbsource"
 
+    connector = fields.Selection(
+        selection_add=[("mssql", "Microsoft SQL Server")], ondelete={"mssql": "cascade"}
+    )
     PWD_STRING_MSSQL = "Password=%s;"
 
     def connection_close_mssql(self, connection):
