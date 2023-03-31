@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-server-backend Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-base_external_dbsource>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role_history>=16.0dev,<16.1dev',
     ],
