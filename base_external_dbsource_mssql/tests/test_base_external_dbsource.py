@@ -1,6 +1,6 @@
 # Copyright 2016 LasLabs Inc.
 
-import mock
+from unittest import mock
 
 from odoo.tests import common
 
