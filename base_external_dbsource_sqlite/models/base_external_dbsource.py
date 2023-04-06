@@ -3,12 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import sqlalchemy
 
-from odoo import models
-
-from odoo.addons.base_external_dbsource.models import base_external_dbsource
-
-CONNECTORS = base_external_dbsource.BaseExternalDbsource.CONNECTORS
-CONNECTORS.append(("sqlite", "SQLite"))
+from odoo import fields, models
 
 
 class BaseExternalDbsource(models.Model):
@@ -17,6 +12,9 @@ class BaseExternalDbsource(models.Model):
     _inherit = "base.external.dbsource"
 
     PWD_STRING_SQLITE = "Password=%s;"
+    connector = fields.Selection(
+        selection_add=[("sqlite", "SQLite")], ondelete={"sqlite": "cascade"}
+    )
 
     def connection_close_sqlite(self, connection):
         return connection.close()
