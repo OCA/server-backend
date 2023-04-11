@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-base_external_dbsource>=16.0dev,<16.1dev',
+        'odoo-addon-base_external_dbsource_mssql>=16.0dev,<16.1dev',
         'odoo-addon-base_external_dbsource_sqlite>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role_history>=16.0dev,<16.1dev',
