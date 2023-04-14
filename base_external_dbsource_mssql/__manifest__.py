@@ -12,5 +12,5 @@
     "depends": ["base_external_dbsource_sqlite"],
     "external_dependencies": {"python": ["pymssql<=2.2.5", "sqlalchemy"]},
     "demo": ["demo/base_external_dbsource.xml"],
-    "installable": True,
+    "installable": False,
 }
