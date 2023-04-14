@@ -5,8 +5,7 @@ from unittest import mock
 from odoo.tests import common
 
 ADAPTER = (
-    "odoo.addons.base_external_dbsource_sqlite.models"
-    ".base_external_dbsource.sqlalchemy"
+    "odoo.addons.base_external_dbsource_sqlite.models" ".base_external_dbsource.sqlite"
 )
 
 
@@ -15,27 +14,27 @@ class TestBaseExternalDbsource(common.TransactionCase):
         super().setUp()
         self.dbsource = self.env.ref("base_external_dbsource_sqlite.demo_sqlite")
 
-    def test_connection_close_sqlite(self):
+    def test_connection_close_sqlalchemy(self):
         """It should close the connection"""
         connection = mock.MagicMock()
-        res = self.dbsource.connection_close_sqlite(connection)
+        res = self.dbsource._connection_close_sqlalchemy(connection)
         self.assertEqual(res, connection.close())
 
-    def test_connection_open_sqlite(self):
+    def test_connection_open_sqlalchemy(self):
         """It should call SQLAlchemy open"""
         with mock.patch.object(
             type(self.dbsource), "_connection_open_sqlalchemy"
         ) as parent_method:
-            self.dbsource.connection_open_sqlite()
+            self.dbsource._connection_open_sqlalchemy()
             parent_method.assert_called_once_with()
 
-    def test_excecute_sqlite(self):
+    def test_excecute_sqlalchemy(self):
         """It should pass args to SQLAlchemy execute"""
         expect = "sqlquery", "sqlparams", "metadata"
         with mock.patch.object(
             type(self.dbsource), "_execute_sqlalchemy"
         ) as parent_method:
-            self.dbsource.execute_sqlite(*expect)
+            self.dbsource._execute_sqlalchemy(*expect)
             parent_method.assert_called_once_with(*expect)
 
     def test_execute_sqlit_without_sqlparams(self):
@@ -44,5 +43,5 @@ class TestBaseExternalDbsource(common.TransactionCase):
         with mock.patch.object(
             type(self.dbsource), "_execute_sqlalchemy"
         ) as parent_method:
-            self.dbsource.execute_sqlite(*expect)
+            self.dbsource._execute_sqlalchemy(*expect)
             parent_method.assert_called_once_with(*expect)

@@ -2,11 +2,12 @@
 # Copyright 2016 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
-    "name": "External Database Source - SQLite",
+    "name": "External Database Source - SQLAlchemy",
+    "summary": "Allow connecting to any external DB supported by SQLAlchemy",
     "version": "16.0.1.0.1",
     "category": "Tools",
     "author": "Daniel Reis, LasLabs, Odoo Community Association (OCA)",
-    "maintainers": ["anddago78"],
+    "maintainers": ["anddago78", "yajo"],
     "website": "https://github.com/OCA/server-backend",
     "license": "LGPL-3",
     "depends": ["base_external_dbsource"],

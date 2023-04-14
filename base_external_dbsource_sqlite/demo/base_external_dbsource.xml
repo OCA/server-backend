@@ -4,6 +4,6 @@
         <field name="name">SQLite Demo</field>
         <field name="conn_string">sqlite://</field>
         <field name="password" />
-        <field name="connector">sqlite</field>
+        <field name="connector">sqlalchemy</field>
     </record>
 </odoo>

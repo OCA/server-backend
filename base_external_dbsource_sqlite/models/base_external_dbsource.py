@@ -7,23 +7,16 @@ from odoo import fields, models
 
 
 class BaseExternalDbsource(models.Model):
-    """It provides logic for connection to a SQLite data source."""
+    """It provides logic for connection to a SQLAlchemy data source."""
 
     _inherit = "base.external.dbsource"
 
-    PWD_STRING_SQLITE = "Password=%s;"
     connector = fields.Selection(
-        selection_add=[("sqlite", "SQLite")], ondelete={"sqlite": "cascade"}
+        selection_add=[("sqlalchemy", "SQLAlchemy")], ondelete={"sqlalchemy": "cascade"}
     )
 
-    def connection_close_sqlite(self, connection):
+    def _connection_close_sqlalchemy(self, connection):
         return connection.close()
-
-    def connection_open_sqlite(self):
-        return self._connection_open_sqlalchemy()
-
-    def execute_sqlite(self, sqlquery, sqlparams, metadata):
-        return self._execute_sqlalchemy(sqlquery, sqlparams, metadata)
 
     def _connection_open_sqlalchemy(self):
         return sqlalchemy.create_engine(self.conn_string_full).connect()
