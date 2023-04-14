@@ -34,11 +34,10 @@ class BaseExternalDbsource(models.Model):
     _name = "base.external.dbsource"
     _description = "External Database Sources"
 
-    CONNECTORS = [("postgresql", "PostgreSQL")]
     # This is appended to the conn string if pass declared but not detected.
     # Children should declare PWD_STRING_CONNECTOR (such as PWD_STRING_FBD)
     #   to allow for override.
-    PWD_STRING = "PWD=%s;"
+    PWD_STRING_POSTGRESQL = "PWD=%s;"
 
     name = fields.Char("Datasource name", required=True)
     conn_string = fields.Text(
@@ -68,36 +67,39 @@ class BaseExternalDbsource(models.Model):
     client_key = fields.Text()
     ca_certs = fields.Char(help="Path to CA Certs file on server.")
     connector = fields.Selection(
-        CONNECTORS,
+        [("postgresql", "PostgreSQL")],
         required=True,
         help="If a connector is missing from the list, check the server "
         "log to confirm that the required components were detected.",
     )
 
-    current_table = None
+    _current_table = None
 
     @api.depends("conn_string", "password")
     def _compute_conn_string_full(self):
         for record in self:
             if record.password:
                 if "%s" not in record.conn_string:
-                    pwd_string = getattr(
-                        record,
-                        "PWD_STRING_%s" % record.connector.upper(),
-                        record.PWD_STRING,
-                    )
-                    record.conn_string += pwd_string
+                    try:
+                        pwd_string = getattr(
+                            record,
+                            "PWD_STRING_%s" % record.connector.upper(),
+                        )
+                    except AttributeError:
+                        _logger.info("Not altering query string for %s.", record)
+                    else:
+                        record.conn_string += pwd_string
                 record.conn_string_full = record.conn_string % record.password
             else:
                 record.conn_string_full = record.conn_string
 
     # Interface
 
-    def change_table(self, name):
+    def _change_table(self, name):
         """Change the table that is used for CRUD operations"""
-        self.current_table = name
+        self._current_table = name
 
-    def connection_close(self, connection):
+    def _connection_close(self, connection):
         """It closes the connection to the data source.
 
         This method calls adapter method of this same name, suffixed with
@@ -108,7 +110,7 @@ class BaseExternalDbsource(models.Model):
         return method(connection)
 
     @contextmanager
-    def connection_open(self):
+    def _connection_open(self):
         """It provides a context manager for the data source.
 
         This method calls adapter method of this same name, suffixed with
@@ -121,11 +123,11 @@ class BaseExternalDbsource(models.Model):
             yield connection
         finally:
             try:
-                self.connection_close(connection)
+                self._connection_close(connection)
             except Exception:
                 _logger.exception("Connection close failure.")
 
-    def execute(self, query=None, execute_params=None, metadata=False, **kwargs):
+    def _execute(self, query, execute_params=None, metadata=False, **kwargs):
         """Executes a query and returns a list of rows.
 
         "execute_params" can be a dict of values, that can be referenced
@@ -144,19 +146,6 @@ class BaseExternalDbsource(models.Model):
             { 'cols': [ 'col_a', 'col_b', ...]
             , 'rows': [ (a0, b0, ...), (a1, b1, ...), ...] }
         """
-
-        # Old API compatibility
-        if not query:
-            try:
-                query = kwargs["sqlquery"]
-            except KeyError:
-                raise TypeError(_("query is a required argument")) from KeyError
-        if not execute_params:
-            try:
-                execute_params = kwargs["sqlparams"]
-            except KeyError as e:
-                _logger.debug(e)
-
         method = self._get_adapter_method("execute")
         rows, cols = method(query, execute_params, metadata)
 
@@ -172,7 +161,7 @@ class BaseExternalDbsource(models.Model):
             Validation message with the result of the connection (fail or success)
         """
         try:
-            with self.connection_open():
+            with self._connection_open():
                 pass
         except Exception as e:
             raise ValidationError(
@@ -183,7 +172,7 @@ class BaseExternalDbsource(models.Model):
             _("Connection test succeeded:\n" "Everything seems properly set up!")
         )
 
-    def remote_browse(self, record_ids, *args, **kwargs):
+    def _remote_browse(self, record_ids, *args, **kwargs):
         """It browses for and returns the records from remote by ID
 
         This method calls adapter method of this same name, suffixed with
@@ -197,11 +186,11 @@ class BaseExternalDbsource(models.Model):
             (iter) Iterator of record mappings that match the ID.
         """
 
-        assert self.current_table
+        assert self._current_table
         method = self._get_adapter_method("remote_browse")
         return method(record_ids, *args, **kwargs)
 
-    def remote_create(self, vals, *args, **kwargs):
+    def _remote_create(self, vals, *args, **kwargs):
         """It creates a record on the remote data source.
 
         This method calls adapter method of this same name, suffixed with
@@ -215,11 +204,11 @@ class BaseExternalDbsource(models.Model):
             (mapping) A mapping of the record that was created.
         """
 
-        assert self.current_table
+        assert self._current_table
         method = self._get_adapter_method("remote_create")
         return method(vals, *args, **kwargs)
 
-    def remote_delete(self, record_ids, *args, **kwargs):
+    def _remote_delete(self, record_ids, *args, **kwargs):
         """It deletes records by ID on remote
 
         This method calls adapter method of this same name, suffixed with
@@ -233,11 +222,11 @@ class BaseExternalDbsource(models.Model):
             (iter) Iterator of bools indicating delete status.
         """
 
-        assert self.current_table
+        assert self._current_table
         method = self._get_adapter_method("remote_delete")
         return method(record_ids, *args, **kwargs)
 
-    def remote_search(self, query, *args, **kwargs):
+    def _remote_search(self, query, *args, **kwargs):
         """It searches the remote for the query.
 
         This method calls adapter method of this same name, suffixed with
@@ -251,11 +240,11 @@ class BaseExternalDbsource(models.Model):
             (iter) Iterator of record mappings that match query.
         """
 
-        assert self.current_table
+        assert self._current_table
         method = self._get_adapter_method("remote_search")
         return method(query, *args, **kwargs)
 
-    def remote_update(self, record_ids, vals, *args, **kwargs):
+    def _remote_update(self, record_ids, vals, *args, **kwargs):
         """It updates the remote records with the vals
 
         This method calls adapter method of this same name, suffixed with
@@ -269,23 +258,23 @@ class BaseExternalDbsource(models.Model):
             (iter) Iterator of record mappings that were updated.
         """
 
-        assert self.current_table
+        assert self._current_table
         method = self._get_adapter_method("remote_update")
         return method(record_ids, vals, *args, **kwargs)
 
     # Adapters
 
-    def connection_close_postgresql(self, connection):
+    def _connection_close_postgresql(self, connection):
         return connection.close()
 
-    def connection_open_postgresql(self):
+    def _connection_open_postgresql(self):
         return psycopg2.connect(self.conn_string_full)
 
-    def execute_postgresql(self, query, params, metadata):
+    def _execute_postgresql(self, query, params, metadata):
         return self._execute_generic(query, params, metadata)
 
     def _execute_generic(self, query, params, metadata):
-        with self.connection_open() as connection:
+        with self._connection_open() as connection:
             cur = connection.cursor()
             cur.execute(query, params)
             cols = []
@@ -295,19 +284,6 @@ class BaseExternalDbsource(models.Model):
             return rows, cols
 
     # Compatibility & Private
-
-    def conn_open(self):
-        """It opens and returns a connection to the remote data source.
-
-        This method calls adapter method of this same name, suffixed with
-        the adapter type.
-
-        Deprecate:
-            This method has been replaced with ``connection_open``.
-        """
-
-        with self.connection_open() as connection:
-            return connection
 
     def _get_adapter_method(self, method_prefix):
         """It returns the connector adapter method for ``method_prefix``.
@@ -322,7 +298,7 @@ class BaseExternalDbsource(models.Model):
         """
 
         self.ensure_one()
-        method = "{}_{}".format(method_prefix, self.connector)
+        method = "_{}_{}".format(method_prefix, self.connector)
 
         try:
             return getattr(self, method)

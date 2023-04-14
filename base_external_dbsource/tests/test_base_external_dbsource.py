@@ -62,14 +62,14 @@ class TestBaseExternalDbsource(common.TransactionCase):
     def test_execute_asserts_query_arg(self):
         """It should raise a TypeError if query and sqlquery not in args"""
         with self.assertRaises(TypeError):
-            self.dbsource.execute()
+            self.dbsource._execute()
 
     def test_execute_calls_adapter(self):
         """It should call the adapter methods with proper args"""
         expect = ("query", "execute", "metadata")
         return_value = "rows", "cols"
         res, adapter = self._test_adapter_method(
-            "execute", args=expect, return_value=return_value
+            "_execute", args=expect, return_value=return_value
         )
         adapter.assert_called_once_with(*expect)
 
@@ -78,7 +78,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         expect = (True, True, False)
         return_value = "rows", "cols"
         res, adapter = self._test_adapter_method(
-            "execute", args=expect, return_value=return_value
+            "_execute", args=expect, return_value=return_value
         )
         self.assertEqual(res, return_value[0])
 
@@ -87,7 +87,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         expect = (True, True, True)
         return_value = "rows", "cols"
         res, adapter = self._test_adapter_method(
-            "execute", args=expect, return_value=return_value
+            "_execute", args=expect, return_value=return_value
         )
         self.assertEqual(res, {"rows": return_value[0], "cols": return_value[1]})
 
@@ -95,9 +95,9 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        type(self.dbsource)._current_table = "table"
         res, adapter = self._test_adapter_method(
-            "remote_browse", create=True, args=args, kwargs=kwargs
+            "_remote_browse", create=True, args=args, kwargs=kwargs
         )
         adapter.assert_called_once_with(*args, **kwargs)
         self.assertEqual(res, adapter())
@@ -106,19 +106,19 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        type(self.dbsource)._current_table = False
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
-                "remote_browse", create=True, args=args, kwargs=kwargs
+                "_remote_browse", create=True, args=args, kwargs=kwargs
             )
 
     def test_remote_create(self):
         """It should call the adapter method with proper args"""
         args = {"val": "Value"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        type(self.dbsource)._current_table = "table"
         res, adapter = self._test_adapter_method(
-            "remote_create", create=True, args=args, kwargs=kwargs
+            "_remote_create", create=True, args=args, kwargs=kwargs
         )
         adapter.assert_called_once_with(*args, **kwargs)
         self.assertEqual(res, adapter())
@@ -127,19 +127,19 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        type(self.dbsource)._current_table = False
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
-                "remote_create", create=True, args=args, kwargs=kwargs
+                "_remote_create", create=True, args=args, kwargs=kwargs
             )
 
     def test_remote_delete(self):
         """It should call the adapter method with proper args"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        type(self.dbsource)._current_table = "table"
         res, adapter = self._test_adapter_method(
-            "remote_delete", create=True, args=args, kwargs=kwargs
+            "_remote_delete", create=True, args=args, kwargs=kwargs
         )
         adapter.assert_called_once_with(*args, **kwargs)
         self.assertEqual(res, adapter())
@@ -148,19 +148,19 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        type(self.dbsource)._current_table = False
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
-                "remote_delete", create=True, args=args, kwargs=kwargs
+                "_remote_delete", create=True, args=args, kwargs=kwargs
             )
 
     def test_remote_search(self):
         """It should call the adapter method with proper args"""
         args = {"search": "query"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        type(self.dbsource)._current_table = "table"
         res, adapter = self._test_adapter_method(
-            "remote_search", create=True, args=args, kwargs=kwargs
+            "_remote_search", create=True, args=args, kwargs=kwargs
         )
         adapter.assert_called_once_with(*args, **kwargs)
         self.assertEqual(res, adapter())
@@ -169,19 +169,19 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        type(self.dbsource)._current_table = False
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
-                "remote_search", create=True, args=args, kwargs=kwargs
+                "_remote_search", create=True, args=args, kwargs=kwargs
             )
 
     def test_remote_update(self):
         """It should call the adapter method with proper args"""
         args = [1], {"vals": "Value"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        type(self.dbsource)._current_table = "table"
         res, adapter = self._test_adapter_method(
-            "remote_update", create=True, args=args, kwargs=kwargs
+            "_remote_update", create=True, args=args, kwargs=kwargs
         )
         adapter.assert_called_once_with(*args, **kwargs)
         self.assertEqual(res, adapter())
@@ -190,10 +190,10 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        type(self.dbsource)._current_table = False
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
-                "remote_update", create=True, args=args, kwargs=kwargs
+                "_remote_update", create=True, args=args, kwargs=kwargs
             )
 
     # Postgres
@@ -206,25 +206,5 @@ class TestBaseExternalDbsource(common.TransactionCase):
             "_execute_generic",
         ) as execute:
             execute.return_value = "rows", "cols"
-            self.dbsource.execute(*expect)
+            self.dbsource._execute(*expect)
             execute.assert_called_once_with(*expect)
-
-    # Old API Compat
-
-    def test_execute_calls_adapter_old_api(self):
-        """It should call the adapter correctly if old kwargs provided"""
-        expect = [None, None, "metadata"]
-        with mock.patch.object(
-            type(self.dbsource),
-            "execute_postgresql",
-        ) as psql:
-            psql.return_value = "rows", "cols"
-            self.dbsource.execute(*expect, sqlparams="params", sqlquery="query")
-            expect[0], expect[1] = "query", "params"
-            psql.assert_called_once_with(*expect)
-
-    def test_conn_open(self):
-        """It should return open connection for use"""
-        with mock.patch.object(type(self.dbsource), "connection_open") as connection:
-            res = self.dbsource.conn_open()
-            self.assertEqual(res, connection().__enter__())

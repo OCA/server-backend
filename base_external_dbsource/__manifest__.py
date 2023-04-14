@@ -3,9 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "External Database Sources",
-    "version": "16.0.1.0.1",
+    "version": "16.0.2.0.0",
     "category": "Tools",
-    "author": "Daniel Reis, " "LasLabs, " "Odoo Community Association (OCA)",
+    "author": "Daniel Reis, LasLabs, Odoo Community Association (OCA)",
+    "maintainers": ["yajo"],
     "website": "https://github.com/OCA/server-backend",
     "license": "LGPL-3",
     "images": ["images/screenshot01.png"],
