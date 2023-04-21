@@ -34,16 +34,11 @@ class BaseExternalDbsource(models.Model):
     _name = "base.external.dbsource"
     _description = "External Database Sources"
 
-    # This is appended to the conn string if pass declared but not detected.
-    # Children should declare PWD_STRING_CONNECTOR (such as PWD_STRING_FBD)
-    #   to allow for override.
-    PWD_STRING_POSTGRESQL = "PWD=%s;"
-
     name = fields.Char("Datasource name", required=True)
     conn_string = fields.Text(
         "Connection string",
         help="""
-    Sample connection strings:
+    Sample connection strings ("%s" will be replaced by the password):
     - Microsoft SQL Server:
       mssql+pymssql://username:%s@server:port/dbname?charset=utf8
     - MySQL: mysql://user:%s@server:port/dbname
@@ -78,19 +73,9 @@ class BaseExternalDbsource(models.Model):
     @api.depends("conn_string", "password")
     def _compute_conn_string_full(self):
         for record in self:
-            if record.password:
-                if "%s" not in record.conn_string:
-                    try:
-                        pwd_string = getattr(
-                            record,
-                            "PWD_STRING_%s" % record.connector.upper(),
-                        )
-                    except AttributeError:
-                        _logger.info("Not altering query string for %s.", record)
-                    else:
-                        record.conn_string += pwd_string
+            try:
                 record.conn_string_full = record.conn_string % record.password
-            else:
+            except TypeError:
                 record.conn_string_full = record.conn_string
 
     # Interface

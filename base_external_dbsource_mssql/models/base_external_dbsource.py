@@ -17,7 +17,6 @@ class BaseExternalDbsource(models.Model):
     connector = fields.Selection(
         selection_add=[("mssql", "Microsoft SQL Server")], ondelete={"mssql": "cascade"}
     )
-    PWD_STRING_MSSQL = "Password=%s;"
 
     def connection_close_mssql(self, connection):
         return connection.close()
