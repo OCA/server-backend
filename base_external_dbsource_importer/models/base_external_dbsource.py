@@ -88,6 +88,7 @@ class BaseExternalModelImporter:
         update_method=True,
         specific_record=None,
         only_update=False,
+        force_update=False,
     ):
         model_name = records._name
         fields_to_update = self.dbsource.fields_to_update_ids.filtered(
@@ -100,11 +101,12 @@ class BaseExternalModelImporter:
             # Performance issue
             # record = records.filtered(lambda x: x.id == record_id)
             values = (update_vals or vals).copy()
-            for k, v in values.copy().items():
-                if k not in fields_to_update or (
-                    record._fields[k].convert_to_write(record[k], record) == v
-                ):
-                    values.pop(k)
+            if not force_update:
+                for k, v in values.copy().items():
+                    if k not in fields_to_update or (
+                        record._fields[k].convert_to_write(record[k], record) == v
+                    ):
+                        values.pop(k)
             if values:
                 record.with_context(tracking_disable=True).write(values)
         else:
