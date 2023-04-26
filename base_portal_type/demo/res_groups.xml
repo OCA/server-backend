@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+
+<record id="group_portal_type" model="res.groups">
+    <field name="name">A portal type</field>
+    <field name="category_id" ref="category_portal_type" />
+</record>
+
+</data>
