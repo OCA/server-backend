@@ -6,42 +6,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-05-02 20:33+0000\n"
+"Last-Translator: Douglas Custódio <douglascstd@yahoo.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__allowed_company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Empresas"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__company_id
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_ir_http__display_name
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users__display_name
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome Exibido"
 
 #. module: base_user_role_company
 #: model:ir.model,name:base_user_role_company.model_ir_http
 msgid "HTTP Routing"
-msgstr ""
+msgstr "Roteamento HTTP"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_ir_http__id
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users__id
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,help:base_user_role_company.field_res_users_role_line__company_id
@@ -49,31 +51,33 @@ msgid ""
 "If set, this role only applies when this is the main company selected. "
 "Otherwise it applies to all companies."
 msgstr ""
+"Se definido, esta função somente aplicará onde houver a empresa principal "
+"selecionada. Caso contrário será aplicado a todas as empresas."
 
 #. module: base_user_role_company
 #: model:ir.model.fields,field_description:base_user_role_company.field_ir_http____last_update
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users____last_update
 #: model:ir.model.fields,field_description:base_user_role_company.field_res_users_role_line____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificação em"
 
 #. module: base_user_role_company
 #: model:ir.model.constraint,message:base_user_role_company.constraint_res_users_role_line_user_role_uniq
 msgid "Roles can be assigned to a user only once at a time"
-msgstr ""
+msgstr "Funções podem ser atribuídas para o usuário apenas uma vez"
 
 #. module: base_user_role_company
 #: code:addons/base_user_role_company/models/role.py:0
 #, python-format
 msgid "User \"{}\" does not have access to the company \"{}\""
-msgstr ""
+msgstr "Usuário \"{}\" não tem permissão de acesso para a empresa \"{}\""
 
 #. module: base_user_role_company
 #: model:ir.model,name:base_user_role_company.model_res_users
 msgid "Users"
-msgstr ""
+msgstr "Usuários"
 
 #. module: base_user_role_company
 #: model:ir.model,name:base_user_role_company.model_res_users_role_line
 msgid "Users associated to a role"
-msgstr ""
+msgstr "Usuários associados à função"
