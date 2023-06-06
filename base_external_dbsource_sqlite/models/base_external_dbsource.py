@@ -30,12 +30,13 @@ class BaseExternalDbsource(models.Model):
 
     def _execute_sqlalchemy(self, sqlquery, sqlparams, metadata):
         rows, cols = list(), list()
+        exec_sqlquery = sqlalchemy.text(sqlquery)
         for record in self:
             with record.connection_open() as connection:
                 if sqlparams is None:
-                    cur = connection.execute(sqlquery)
+                    cur = connection.execute(exec_sqlquery)
                 else:
-                    cur = connection.execute(sqlquery, sqlparams)
+                    cur = connection.execute(exec_sqlquery, sqlparams)
                 if metadata:
                     cols = list(cur.keys())
                 rows = [r for r in cur]
