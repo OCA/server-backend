@@ -225,3 +225,12 @@ class TestUserRole(TransactionCase):
             AccessError, "You are not allowed to access 'User role'"
         ):
             role.read()
+
+    def test_show_alert_computation(self):
+        """Test the computation of the `show_alert` field."""
+        self.user_id.write({"role_line_ids": [(0, 0, {"role_id": self.role1_id.id})]})
+        self.assertTrue(self.user_id.show_alert)
+
+        # disable role
+        self.user_id.role_line_ids.unlink()
+        self.assertFalse(self.user_id.show_alert)

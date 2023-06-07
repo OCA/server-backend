@@ -24,8 +24,28 @@
                     </field>
                 </page>
             </xpath>
+           <xpath expr="//page[@name='access_rights']/group" position="before">
+                <field name="show_alert" invisible="1" />
+                <div
+                    class="alert alert-info text-center o_form_header"
+                    attrs="{'invisible': [('show_alert', '!=', True)]}"
+                    role="alert"
+                >
+                    <div>
+                        <strong
+                        >The access rights of this user are managed by roles.</strong>
+                    </div>
+                    <div>
+                        <em
+                        >Any configuration changes made here will not be persistent.</em>
+                    </div>
+                    <a class="close" data-bs-dismiss="alert" href="#">x</a>
+                </div>
+            </xpath>
+
         </field>
     </record>
+
     <record id="view_res_users_search_inherit" model="ir.ui.view">
         <field name="name">res.users.search.inherit</field>
         <field name="model">res.users</field>
