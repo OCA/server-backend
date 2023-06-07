@@ -247,6 +247,15 @@ class TestUserRole(TransactionCase):
         role_group_ids = sorted(set(role.trans_implied_ids.ids))
         self.assertEqual(user_group_ids, role_group_ids)
 
+    def test_show_alert_computation(self):
+        """Test the computation of the `show_alert` field."""
+        self.user_id.write({"role_line_ids": [(0, 0, {"role_id": self.role1_id.id})]})
+        self.assertTrue(self.user_id.show_alert)
+
+        # disable role
+        self.user_id.role_line_ids.unlink()
+        self.assertFalse(self.user_id.show_alert)
+
     def test_group_groups_into_role(self):
         user_group_ids = [group.id for group in self.user_id.groups_id]
         # Check that there is not a role with name: Test Role
