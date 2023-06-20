@@ -78,6 +78,10 @@ Add users (with dates or not):
    :width: 80 %
    :align: center
 
+Instead of creating roles from scratch, it is possible to create a role
+based on the groups of an existing user: select or open the user and choose
+"Create role from user" in the action menu.
+
 Usage
 =====
 
@@ -116,6 +120,7 @@ Contributors
 * Kevin Khao <kevin.khao@akretion.com>
 * Tatiana Deribina <tatiana.deribina@sprintit.fi> (https://sprintit.fi)
 * Guillem Casassas <guillem.casassas@forgeflow.com>
+* Guillaume Pothier <gpothier@caligrafix.cl>
 
 Do not contact contributors directly about support or help with technical issues.
 
