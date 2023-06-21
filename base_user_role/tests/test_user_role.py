@@ -237,8 +237,7 @@ class TestUserRole(TransactionCase):
                 "assign_to_user": False,
             }
         )
-        ctx = {"active_ids": [self.user_id.id]}
-        result = wizard.with_context(ctx).create_from_user()
+        result = wizard.with_context(active_ids=[self.user_id.id]).create_from_user()
 
         # Check that the role has the same groups as the user
         role_id = result["res_id"]
