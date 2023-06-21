@@ -2,7 +2,7 @@
 <odoo>
     <record id="create_from_user_wizard_action" model="ir.actions.act_window">
         <field name="name">Create role from user</field>
-        <field name="res_model">base_user_role.create_from_user_wizard</field>
+        <field name="res_model">wizard.create.role.from.user</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="base.model_res_users" />
@@ -10,7 +10,7 @@
 
     <record id="create_from_user_wizard_view" model="ir.ui.view">
         <field name="name">Create role from user</field>
-        <field name="model">base_user_role.create_from_user_wizard</field>
+        <field name="model">wizard.create.role.from.user</field>
         <field name="arch" type="xml">
             <form string="Create role from user">
                 <group>
