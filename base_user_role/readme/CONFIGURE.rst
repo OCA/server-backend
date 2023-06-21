@@ -22,3 +22,7 @@ Add users (with dates or not):
 .. figure:: /OCA/server-backend/16.0/base_user_role/static/description/role_users.png
    :width: 80 %
    :align: center
+
+Instead of creating roles from scratch, it is possible to create a role
+based on the groups of an existing user: select or open the user and choose
+"Create role from user" in the action menu.
