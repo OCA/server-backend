@@ -5,7 +5,7 @@ class CreateFromUserWizard(models.TransientModel):
     _name = "base_user_role.create_from_user_wizard"
     _description = "Create role from user wizard"
 
-    name = fields.Char("Name")
+    name = fields.Char(required=True)
     assign_to_user = fields.Boolean("Assign to user", default=True)
 
     def create_from_user(self):
