@@ -1,8 +1,8 @@
 from odoo import fields, models
 
 
-class CreateFromUserWizard(models.TransientModel):
-    _name = "base_user_role.create_from_user_wizard"
+class WizardCreateRoleFromUser(models.TransientModel):
+    _name = "wizard.create.role.from.user"
     _description = "Create role from user wizard"
 
     name = fields.Char(required=True)
