@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="create_from_user_wizard_action" model="ir.actions.act_window">
         <field name="name">Create role from user</field>
         <field name="res_model">base_user_role.create_from_user_wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_model_id" ref="base.model_res_users" />
     </record>
 
     <record id="create_from_user_wizard_view" model="ir.ui.view">
@@ -20,10 +20,10 @@
 
                 <footer>
                     <button
-                            name="create_from_user"
-                            string="Create"
-                            type="object"
-                            class="oe_highlight"
+                        name="create_from_user"
+                        string="Create"
+                        type="object"
+                        class="oe_highlight"
                     />
                     or
                     <button string="Close" class="oe_link" special="cancel" />
