@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import fields, models
 
 
 class CreateFromUserWizard(models.TransientModel):
@@ -22,17 +22,21 @@ class CreateFromUserWizard(models.TransientModel):
 
         user = user_obj.browse(user_id)
 
-        role = role_obj.create({
-            "name": self.name,
-        })
+        role = role_obj.create(
+            {
+                "name": self.name,
+            }
+        )
 
         role.implied_ids = [(6, 0, user.groups_id.ids)]
 
         if self.assign_to_user:
-            role_line_obj.create({
-                "role_id": role.id,
-                "user_id": user_id,
-            })
+            role_line_obj.create(
+                {
+                    "role_id": role.id,
+                    "user_id": user_id,
+                }
+            )
 
         return {
             "context": self.env.context,
