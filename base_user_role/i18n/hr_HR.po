@@ -59,6 +59,11 @@ msgid "Application"
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
+msgid "Assign to user"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_category_id
 msgid "Associated category"
 msgstr ""
@@ -74,6 +79,11 @@ msgid "Associated group's category"
 msgstr ""
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
+msgid "Close"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr ""
@@ -84,20 +94,39 @@ msgid "Comment"
 msgstr ""
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
+msgid "Create"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.create_from_user_wizard_action
+#: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
+msgid "Create role from user"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_wizard_create_role_from_user
+msgid "Create role from user wizard"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_uid
 msgid "Created by"
 msgstr "Kreirao"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_date
 msgid "Created on"
 msgstr "Kreirano"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__display_name
 msgid "Display Name"
 msgstr "Naziv"
 
@@ -129,6 +158,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__id
 msgid "ID"
 msgstr "ID"
 
@@ -153,18 +183,21 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line____last_update
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user____last_update
 msgid "Last Modified on"
 msgstr "Zadnje modificirano"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_uid
 msgid "Last Updated by"
 msgstr "Zadnji ažurirao"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_date
 msgid "Last Updated on"
 msgstr "Zadnje ažurirano"
 
@@ -175,6 +208,7 @@ msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__name
 msgid "Name"
 msgstr "Naziv"
 
@@ -311,4 +345,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_access
 msgid "Views"
+msgstr ""
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
+msgid "or"
 msgstr ""
