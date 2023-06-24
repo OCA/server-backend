@@ -225,3 +225,23 @@ class TestUserRole(TransactionCase):
             AccessError, "You are not allowed to access 'User role'"
         ):
             role.read()
+
+    def test_create_role_from_user(self):
+        # Use a wizard instance to create a new role based on the user.
+        # We use assign_to_user = False, as otherwise this module forcibly
+        # assigns the role's groups to the user, which would make this
+        # test useless.
+        wizard = self.env["wizard.create.role.from.user"].create(
+            {
+                "name": "Role for user (without assign)",
+                "assign_to_user": False,
+            }
+        )
+        result = wizard.with_context(active_ids=[self.user_id.id]).create_from_user()
+
+        # Check that the role has the same groups as the user
+        role_id = result["res_id"]
+        role = self.role_model.browse([role_id])
+        user_group_ids = sorted(set(self.user_id.groups_id.ids))
+        role_group_ids = sorted(set(role.trans_implied_ids.ids))
+        self.assertEqual(user_group_ids, role_group_ids)

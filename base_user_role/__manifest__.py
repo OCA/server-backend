@@ -19,6 +19,7 @@
         "views/role.xml",
         "views/user.xml",
         "views/group.xml",
+        "wizard/create_from_user.xml",
     ],
     "installable": True,
 }
