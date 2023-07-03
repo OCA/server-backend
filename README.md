@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [base_external_dbsource](base_external_dbsource/) | 15.0.1.0.0 |  | External Database Sources
 [base_external_dbsource_mssql](base_external_dbsource_mssql/) | 15.0.1.0.0 |  | External Database Source - MSSQL
 [base_external_dbsource_mysql](base_external_dbsource_mysql/) | 15.0.1.0.0 |  | External Database Source - MySQL
+[base_external_dbsource_sap_hana](base_external_dbsource_sap_hana/) | 15.0.1.0.0 |  | External Database Source - SAP - Hana
 [base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 15.0.1.0.0 |  | External Database Source - SQLite
 [base_external_system](base_external_system/) | 15.0.1.0.0 |  | Data models allowing for connection to external systems.
 [base_global_discount](base_global_discount/) | 15.0.1.0.0 |  | Base Global Discount
