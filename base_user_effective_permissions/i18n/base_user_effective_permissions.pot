@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_user_effective_permissions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_user_effective_permissions
+#: model_terms:ir.ui.view,arch_db:base_user_effective_permissions.view_users_form
+msgid "<span class=\"o_stat_text\">Effective permissions</span>"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_permission
+msgid "Create"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_domain_widget
+msgid "Create domain"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_domain
+msgid "Create restrictions"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_permission
+msgid "Delete"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_domain_widget
+msgid "Delete domain"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_domain
+msgid "Delete restrictions"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model,name:base_user_effective_permissions.model_res_users_effective_permission
+msgid "Effective permissions"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#. odoo-python
+#: code:addons/base_user_effective_permissions/models/res_users.py:0
+#, python-format
+msgid "Effective permissions for %s"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_human_name
+msgid "Human readable model name"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__id
+msgid "ID"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_id
+msgid "Model"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_name
+msgid "Model name"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_permission
+msgid "Read"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_domain_widget
+msgid "Read domain"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_domain
+msgid "Read restrictions"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model,name:base_user_effective_permissions.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_permission
+msgid "Write"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_domain_widget
+msgid "Write domain"
+msgstr ""
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_domain
+msgid "Write restrictions"
+msgstr ""
