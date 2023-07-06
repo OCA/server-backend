@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="res_users_effective_permission_tree" model="ir.ui.view">
+        <field name="model">res.users.effective.permission</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="model_id" />
+                <field name="model_name" invisible="1" />
+                <field name="create_permission" optional="show" />
+                <field name="create_domain" optional="show" />
+                <field
+                    name="create_domain_widget"
+                    optional="hide"
+                    widget="domain"
+                    options="{'model': 'model_name'}"
+                />
+                <field name="read_permission" optional="show" />
+                <field name="read_domain" optional="show" />
+                <field
+                    name="read_domain_widget"
+                    optional="hide"
+                    widget="domain"
+                    options="{'model': 'model_name'}"
+                />
+                <field name="write_permission" optional="show" />
+                <field name="write_domain" optional="show" />
+                <field
+                    name="write_domain_widget"
+                    optional="hide"
+                    widget="domain"
+                    options="{'model': 'model_name'}"
+                />
+                <field name="unlink_permission" optional="show" />
+                <field name="unlink_domain" optional="show" />
+                <field
+                    name="unlink_domain_widget"
+                    optional="hide"
+                    widget="domain"
+                    options="{'model': 'model_name'}"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="res_users_effective_permission_search" model="ir.ui.view">
+        <field name="model">res.users.effective.permission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_id" />
+            </search>
+        </field>
+    </record>
+</data>
