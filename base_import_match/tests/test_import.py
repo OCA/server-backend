@@ -86,9 +86,12 @@ class ImportCase(TransactionCase):
         self.assertEqual(
             self.env.ref("base.res_partner_address_4").function, "Bug Fixer"
         )
-        self.assertTrue(self.env.ref("base.res_partner_address_4").child_ids,)
+        self.assertTrue(
+            self.env.ref("base.res_partner_address_4").child_ids,
+        )
         self.assertEqual(
-            len(self.env.ref("base.res_partner_address_4").child_ids), 3,
+            len(self.env.ref("base.res_partner_address_4").child_ids),
+            3,
         )
         self.assertEqual(
             set(self.env.ref("base.res_partner_address_4").mapped("child_ids.name")),

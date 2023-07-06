@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 
 
 class BaseExternalDbsource(models.Model):
-    """ It provides logic for connection to an external data source
+    """It provides logic for connection to an external data source
 
     Classes implementing this interface must provide the following methods
     suffixed with the adapter type. See the method definitions and examples
@@ -96,11 +96,11 @@ class BaseExternalDbsource(models.Model):
     # Interface
 
     def change_table(self, name):
-        """ Change the table that is used for CRUD operations """
+        """Change the table that is used for CRUD operations"""
         self.current_table = name
 
     def connection_close(self, connection):
-        """ It closes the connection to the data source.
+        """It closes the connection to the data source.
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -111,7 +111,7 @@ class BaseExternalDbsource(models.Model):
 
     @contextmanager
     def connection_open(self):
-        """ It provides a context manager for the data source.
+        """It provides a context manager for the data source.
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -128,23 +128,23 @@ class BaseExternalDbsource(models.Model):
                 _logger.exception("Connection close failure.")
 
     def execute(self, query=None, execute_params=None, metadata=False, **kwargs):
-        """ Executes a query and returns a list of rows.
+        """Executes a query and returns a list of rows.
 
-            "execute_params" can be a dict of values, that can be referenced
-            in the SQL statement using "%(key)s" or, in the case of Oracle,
-            ":key".
-            Example:
-                query = "SELECT * FROM mytable WHERE city = %(city)s AND
-                            date > %(dt)s"
-                execute_params   = {
-                    'city': 'Lisbon',
-                    'dt': datetime.datetime(2000, 12, 31),
-                }
+        "execute_params" can be a dict of values, that can be referenced
+        in the SQL statement using "%(key)s" or, in the case of Oracle,
+        ":key".
+        Example:
+            query = "SELECT * FROM mytable WHERE city = %(city)s AND
+                        date > %(dt)s"
+            execute_params   = {
+                'city': 'Lisbon',
+                'dt': datetime.datetime(2000, 12, 31),
+            }
 
-            If metadata=True, it will instead return a dict containing the
-            rows list and the columns list, in the format:
-                { 'cols': [ 'col_a', 'col_b', ...]
-                , 'rows': [ (a0, b0, ...), (a1, b1, ...), ...] }
+        If metadata=True, it will instead return a dict containing the
+        rows list and the columns list, in the format:
+            { 'cols': [ 'col_a', 'col_b', ...]
+            , 'rows': [ (a0, b0, ...), (a1, b1, ...), ...] }
         """
 
         # Old API compatibility
@@ -168,7 +168,7 @@ class BaseExternalDbsource(models.Model):
             return rows
 
     def connection_test(self):
-        """ It tests the connection
+        """It tests the connection
 
         Raises:
             ConnectionSuccessError: On connection success
@@ -187,7 +187,7 @@ class BaseExternalDbsource(models.Model):
         )
 
     def remote_browse(self, record_ids, *args, **kwargs):
-        """ It browses for and returns the records from remote by ID
+        """It browses for and returns the records from remote by ID
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -205,7 +205,7 @@ class BaseExternalDbsource(models.Model):
         return method(record_ids, *args, **kwargs)
 
     def remote_create(self, vals, *args, **kwargs):
-        """ It creates a record on the remote data source.
+        """It creates a record on the remote data source.
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -223,7 +223,7 @@ class BaseExternalDbsource(models.Model):
         return method(vals, *args, **kwargs)
 
     def remote_delete(self, record_ids, *args, **kwargs):
-        """ It deletes records by ID on remote
+        """It deletes records by ID on remote
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -241,7 +241,7 @@ class BaseExternalDbsource(models.Model):
         return method(record_ids, *args, **kwargs)
 
     def remote_search(self, query, *args, **kwargs):
-        """ It searches the remote for the query.
+        """It searches the remote for the query.
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -259,7 +259,7 @@ class BaseExternalDbsource(models.Model):
         return method(query, *args, **kwargs)
 
     def remote_update(self, record_ids, vals, *args, **kwargs):
-        """ It updates the remote records with the vals
+        """It updates the remote records with the vals
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -300,7 +300,7 @@ class BaseExternalDbsource(models.Model):
     # Compatibility & Private
 
     def conn_open(self):
-        """ It opens and returns a connection to the remote data source.
+        """It opens and returns a connection to the remote data source.
 
         This method calls adapter method of this same name, suffixed with
         the adapter type.
@@ -313,7 +313,7 @@ class BaseExternalDbsource(models.Model):
             return connection
 
     def _get_adapter_method(self, method_prefix):
-        """ It returns the connector adapter method for ``method_prefix``.
+        """It returns the connector adapter method for ``method_prefix``.
 
         Args:
             method_prefix: (str) Prefix of adapter method (such as

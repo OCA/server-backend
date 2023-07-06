@@ -32,7 +32,10 @@
         <field name="inherit_id" ref="base.view_users_search" />
         <field name="arch" type="xml">
             <field name="company_ids" position="after">
-                <field name="role_ids" />
+                <field
+                    name="role_ids"
+                    filter_domain="[('role_line_ids.role_id.name','ilike',self)]"
+                />
             </field>
         </field>
     </record>

@@ -15,7 +15,7 @@ default_language_version:
   node: "14.13.0"
 repos:
   - repo: https://github.com/psf/black
-    rev: 19.10b0
+    rev: 22.8.0
     hooks:
       - id: black
   - repo: https://github.com/prettier/pre-commit
@@ -63,8 +63,8 @@ repos:
       - id: check-xml
       - id: mixed-line-ending
         args: ["--fix=lf"]
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.9
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.9.2
     hooks:
       - id: flake8
         name: flake8 except __init__.py
