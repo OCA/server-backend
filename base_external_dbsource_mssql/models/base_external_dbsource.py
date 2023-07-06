@@ -26,7 +26,7 @@ except ImportError:
 
 
 class BaseExternalDbsource(models.Model):
-    """ It provides logic for connection to a MSSQL data source. """
+    """It provides logic for connection to a MSSQL data source."""
 
     _inherit = "base.external.dbsource"
 
