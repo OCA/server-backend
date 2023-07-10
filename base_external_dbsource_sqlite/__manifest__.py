@@ -3,12 +3,12 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     'name': 'External Database Source - SQLite',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'category': 'Tools',
     'author': "Daniel Reis, "
               "LasLabs, "
               "Odoo Community Association (OCA)",
-    'website': 'https://github.com/OCA/server-tools',
+    'website': 'https://github.com/OCA/server-backend',
     'license': 'LGPL-3',
     'depends': [
         'base_external_dbsource',

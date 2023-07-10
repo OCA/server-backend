@@ -4,11 +4,11 @@
 
 {
     "name": "Server Actions - Navigate",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "author": "GRAP, " "Odoo Community Association (OCA)",
     "summary": "Navigate between any items of any Odoo Models",
     "category": "Tools",
-    "website": "https://github.com/OCA/server-ux",
+    "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
     "depends": ["base"],
     "maintainers": ["legalsylvain"],
