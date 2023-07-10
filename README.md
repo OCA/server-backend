@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 16.0.1.0.1 | [![anddago78](https://github.com/anddago78.png?size=30px)](https://github.com/anddago78) | External Database Source - SQLite
 [base_global_discount](base_global_discount/) | 16.0.1.0.0 |  | Base Global Discount
 [base_import_match](base_import_match/) | 16.0.1.0.0 |  | Try to avoid duplicates before importing
-[base_user_role](base_user_role/) | 16.0.1.2.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
+[base_user_role](base_user_role/) | 16.0.1.2.1 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
 [base_user_role_history](base_user_role_history/) | 16.0.1.0.0 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | This module allows to track the changes on users roles.
 
 [//]: # (end addons)
