@@ -4,7 +4,7 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "12.0.1.1.0",
+    "version": "12.0.1.1.1",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "author": "Tecnativa, "
