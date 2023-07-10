@@ -1,3 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 access_dav_collection,access_dav_collection,model_dav_collection,base.group_user,1,0,0,0
+write_dav_collection,write_dav_collection,model_dav_collection,base.group_system,1,1,1,1
 access_dav_collection_field_mapping,access_dav_collection_field_mapping,model_dav_collection_field_mapping,base.group_user,1,0,0,0
+write_dav_collection_field_mapping,write_dav_collection_field_mapping,model_dav_collection_field_mapping,base.group_system,1,1,1,1

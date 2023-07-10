@@ -9,6 +9,7 @@ import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
+from odoo.tools.safe_eval import safe_eval
 
 
 class DavCollectionFieldMapping(models.Model):
@@ -69,7 +70,7 @@ class DavCollectionFieldMapping(models.Model):
             "tz": tz,
             "vobject": vobject,
         }
-        tools.safe_eval(self.import_code, context, mode="exec", nocopy=True)
+        safe_eval(self.import_code, context, mode="exec", nocopy=True)
         return context.get("result", {})
 
     @api.multi
@@ -92,19 +93,18 @@ class DavCollectionFieldMapping(models.Model):
     @api.model
     def _from_vobject_datetime(self, item):
         if isinstance(item.value, datetime.datetime):
-            value = item.value.astimezone(dateutil.tz.UTC)
-            return value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
-        elif isinstance(item.value, datetime.date):
-            return item.value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
+            return item.value.astimezone(tz.UTC)
+        if isinstance(item.value, datetime.date):
+            return datetime.datetime.combine(item.value, datetime.time())
         return None
 
     @api.model
     def _from_vobject_date(self, item):
         if isinstance(item.value, datetime.datetime):
-            value = item.value.astimezone(dateutil.tz.UTC)
-            return value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
-        elif isinstance(item.value, datetime.date):
-            return item.value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+            value = item.value.astimezone(tz.UTC)
+            return value.date()
+        if isinstance(item.value, datetime.date):
+            return item.value
         return None
 
     @api.model
@@ -139,7 +139,7 @@ class DavCollectionFieldMapping(models.Model):
             "tz": tz,
             "vobject": vobject,
         }
-        tools.safe_eval(self.export_code, context, mode="exec", nocopy=True)
+        safe_eval(self.export_code, context, mode="exec", nocopy=True)
         return context.get("result", None)
 
     @api.multi
@@ -157,7 +157,7 @@ class DavCollectionFieldMapping(models.Model):
 
     @api.model
     def _to_vobject_datetime(self, value):
-        result = fields.Datetime.from_string(value)
+        result = fields.Datetime.to_datetime(value)
         return result.replace(tzinfo=tz.UTC)
 
     @api.model
@@ -166,7 +166,7 @@ class DavCollectionFieldMapping(models.Model):
 
     @api.model
     def _to_vobject_date(self, value):
-        return fields.Date.from_string(value)
+        return fields.Date.to_date(value)
 
     @api.model
     def _to_vobject_binary(self, value):
