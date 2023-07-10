@@ -22,21 +22,21 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_default_lang_translate](base_default_lang_translate/) | 12.0.1.0.0 | [![remi-filament](https://github.com/remi-filament.png?size=30px)](https://github.com/remi-filament) | This modules allows to select a default language which is used for source terms in translations
-[base_external_dbsource](base_external_dbsource/) | 12.0.1.1.0 |  | External Database Sources
-[base_external_dbsource_mssql](base_external_dbsource_mssql/) | 12.0.1.0.0 |  | External Database Source - MSSQL
-[base_external_dbsource_mysql](base_external_dbsource_mysql/) | 12.0.1.0.0 |  | External Database Source - MySQL
-[base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 12.0.1.0.0 |  | External Database Source - SQLite
+[base_external_dbsource](base_external_dbsource/) | 12.0.1.1.1 |  | External Database Sources
+[base_external_dbsource_mssql](base_external_dbsource_mssql/) | 12.0.1.0.1 |  | External Database Source - MSSQL
+[base_external_dbsource_mysql](base_external_dbsource_mysql/) | 12.0.1.0.1 |  | External Database Source - MySQL
+[base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 12.0.1.0.1 |  | External Database Source - SQLite
 [base_external_system](base_external_system/) | 12.0.1.0.0 |  | Data models allowing for connection to external systems.
 [base_global_discount](base_global_discount/) | 12.0.3.0.0 |  | Base Global Discount
-[base_import_match](base_import_match/) | 12.0.1.1.0 |  | Try to avoid duplicates before importing
-[base_suspend_security](base_suspend_security/) | 12.0.1.0.3 |  | Suspend security checks for a call
-[base_user_role](base_user_role/) | 12.0.2.1.2 | [![ABF OSIELL](https://github.com/ABF OSIELL.png?size=30px)](https://github.com/ABF OSIELL) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) | User roles
+[base_import_match](base_import_match/) | 12.0.1.1.1 |  | Try to avoid duplicates before importing
+[base_suspend_security](base_suspend_security/) | 12.0.1.0.4 |  | Suspend security checks for a call
+[base_user_role](base_user_role/) | 12.0.2.1.3 | [![ABF OSIELL](https://github.com/ABF OSIELL.png?size=30px)](https://github.com/ABF OSIELL) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) | User roles
 [base_user_role_company](base_user_role_company/) | 12.0.1.0.0 |  | User roles by company
-[base_user_role_history](base_user_role_history/) | 12.0.1.0.0 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | This module allows to track the changes on users roles.
+[base_user_role_history](base_user_role_history/) | 12.0.1.0.1 | [![ThomasBinsfeld](https://github.com/ThomasBinsfeld.png?size=30px)](https://github.com/ThomasBinsfeld) | This module allows to track the changes on users roles.
 [base_user_role_profile](base_user_role_profile/) | 12.0.1.0.0 |  | User profiles
 [base_user_role_profile_example](base_user_role_profile_example/) | 12.0.1.0.0 |  | User profiles example
 [pglogical](pglogical/) | 12.0.1.0.1 |  | Support for replicating Odoo's database
-[server_action_navigate](server_action_navigate/) | 12.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Navigate between any items of any Odoo Models
+[server_action_navigate](server_action_navigate/) | 12.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Navigate between any items of any Odoo Models
 
 [//]: # (end addons)
 
