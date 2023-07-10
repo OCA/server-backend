@@ -9,7 +9,7 @@
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV, '
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/server-tools',
+    'website': 'https://github.com/OCA/server-backend',
     'depends': [
         # Odoo
         'mail',
