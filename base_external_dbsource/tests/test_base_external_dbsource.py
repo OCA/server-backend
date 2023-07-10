@@ -60,8 +60,9 @@ class TestBaseExternalDbsource(common.TransactionCase):
 
     def test_connection_success(self):
         """ It should raise for successful connection """
-        with self.assertRaises(ConnectionSuccessError):
-            self.dbsource.connection_test()
+        with mock.patch.object(self.dbsource, 'connection_open_postgresql'):
+            with self.assertRaises(ConnectionSuccessError):
+                self.dbsource.connection_test()
 
     def test_connection_fail(self):
         """ It should raise for failed/invalid connection """
@@ -72,12 +73,13 @@ class TestBaseExternalDbsource(common.TransactionCase):
 
     def test_connection_open_calls_close(self):
         """ It should close connection after context ends """
-        with mock.patch.object(
-            self.dbsource, 'connection_close',
-        ) as close:
-            with self.dbsource.connection_open():
-                pass
-            close.assert_called_once()
+        with mock.patch.object(self.dbsource, 'connection_open_postgresql'):
+            with mock.patch.object(
+                self.dbsource, 'connection_close',
+            ) as close:
+                with self.dbsource.connection_open():
+                    pass
+                close.assert_called_once()
 
     def test_connection_close(self):
         """ It should call adapter's close method """
