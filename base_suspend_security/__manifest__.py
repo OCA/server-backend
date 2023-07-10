@@ -3,6 +3,7 @@
 {
     "name": "Suspend security",
     "version": "12.0.1.0.3",
+    "website": "https://github.com/OCA/server-backend",
     "author": "Therp BV, brain-tec AG, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Hidden/Dependency",

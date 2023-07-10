@@ -6,7 +6,7 @@
     "summary": "Try to avoid duplicates before importing",
     "version": "12.0.1.1.0",
     "category": "Tools",
-    "website": "https://tecnativa.com",
+    "website": "https://github.com/OCA/server-backend",
     "author": "Tecnativa, "
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",

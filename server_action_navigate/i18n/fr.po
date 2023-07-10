@@ -183,7 +183,7 @@ msgid ""
 "The Action Server %s is not correctly set\n"
 " : No fields defined"
 msgstr ""
-"L'action-serveur '%d' n'est pas correctement paramétré : Aucun champ défini."
+"L'action-serveur '%s' n'est pas correctement paramétré : Aucun champ défini."
 
 #. module: server_action_navigate
 #: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__state
