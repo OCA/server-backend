@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_base_ical_form" model="ir.ui.view">
+        <field name="model">base.ical</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label class="oe_edit_only" for="name" />
+                    <h1><field name="name" /></h1>
+                    <group>
+                    <group name="main">
+                        <field name="model_id" />
+                        <field
+                                name="domain"
+                                placeholder="[('user_id', '=', user.id)]"
+                            />
+                    </group>
+                    <group name="fields">
+                        <field name="expression_dtstamp" />
+                        <field name="expression_uid" />
+                        <field name="expression_dtstart" />
+                        <field name="expression_dtend" />
+                        <field name="expression_summary" />
+                    </group>
+                    </group>
+                    <field name="preview" widget="ace" groups="base.group_no_one" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_base_ical_tree" model="ir.ui.view">
+        <field name="model">base.ical</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="model_id" />
+                <field name="domain" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_base_ical" model="ir.actions.act_window">
+        <field name="name">iCalendars</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">base.ical</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_ical" parent="base.menu_custom" action="action_base_ical" />
+</data>

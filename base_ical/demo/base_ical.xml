@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="demo_calendar" model="base.ical">
+        <field name="name">Demo calendar</field>
+        <field name="model_id" ref="base.model_res_users" />
+        <field name="expression_uid">str(record.id)</field>
+        <field name="expression_dtstart">record.create_date</field>
+        <field name="expression_dtend">record.write_date</field>
+    </record>
+</data>
