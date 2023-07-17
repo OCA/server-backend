@@ -19,13 +19,15 @@ Portal types
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_portal_type
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/server-backend&target_branch=16.0
-    :alt: Try me on Runboat
+.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
+    :target: https://runbot.odoo-community.org/runbot/253/16.0
+    :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module allows administrator to configure groups for portal users.
+This module allows administrator to configure groups for portal users, which is not possible with standard Odoo.
+
+That's useful for having different types of portal users (think differentiate vendors from customers) and leveraging Odoo's group mechanism for ie views instead having to cook up custom solutions.
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
