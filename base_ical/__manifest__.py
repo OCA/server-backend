@@ -11,7 +11,6 @@
     "author": "Hunki Enterprises BV, Odoo Community Association (OCA)",
     "maintainers": ["hbrunn"],
     "license": "AGPL-3",
-    "uninstall_hook": "uninstall_hook",
     "external_dependencies": {
         "python": ["vobject"],
     },

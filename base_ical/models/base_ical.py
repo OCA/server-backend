@@ -146,7 +146,7 @@ class BaseIcal(models.Model):
     def _get_events(self):
         """Return events based on model_id and domain"""
         self.ensure_one()
-        return self.env[self.model_id.model].search(
+        return self.env[self.model_id.sudo().model].search(
             safe_eval(self.domain, self._get_eval_domain_context())
         )
 
