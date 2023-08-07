@@ -8,7 +8,6 @@ _logger = logging.getLogger(__name__)
 class Users(models.Model):
     _inherit = "res.users"
 
-
     # TODO: (franz) make it clear why we test with "." group and why the share = True
     @api.model
     def has_group(self, group_ext_id):
@@ -33,10 +32,14 @@ class Users(models.Model):
             return has_base_group_backend
         return res
 
-    @api.depends('groups_id')
+    @api.depends("groups_id")
     def _compute_share(self):
-        user_group_id = self.env['ir.model.data']._xmlid_to_res_id('base.group_user')
-        backend_user_group_id = self.env['ir.model.data']._xmlid_to_res_id('base_group_backend.group_backend')
-        internal_users = self.filtered_domain([('groups_id', 'in', [user_group_id, backend_user_group_id])])
+        user_group_id = self.env["ir.model.data"]._xmlid_to_res_id("base.group_user")
+        backend_user_group_id = self.env["ir.model.data"]._xmlid_to_res_id(
+            "base_group_backend.group_backend"
+        )
+        internal_users = self.filtered_domain(
+            [("groups_id", "in", [user_group_id, backend_user_group_id])]
+        )
         internal_users.share = False
         (self - internal_users).share = True
