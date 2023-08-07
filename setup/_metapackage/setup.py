@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo-addon-base_import_match>=16.0dev,<16.1dev',
         'odoo-addon-base_portal_type>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role>=16.0dev,<16.1dev',
+        'odoo-addon-base_user_role_company>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role_history>=16.0dev,<16.1dev',
     ],
     classifiers=[
