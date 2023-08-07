@@ -1,13 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_res_users_all,res_users all,model_res_users,group_backend,1,0,0,0
-access_res_partners_all,res_partners all,base.model_res_partner,group_backend,1,0,0,0
-access_ir_ui_menu_group_user,ir_ui_menu group_user,base.model_ir_ui_menu,group_backend,1,0,0,0
-access_ir_filter_user,ir_filters all,base.model_ir_filters,group_backend,1,1,1,1
-access_bus_presence,bus.presence,bus.model_bus_presence,group_backend,1,1,1,1
-access_mail_channel_member_user,mail.channel.member.user,mail.model_mail_channel_member,group_backend,1,1,1,0
-access_mail_channel_user,mail.group.user,mail.model_mail_channel,group_backend,1,1,1,0
-access_mail_notification_user,mail.notification.user,mail.model_mail_notification,group_backend,1,1,1,0
-access_mail_activity_user,mail.activity.user,mail.model_mail_activity,group_backend,1,1,1,1
-access_mail_activity_type_user,mail.activity.type.user,mail.model_mail_activity_type,group_backend,1,0,0,0
-access_ir_attachment_group_user,ir_attachment group_user,base.model_ir_attachment,group_backend,1,0,0,0
-access_mail_followers_user,mail.followers.user,mail.model_mail_followers,group_backend,1,0,0,0
+res_users_backend,backend user res.users,base.model_res_users,group_backend,1,0,0,0
+res_partner_backend,backend user res.partner,base.model_res_partner,group_backend,1,0,0,0
+ir_ui_menu_backend,backend user ir.ui.menu,base.model_ir_ui_menu,group_backend,1,0,0,0
+ir_filter_backend,backend user ir.filters,base.model_ir_filters,group_backend,1,1,1,1
+bus_presence_backend,backend user bus.presence,bus.model_bus_presence,group_backend,1,1,1,1
+mail_channel_member_backend,backend user mail.channel.member,mail.model_mail_channel_member,group_backend,1,1,1,0
+mail_channel_backend,backend user mail.group,mail.model_mail_channel,group_backend,1,1,1,0
+mail_notification_backend,backend user mail.notification,mail.model_mail_notification,group_backend,1,1,1,0
+mail_activity_backend,backend user mail.activity,mail.model_mail_activity,group_backend,1,1,1,1
+mail_activity_type_backend,backend user mail.activity.type,mail.model_mail_activity_type,group_backend,1,0,0,0
+ir_attachment_group_backend,backend user ir.attachment,base.model_ir_attachment,group_backend,1,0,0,0
+mail_followers_backend,backend user mail.followers,mail.model_mail_followers,group_backend,1,0,0,0
