@@ -11,6 +11,7 @@
     "depends": ["base_user_role"],
     "data": [
         "views/role.xml",
+        "views/user.xml",
     ],
     "installable": True,
     "auto_install": True,
