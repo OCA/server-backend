@@ -8,14 +8,21 @@
     "license": "LGPL-3",
     "maintainers": ["oca"],
     "website": "https://github.com/OCA/server-backend",
-    "depends": ["base", "mail"],
+    "depends": [
+        "base",
+        "base_install_request",  # weird module, we need to survive with it
+        "mail",
+    ],
     "demo": [
         "demo/test-model.xml",
         "demo/ir.model.access.csv",
         "demo/backend_dummy_model.xml",
+        "demo/res_partners.xml",
+        "demo/res_users.xml",
     ],
     "data": [
-        "data/res-groups.xml",
+        "data/res_groups.xml",
+        "data/ir_ui_menu.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,
