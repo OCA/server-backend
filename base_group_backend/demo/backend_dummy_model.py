@@ -3,7 +3,6 @@ from odoo import fields, models
 
 class BackendDummyModel(models.Model):
     _name = "backend.dummy.model"
-    _inherit = ["mail.activity.mixin"]
     _description = "Backend Dummy Model demo"
 
     my_value = fields.Char(name="Value", required=True)

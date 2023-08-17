@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="user_demo" model="res.users">
+        <field name="login">demo backend user</field>
+        <field name="groups_id" eval="[Command.set([ref('base.group_user')])]" />
+        <field name="partner_id" ref="base_group_backend.demo_partner" />
+    </record>
+    <record id="user_demo_external" model="res.users">
+        <field name="login">demo backend user 1</field>
+        <field name="groups_id" eval="[Command.set([ref('base.group_portal')])]" />
+        <field name="partner_id" ref="base_group_backend.demo_partner1" />
+    </record>
+    <record id="user_demo_external_with_ui" model="res.users">
+        <field name="login">demo backend user 2</field>
+        <field
+            name="groups_id"
+            eval="[Command.set([ref('base_group_backend.group_backend_ui_users')])]"
+        />
+        <field name="partner_id" ref="base_group_backend.demo_partner2" />
+    </record>
+</odoo>

@@ -1,0 +1,8 @@
+<odoo>
+
+    <record model="ir.ui.menu" id="base.menu_management">
+        <!-- Allow to avoid to display App menu for backend users  -->
+        <field name="groups_id" eval="[(4, ref('base.group_user'), 0)]" />
+    </record>
+
+</odoo>
