@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-02 18:40+0000\n"
-"PO-Revision-Date: 2018-03-02 18:40+0000\n"
-"Last-Translator: Fernando Lara <gennesis45@gmail.com>, 2017\n"
+"PO-Revision-Date: 2023-08-28 09:10+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -37,6 +38,21 @@ msgid ""
 "    - Elasticsearch: https://user:%s@localhost:9200\n"
 "    "
 msgstr ""
+"\n"
+"    Cadenas de conexión de muestra:\n"
+"    -Microsoft SQL Server:\n"
+"      mssql+pymssql://nombre de usuario:%s@servidor:puerto/nombredb?charset="
+"utf8\n"
+"    - MySQL: mysql://usuario:%s@servidor:puerto/nombrebd\n"
+"    - ODBC: CONDUCTOR={FreeTDS};SERVIDOR=servidor.dirección;Base de "
+"datos=mydb;UID=sa\n"
+"    - ORACLE: nombre de usuario/%s@//servidor.dirección:puerto/instancia\n"
+"    -PostgreSQL:\n"
+"        dbname='template1' usuario='dbuser' host='localhost' puerto='5432' "
+"contraseña=%s\n"
+"    - SQLite: sqlite:///test.db\n"
+"    - Búsqueda elástica: https://usuario:%s@localhost:9200\n"
+"    "
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -46,37 +62,39 @@ msgid ""
 "\"%(method)s\" method not found, check that all assets are installed for the "
 "%(connector)s connector type."
 msgstr ""
+"No se encontró el método \"%(method)s\", verifique que todos los recursos "
+"estén instalados para el tipo de conector %(connector)s."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Ca Certs"
-msgstr ""
+msgstr "Certificados Ca"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_cert
 msgid "Client Cert"
-msgstr ""
+msgstr "Certificado de cliente"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 msgid "Client Key"
-msgstr ""
+msgstr "Clave de cliente"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
 msgid "Company"
-msgstr ""
+msgstr "Compañía"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
 msgid "Conn String Full"
-msgstr ""
+msgstr "Cadena de conexiones llena"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Connection string"
-msgstr ""
+msgstr "Cadena de conexión"
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -87,6 +105,9 @@ msgid ""
 "Here is what we got instead:\n"
 "%s"
 msgstr ""
+"La prueba de conexión falló:\n"
+"Esto es lo que tenemos en su lugar:\n"
+"%s"
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -96,11 +117,13 @@ msgid ""
 "Connection test succeeded:\n"
 "Everything seems properly set up!"
 msgstr ""
+"Prueba de conexión exitosa:\n"
+"¡Todo parece estar correctamente configurado!"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__connector
 msgid "Connector"
-msgstr ""
+msgstr "Conector"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__create_uid
@@ -115,12 +138,12 @@ msgstr "Creado el"
 #. module: base_external_dbsource
 #: model:ir.ui.menu,name:base_external_dbsource.menu_dbsource
 msgid "Database Sources"
-msgstr ""
+msgstr "Orígenes de base de datos"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__name
 msgid "Datasource name"
-msgstr ""
+msgstr "Nombre de la fuente de datos"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__display_name
@@ -130,7 +153,7 @@ msgstr "Nombre a mostrar"
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
-msgstr ""
+msgstr "Fuente de BD externa"
 
 #. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
@@ -149,6 +172,8 @@ msgid ""
 "If a connector is missing from the list, check the server log to confirm "
 "that the required components were detected."
 msgstr ""
+"Si falta un conector en la lista, compruebe el registro del servidor para "
+"confirmar que se han detectado los componentes necesarios."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource____last_update
@@ -173,12 +198,14 @@ msgstr "Contraseña"
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Path to CA Certs file on server."
-msgstr ""
+msgstr "Ruta al archivo de certificados de CA en el servidor."
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Please check the tooltip for connection string examples"
 msgstr ""
+"Consulte la información sobre herramientas para ver ejemplos de cadenas de "
+"conexión"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__postgresql
@@ -195,7 +222,7 @@ msgstr "Probar conexión"
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid "query is a required argument"
-msgstr ""
+msgstr "la consulta es un argumento requerido"
 
 #~ msgid "Microsoft SQL Server"
 #~ msgstr "Microsoft SQL Server"
