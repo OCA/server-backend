@@ -20,6 +20,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: base_external_dbsource_mssql
+#: model:ir.model.fields,field_description:base_external_dbsource_mssql.field_base_external_dbsource__connector
+msgid "Connector"
+msgstr ""
+
+#. module: base_external_dbsource_mssql
 #: model:ir.model,name:base_external_dbsource_mssql.model_base_external_dbsource
 msgid "External Database Sources"
 msgstr "Fontes Banco de Dados Externo"
+
+#. module: base_external_dbsource_mssql
+#: model:ir.model.fields,help:base_external_dbsource_mssql.field_base_external_dbsource__connector
+msgid ""
+"If a connector is missing from the list, check the server log to confirm "
+"that the required components were detected."
+msgstr ""
+
+#. module: base_external_dbsource_mssql
+#: model:ir.model.fields.selection,name:base_external_dbsource_mssql.selection__base_external_dbsource__connector__mssql
+msgid "Microsoft SQL Server"
+msgstr ""
