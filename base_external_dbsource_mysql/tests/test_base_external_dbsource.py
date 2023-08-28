@@ -1,6 +1,6 @@
 # Copyright 2016 LasLabs Inc.
 
-import mock
+from unittest import mock
 
 from odoo.tests import common
 
@@ -10,9 +10,10 @@ ADAPTER = (
 
 
 class TestBaseExternalDbsource(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.dbsource = self.env.ref("base_external_dbsource_mysql.demo_mysql")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.dbsource = cls.env.ref("base_external_dbsource_mysql.demo_mysql")
 
     def test_connection_close_mysql(self):
         """It should close the connection"""
