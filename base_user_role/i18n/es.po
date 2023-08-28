@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 02:07+0000\n"
-"PO-Revision-Date: 2023-08-28 09:10+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"PO-Revision-Date: 2023-08-31 10:35+0000\n"
+"Last-Translator: kikopeiro <francisco.peiro@factorlibre.com>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
 msgid "# Roles"
-msgstr "# Funciones"
+msgstr "# Roles"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
@@ -47,7 +47,7 @@ msgstr "Menú Acceso"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_ids
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Access Rights"
-msgstr "Derechos de acceso"
+msgstr "Permisos de acceso"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
@@ -103,12 +103,12 @@ msgstr "Crear"
 #: model:ir.actions.act_window,name:base_user_role.create_from_user_wizard_action
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "Create role from user"
-msgstr "Crear una función a partir del usuario"
+msgstr "Crear rol a partir del usuario"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_wizard_create_role_from_user
 msgid "Create role from user wizard"
-msgstr "Crear una función desde el asistente de usuario"
+msgstr "Crear rol desde el asistente de usuario"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -209,7 +209,7 @@ msgstr "Última actualización en"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_count
 msgid "Model Access Count"
-msgstr "Conteo de Acceso al Modelo"
+msgstr "# Accesos a Modelos"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
@@ -221,13 +221,13 @@ msgstr "Nombre"
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_parent_ids
 msgid "Parent Groups"
-msgstr "Grupo Parental"
+msgstr "Grupos Padre"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__parent_ids
 msgid "Parents"
-msgstr "Parentales"
+msgstr "Padres"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
@@ -239,7 +239,7 @@ msgstr "Regla de registro"
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_id
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_id
 msgid "Relation for the groups that represents a role"
-msgstr "Relación para los grupos que representan un papel"
+msgstr "Relación para los grupos que representan un rol"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_id
@@ -269,13 +269,13 @@ msgstr "Roles"
 #. module: base_user_role
 #: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
 msgid "Roles can be assigned to a user only once at a time"
-msgstr "Las funciones sólo pueden asignarse a un usuario una vez cada vez"
+msgstr "Los roles sólo pueden asignarse a un usuario una vez cada vez"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
 msgid "Roles in which the group is involved"
-msgstr "Funciones en las que participa el grupo"
+msgstr "Roles en las que participa el grupo"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
@@ -285,7 +285,7 @@ msgstr "Reglas"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rules_count
 msgid "Rules Count"
-msgstr "Conteo de reglas"
+msgstr "# Reglas"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
