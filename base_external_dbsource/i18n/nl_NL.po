@@ -162,6 +162,16 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: base_external_dbsource
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mssql
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+#. module: base_external_dbsource
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mysql
+msgid "MySQL"
+msgstr "MySQL"
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr "Wachtwoord"
@@ -182,6 +192,16 @@ msgid "PostgreSQL"
 msgstr "PostgreSQL"
 
 #. module: base_external_dbsource
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__sap_hana
+msgid "SAP-Hana"
+msgstr ""
+
+#. module: base_external_dbsource
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__sqlite
+msgid "SQLite"
+msgstr "SQLite"
+
+#. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Test Connection"
 msgstr "Test Verbinding"
@@ -195,17 +215,8 @@ msgstr ""
 #~ msgid "External DB Sources"
 #~ msgstr "Externe DB bronnen"
 
-#~ msgid "Microsoft SQL Server"
-#~ msgstr "Microsoft SQL Server"
-
-#~ msgid "SQLite"
-#~ msgstr "SQLite"
-
 #~ msgid "Firebird"
 #~ msgstr "Firebird"
-
-#~ msgid "MySQL"
-#~ msgstr "MySQL"
 
 #~ msgid "ODBC"
 #~ msgstr "ODBC"
