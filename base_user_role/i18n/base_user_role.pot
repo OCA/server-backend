@@ -20,6 +20,12 @@ msgid "# Roles"
 msgstr ""
 
 #. module: base_user_role
+#: code:addons/base_user_role/models/role.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
 msgid "Access Controls"
 msgstr ""
