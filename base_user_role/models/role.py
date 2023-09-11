@@ -3,7 +3,7 @@
 import datetime
 import logging
 
-from odoo import SUPERUSER_ID, api, fields, models
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -102,6 +102,11 @@ class ResUsersRole(models.Model):
         res = super(ResUsersRole, self).unlink()
         users.set_groups_from_roles(force=True)
         return res
+
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {}, name=_("%s (copy)", self.name))
+        return super().copy(default)
 
     def update_users(self):
         """Update all the users concerned by the roles identified by `ids`."""
