@@ -13,3 +13,7 @@ class ResUsers(models.Model):
     def _compute_ical_ids(self):
         for this in self:
             this.ical_ids = self.env["base.ical"].search([])
+
+    @property
+    def SELF_READABLE_FIELDS(self):
+        return super().SELF_READABLE_FIELDS + ["ical_ids"]
