@@ -1,0 +1,1 @@
+odoo14-addon-base_external_dbsource_sqlite@git+https://github.com/OCA/server-backend@refs/pull/239/head#subdirectory=setup/base_external_dbsource_sqlite
