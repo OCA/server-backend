@@ -20,6 +20,7 @@ class BaseIcal(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True, translate=True)
     model_id = fields.Many2one("ir.model", required=True, ondelete="cascade")
+    model = fields.Char(related="model_id.model")
     domain = fields.Char(
         required=True, default="[]", help="You can use variables `env` and `user` here"
     )
