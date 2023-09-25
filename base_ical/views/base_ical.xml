@@ -16,6 +16,7 @@
                                 name="domain"
                                 placeholder="[('user_id', '=', user.id)]"
                             />
+                        <field name="auto" />
                     </group>
                     <group name="fields">
                         <field name="expression_dtstamp" />

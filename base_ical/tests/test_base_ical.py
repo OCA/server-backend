@@ -41,3 +41,14 @@ class TestBaseIcal(TransactionCase):
             calendar_form.expression_dtstart = "record.create_date"
             calendar_form.expression_dtend = "record.write_date"
             self.assertTrue(calendar_form.preview)
+
+    def test_auto_flag(self):
+        """Test the auto flag is honored"""
+        user = self.env.ref("base.user_demo")
+        self.assertFalse(user.ical_token_ids)
+        self.calendar.auto = True
+        self.assertTrue(user.ical_token_ids)
+        self.calendar.copy()
+        self.assertEqual(len(user.ical_token_ids), 2)
+        new_user = user.copy()
+        self.assertEqual(len(new_user.ical_token_ids), 2)

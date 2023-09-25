@@ -58,6 +58,12 @@ class BaseIcal(models.Model):
     )
     user_url = fields.Char(compute="_compute_user_fields", string="URL")
     user_active = fields.Boolean(compute="_compute_user_fields")
+    auto = fields.Boolean(
+        "Enable automatically",
+        help="If you check this, the calendar will be enabled for all current and "
+        "future users. Not that unchecking this will not disable existing calendar "
+        "subscriptions",
+    )
 
     def _valid_field_parameter(self, field, name):
         return super()._valid_field_parameter(field, name) or name == "vevent_field"
@@ -114,6 +120,20 @@ class BaseIcal(models.Model):
     def _check_domain(self):
         for this in self:
             this._get_ical()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Enable calendar for all users if auto flag is checked"""
+        result = super().create(vals_list)
+        result.filtered("auto")._enable_all_users()
+        return result
+
+    def write(self, vals):
+        """Enable calendar for all users if auto flag is checked"""
+        result = super().write(vals)
+        if vals.get("auto"):
+            self._enable_all_users()
+        return result
 
     def _get_user_tokens(self):
         return (
@@ -177,6 +197,14 @@ class BaseIcal(models.Model):
         if isinstance(value, datetime.datetime):
             return pytz.utc.localize(value).astimezone(pytz.timezone(self.env.user.tz))
         return value
+
+    def _enable_all_users(self, users=None):
+        """Enable calendar for all users"""
+        for this in self:
+            for user in users or self.env["res.users"].search(
+                [("groups_id", "=", self.env.ref("base.group_user").id)]
+            ):
+                this.with_user(user).action_enable()
 
     def action_enable(self):
         """Create or activate current user's token"""
