@@ -153,15 +153,23 @@ class BaseExternalDbsource(models.Model):
         return "{:0>2}".format(98 - (int(number_iban) % 97))
 
     @api.model
-    @ormcache("code")
-    def _state_country_from_zip(self, code=None):
+    @ormcache("code", "country_code")
+    def _state_country_from_zip(self, code=None, country_code=None):
         CityZip = city_zip = self.env["res.city.zip"]
         if code:
-            city_zip = CityZip.search([("name", "=", code)], limit=1)
+            domain = [("name", "=", code)]
+            if country_code:
+                domain.append(("country_id.code", "=", country_code))
+            city_zip = CityZip.search(domain, limit=1)
+        country = city_zip.country_id
+        if not country and country_code:
+            country = self.env["res.country"].search(
+                [("code", "=", country_code)], limit=1
+            )
         return (
             city_zip.city_id.state_id.id,
-            city_zip.city_id.country_id.id,
-            city_zip.city_id.country_id.code,
+            country.id,
+            country.code,
             city_zip.id,
             city_zip.city_id.id,
         )
