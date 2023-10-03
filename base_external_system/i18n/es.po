@@ -6,179 +6,183 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-10-09 07:49+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__company_ids
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__company_ids
 msgid "Access to this system is restricted to these companies."
-msgstr ""
+msgstr "El acceso a este sistema está restringido a estas compañías."
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__company_ids
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Compañias"
 
 #. module: base_external_system
 #: model:ir.model.constraint,message:base_external_system.constraint_external_system_name_uniq
 msgid "Connection name must be unique."
-msgstr ""
+msgstr "El nombre de la conexión debe ser único."
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__create_uid
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__create_date
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__display_name
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: base_external_system
 #: model:ir.model,name:base_external_system.model_external_system
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
 msgid "External System"
-msgstr ""
+msgstr "Sistema Externo"
 
 #. module: base_external_system
 #: model:ir.model,name:base_external_system.model_external_system_adapter
 msgid "External System Adapter"
-msgstr ""
+msgstr "Adaptador de sistema externo"
 
 #. module: base_external_system
 #: model:ir.model,name:base_external_system.model_external_system_os
 msgid "External System OS"
-msgstr ""
+msgstr "Sistema operativo externo"
 
 #. module: base_external_system
 #: model:ir.actions.act_window,name:base_external_system.external_system_action
 #: model:ir.ui.menu,name:base_external_system.menu_external_system
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
 msgid "External Systems"
-msgstr ""
+msgstr "Sistemas externos"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__fingerprint
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__fingerprint
 msgid "Fingerprint"
-msgstr ""
+msgstr "Huella dactilar"
 
 #. module: base_external_system
 #: code:addons/base_external_system/models/external_system.py:0
 #, python-format
 msgid "Fingerprint cannot be empty when Ignore Fingerprint is not checked."
 msgstr ""
+"La huella digital no puede estar vacía si la opción Ignorar huella digital "
+"no está marcada."
 
 #. module: base_external_system
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar Por"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__host
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__host
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
 msgid "Host"
-msgstr ""
+msgstr "Huésped"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__id
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__ignore_fingerprint
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__ignore_fingerprint
 msgid "Ignore Fingerprint"
-msgstr ""
+msgstr "Ignorar huella dactilar"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__interface
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__interface
 msgid "Interface"
-msgstr ""
+msgstr "Interfaz"
 
 #. module: base_external_system
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
 msgid "Keys"
-msgstr ""
+msgstr "Llaves"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system____last_update
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__write_uid
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__write_date
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última Actualización el"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__name
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__password
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__password
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__port
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__port
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
 msgid "Port"
-msgstr ""
+msgstr "Puerto"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__private_key
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__private_key
 msgid "Private Key"
-msgstr ""
+msgstr "Clave privada"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__private_key_password
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__private_key_password
 msgid "Private Key Password"
-msgstr ""
+msgstr "Contraseña de la clave privada"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__remote_path
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__remote_path
 msgid "Remote Path"
-msgstr ""
+msgstr "Ruta remota"
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__remote_path
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__remote_path
 msgid "Restrict to this directory path on the remote, if applicable."
-msgstr ""
+msgstr "Restringir a esta ruta de directorio en el remoto, si procede."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__ignore_fingerprint
@@ -187,41 +191,43 @@ msgid ""
 "Set this to `True` in order to ignore an invalid/unknown fingerprint from "
 "the system."
 msgstr ""
+"Establézcalo como `True` para ignorar una huella inválida/desconocida del "
+"sistema."
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_adapter__system_id
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__system_id
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__system_type
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__system_type
 msgid "System Type"
-msgstr ""
+msgstr "Tipo de Sistema"
 
 #. module: base_external_system
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_form
 msgid "Test Connection"
-msgstr ""
+msgstr "Probar conexión"
 
 #. module: base_external_system
 #: code:addons/base_external_system/models/external_system_adapter.py:0
 #, python-format
 msgid "The connection was a success."
-msgstr ""
+msgstr "La conexión fue un éxito."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__name
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__name
 msgid "This is the canonical (humanized) name for the system."
-msgstr ""
+msgstr "Es el nombre canónico (humanizado) del sistema."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__host
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__host
 msgid "This is the domain or IP address that the system can be reached at."
-msgstr ""
+msgstr "Es el dominio o la dirección IP de acceso al sistema."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__fingerprint
@@ -230,6 +236,7 @@ msgid ""
 "This is the fingerprint that is advertised by this system in order to "
 "validate its identity."
 msgstr ""
+"Es la huella digital que anuncia este sistema para validar su identidad."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__interface
@@ -238,6 +245,8 @@ msgid ""
 "This is the interface that this system represents. It is created "
 "automatically upon creation of the external system."
 msgstr ""
+"Es la interfaz que representa este sistema. Se crea automáticamente al crear "
+"el sistema externo."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__password
@@ -246,6 +255,8 @@ msgid ""
 "This is the password that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Esta es la contraseña que se utiliza para autenticarse en este sistema, si "
+"procede."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__private_key_password
@@ -254,12 +265,14 @@ msgid ""
 "This is the password to unlock the private key that was provided for this "
 "sytem."
 msgstr ""
+"Esta es la contraseña para desbloquear la clave privada que se proporcionó "
+"para este sistema."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__port
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__port
 msgid "This is the port number that the system is listening on."
-msgstr ""
+msgstr "Este es el número de puerto en el que el sistema está escuchando."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__private_key
@@ -268,6 +281,8 @@ msgid ""
 "This is the private key that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Esta es la clave privada que se utiliza para autenticarse en este sistema, "
+"si procede."
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__username
@@ -276,10 +291,12 @@ msgid ""
 "This is the username that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Este es el nombre de usuario que se utiliza para autenticarse en este "
+"sistema, si procede."
 
 #. module: base_external_system
 #: model:ir.model.fields,field_description:base_external_system.field_external_system__username
 #: model:ir.model.fields,field_description:base_external_system.field_external_system_os__username
 #: model_terms:ir.ui.view,arch_db:base_external_system.external_system_view_search
 msgid "Username"
-msgstr ""
+msgstr "Nombre de usuario"
