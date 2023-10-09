@@ -28,21 +28,6 @@ msgid "Action To Do"
 msgstr "Action à effectuer"
 
 #. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Add Followers"
-msgstr "Ajouter des abonnés"
-
-#. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Create Next Activity"
-msgstr "Créer une activité "
-
-#. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Create a new Record"
-msgstr "Créer un nouvel enregistrement"
-
-#. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_uid
 msgid "Created by"
 msgstr "Créé par"
@@ -71,16 +56,6 @@ msgstr "Supprimer la dernière ligne"
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Execute Python Code"
-msgstr "Exécuter le code Python"
-
-#. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Execute several actions"
-msgstr "Exécuter plusieurs actions"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_id
@@ -130,7 +105,7 @@ msgid "Model"
 msgstr "Modèle"
 
 #. module: server_action_navigate
-#: selection:ir.actions.server,state:0
+#: model:ir.model.fields.selection,name:server_action_navigate.selection__ir_actions_server__state__navigate
 msgid "Navigate"
 msgstr "Naviguer"
 
@@ -157,11 +132,6 @@ msgid "See tags of Partners"
 msgstr "Voir les catégories des partenaires"
 
 #. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Send Email"
-msgstr "Envoyer par courriel"
-
-#. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__sequence
 msgid "Sequence"
 msgstr "Séquence"
@@ -177,7 +147,7 @@ msgid "Server Actions Navigation Lines"
 msgstr "Lignes de navigation de l'action-serveur"
 
 #. module: server_action_navigate
-#: code:addons/server_action_navigate/models/ir_actions_server.py:62
+#: code:addons/server_action_navigate/models/ir_actions_server.py:0
 #, fuzzy, python-format
 msgid ""
 "The Action Server %s is not correctly set\n"
@@ -210,10 +180,26 @@ msgstr ""
 "- 'Ajouter Abonnés': ajouter des abonnés à un enregistrement (Discutez)\n"
 "- 'Créer une Nouvelle Activité': créer une activité (Discutez)"
 
-#. module: server_action_navigate
-#: selection:ir.actions.server,state:0
-msgid "Update the Record"
-msgstr "Mettre à jour l'enregistrement"
+#~ msgid "Add Followers"
+#~ msgstr "Ajouter des abonnés"
+
+#~ msgid "Create Next Activity"
+#~ msgstr "Créer une activité "
+
+#~ msgid "Create a new Record"
+#~ msgstr "Créer un nouvel enregistrement"
+
+#~ msgid "Execute Python Code"
+#~ msgstr "Exécuter le code Python"
+
+#~ msgid "Execute several actions"
+#~ msgstr "Exécuter plusieurs actions"
+
+#~ msgid "Send Email"
+#~ msgstr "Envoyer par courriel"
+
+#~ msgid "Update the Record"
+#~ msgstr "Mettre à jour l'enregistrement"
 
 #~ msgid "Line Number"
 #~ msgstr "Numéro de ligne"
