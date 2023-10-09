@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "External Database Source - SQLite",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "category": "Tools",
     "author": "Daniel Reis, LasLabs, Odoo Community Association (OCA)",
     "maintainers": ["anddago78"],
