@@ -38,5 +38,7 @@ class BaseExternalDbsource(models.Model):
                     cur = connection.execute(sqlquery, sqlparams)
                 if metadata:
                     cols = list(cur.keys())
-                rows = [r for r in cur]
+                # If the query doesn't return rows, trying to get them anyway
+                # will raise an exception `sqlalchemy.exc.ResourceClosedError`
+                rows = [r for r in cur] if cur.returns_rows else []
         return rows, cols
