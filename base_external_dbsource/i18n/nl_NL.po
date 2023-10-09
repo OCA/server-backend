@@ -165,6 +165,11 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: base_external_dbsource
+#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mysql
+msgid "MySQL"
+msgstr "MySQL"
+
+#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
 msgstr "Wachtwoord"
@@ -207,9 +212,6 @@ msgstr ""
 
 #~ msgid "Firebird"
 #~ msgstr "Firebird"
-
-#~ msgid "MySQL"
-#~ msgstr "MySQL"
 
 #~ msgid "ODBC"
 #~ msgstr "ODBC"
