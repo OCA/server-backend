@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_user_role_company
+# 	* base_user_role_company
 #
 msgid ""
 msgstr ""
@@ -33,7 +33,9 @@ msgstr "HTTP Routing"
 
 #. module: base_user_role_company
 #: model:ir.model.fields,help:base_user_role_company.field_res_users_role_line__company_id
-msgid "If set, this role only applies when this is the main company selected. Otherwise it applies to all companies."
+msgid ""
+"If set, this role only applies when this is the main company selected. "
+"Otherwise it applies to all companies."
 msgstr ""
 
 #. module: base_user_role_company
