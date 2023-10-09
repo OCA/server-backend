@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_external_system
+# 	* base_external_system
 #
 msgid ""
 msgstr ""
@@ -205,7 +205,9 @@ msgstr ""
 #: model:ir.model.fields,help:base_external_system.field_external_system__ignore_fingerprint
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__ignore_fingerprint
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__ignore_fingerprint
-msgid "Set this to `True` in order to ignore an invalid/unknown fingerprint from the system."
+msgid ""
+"Set this to `True` in order to ignore an invalid/unknown fingerprint from "
+"the system."
 msgstr ""
 
 #. module: base_external_system
@@ -250,28 +252,36 @@ msgstr ""
 #: model:ir.model.fields,help:base_external_system.field_external_system__fingerprint
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__fingerprint
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__fingerprint
-msgid "This is the fingerprint that is advertised by this system in order to validate its identity."
+msgid ""
+"This is the fingerprint that is advertised by this system in order to "
+"validate its identity."
 msgstr ""
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__interface
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__interface
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__interface
-msgid "This is the interface that this system represents. It is created automatically upon creation of the external system."
+msgid ""
+"This is the interface that this system represents. It is created "
+"automatically upon creation of the external system."
 msgstr ""
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__password
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__password
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__password
-msgid "This is the password that is used for authenticating to this system, if applicable."
+msgid ""
+"This is the password that is used for authenticating to this system, if "
+"applicable."
 msgstr ""
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__private_key_password
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__private_key_password
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__private_key_password
-msgid "This is the password to unlock the private key that was provided for this sytem."
+msgid ""
+"This is the password to unlock the private key that was provided for this "
+"sytem."
 msgstr ""
 
 #. module: base_external_system
@@ -285,14 +295,18 @@ msgstr ""
 #: model:ir.model.fields,help:base_external_system.field_external_system__private_key
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__private_key
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__private_key
-msgid "This is the private key that is used for authenticating to this system, if applicable."
+msgid ""
+"This is the private key that is used for authenticating to this system, if "
+"applicable."
 msgstr ""
 
 #. module: base_external_system
 #: model:ir.model.fields,help:base_external_system.field_external_system__username
 #: model:ir.model.fields,help:base_external_system.field_external_system_adapter__username
 #: model:ir.model.fields,help:base_external_system.field_external_system_os__username
-msgid "This is the username that is used for authenticating to this system, if applicable."
+msgid ""
+"This is the username that is used for authenticating to this system, if "
+"applicable."
 msgstr ""
 
 #. module: base_external_system
