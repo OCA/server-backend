@@ -53,6 +53,7 @@ msgstr "Âmbito do Desconto"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__display_name
+#: model:ir.model.fields,field_description:base_global_discount.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nome a Apresentar"
 
@@ -76,11 +77,13 @@ msgstr "Descontos Globais"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__id
+#: model:ir.model.fields,field_description:base_global_discount.field_res_partner__id
 msgid "ID"
 msgstr "ID"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount____last_update
+#: model:ir.model.fields,field_description:base_global_discount.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Última Modificação Em"
 
