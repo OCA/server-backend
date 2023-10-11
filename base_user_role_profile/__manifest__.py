@@ -2,7 +2,7 @@
 
 {
     "name": "User profiles",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Tools",
     "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
@@ -15,8 +15,13 @@
         "views/user.xml",
         "views/role.xml",
         "views/profile.xml",
-        "views/assets.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "base_user_role_profile/static/src/js/switch_profile_menu.js",
+        ],
+    },
     "qweb": ["static/src/xml/templates.xml"],
+    "external_dependencies": {"python": ["pymssql<=2.2.5"]},
     "installable": True,
 }

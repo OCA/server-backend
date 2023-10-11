@@ -6,7 +6,7 @@ class ResUsersProfile(models.Model):
     _name = "res.users.profile"
     _description = "Role profile"
 
-    name = fields.Char("Name")
+    name = fields.Char()
     user_ids = fields.Many2many(
         "res.users", string="Allowed users", compute="_compute_user_ids"
     )
