@@ -22,6 +22,5 @@
         ],
     },
     "qweb": ["static/src/xml/templates.xml"],
-    "external_dependencies": {"python": ["pymssql<=2.2.5"]},
     "installable": True,
 }
