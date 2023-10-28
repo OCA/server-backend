@@ -6,7 +6,7 @@
         <field name="model">base.external.dbsource</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="External DB Sources">
+            <tree>
                 <field name="name" />
                 <field name="connector" />
                 <field name="conn_string" />
@@ -17,7 +17,7 @@
         <field name="name">base.external.dbsource.form</field>
         <field name="model">base.external.dbsource</field>
         <field name="arch" type="xml">
-            <form string="External DB Source">
+            <form>
                 <sheet>
                     <group>
                         <group>
