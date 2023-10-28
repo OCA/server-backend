@@ -54,10 +54,14 @@ msgstr "Utilizador"
 #. odoo-python
 #: code:addons/base_user_role_company/models/role.py:0
 #, python-format
-msgid "User \"{}\" does not have access to the company \"{}\""
-msgstr "O utilizador \"{}\" não tem acesso à empresa \"{}\""
+msgid "User \"%(user)s\" does not have access to the company \"%(company)s\""
+msgstr ""
 
 #. module: base_user_role_company
 #: model:ir.model,name:base_user_role_company.model_res_users_role_line
 msgid "Users associated to a role"
 msgstr "Utilizadores associados a uma função"
+
+#, python-format
+#~ msgid "User \"{}\" does not have access to the company \"{}\""
+#~ msgstr "O utilizador \"{}\" não tem acesso à empresa \"{}\""
