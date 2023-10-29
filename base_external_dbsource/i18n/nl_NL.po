@@ -124,16 +124,6 @@ msgid "Display Name"
 msgstr "weergavenaam"
 
 #. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
-msgid "External DB Source"
-msgstr "Externe DB bron"
-
-#. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
-msgid "External DB Sources"
-msgstr "Externe DB bronnen"
-
-#. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
@@ -196,6 +186,12 @@ msgstr "Test Verbinding"
 #, python-format
 msgid "query is a required argument"
 msgstr ""
+
+#~ msgid "External DB Source"
+#~ msgstr "Externe DB bron"
+
+#~ msgid "External DB Sources"
+#~ msgstr "Externe DB bronnen"
 
 #~ msgid "Microsoft SQL Server"
 #~ msgstr "Microsoft SQL Server"

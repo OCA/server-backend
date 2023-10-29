@@ -126,16 +126,6 @@ msgid "Display Name"
 msgstr "Prikazani naziv"
 
 #. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
-msgid "External DB Source"
-msgstr "Vir zunanje podatkovne baze"
-
-#. module: base_external_dbsource
-#: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
-msgid "External DB Sources"
-msgstr "Viri zunanjih podatkovnih baz"
-
-#. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
@@ -198,3 +188,9 @@ msgstr "Test povezave"
 #, python-format
 msgid "query is a required argument"
 msgstr ""
+
+#~ msgid "External DB Source"
+#~ msgstr "Vir zunanje podatkovne baze"
+
+#~ msgid "External DB Sources"
+#~ msgstr "Viri zunanjih podatkovnih baz"
