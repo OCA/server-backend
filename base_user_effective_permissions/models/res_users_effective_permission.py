@@ -31,7 +31,14 @@ class ResUsersEffectivePermission(models.TransientModel):
     def _generate_permissions(self, user):
         permissions = self.browse([])
         operations = ("create", "unlink", "read", "write")
-        IrRule = self.env["ir.rule"].with_user(user)
+        IrRule = (
+            self.env["ir.rule"]
+            .with_user(user)
+            .with_company(user.company_id)
+            .with_context(
+                allowed_company_ids=user.company_id.ids,
+            )
+        )
         for model_record in self.env["ir.model"].search([]):
             if model_record.model not in self.env:
                 continue
@@ -39,6 +46,7 @@ class ResUsersEffectivePermission(models.TransientModel):
                 self.env[model_record.model]
                 .with_user(user)
                 .with_company(user.company_id)
+                .with_context(allowed_company_ids=user.company_id.ids)
             )
             vals = {"model_id": model_record.id}
             vals.update(
