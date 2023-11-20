@@ -16,8 +16,6 @@
                         <field
                                 name="domain"
                                 placeholder="[('user_id', '=', user.id)]"
-                                widget="domain"
-                                options="{'model': 'model'}"
                             />
                         <field name="auto" />
                     </group>
