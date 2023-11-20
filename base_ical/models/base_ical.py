@@ -196,7 +196,9 @@ class BaseIcal(models.Model):
     def _format_ical_value(self, field, value):
         """Add timezone to datetime values"""
         if isinstance(value, datetime.datetime):
-            return pytz.utc.localize(value).astimezone(pytz.timezone(self.env.user.tz))
+            return pytz.utc.localize(value).astimezone(
+                pytz.timezone(self.env.user.tz or "UTC")
+            )
         return value
 
     def _enable_all_users(self, users=None):
