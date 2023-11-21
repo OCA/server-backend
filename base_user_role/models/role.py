@@ -4,6 +4,7 @@ import datetime
 import logging
 
 from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -128,6 +129,16 @@ class ResUsersRole(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id("base.ir_access_act")
         action["domain"] = [("id", "in", self.model_access_ids.ids)]
         return action
+
+    @api.constrains("line_ids")
+    def restriction_users_role(self):
+        for role in self:
+            admin_role = self.env.ref("base.user_admin")
+            users = role.line_ids.mapped("user_id")
+            if admin_role in users:
+                raise ValidationError(
+                    _("You cannot add the administrator user to the users role.")
+                )
 
 
 class ResUsersRoleLine(models.Model):
