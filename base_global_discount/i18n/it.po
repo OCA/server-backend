@@ -17,6 +17,11 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: base_global_discount
+#: model:ir.model.fields,help:base_global_discount.field_global_discount__discount_base
+msgid "Amount that will be discounted."
+msgstr "Importo che verrà scontato."
+
+#. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__company_id
 msgid "Company"
 msgstr "Azienda"
@@ -40,6 +45,11 @@ msgstr "Creato il"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__discount
 msgid "Discount"
 msgstr "Sconto"
+
+#. module: base_global_discount
+#: model:ir.model.fields,field_description:base_global_discount.field_global_discount__discount_base
+msgid "Discount Base"
+msgstr "Base di Sconto"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__name
@@ -140,3 +150,13 @@ msgstr "Vendite"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__sequence
 msgid "Sequence"
 msgstr "Sequenza"
+
+#. module: base_global_discount
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_base__subtotal
+msgid "Subtotal"
+msgstr "Totale Parziale"
+
+#. module: base_global_discount
+#: model:ir.model.fields.selection,name:base_global_discount.selection__global_discount__discount_base__total
+msgid "Total"
+msgstr "Totale"
