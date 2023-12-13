@@ -9,6 +9,7 @@
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="discount" />
+                <field name="discount_base"/>
                 <field name="discount_scope" />
                 <field name="company_id" />
             </tree>
@@ -23,6 +24,7 @@
                         <field name="name" />
                         <field name="sequence" />
                         <field name="discount" />
+                        <field name="discount_base"/>
                         <field name="discount_scope" />
                         <field name="company_id" />
                     </group>

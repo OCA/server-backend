@@ -11,6 +11,16 @@ class GlobalDiscount(models.Model):
     sequence = fields.Integer(help="Gives the order to apply discounts")
     name = fields.Char(string="Discount Name", required=True)
     discount = fields.Float(digits="Discount", required=True, default=0.0)
+    discount_base = fields.Selection(
+        selection=[
+            ('subtotal', 'Subtotal'),
+            ('total', 'Total'),
+        ],
+        default='subtotal',
+        required='True',
+        string='Discount Base',
+        help='Amount that will be discounted.',
+    )
     discount_scope = fields.Selection(
         selection=[("sale", "Sales"), ("purchase", "Purchases")],
         default="sale",
