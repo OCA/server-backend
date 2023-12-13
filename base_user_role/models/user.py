@@ -42,12 +42,12 @@ class ResUsers(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        new_records = super(ResUsers, self).create(vals_list)
+        new_records = super().create(vals_list)
         new_records.set_groups_from_roles()
         return new_records
 
     def write(self, vals):
-        res = super(ResUsers, self).write(vals)
+        res = super().write(vals)
         self.sudo().set_groups_from_roles()
         return res
 
