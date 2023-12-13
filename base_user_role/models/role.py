@@ -99,7 +99,7 @@ class ResUsersRole(models.Model):
 
     def unlink(self):
         users = self.mapped("user_ids")
-        res = super(ResUsersRole, self).unlink()
+        res = super().unlink()
         users.set_groups_from_roles(force=True)
         return res
 
@@ -172,6 +172,6 @@ class ResUsersRoleLine(models.Model):
 
     def unlink(self):
         users = self.mapped("user_id")
-        res = super(ResUsersRoleLine, self).unlink()
+        res = super().unlink()
         users.set_groups_from_roles(force=True)
         return res
