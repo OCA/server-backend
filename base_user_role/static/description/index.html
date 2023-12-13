@@ -369,27 +369,31 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:c476130dcc75dc43a4aa9cfcc84eba040aafbdb3b9ff2b672278a59bd46f91ef
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/16.0/base_user_role"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_user_role"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module was written to extend the standard functionality regarding users
-and groups management.
-It helps creating well-defined user roles and associating them to users.</p>
-<p>It can become very hard to maintain a large number of user profiles over time,
-juggling with many technical groups. For this purpose, this module will help
-you to:</p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/17.0/base_user_role"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-17-0/server-backend-17-0-base_user_role"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module was written to extend the standard functionality regarding
+users and groups management. It helps creating well-defined user roles
+and associating them to users.</p>
+<p>It can become very hard to maintain a large number of user profiles over
+time, juggling with many technical groups. For this purpose, this module
+will help you to:</p>
 <blockquote>
 <ul class="simple">
 <li>define functional roles by aggregating low-level groups,</li>
-<li>set user accounts with the predefined roles (roles are cumulative),</li>
+<li>set user accounts with the predefined roles (roles are
+cumulative),</li>
 <li>update groups of all relevant user accounts (all at once),</li>
-<li>ensure that user accounts will have the groups defined in their roles
-(nothing more, nothing less). In other words, you can not set groups
-manually on a user as long as there is roles configured on it,</li>
-<li>activate/deactivate roles depending on the date (useful to plan holidays, etc)</li>
+<li>ensure that user accounts will have the groups defined in their
+roles (nothing more, nothing less). In other words, you can not
+set groups manually on a user as long as there is roles configured
+on it,</li>
+<li>activate/deactivate roles depending on the date (useful to plan
+holidays, etc)</li>
 <li>get a quick overview of roles and the related user accounts.</li>
 </ul>
 </blockquote>
-<p>That way you make clear the different responsabilities within a company, and
-are able to add and update user accounts in a scalable and reliable way.</p>
+<p>That way you make clear the different responsabilities within a company,
+and are able to add and update user accounts in a scalable and reliable
+way.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -411,25 +415,19 @@ are able to add and update user accounts in a scalable and reliable way.</p>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
 <p>To configure this module, you need to go to <em>Settings / Users / Roles</em>,
-and create a new role. From there, you can add groups to compose your role,
-and then associate users to it.</p>
-<p>You can also define default roles for a new user by editing the user called
-“Default User”.</p>
+and create a new role. From there, you can add groups to compose your
+role, and then associate users to it.</p>
+<p>You can also define default roles for a new user by editing the user
+called “Default User”.</p>
 <p>Roles:</p>
-<div class="figure align-center">
-<img alt="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/roles.png" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/roles.png" style="width: 80%;" />
-</div>
+<p><img alt="image1" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/roles.png" /></p>
 <p>Add groups:</p>
-<div class="figure align-center">
-<img alt="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_groups.png" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_groups.png" style="width: 80%;" />
-</div>
+<p><img alt="image2" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_groups.png" /></p>
 <p>Add users (with dates or not):</p>
-<div class="figure align-center">
-<img alt="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_users.png" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_users.png" style="width: 80%;" />
-</div>
+<p><img alt="image3" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_user_role/static/description/role_users.png" /></p>
 <p>Instead of creating roles from scratch, it is possible to create a role
-based on the groups of an existing user: select or open the user and choose
-“Create role from user” in the action menu.</p>
+based on the groups of an existing user: select or open the user and
+choose “Create role from user” in the action menu.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
@@ -437,14 +435,14 @@ based on the groups of an existing user: select or open the user and choose
 <ol class="arabic simple">
 <li>Go to Configuration / Users / Users choose user and set Roles:</li>
 </ol>
-<img alt="https://raw.githubusercontent.com/OCA/server-backend/base_user_role/static/description/user_form.png" src="https://raw.githubusercontent.com/OCA/server-backend/base_user_role/static/description/user_form.png" />
+<p><img alt="image" src="https://raw.githubusercontent.com/OCA/server-backend/base_user_role/static/description/user_form.png" /></p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/server-backend/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -459,8 +457,10 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <h2><a class="toc-backref" href="#toc-entry-6">Contributors</a></h2>
 <ul class="simple">
 <li>Sébastien Alix &lt;<a class="reference external" href="mailto:sebastien.alix&#64;camptocamp.com">sebastien.alix&#64;camptocamp.com</a>&gt;</li>
-<li>Duc, Dao Dong &lt;<a class="reference external" href="mailto:duc.dd&#64;komit-consulting.com">duc.dd&#64;komit-consulting.com</a>&gt; (<a class="reference external" href="https://komit-consulting.com">https://komit-consulting.com</a>)</li>
-<li>Jean-Charles Drubay &lt;<a class="reference external" href="mailto:jc&#64;komit-consulting.com">jc&#64;komit-consulting.com</a>&gt; (<a class="reference external" href="https://komit-consulting.com">https://komit-consulting.com</a>)</li>
+<li>Duc, Dao Dong &lt;<a class="reference external" href="mailto:duc.dd&#64;komit-consulting.com">duc.dd&#64;komit-consulting.com</a>&gt;
+(<a class="reference external" href="https://komit-consulting.com">https://komit-consulting.com</a>)</li>
+<li>Jean-Charles Drubay &lt;<a class="reference external" href="mailto:jc&#64;komit-consulting.com">jc&#64;komit-consulting.com</a>&gt;
+(<a class="reference external" href="https://komit-consulting.com">https://komit-consulting.com</a>)</li>
 <li>Alan Ramos &lt;<a class="reference external" href="mailto:alan.ramos&#64;jarsa.com.mx">alan.ramos&#64;jarsa.com.mx</a>&gt; (<a class="reference external" href="https://www.jarsa.com.mx">https://www.jarsa.com.mx</a>)</li>
 <li>Harald Panten &lt;<a class="reference external" href="mailto:harald.panten&#64;sygel.es">harald.panten&#64;sygel.es</a>&gt;</li>
 <li>Kevin Khao &lt;<a class="reference external" href="mailto:kevin.khao&#64;akretion.com">kevin.khao&#64;akretion.com</a>&gt;</li>
@@ -468,14 +468,17 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <li>Guillem Casassas &lt;<a class="reference external" href="mailto:guillem.casassas&#64;forgeflow.com">guillem.casassas&#64;forgeflow.com</a>&gt;</li>
 <li>Guillaume Pothier &lt;<a class="reference external" href="mailto:gpothier&#64;caligrafix.cl">gpothier&#64;caligrafix.cl</a>&gt;</li>
 </ul>
-<p>Do not contact contributors directly about support or help with technical issues.</p>
+<p>Do not contact contributors directly about support or help with
+technical issues.</p>
 </div>
 <div class="section" id="other-credits">
 <h2><a class="toc-backref" href="#toc-entry-7">Other credits</a></h2>
 <div class="section" id="images">
 <h3><a class="toc-backref" href="#toc-entry-8">Images</a></h3>
 <ul class="simple">
-<li>Oxygen Team: <a class="reference external" href="http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Actions-user-group-new-icon.html">Icon</a> (LGPL)</li>
+<li>Oxygen Team:
+<a class="reference external" href="http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Actions-user-group-new-icon.html">Icon</a>
+(LGPL)</li>
 </ul>
 </div>
 </div>
@@ -488,7 +491,7 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainers</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/sebalix"><img alt="sebalix" src="https://github.com/sebalix.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/jcdrubay"><img alt="jcdrubay" src="https://github.com/jcdrubay.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/novawish"><img alt="novawish" src="https://github.com/novawish.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/16.0/base_user_role">OCA/server-backend</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/17.0/base_user_role">OCA/server-backend</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
