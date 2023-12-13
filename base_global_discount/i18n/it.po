@@ -19,7 +19,7 @@ msgstr ""
 #. module: base_global_discount
 #: model:ir.model.fields,help:base_global_discount.field_global_discount__discount_base
 msgid "Amount that will be discounted."
-msgstr "Importo che verr‡ scontato."
+msgstr "Importo che verr√† scontato."
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__company_id
