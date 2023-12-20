@@ -17,32 +17,21 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     attrs="{'invisible': [('state', '!=', 'navigate')]}"
                 >
                     <group>
-                        <field name="max_navigate_line_sequence" invisible="1" />
-                        <field name="max_navigate_line_model" invisible="1" />
-                        <!-- we can check emptyness of a 2many like this since v10 i think /-->
+                        <field name="navigate_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom" delete="false">
+                                <field name="field_domain_model_id" />
+                                <field name="field_id" />
+                            </tree>
+                        </field>
                         <button
                             name="delete_last_line"
                             string="Delete Last Line"
                             type="object"
                             attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
+                            colspan="2"
                         />
-                        <field
-                            name="navigate_line_ids"
-                            context="{'navigate_line_ids': navigate_line_ids}"
-                            nolabel="1"
-                            colspan="4"
-                        >
-                            <tree editable="bottom" delete="false">
-                                <!-- the handle widget takes care of the sequence /-->
-                                <field
-                                    name="sequence"
-                                    widget="handle"
-                                    invisible="True"
-                                />
-                                <field name="field_id" />
-                                <field name="field_model" />
-                            </tree>
-                        </field>
+                        <field name="navigate_model_id" />
+                        <field name="navigate_model_technical_name" invisible="1" />
                         <field
                             name="navigate_action_id"
                             attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
