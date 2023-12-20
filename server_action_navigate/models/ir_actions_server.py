@@ -13,85 +13,74 @@ class IrActionsServer(models.Model):
         selection_add=[("navigate", "Navigate")], ondelete={"navigate": "set default"}
     )
 
-    navigate_action_id = fields.Many2one(
-        string="Navigation Action",
-        comodel_name="ir.actions.act_window",
-        domain="[('res_model', '=', max_navigate_line_model)]",
-        help="Define here the action used when the navigation will be executed"
-        " if empty, a generic action will be used.",
-    )
-
     navigate_line_ids = fields.One2many(
         comodel_name="ir.actions.server.navigate.line",
         string="Navigate Lines",
         inverse_name="action_id",
     )
 
-    max_navigate_line_sequence = fields.Integer(
-        string="Max Navigate sequence in lines",
-        compute="_compute_max_navigate_line",
-        store=True,
+    navigate_action_id = fields.Many2one(
+        string="Navigation Action",
+        comodel_name="ir.actions.act_window",
+        domain="[('res_model', '=', navigate_model_technical_name)]",
+        help="Define here the action used when the navigation will be executed"
+        " if empty, a generic action will be used.",
     )
 
-    max_navigate_line_model = fields.Char(
-        string="Max Navigate Model in lines",
-        compute="_compute_max_navigate_line",
-        store=True,
+    navigate_model_id = fields.Many2one(
+        string="Final Navigation Model",
+        comodel_name="ir.model",
+        compute="_compute_navigate_infos",
     )
 
-    @api.depends("navigate_line_ids", "model_id")
-    def _compute_max_navigate_line(self):
-        """Allow to know the highest sequence entered in navigate lines.
-        Then we add 1 to this value for the next sequence.
-        This value is given to the context of the o2m field in the view.
-        So when we create new navigate line, the sequence is automatically
-        added as :  max_sequence + 1
-        """
+    navigate_model_technical_name = fields.Char(
+        compute="_compute_navigate_infos",
+    )
+
+    @api.depends("navigate_line_ids.field_id", "model_id")
+    def _compute_navigate_infos(self):
+        IrModel = self.env["ir.model"]
         for action in self:
-            action.max_navigate_line_sequence = (
-                max(action.mapped("navigate_line_ids.sequence") or [0]) + 1
-            )
-            action.max_navigate_line_model = (
-                action.navigate_line_ids
-                and action.navigate_line_ids[-1].field_model
-                or action.model_id.model
-            )
+            if action.navigate_line_ids:
+                action.navigate_model_id = IrModel.search(
+                    [("model", "=", action.navigate_line_ids[-1].field_id.relation)]
+                )
+            else:
+                action.navigate_model_id = action.model_id
+            action.navigate_model_technical_name = action.navigate_model_id.model
 
     def delete_last_line(self):
         self.ensure_one()
         self.navigate_line_ids[-1].unlink()
         self.navigate_action_id = False
 
-    @api.model
-    def run_action_navigate_multi(self, action, eval_context=None):
-        IrModel = self.env["ir.model"]
-        lines = action.navigate_line_ids
+    def _run_action_navigate_multi(self, eval_context=None):
+        self.ensure_one()
+        lines = self.navigate_line_ids
         if not lines:
             raise UserError(
-                _("The Action Server %s is not correctly set\n" " : No fields defined")
+                _("The Action Server %s is not correctly set\n : No fields defined")
+                % (self.name)
             )
         mapped_field_value = ".".join(lines.mapped("field_id.name"))
 
         item_ids = eval_context["records"].mapped(mapped_field_value).ids
         domain = "[('id','in',[" + ",".join(map(str, item_ids)) + "])]"
 
-        # Use Defined action if defined
-        if action.navigate_action_id:
-            return_action = action.navigate_action_id
+        if self.navigate_action_id:
+            # Use Defined action if defined
+            return_action = self.navigate_action_id
             result = return_action.read()[0]
             result["domain"] = domain
         else:
             # Otherwise, return a default action
-            model_name = action.max_navigate_line_model
-            model = IrModel.search([("model", "=", model_name)])
-            view_mode = "tree,form"
             result = {
-                "name": model.name,
+                "name": self.navigate_model_id.name,
                 "domain": domain,
-                "res_model": model_name,
+                "res_model": self.navigate_model_id.model,
                 "target": "current",
                 "type": "ir.actions.act_window",
-                "view_mode": view_mode,
+                "view_mode": "tree,form",
             }
 
         return result
