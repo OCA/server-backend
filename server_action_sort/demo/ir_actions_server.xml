@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="sort_action_server_lines" model="ir.actions.server">
+        <field name="name">Action Server Sort Lines</field>
+        <field name="state">sort</field>
+        <field name="model_id" ref="base.model_ir_actions_server" />
+        <field
+            name="sort_field_id"
+            ref="server_action_sort.field_ir_actions_server__sort_line_ids"
+        />
+    </record>
+
+    <record id="sort_action_server_lines_line_1" model="ir.actions.server.sort.line">
+        <field name="sequence">1</field>
+        <field name="action_id" ref="sort_action_server_lines" />
+        <field name="desc" eval="False" />
+        <field
+            name="field_id"
+            ref="server_action_sort.field_ir_actions_server_sort_line__field_name"
+        />
+    </record>
+
+    <record id="sort_action_server_lines_line_2" model="ir.actions.server.sort.line">
+        <field name="sequence">2</field>
+        <field name="action_id" ref="sort_action_server_lines" />
+        <field name="desc" eval="False" />
+        <field
+            name="field_id"
+            ref="server_action_sort.field_ir_actions_server_sort_line__desc"
+        />
+    </record>
+
+    <function model="ir.actions.server" name="create_action">
+        <value eval="[ref('sort_action_server_lines')]" />
+    </function>
+
+</odoo>
