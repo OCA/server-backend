@@ -3,7 +3,7 @@
 
 {
     "name": "User roles by company",
-    "version": "14.0.2.0.1",
+    "version": "14.0.2.0.2",
     "category": "Tools",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "license": "AGPL-3",
