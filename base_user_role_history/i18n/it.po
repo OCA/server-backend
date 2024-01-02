@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_user_role_history
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-01-05 15:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: base_user_role_history
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.res_users_form_view
+msgid "<span class=\"o_stat_text\">Last update of roles</span>"
+msgstr "<span class=\"o_stat_text\">Ultimo aggiornamento ruoli</span>"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__performed_action
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_search_view
+msgid "Action"
+msgstr "Azione"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__new_is_enabled
+msgid "Active after edit"
+msgstr "Attivo dopo la modifica"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__old_is_enabled
+msgid "Active before edit"
+msgstr "Attivo prima della modifica"
+
+#. module: base_user_role_history
+#: model:ir.model.fields.selection,name:base_user_role_history.selection__base_user_role_line_history__performed_action__add
+msgid "Add"
+msgstr "Aggiungi"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: base_user_role_history
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_form_view
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_tree_view
+msgid "Date and time of edition"
+msgstr "Data e ora della modifica"
+
+#. module: base_user_role_history
+#: model:ir.model.fields.selection,name:base_user_role_history.selection__base_user_role_line_history__performed_action__unlink
+msgid "Delete"
+msgstr "Cancella"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: base_user_role_history
+#: model:ir.model.fields.selection,name:base_user_role_history.selection__base_user_role_line_history__performed_action__edit
+msgid "Edit"
+msgstr "Modifica"
+
+#. module: base_user_role_history
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_form_view
+msgid "Edited user"
+msgstr "Utente modifica"
+
+#. module: base_user_role_history
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_form_view
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_tree_view
+msgid "Editor"
+msgstr "Editor"
+
+#. module: base_user_role_history
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_search_view
+msgid "Group By"
+msgstr "Raggruppa per"
+
+#. module: base_user_role_history
+#: model:ir.model,name:base_user_role_history.model_base_user_role_line_history
+msgid "History of user roles"
+msgstr "Stoico ruoli utente"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_res_users__last_role_line_modification
+msgid "Last roles modification"
+msgstr "Ultime modifiche ruoli"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__new_date_to
+msgid "New end date"
+msgstr "Nuova data fine"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__new_role_id
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_search_view
+msgid "New role"
+msgstr "Nuovo ruolo"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__new_date_from
+msgid "New start date"
+msgstr "Nuova data inizio"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__old_date_to
+msgid "Old end date"
+msgstr "Vecchia data fine"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__old_role_id
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.base_user_role_line_history_search_view
+msgid "Old role"
+msgstr "Vecchio ruolo"
+
+#. module: base_user_role_history
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__old_date_from
+msgid "Old start date"
+msgstr "Vecchia data inisio"
+
+#. module: base_user_role_history
+#. odoo-python
+#: code:addons/base_user_role_history/models/res_users.py:0
+#: model_terms:ir.ui.view,arch_db:base_user_role_history.res_users_form_view
+#, python-format
+msgid "Roles history"
+msgstr "Storico ruoli"
+
+#. module: base_user_role_history
+#: model:ir.model,name:base_user_role_history.model_res_users
+#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__user_id
+msgid "User"
+msgstr "Utente"
