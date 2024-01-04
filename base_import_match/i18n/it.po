@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-06 02:24+0000\n"
-"PO-Revision-Date: 2023-09-07 17:36+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2024-01-04 10:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: base_import_match
 #: model:ir.model,name:base_import_match.model_base
 msgid "Base"
-msgstr ""
+msgstr "Base"
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__conditional
@@ -45,7 +45,7 @@ msgstr "Creato il"
 #. module: base_import_match
 #: model:ir.model,name:base_import_match.model_base_import_match
 msgid "Deduplicate settings prior to CSV imports."
-msgstr ""
+msgstr "Duplica impostazioni prima di importare CSV."
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match__display_name
@@ -56,7 +56,7 @@ msgstr "Nome visualizzato"
 #. module: base_import_match
 #: model:ir.model.fields,help:base_import_match.field_base_import_match_field__conditional
 msgid "Enable if you want to use this field only in some conditions."
-msgstr ""
+msgstr "Abilitare se si vuole utilizzare questo campo solo in certe condizioni."
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__field_id
@@ -66,17 +66,17 @@ msgstr "Campo"
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__name
 msgid "Field Name"
-msgstr ""
+msgstr "Nome campo"
 
 #. module: base_import_match
 #: model:ir.model,name:base_import_match.model_base_import_match_field
 msgid "Field import match definition"
-msgstr ""
+msgstr "Definizione corrispondenza impostazione campo"
 
 #. module: base_import_match
 #: model:ir.model.fields,help:base_import_match.field_base_import_match_field__field_id
 msgid "Field that will be part of an unique key."
-msgstr ""
+msgstr "Campo che sarà parte di una chiave unica."
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match__field_ids
@@ -86,7 +86,7 @@ msgstr "Campi"
 #. module: base_import_match
 #: model:ir.model.fields,help:base_import_match.field_base_import_match__field_ids
 msgid "Fields that will define an unique key."
-msgstr ""
+msgstr "Campi che definiranno una chiave unica."
 
 #. module: base_import_match
 #: model_terms:ir.ui.view,arch_db:base_import_match.match_search_view
@@ -107,6 +107,10 @@ msgid ""
 "comparison is case-sensitive so if you set 'True', it will NOT match '1' nor "
 "'true', only EXACTLY 'True'."
 msgstr ""
+"Se il valore importato non è questo, l'intera regola di corrispondenza verrà "
+"scartata. Fare attenzione, questo dato è sempre trattato come stringa e la "
+"comparazione dipende da maiuscole e minuscole quindi se si imposta 'True' "
+"non corispnderà nè a '1' nè a 'true' ma solo esatamente a 'True'."
 
 #. module: base_import_match
 #: model:ir.actions.act_window,name:base_import_match.match_action
@@ -114,11 +118,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_import_match.match_form_view
 #: model_terms:ir.ui.view,arch_db:base_import_match.match_search_view
 msgid "Import Match"
-msgstr ""
+msgstr "Corrispondenza importazione"
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__imported_value
-#, fuzzy
 msgid "Imported Value"
 msgstr "Valore importato"
 
@@ -126,7 +129,7 @@ msgstr "Valore importato"
 #: model:ir.model.fields,help:base_import_match.field_base_import_match__model_id
 #: model:ir.model.fields,help:base_import_match.field_base_import_match_field__model_id
 msgid "In this model you will apply the match."
-msgstr ""
+msgstr "In questo modello si applicherà la corrispondenza."
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match____last_update
@@ -149,7 +152,7 @@ msgstr "Ultimo aggiornamento il"
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__match_id
 msgid "Match"
-msgstr ""
+msgstr "Corrispondenza"
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match__model_id
@@ -160,9 +163,8 @@ msgstr "Modello"
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match__model_name
-#, fuzzy
 msgid "Model name"
-msgstr "Modello"
+msgstr "Nome modello"
 
 #. module: base_import_match
 #: model:ir.model.fields,field_description:base_import_match.field_base_import_match__name
