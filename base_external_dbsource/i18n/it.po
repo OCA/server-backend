@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-06 02:24+0000\n"
-"PO-Revision-Date: 2024-01-03 14:34+0000\n"
+"PO-Revision-Date: 2024-01-05 11:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -71,7 +71,7 @@ msgstr ""
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
 msgid "Conn String Full"
-msgstr "Stringa di Connessione Completa"
+msgstr "Stringa di connessione completa"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -87,8 +87,8 @@ msgid ""
 "Here is what we got instead:\n"
 "%s"
 msgstr ""
-"Test di connessione fallito:\n"
-"Ecco l'esito ricevuto:\n"
+"Test di connessione fallito.\n"
+"Esito ricevuto:\n"
 "%s"
 
 #. module: base_external_dbsource
@@ -119,12 +119,12 @@ msgstr "Creato il"
 #. module: base_external_dbsource
 #: model:ir.ui.menu,name:base_external_dbsource.menu_dbsource
 msgid "Database Sources"
-msgstr "Sorgenti Database"
+msgstr "Origini database"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__name
 msgid "Datasource name"
-msgstr "Nome sorgente dati"
+msgstr "Nome orgine dati"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__display_name
@@ -134,7 +134,7 @@ msgstr "Nome visualizzato"
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
-msgstr "Sorgente DiBa Esterna"
+msgstr "Origine DB esterna"
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_tree
@@ -145,7 +145,7 @@ msgstr "Sorgenti DiBa Esterne"
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
-msgstr "Sorgenti database esterne"
+msgstr "Origini database esterne"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__id
