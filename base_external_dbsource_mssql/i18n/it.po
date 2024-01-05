@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-03 14:34+0000\n"
+"PO-Revision-Date: 2024-01-05 11:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -24,7 +24,7 @@ msgstr "Connettore"
 #. module: base_external_dbsource_mssql
 #: model:ir.model,name:base_external_dbsource_mssql.model_base_external_dbsource
 msgid "External Database Sources"
-msgstr "Sorgenti database esterne"
+msgstr "Origini database esterne"
 
 #. module: base_external_dbsource_mssql
 #: model:ir.model.fields,help:base_external_dbsource_mssql.field_base_external_dbsource__connector
