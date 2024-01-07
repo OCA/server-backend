@@ -180,13 +180,13 @@ class TestUserRole(TransactionCase):
         )
         # Remove role2 from the user
         self.user_id.role_line_ids.filtered(
-            lambda l: l.role_id.id == self.role2_id.id
+            lambda role_line: role_line.role_id.id == self.role2_id.id
         ).unlink()
         user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         self.assertEqual(user_group_ids, role1_group_ids)
         # Remove role1 from the user
         self.user_id.role_line_ids.filtered(
-            lambda l: l.role_id.id == self.role1_id.id
+            lambda role_line: role_line.role_id.id == self.role1_id.id
         ).unlink()
         user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         self.assertEqual(user_group_ids, [])

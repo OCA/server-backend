@@ -12,7 +12,7 @@
                         name="action_view_roles"
                         type="object"
                         icon="fa-gears"
-                        attrs="{'invisible': [ ('role_count', '=', 0)]}"
+                        invisible="role_count == 0"
                     >
                         <field string="Roles" name="role_count" widget="statinfo" />
                     </button>
