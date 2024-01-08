@@ -26,9 +26,13 @@ class ResUsersRoleLine(models.Model):
                 and record.company_id not in record.user_id.company_ids
             ):
                 raise ValidationError(
-                    _('User "{}" does not have access to the company "{}"').format(
-                        record.user_id.name, record.company_id.name
+                    _(
+                        "User '%(name)s' does not have access to the company '%(company_name)s'"
                     )
+                    % {
+                        "name": record.user_id.name,
+                        "company_name": record.company_id.name,
+                    }
                 )
 
     _sql_constraints = [
