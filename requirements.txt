@@ -1,5 +1,6 @@
 # generated from manifests external_dependencies
 mysqlclient==2.0.1
 pymssql<=2.2.5
+radicale<3.0.0
 sqlalchemy
 sqlparse
