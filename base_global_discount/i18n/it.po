@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-05 15:38+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2024-01-16 14:35+0000\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: base_global_discount
 #: model:ir.model.fields,help:base_global_discount.field_global_discount__discount_base
 msgid "Amount that will be discounted."
-msgstr ""
+msgstr "Importo che verrà scontato."
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__company_id
@@ -49,7 +49,7 @@ msgstr "Sconto"
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__discount_base
 msgid "Discount Base"
-msgstr ""
+msgstr "Base sconto"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__name
@@ -120,7 +120,7 @@ msgstr "Sconti globali acquisto"
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids_readonly
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__supplier_global_discount_ids_readonly
 msgid "Purchase Global Discounts (Readonly)"
-msgstr "Sconti Globali Acquisto (Sola lettura)"
+msgstr "Sconti globali acquisto (sola lettura)"
 
 #. module: base_global_discount
 #: selection:global.discount,discount_scope:0
@@ -138,7 +138,7 @@ msgstr "Sconti globali vendita"
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__customer_global_discount_ids_readonly
 #: model:ir.model.fields,field_description:base_global_discount.field_res_users__customer_global_discount_ids_readonly
 msgid "Sale Global Discounts (Readonly)"
-msgstr "Sconti Globali Vendita (Sola lettura)"
+msgstr "Sconti globali vendita (sola lettura)"
 
 #. module: base_global_discount
 #: selection:global.discount,discount_scope:0
@@ -158,4 +158,4 @@ msgstr ""
 #. module: base_global_discount
 #: selection:global.discount,discount_base:0
 msgid "Total"
-msgstr ""
+msgstr "Totale"
