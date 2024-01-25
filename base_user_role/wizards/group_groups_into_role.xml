@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_groups_into_role_wiz_view" model="ir.ui.view">
+        <field name="name">group.groups.into.role.wiz.view</field>
+        <field name="model">group.groups.into.role</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                </group>
+                <footer>
+                    <button
+                        string="Group"
+                        type="object"
+                        class="oe_highlight"
+                        name="create_role"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="server_action_group_groups_into_role" model="ir.actions.server">
+        <field name="name">Create role</field>
+        <field name="model_id" ref="model_res_groups" />
+        <field name="binding_model_id" ref="model_res_groups" />
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'name': 'Specify a name for your new role',
+                'type': 'ir.actions.act_window',
+                'res_model': 'group.groups.into.role',
+                'target': 'new',
+                'views':[(env.ref('base_user_role.group_groups_into_role_wiz_view').id, 'form')],
+                'context': {'selected_group_ids': [group.id for group in records]},
+            }
+        </field>
+    </record>
+</odoo>
