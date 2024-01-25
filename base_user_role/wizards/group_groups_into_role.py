@@ -10,7 +10,7 @@ class GroupGroupsIntoRole(models.TransientModel):
     This wizard is used to group different groups into a role.
     """
 
-    _name = "group.groups.into.role"
+    _name = "wizard.groups.into.role"
     _description = "Group groups into a role"
     name = fields.Char(
         required=True,
@@ -18,7 +18,7 @@ class GroupGroupsIntoRole(models.TransientModel):
     )
 
     def create_role(self):
-        selected_group_ids = self.env.context.get("selected_group_ids", [])
+        selected_group_ids = self._context.get("active_ids", [])
         vals = {
             "name": self.name,
             "implied_ids": selected_group_ids,
