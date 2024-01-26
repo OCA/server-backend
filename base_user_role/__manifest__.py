@@ -19,7 +19,7 @@
         "views/role.xml",
         "views/user.xml",
         "views/group.xml",
-        "wizards/group_groups_into_role.xml",
+        "wizards/wizard_groups_into_role.xml",
     ],
     "installable": True,
 }

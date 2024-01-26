@@ -1,1 +1,1 @@
-from . import group_groups_into_role
+from . import wizard_groups_into_role
