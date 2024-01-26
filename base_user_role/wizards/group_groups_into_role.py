@@ -18,9 +18,20 @@ class GroupGroupsIntoRole(models.TransientModel):
     )
 
     def create_role(self):
-        selected_group_ids = self._context.get("active_ids", [])
+        selected_group_ids = self.env.context.get("active_ids", [])
         vals = {
             "name": self.name,
             "implied_ids": selected_group_ids,
         }
-        self.env["res.users.role"].create(vals)
+        role = self.env["res.users.role"].create(vals)
+
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "res.users.role",
+            "view_mode": "form",
+            "res_id": role.id,
+            "target": "current",
+            "context": {
+                "form_view_ref": "base_user_role.view_res_users_role_form",
+            },
+        }

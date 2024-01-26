@@ -10,7 +10,7 @@
                 </group>
                 <footer>
                     <button
-                        string="Group"
+                        string="Create"
                         type="object"
                         class="oe_highlight"
                         name="create_role"
