@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2019 Tecnativa - David Vidal
      Copyright 2022 Simone Rubino - TAKOBI
+     Copyright 2024 Sergio Zanchetta - PNLUG APS
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
 
@@ -10,8 +11,10 @@
             <tree string="Global Discounts" editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="discount"/>
-                <field name="discount_base"/>
+                <field name="discount_type"/>
+                <field name="discount" attrs="{'invisible':[('discount_type', '=', 'fixed')], 'required':[('discount_type', '=', 'percentage')]}"/>
+                <field name="discount_fixed" attrs="{'invisible':[('discount_type', '=', 'percentage')], 'required':[('discount_type', '=', 'fixed')]}"/>
+                <field name="discount_base" attrs="{'readonly':[('discount_type', '=', 'fixed')]}" force_save="1"/>
                 <field name="discount_scope"/>
                 <field name="company_id"/>
             </tree>
@@ -26,8 +29,14 @@
                     <group col="4">
                         <field name="name"/>
                         <field name="sequence"/>
-                        <field name="discount"/>
-                        <field name="discount_base"/>
+                    </group>
+                    <group>
+                        <field name="discount_type"/>
+                        <field name="discount" attrs="{'invisible':[('discount_type', '=', 'fixed')], 'required':[('discount_type', '=', 'percentage')]}"/>
+                        <field name="discount_fixed" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible':[('discount_type', '=', 'percentage')], 'required':[('discount_type', '=', 'fixed')]}"/>
+                    </group>
+                    <group col="4">
+                        <field name="discount_base" attrs="{'readonly':[('discount_type', '=', 'fixed')]}" force_save="1"/>
                         <field name="discount_scope"/>
                         <field name="company_id"/>
                     </group>
@@ -44,7 +53,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem 
+    <menuitem
         id="menu_global_discount"
         action="action_global_discount_tree"
         name="Global Discounts"
