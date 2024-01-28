@@ -1,6 +1,7 @@
 # Copyright 2019 Tecnativa S.L. - David Vidal
 # Copyright 2020 Xtendoo - Manuel Calero
 # Copyright 2022 Simone Rubino - TAKOBI
+# Copyright 2024 Sergio Zanchetta - PNLUG APS
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Base Global Discount",
