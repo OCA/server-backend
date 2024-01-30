@@ -79,6 +79,11 @@ msgid "Associated group's category"
 msgstr "Phân loại của nhóm được liên kết"
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
+msgid "Cancel"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
 msgid "Color Index"
 msgstr "Danh mục màu"
@@ -89,20 +94,33 @@ msgid "Comment"
 msgstr ""
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
+msgid "Create"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_wizard_groups_into_role
+msgid "Create Role"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_uid
 msgid "Created by"
 msgstr "Tạo bởi"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
 msgstr "Tạo vào"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__display_name
 msgid "Display Name"
 msgstr "Tên hiển thị"
 
@@ -129,6 +147,16 @@ msgstr ""
 "một số người dùng."
 
 #. module: base_user_role
+#: model:ir.model,name:base_user_role.model_wizard_groups_into_role
+msgid "Group groups into a role"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_wizard_groups_into_role__name
+msgid "Group groups into a role and specify a name for this role"
+msgstr ""
+
+#. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Groups"
 msgstr "Các nhóm"
@@ -136,6 +164,7 @@ msgstr "Các nhóm"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__id
 msgid "ID"
 msgstr "ID"
 
@@ -160,18 +189,21 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line____last_update
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role____last_update
 msgid "Last Modified on"
 msgstr "Chỉnh sửa lần cuối vào"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_uid
 msgid "Last Updated by"
 msgstr "Cập nhật lần cuối bởi"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_date
 msgid "Last Updated on"
 msgstr "Cập nhật lần cuối vào"
 
@@ -182,6 +214,7 @@ msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__name
 msgid "Name"
 msgstr "Tên"
 
