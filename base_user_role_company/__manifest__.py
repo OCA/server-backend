@@ -3,7 +3,7 @@
 
 {
     "name": "User roles by company",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "category": "Tools",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "license": "AGPL-3",
@@ -11,6 +11,7 @@
     "depends": ["base_user_role"],
     "data": [
         "views/role.xml",
+        "views/user.xml",
     ],
     "installable": True,
     "auto_install": True,
