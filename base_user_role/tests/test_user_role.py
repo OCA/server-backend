@@ -261,16 +261,16 @@ class TestUserRole(TransactionCase):
         self.assertFalse(self.user_id.show_alert)
 
     def test_group_groups_into_role(self):
-        user_group_ids = [group.id for group in self.user_id.groups_id]
+        user_group_ids = self.user_id.groups_id.ids
         # Check that there is not a role with name: Test Role
         self.assertFalse(self.role_model.search([("name", "=", "Test Role")]))
         # Call create_role function to group groups into a role
         wizard = self.wiz_model.with_context(active_ids=user_group_ids).create(
             {"name": "Test Role"}
         )
-        wizard.create_role()
+        res = wizard.create_role()
         # Check that a role with name: Test Role has been created
-        new_role = self.role_model.search([("name", "=", "Test Role")])
-        self.assertTrue(new_role)
-        # Check that the role has the correct groups
-        self.assertEqual(new_role.implied_ids.ids, user_group_ids)
+        new_role = self.env[res["res_model"]].browse(res["res_id"])
+        self.assertEqual(new_role.name, "Test Role")
+        # Check that the role has the correct groups (even if the order is not equal)
+        self.assertEqual(set(new_role.implied_ids.ids), set(user_group_ids))
