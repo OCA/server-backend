@@ -3,16 +3,17 @@
 {
     "name": "Group backend",
     "version": "16.0.1.0.0",
+    "development_status": "Alpha",
     "category": "Tools",
     "author": "Pierre Verkest, Odoo Community Association (OCA)",
     "license": "LGPL-3",
-    "maintainers": ["oca"],
     "website": "https://github.com/OCA/server-backend",
     "depends": [
         "base",
         "base_install_request",  # weird module, we need to survive with it
         "mail",
     ],
+    "maintainers": ["FranzPoize", "bealdav"],
     "demo": [
         "demo/test-model.xml",
         "demo/ir.model.access.csv",
