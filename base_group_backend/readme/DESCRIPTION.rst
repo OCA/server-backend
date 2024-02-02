@@ -26,6 +26,13 @@ This modules does 3 things:
 We suggest to use this module with its compagnon `base_user_role`
 
 
+Here is an example where a backend ui user can only access and use the dummy app. No other application are available to this user. You may define your own application instead of the dummy one.
+
+.. figure:: ../static/description/dummy_app.png
+    :alt: Dummy app for demo
+
+
+
 Limitations
 ~~~~~~~~~~~
 
