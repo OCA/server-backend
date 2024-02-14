@@ -11,6 +11,7 @@ from dateutil import tz
 from odoo import api, fields, models, tools
 from odoo.tools import safe_eval
 
+
 class DavCollectionFieldMapping(models.Model):
     _name = "dav.collection.field_mapping"
     _description = "A field mapping for a WebDAV collection"

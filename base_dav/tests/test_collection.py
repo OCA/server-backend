@@ -74,11 +74,13 @@ class TestCalendar(TransactionCase):
         self.assertEqual((rec or self.record).login, tmp["login"])
         self.assertEqual((rec or self.record).name, tmp["name"])
         create_date = (rec or self.record).create_date
-        self.assertEqual(create_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
-                         tmp["create_date"])
+        self.assertEqual(
+            create_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT), tmp["create_date"]
+        )
         write_date = (rec or self.record).write_date
-        self.assertEqual(write_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
-                         tmp["write_date"])
+        self.assertEqual(
+            write_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT), tmp["write_date"]
+        )
 
     def test_import_export(self):
         # Exporting and importing should result in the same record
