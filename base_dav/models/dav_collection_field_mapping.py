@@ -9,7 +9,7 @@ import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
-
+from odoo.tools import safe_eval
 
 class DavCollectionFieldMapping(models.Model):
     _name = "dav.collection.field_mapping"
@@ -59,15 +59,15 @@ class DavCollectionFieldMapping(models.Model):
     def _from_vobject_code(self, child):
         self.ensure_one()
         context = {
-            "datetime": datetime,
-            "dateutil": dateutil,
+            "datetime": safe_eval.datetime,
+            "dateutil": safe_eval.dateutil,
             "item": child,
             "result": None,
-            "tools": tools,
-            "tz": tz,
-            "vobject": vobject,
+            # "tools": tools,
+            # "tz": tz,
+            # "vobject": vobject,
         }
-        tools.safe_eval(self.import_code, context, mode="exec", nocopy=True)
+        safe_eval.safe_eval(self.import_code, context, mode="exec", nocopy=True)
         return context.get("result", {})
 
     def _from_vobject_simple(self, child):
@@ -126,15 +126,15 @@ class DavCollectionFieldMapping(models.Model):
     def _to_vobject_code(self, record):
         self.ensure_one()
         context = {
-            "datetime": datetime,
-            "dateutil": dateutil,
+            "datetime": safe_eval.datetime,
+            "dateutil": safe_eval.dateutil,
             "record": record,
             "result": None,
-            "tools": tools,
-            "tz": tz,
-            "vobject": vobject,
+            # "tools": tools,
+            # "tz": tz,
+            # "vobject": vobject,
         }
-        tools.safe_eval(self.export_code, context, mode="exec", nocopy=True)
+        safe_eval.safe_eval(self.export_code, context, mode="exec", nocopy=True)
         return context.get("result", None)
 
     def _to_vobject_simple(self, record):

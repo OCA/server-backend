@@ -4,11 +4,12 @@ from datetime import datetime, timedelta
 from unittest import mock
 
 from odoo.tests.common import TransactionCase
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, mute_logger
 
 from ..radicale.collection import Collection
 
 
+@mute_logger("radicale")
 class TestCalendar(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -24,21 +25,21 @@ class TestCalendar(TransactionCase):
 
         self.create_field_mapping(
             "login",
-            "base.field_res_users_login",
+            "base.field_res_users__login",
             excode="result = record.login",
             imcode="result = item.value",
         )
         self.create_field_mapping(
             "name",
-            "base.field_res_users_name",
+            "base.field_res_users__name",
         )
         self.create_field_mapping(
             "dtstart",
-            "base.field_res_users_create_date",
+            "base.field_res_users__create_date",
         )
         self.create_field_mapping(
             "dtend",
-            "base.field_res_users_write_date",
+            "base.field_res_users__write_date",
         )
 
         start = datetime.now()
@@ -51,6 +52,9 @@ class TestCalendar(TransactionCase):
                 "write_date": stop.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
             }
         )
+        patcher = mock.patch("odoo.http.request")
+        self.addCleanup(patcher.stop)
+        patcher.start()
 
     def create_field_mapping(self, name, field_ref, imcode=None, excode=None):
         return self.env["dav.collection.field_mapping"].create(
@@ -69,8 +73,12 @@ class TestCalendar(TransactionCase):
 
         self.assertEqual((rec or self.record).login, tmp["login"])
         self.assertEqual((rec or self.record).name, tmp["name"])
-        self.assertEqual((rec or self.record).create_date, tmp["create_date"])
-        self.assertEqual((rec or self.record).write_date, tmp["write_date"])
+        create_date = (rec or self.record).create_date
+        self.assertEqual(create_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                         tmp["create_date"])
+        write_date = (rec or self.record).write_date
+        self.assertEqual(write_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                         tmp["write_date"])
 
     def test_import_export(self):
         # Exporting and importing should result in the same record
@@ -82,7 +90,7 @@ class TestCalendar(TransactionCase):
         self.assertEqual(rec, self.record)
 
         self.collection.field_uuid = self.env.ref(
-            "base.field_res_users_login",
+            "base.field_res_users__login",
         ).id
         rec = self.collection.get_record([self.record.login])
         self.assertEqual(rec, self.record)
