@@ -20,6 +20,6 @@
         "security/ir.model.access.csv",
     ],
     "external_dependencies": {
-        "python": ["radicale"],
+        "python": ["radicale==2.1.12"],
     },
 }
