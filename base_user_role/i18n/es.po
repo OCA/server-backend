@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 02:07+0000\n"
-"PO-Revision-Date: 2023-10-09 09:15+0000\n"
+"PO-Revision-Date: 2024-02-14 20:36+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -89,7 +89,7 @@ msgstr "Categoría del grupo asociado"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
@@ -115,7 +115,7 @@ msgstr "Crear"
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_wizard_groups_into_role
 msgid "Create Role"
-msgstr ""
+msgstr "Crear Función"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.create_from_user_wizard_action
@@ -177,12 +177,12 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_wizard_groups_into_role
 msgid "Group groups into a role"
-msgstr ""
+msgstr "Agrupar a los grupos en un rol"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_wizard_groups_into_role__name
 msgid "Group groups into a role and specify a name for this role"
-msgstr ""
+msgstr "Agrupar grupos en un rol y especificar un nombre para este rol"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
