@@ -24,12 +24,13 @@ class ResUsers(models.Model):
         # Enable only the Roles corresponing to the currently selected company
         if self.role_line_ids:
             res = res.filtered(
-                lambda x: not x.company_id or x.company_id == self.env.company
+                lambda x: not x.company_id
+                or all(
+                    cid
+                    in res.filtered(lambda y: y.role_id == x.role_id).mapped(
+                        "company_id.id"
+                    )
+                    for cid in self.env.companies.ids
+                )
             )
         return res
-
-    def set_groups_from_roles(self, force=False, company_id=False):
-        # When using the Company Switcher widget, the self.env.company is not yet set
-        if company_id:
-            self = self.with_company(company_id)
-        return super().set_groups_from_roles(force=force)
