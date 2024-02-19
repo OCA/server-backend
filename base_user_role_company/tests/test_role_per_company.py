@@ -1,6 +1,7 @@
 # Copyright 2021 Open Source Integrators
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -79,3 +80,9 @@ class TestUserRoleCompany(TransactionCase):
         not_expected = self.groupB
         found = enabled.filtered(lambda x: x in not_expected)
         self.assertFalse(found)
+
+    def test_140_constrains(self):
+        "Test that we can't set companies the user can't access on roles"
+        company3 = self.Company.create({"name": "company3"})
+        with self.assertRaises(ValidationError):
+            self.test_user.role_line_ids[:1].company_id = company3
