@@ -4,3 +4,4 @@ mysqlclient
 pymssql<=2.2.5
 sqlalchemy
 sqlalchemy-hana
+vobject
