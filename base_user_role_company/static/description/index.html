@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -368,14 +369,13 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:412b244590f18253b21a2f15b15c2cbbc8ec3decfc64dbf12973646123cb3193
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/16.0/base_user_role_company"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_user_role_company"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/17.0/base_user_role_company"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-17-0/server-backend-17-0-base_user_role_company"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>Enable User Roles depending on the Companies selected.</p>
-<p>A company specific Role will only be enabled
-if it is set for <strong>all</strong> the currently selected companies.</p>
-<p>For example, if a user is “Sales Manager” only for Company A,
-it will see that role enabled only if Company A is selected.
-If the user selects Company A and Company B,
-then the “Sales Manager” role won’t be enabled.</p>
+<p>A company specific Role will only be enabled if it is set for <strong>all</strong>
+the currently selected companies.</p>
+<p>For example, if a user is “Sales Manager” only for Company A, it will
+see that role enabled only if Company A is selected. If the user selects
+Company A and Company B, then the “Sales Manager” role won’t be enabled.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -393,36 +393,35 @@ then the “Sales Manager” role won’t be enabled.</p>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
 <p>Roles are set on the User form.</p>
-<p>The “Company” additional column allows to set a Role as only valid for specific companies.</p>
-<p>There is also a “Active Role” techincal field, only visible in developer mode.
-It shows what roles are active, after applying the company selection rules.</p>
+<p>The “Company” additional column allows to set a Role as only valid for
+specific companies.</p>
+<p>There is also a “Active Role” techincal field, only visible in developer
+mode. It shows what roles are active, after applying the company
+selection rules.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
-<p>Select the active companies from the web client widget, near the top right corner.
-When doing so, the User’s security Groups are recomputed, based on the Roles.</p>
-<p>When the user changes the company selection, only the groups available to all active companies will be activated.</p>
+<p>Select the active companies from the web client widget, near the top
+right corner. When doing so, the User’s security Groups are recomputed,
+based on the Roles.</p>
+<p>When the user changes the company selection, only the groups available
+to all active companies will be activated.</p>
 <p>For example:</p>
 <ul class="simple">
 <li>A “SALES PERSON” and a “SALES MANAGER” roles are created.</li>
-<li><dl class="first docutils">
-<dt>A user is assigned to the roles:</dt>
-<dd><ul class="first last">
+<li>A user is assigned to the roles:<ul>
 <li>“SALES PERSON”, with no specific company assigned (meaning all)</li>
 <li>“SALES MANAGER” only to “My Company (Chicago)”</li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="first docutils">
-<dt>When selecting active companies from the UI widget:</dt>
-<dd><ul class="first last">
-<li>If only “My Company (San Francisco)” is active, “SALES PERSON” will be active.</li>
-<li>If only “My Company (Chicago)” is active, “SALES PERSON” and “SALES MANAGER” will be active.</li>
-<li>If both “My Company (San Francisco)” and “My Company (Chicago)” is active, “SALES PERSON” will be active.</li>
+<li>When selecting active companies from the UI widget:<ul>
+<li>If only “My Company (San Francisco)” is active, “SALES PERSON”
+will be active.</li>
+<li>If only “My Company (Chicago)” is active, “SALES PERSON” and
+“SALES MANAGER” will be active.</li>
+<li>If both “My Company (San Francisco)” and “My Company (Chicago)” is
+active, “SALES PERSON” will be active.</li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -431,7 +430,7 @@ When doing so, the User’s security Groups are recomputed, based on the Roles.<
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/server-backend/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_company%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_company%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -460,7 +459,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/16.0/base_user_role_company">OCA/server-backend</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/17.0/base_user_role_company">OCA/server-backend</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
