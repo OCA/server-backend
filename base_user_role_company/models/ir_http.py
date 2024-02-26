@@ -14,7 +14,7 @@ class IrHttp(models.AbstractModel):
         calculate the roles to enable.
         A role should be enabled only when it applies to all selected companies.
         """
-        result = super(IrHttp, self).session_info()
+        result = super().session_info()
         if self.env.user.role_line_ids:
             cids_str = request.httprequest.cookies.get("cids", str(self.env.company.id))
             cids = [int(cid) for cid in cids_str.split(",")]

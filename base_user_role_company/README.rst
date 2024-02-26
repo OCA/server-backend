@@ -109,6 +109,10 @@ Contributors
    -  Chandresh Thakkar <cthakkr@opensourceintegrators.com>
    -  Urvisha Desai <udesai@opensourceintegrators.com>
 
+`WeSolved <http://wesolved.com>`__
+
+   -  Robin Conjour <rconjour@wesolved.com>
+
 Maintainers
 -----------
 
