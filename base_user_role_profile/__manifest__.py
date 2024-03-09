@@ -2,7 +2,7 @@
 
 {
     "name": "User profiles",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Tools",
     "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
