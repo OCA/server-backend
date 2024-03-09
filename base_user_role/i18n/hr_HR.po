@@ -35,6 +35,16 @@ msgid "%s (copy)"
 msgstr ""
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "<em>Any configuration changes made here will not be persistent.</em>"
+msgstr ""
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "<strong>The access rights of this user are managed by roles.</strong>"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
 msgid "Access Controls"
 msgstr ""
@@ -292,6 +302,11 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
 msgid "Share Group"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__show_alert
+msgid "Show Alert"
 msgstr ""
 
 #. module: base_user_role
