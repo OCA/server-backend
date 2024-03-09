@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_res_users_profile,access_res_users_profile,model_res_users_profile,base.group_user,1,0,0,0
+access_res_users_profile_managers,access_res_managers_role,model_res_users_profile,base.group_erp_manager,1,1,1,1
 access_res_users_role_line_users,access_res_users_role_line,model_res_users_role_line,base.group_user,1,0,0,0
