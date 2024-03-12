@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-03-12 13:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: base_group_backend
 #: model:res.groups,comment:base_group_backend.base_group_backend
@@ -30,6 +32,23 @@ msgid ""
 "            to Odoo backend (`/web`).\n"
 "        "
 msgstr ""
+"\n"
+"            Questo gruppo viene utilizzato per fornire all'utente l'accesso "
+"al backend.\n"
+"\n"
+"             Mentre gli utenti in `base.group_user` ottengono molti accessi "
+"predefiniti\n"
+"             il che rende difficile definire correttamente l'accesso a "
+"record/regole/menu.\n"
+"\n"
+"             Quindi per la manutenibilità non si dovrebbe collegare alcun "
+"diritto di accesso, regole,\n"
+"             menu e così via direttamente a questo gruppo.\n"
+"\n"
+"             L'unico intento di questi gruppi è riuscire ad ottenere una "
+"sessione\n"
+"             nel backend di Odoo (`/web`).\n"
+"        "
 
 #. module: base_group_backend
 #: model:res.groups,comment:base_group_backend.group_backend_ui_users
@@ -38,94 +57,98 @@ msgid ""
 "            This group is used to gives user basic ui access.\n"
 "        "
 msgstr ""
+"\n"
+"            Questo gruppo viene utilizzato per fornire all'utente l'accesso "
+"di base all'interfaccia utente.\n"
+"        "
 
 #. module: base_group_backend
 #: model:ir.model,name:base_group_backend.model_backend_dummy_model
 msgid "Backend Dummy Model demo"
-msgstr ""
+msgstr "Demo modello semplice backend"
 
 #. module: base_group_backend
 #: model:res.groups,name:base_group_backend.group_backend_ui_users
 msgid "Backend UI user"
-msgstr ""
+msgstr "Utente UI backend"
 
 #. module: base_group_backend
 #: model:res.groups,name:base_group_backend.base_group_backend
 msgid "Backend user"
-msgstr ""
+msgstr "Utente backend"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__date_start
 msgid "Date Start"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__date_stop
 msgid "Date Stop"
-msgstr ""
+msgstr "Data fine"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: base_group_backend
 #: model:ir.actions.act_window,name:base_group_backend.action_dummy_list
 msgid "Dummies"
-msgstr ""
+msgstr "Principianti"
 
 #. module: base_group_backend
 #: model:ir.ui.menu,name:base_group_backend.menu_dummy_menu
 #: model:ir.ui.menu,name:base_group_backend.menu_dummy_root
 msgid "Dummy"
-msgstr ""
+msgstr "Principiante"
 
 #. module: base_group_backend
 #: model:ir.ui.menu,name:base_group_backend.menu_dummy_list
 msgid "Dummy list"
-msgstr ""
+msgstr "Elenco principiante"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_other_value
 msgid "My Other Value"
-msgstr ""
+msgstr "Altro valore mio"
 
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_value
 msgid "My Value"
-msgstr ""
+msgstr "Mio valore"
 
 #. module: base_group_backend
 #: model:ir.model,name:base_group_backend.model_res_users
 msgid "User"
-msgstr ""
+msgstr "Utente"
