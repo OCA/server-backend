@@ -45,14 +45,32 @@ class TestUserRoleCompany(TransactionCase):
 
     def test_110_company_1(self):
         "Company 1 selected: Roles A, B and C are enabled"
-        self.test_user.set_groups_from_roles(company_id=self.company1.id)
+        self.test_user.with_context(
+            active_company_ids=self.company1.ids
+        ).set_groups_from_roles()
         expected = self.groupA | self.groupB | self.groupC
         found = self.test_user.groups_id.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
 
     def test_120_company_2(self):
         "Company 2 selected: Roles A and C are enabled"
-        self.test_user.set_groups_from_roles(company_id=self.company2.id)
+        self.test_user.with_context(
+            active_company_ids=self.company2.ids
+        ).set_groups_from_roles()
+        enabled = self.test_user.groups_id
+        expected = self.groupA | self.groupC
+        found = enabled.filtered(lambda x: x in expected)
+        self.assertEqual(expected, found)
+
+        not_expected = self.groupB
+        found = enabled.filtered(lambda x: x in not_expected)
+        self.assertFalse(found)
+
+    def test_130_all_company(self):
+        "All Company selected: Roles A and C are enabled"
+        self.test_user.with_context(
+            active_company_ids=[self.company1.id, self.company2.id]
+        ).set_groups_from_roles()
         enabled = self.test_user.groups_id
         expected = self.groupA | self.groupC
         found = enabled.filtered(lambda x: x in expected)
