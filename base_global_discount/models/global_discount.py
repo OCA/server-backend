@@ -25,7 +25,7 @@ class GlobalDiscount(models.Model):
     def name_get(self):
         result = []
         for one in self:
-            result.append((one.id, "{} ({:.2f}%)".format(one.name, one.discount)))
+            result.append((one.id, f"{one.name} ({one.discount:.2f}%)"))
         return result
 
     def _get_global_discount_vals(self, base, **kwargs):
