@@ -14,7 +14,7 @@ class GlobalDiscount(models.Model):
     discount_scope = fields.Selection(
         selection=[("sale", "Sales"), ("purchase", "Purchases")],
         default="sale",
-        required="True",
+        required=True,
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
@@ -22,10 +22,10 @@ class GlobalDiscount(models.Model):
         default=lambda self: self.env.company,
     )
 
-    def name_get(self):
+    def _compute_display_name(self):
         result = []
         for one in self:
-            result.append((one.id, f"{one.name} ({one.discount:.2f}%)"))
+            one.display_name = f"{one.name} ({one.discount:.2f}%)"
         return result
 
     def _get_global_discount_vals(self, base, **kwargs):
