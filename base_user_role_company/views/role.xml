@@ -5,6 +5,9 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base_user_role.view_res_users_form_inherit" />
         <field name="arch" type="xml">
+            <field name="role_id" position="attributes">
+                <attribute name="domain">[]</attribute>
+            </field>
             <xpath
                 expr="//field[@name='role_line_ids']//field[@name='role_id']"
                 position="after"

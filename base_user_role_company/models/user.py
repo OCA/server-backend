@@ -21,15 +21,21 @@ class ResUsers(models.Model):
 
     def _get_enabled_roles(self):
         res = super()._get_enabled_roles()
-        # Enable only the Roles corresponing to the currently selected company
         if self.role_line_ids:
-            res = res.filtered(
-                lambda x: not x.company_id or x.company_id == self.env.company
-            )
+            active_roles = self.env["res.users.role.line"]
+            if self.env.context.get("active_company_ids"):
+                company_ids = self.env.context.get("active_company_ids")
+            else:
+                company_ids = self.company_id.ids
+            for role_line in self.role_line_ids:
+                if not role_line.company_id:
+                    active_roles |= role_line
+                elif role_line.company_id.id in company_ids:
+                    role_line_companies = self.role_line_ids.filtered(
+                        lambda x: x.role_id == role_line.role_id
+                        and x.company_id.id in company_ids
+                    )
+                    if len(role_line_companies) == len(company_ids):
+                        active_roles |= role_line
+            return active_roles
         return res
-
-    def set_groups_from_roles(self, force=False, company_id=False):
-        # When using the Company Switcher widget, the self.env.company is not yet set
-        if company_id:
-            self = self.with_company(company_id)
-        return super().set_groups_from_roles(force=force)
