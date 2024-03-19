@@ -1,13 +1,11 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * server_action_navigate
+# 	* server_action_navigate
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-23 18:40+0000\n"
-"PO-Revision-Date: 2023-12-23 18:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,6 +65,13 @@ msgid "Field Model"
 msgstr ""
 
 #. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_model_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_model_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_model_id
+msgid "Final Navigation Model"
+msgstr ""
+
+#. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__id
 msgid "ID"
 msgstr ""
@@ -119,7 +124,7 @@ msgstr ""
 
 #. module: server_action_navigate
 #: model:ir.actions.server,name:server_action_navigate.navigate_partner_2_tags
-msgid "See tags of Partners"
+msgid "See Tags of Partners of Users"
 msgstr ""
 
 #. module: server_action_navigate
@@ -160,11 +165,4 @@ msgid ""
 "- 'Add Followers': add followers to a record (Discuss)\n"
 "- 'Create Next Activity': create an activity (Discuss)\n"
 "- 'Send SMS Text Message': send SMS, log them on documents (SMS)"
-msgstr ""
-
-#. module: server_action_navigate
-#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_model_id
-#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_model_id
-#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_model_id
-msgid "Final Navigation Model"
 msgstr ""

@@ -14,6 +14,8 @@ class TestModule(TransactionCase):
         self.action_server = self.env.ref(
             "server_action_navigate.navigate_partner_2_tags"
         )
+        self.navigate_line_1 = self.env.ref("server_action_navigate.navigate_line_1")
+        self.navigate_line_2 = self.env.ref("server_action_navigate.navigate_line_2")
         self.users = self.env["res.users"].search([])
 
     def test_action_result(self):
@@ -28,6 +30,12 @@ class TestModule(TransactionCase):
         self.assertEqual(
             safe_eval(result.get("domain", [])),
             [("id", "in", self.users.mapped("partner_id.category_id").ids)],
+        )
+
+    def test_compute_field_domain(self):
+        self.assertEqual(self.navigate_line_1.field_domain_model_id.model, "res.users")
+        self.assertEqual(
+            self.navigate_line_2.field_domain_model_id.model, "res.partner"
         )
 
     def test_delete_last_line(self):
