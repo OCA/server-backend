@@ -5,6 +5,8 @@
 from odoo.tests.common import TransactionCase
 from odoo.tools.safe_eval import safe_eval
 
+from odoo.addons.server_action_navigate import hooks
+
 
 class TestModule(TransactionCase):
     def setUp(self):
@@ -46,3 +48,8 @@ class TestModule(TransactionCase):
             result.get("id", False),
             self.env.ref("base.action_partner_category_form").id,
         )
+
+    def test_module_uninstall(self):
+        self.assertTrue(self.action_server.exists())
+        hooks.uninstall_hook(self.env.cr, self.env.registry)
+        self.assertFalse(self.action_server.exists())
