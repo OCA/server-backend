@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_dav_collection_tree" model="ir.ui.view">
         <field name="model">dav.collection</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="dav_type"/>
-                <field name="model_id"/>
-                <field name="domain"/>
+                <field name="name" />
+                <field name="dav_type" />
+                <field name="model_id" />
+                <field name="domain" />
             </tree>
         </field>
     </record>
@@ -16,19 +16,27 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="name"/>
-                    <field name="dav_type"/>
-                    <field name="url" widget="url" attrs="{'invisible': [('url', '=', False)]}"/>
+                    <field name="name" />
+                    <field name="dav_type" />
+                    <field
+                        name="url"
+                        widget="url"
+                        attrs="{'invisible': [('url', '=', False)]}"
+                    />
                 </group>
                 <group string="Access">
-                    <field name="model_id"/>
+                    <field name="model_id" />
                     <!-- TODO: use widget="domain" when we can set the model dynamically /-->
-                    <field name="domain"/>
-                    <field name="field_uuid" domain="[('model_id', '=', model_id)]"/>
-                    <field name="rights"/>
+                    <field name="domain" />
+                    <field name="field_uuid" domain="[('model_id', '=', model_id)]" />
+                    <field name="rights" />
                 </group>
                 <group string="Additional field mapping">
-                    <field name="field_mapping_ids" nolabel="1" context="{'default_collection_id': active_id}"/>
+                    <field
+                        name="field_mapping_ids"
+                        nolabel="1"
+                        context="{'default_collection_id': active_id}"
+                    />
                 </group>
             </form>
         </field>
@@ -38,9 +46,9 @@
         <field name="model">dav.collection.field_mapping</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="field_id"/>
-                <field name="mapping_type"/>
+                <field name="name" />
+                <field name="field_id" />
+                <field name="mapping_type" />
             </tree>
         </field>
     </record>
@@ -50,13 +58,19 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="collection_id" invisible="1"/>
-                    <field name="model_id" invisible="1"/>
-                    <field name="name"/>
-                    <field name="mapping_type"/>
-                    <field name="field_id" domain="[('model_id', '=', model_id)]"/>
-                    <field name="import_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
-                    <field name="export_code" attrs="{'invisible': [('mapping_type', '!=', 'code')]}"/>
+                    <field name="collection_id" invisible="1" />
+                    <field name="model_id" invisible="1" />
+                    <field name="name" />
+                    <field name="mapping_type" />
+                    <field name="field_id" domain="[('model_id', '=', model_id)]" />
+                    <field
+                        name="import_code"
+                        attrs="{'invisible': [('mapping_type', '!=', 'code')]}"
+                    />
+                    <field
+                        name="export_code"
+                        attrs="{'invisible': [('mapping_type', '!=', 'code')]}"
+                    />
                 </group>
             </form>
         </field>

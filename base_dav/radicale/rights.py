@@ -5,7 +5,9 @@ from .collection import Collection
 
 try:
     from radicale.rights import (
-        AuthenticatedRights, OwnerWriteRights, OwnerOnlyRights,
+        AuthenticatedRights,
+        OwnerOnlyRights,
+        OwnerWriteRights,
     )
 except ImportError:
     AuthenticatedRights = OwnerOnlyRights = OwnerWriteRights = None
@@ -13,7 +15,7 @@ except ImportError:
 
 class Rights(OwnerOnlyRights, OwnerWriteRights, AuthenticatedRights):
     def authorized(self, user, path, perm):
-        if path == '/':
+        if path == "/":
             return True
 
         collection = Collection(path)

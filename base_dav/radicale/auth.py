@@ -12,7 +12,7 @@ except ImportError:
 class Auth(BaseAuth):
     def is_authenticated2(self, login, user, password):
         env = request.env
-        uid = env['res.users']._login(env.cr.dbname, user, password)
+        uid = env["res.users"]._login(env.cr.dbname, user, password)
         if uid:
             request._env = env(user=uid)
         return bool(uid)

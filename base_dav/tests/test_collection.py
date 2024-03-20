@@ -13,46 +13,56 @@ class TestCalendar(TransactionCase):
     def setUp(self):
         super().setUp()
 
-        self.collection = self.env["dav.collection"].create({
-            "name": "Test Collection",
-            "dav_type": "calendar",
-            "model_id": self.env.ref("base.model_res_users").id,
-            "domain": "[]",
-        })
+        self.collection = self.env["dav.collection"].create(
+            {
+                "name": "Test Collection",
+                "dav_type": "calendar",
+                "model_id": self.env.ref("base.model_res_users").id,
+                "domain": "[]",
+            }
+        )
 
         self.create_field_mapping(
-            "login", "base.field_res_users_login",
+            "login",
+            "base.field_res_users_login",
             excode="result = record.login",
             imcode="result = item.value",
         )
         self.create_field_mapping(
-            "name", "base.field_res_users_name",
+            "name",
+            "base.field_res_users_name",
         )
         self.create_field_mapping(
-            "dtstart", "base.field_res_users_create_date",
+            "dtstart",
+            "base.field_res_users_create_date",
         )
         self.create_field_mapping(
-            "dtend", "base.field_res_users_write_date",
+            "dtend",
+            "base.field_res_users_write_date",
         )
 
         start = datetime.now()
         stop = start + timedelta(hours=1)
-        self.record = self.env["res.users"].create({
-            "login": "tester",
-            "name": "Test User",
-            "create_date": start.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
-            "write_date": stop.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
-        })
+        self.record = self.env["res.users"].create(
+            {
+                "login": "tester",
+                "name": "Test User",
+                "create_date": start.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                "write_date": stop.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+            }
+        )
 
     def create_field_mapping(self, name, field_ref, imcode=None, excode=None):
-        return self.env["dav.collection.field_mapping"].create({
-            "collection_id": self.collection.id,
-            "name": name,
-            "field_id": self.env.ref(field_ref).id,
-            "mapping_type": "code" if imcode or excode else "simple",
-            "import_code": imcode,
-            "export_code": excode,
-        })
+        return self.env["dav.collection.field_mapping"].create(
+            {
+                "collection_id": self.collection.id,
+                "name": name,
+                "field_id": self.env.ref(field_ref).id,
+                "mapping_type": "code" if imcode or excode else "simple",
+                "import_code": imcode,
+                "export_code": excode,
+            }
+        )
 
     def compare_record(self, vobj, rec=None):
         tmp = self.collection.from_vobject(vobj)

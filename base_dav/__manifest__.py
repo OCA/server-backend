@@ -9,16 +9,16 @@
     "category": "Extra Tools",
     "summary": "Access Odoo data as calendar or address book",
     "depends": [
-        'base',
+        "base",
     ],
     "demo": [
         "demo/dav_collection.xml",
     ],
     "data": [
         "views/dav_collection.xml",
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
     ],
     "external_dependencies": {
-        'python': ['radicale'],
+        "python": ["radicale"],
     },
 }
