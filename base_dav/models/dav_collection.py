@@ -1,7 +1,6 @@
 # Copyright 2019 Therp BV <https://therp.nl>
 # Copyright 2019-2020 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 import os
 import time
 from operator import itemgetter
@@ -9,11 +8,13 @@ from urllib.parse import quote_plus
 
 import vobject
 
-from odoo import api, fields, models, tools
+from odoo import SUPERUSER_ID, api, fields, models
+from odoo.tools.safe_eval import safe_eval
+
+from odoo.addons.base_dav.radicale.collection import Collection, FileItem, Item
 
 # pylint: disable=missing-import-error
 from ..controllers.main import PREFIX
-from ..radicale.collection import Collection, FileItem, Item
 
 
 class DavCollection(models.Model):
@@ -46,6 +47,7 @@ class DavCollection(models.Model):
         string="Model",
         required=True,
         domain=[("transient", "=", False)],
+        ondelete="cascade",
     )
     domain = fields.Char(
         required=True,
@@ -59,7 +61,6 @@ class DavCollection(models.Model):
     )
     url = fields.Char(compute="_compute_url")
 
-    @api.multi
     def _compute_tag(self):
         for this in self:
             if this.dav_type == "calendar":
@@ -67,16 +68,10 @@ class DavCollection(models.Model):
             elif this.dav_type == "addressbook":
                 this.tag = "VADDRESSBOOK"
 
-    @api.multi
     def _compute_url(self):
         base_url = self.env["ir.config_parameter"].get_param("web.base.url")
         for this in self:
-            this.url = "%s%s/%s/%s" % (
-                base_url,
-                PREFIX,
-                self.env.user.login,
-                this.id,
-            )
+            this.url = f"{base_url}{PREFIX}/{self.env.user.login}/{this.id}"
 
     @api.constrains("domain")
     def _check_domain(self):
@@ -88,28 +83,26 @@ class DavCollection(models.Model):
             "user": self.env.user,
         }
 
-    @api.multi
     def _eval_domain(self):
         self.ensure_one()
-        return list(tools.safe_eval(self.domain, self._eval_context()))
+        return list(safe_eval(self.domain, self._eval_context()))
 
-    @api.multi
     def eval(self):
         if not self:
             return self.env["unknown"]
         self.ensure_one()
+        self = self.with_user(SUPERUSER_ID)
         return self.env[self.model_id.model].search(self._eval_domain())
 
-    @api.multi
     def get_record(self, components):
         self.ensure_one()
+        self = self.with_user(SUPERUSER_ID)
         collection_model = self.env[self.model_id.model]
 
         field_name = self.field_uuid.name or "id"
         domain = [(field_name, "=", components[-1])] + self._eval_domain()
         return collection_model.search(domain, limit=1)
 
-    @api.multi
     def from_vobject(self, item):
         self.ensure_one()
 
@@ -136,9 +129,9 @@ class DavCollection(models.Model):
 
         return result
 
-    @api.multi
     def to_vobject(self, record):
         self.ensure_one()
+        self = self.with_user(SUPERUSER_ID)
         result = None
         vobj = None
         if self.dav_type == "calendar":
@@ -153,16 +146,20 @@ class DavCollection(models.Model):
                 vobj.add(mapping.name).value = value
 
         if "uid" not in vobj.contents:
-            vobj.add("uid").value = "%s,%s" % (record._name, record.id)
+            vobj.add("uid").value = f"{record._name},{record.id}"
         if "rev" not in vobj.contents and "write_date" in record._fields:
             vobj.add("rev").value = (
-                record.write_date.replace(":", "").replace(" ", "T").replace(".", "")
+                str(record.write_date)
+                .replace(":", "")
+                .replace(" ", "T")
+                .replace(".", "")
                 + "Z"
             )
         return result
 
     @api.model
     def _odoo_to_http_datetime(self, value):
+        value = str(value).split(".")[0]
         return time.strftime(
             "%a, %d %b %Y %H:%M:%S GMT",
             time.strptime(value, "%Y-%m-%d %H:%M:%S"),
@@ -172,7 +169,6 @@ class DavCollection(models.Model):
     def _split_path(self, path):
         return list(filter(None, os.path.normpath(path or "").strip("/").split("/")))
 
-    @api.multi
     def dav_list(self, collection, path_components):
         self.ensure_one()
 
@@ -217,7 +213,6 @@ class DavCollection(models.Model):
             result.append("/" + "/".join(path_components + [uuid]))
         return result
 
-    @api.multi
     def dav_delete(self, collection, components):
         self.ensure_one()
 
@@ -227,7 +222,6 @@ class DavCollection(models.Model):
         else:
             self.get_record(components).unlink()
 
-    @api.multi
     def dav_upload(self, collection, href, item):
         self.ensure_one()
 
@@ -246,7 +240,7 @@ class DavCollection(models.Model):
 
             record = collection_model.create(data)
             uuid = components[-1] if self.field_uuid else record.id
-            href = "%s/%s" % (href, uuid)
+            href = f"{href}/{uuid}"
         else:
             record.write(data)
 
@@ -257,7 +251,6 @@ class DavCollection(models.Model):
             last_modified=self._odoo_to_http_datetime(record.write_date),
         )
 
-    @api.multi
     def dav_get(self, collection, href):
         self.ensure_one()
 

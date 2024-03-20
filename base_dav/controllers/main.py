@@ -11,6 +11,7 @@ from odoo.http import request
 
 try:
     import radicale
+    # from radicale import config
 except ImportError:
     radicale = None
 

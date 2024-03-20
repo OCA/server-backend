@@ -1,2 +1,2 @@
 # generated from manifests external_dependencies
-radicale
+radicale==2.1.12

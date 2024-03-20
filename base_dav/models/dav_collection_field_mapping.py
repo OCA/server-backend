@@ -9,6 +9,7 @@ import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
+from odoo.tools import safe_eval
 
 
 class DavCollectionFieldMapping(models.Model):
@@ -36,10 +37,10 @@ class DavCollectionFieldMapping(models.Model):
         "ir.model.fields",
         required=True,
         help="Field of the model the values are mapped to",
+        ondelete="cascade",
     )
     model_id = fields.Many2one(
-        "ir.model",
-        related="collection_id.model_id",
+        "ir.model", related="collection_id.model_id", ondelete="cascade"
     )
     import_code = fields.Text(
         help="Code to import the value from a vobject. Use the variable "
@@ -50,35 +51,32 @@ class DavCollectionFieldMapping(models.Model):
         "result for the output of the value and record as input"
     )
 
-    @api.multi
     def from_vobject(self, child):
         self.ensure_one()
         if self.mapping_type == "code":
             return self._from_vobject_code(child)
         return self._from_vobject_simple(child)
 
-    @api.multi
     def _from_vobject_code(self, child):
         self.ensure_one()
         context = {
-            "datetime": datetime,
-            "dateutil": dateutil,
+            "datetime": safe_eval.datetime,
+            "dateutil": safe_eval.dateutil,
             "item": child,
             "result": None,
-            "tools": tools,
-            "tz": tz,
-            "vobject": vobject,
+            # "tools": tools,
+            # "tz": tz,
+            # "vobject": vobject,
         }
-        tools.safe_eval(self.import_code, context, mode="exec", nocopy=True)
+        safe_eval.safe_eval(self.import_code, context, mode="exec", nocopy=True)
         return context.get("result", {})
 
-    @api.multi
     def _from_vobject_simple(self, child):
         self.ensure_one()
         name = self.name.lower()
         conversion_funcs = [
-            "_from_vobject_%s_%s" % (self.field_id.ttype, name),
-            "_from_vobject_%s" % self.field_id.ttype,
+            f"_from_vobject_{self.field_id.ttype}_{name}",
+            f"_from_vobject_{self.field_id.ttype}",
         ]
 
         for conversion_func in conversion_funcs:
@@ -115,7 +113,6 @@ class DavCollectionFieldMapping(models.Model):
     def _from_vobject_char_n(self, item):
         return item.family
 
-    @api.multi
     def to_vobject(self, record):
         self.ensure_one()
         if self.mapping_type == "code":
@@ -127,27 +124,25 @@ class DavCollectionFieldMapping(models.Model):
             return result.replace(tzinfo=tz.UTC)
         return result
 
-    @api.multi
     def _to_vobject_code(self, record):
         self.ensure_one()
         context = {
-            "datetime": datetime,
-            "dateutil": dateutil,
+            "datetime": safe_eval.datetime,
+            "dateutil": safe_eval.dateutil,
             "record": record,
             "result": None,
-            "tools": tools,
-            "tz": tz,
-            "vobject": vobject,
+            # "tools": tools,
+            # "tz": tz,
+            # "vobject": vobject,
         }
-        tools.safe_eval(self.export_code, context, mode="exec", nocopy=True)
+        safe_eval.safe_eval(self.export_code, context, mode="exec", nocopy=True)
         return context.get("result", None)
 
-    @api.multi
     def _to_vobject_simple(self, record):
         self.ensure_one()
         conversion_funcs = [
-            "_to_vobject_%s_%s" % (self.field_id.ttype, self.name.lower()),
-            "_to_vobject_%s" % self.field_id.ttype,
+            f"_to_vobject_{self.field_id.ttype}_{self.name.lower()}",
+            f"_to_vobject_{self.field_id.ttype}",
         ]
         value = record[self.field_id.name]
         for conversion_func in conversion_funcs:
