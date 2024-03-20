@@ -18,11 +18,7 @@
                 <group>
                     <field name="name" />
                     <field name="dav_type" />
-                    <field
-                        name="url"
-                        widget="url"
-                        attrs="{'invisible': [('url', '=', False)]}"
-                    />
+                    <field name="url" widget="url" invisible="url == False" />
                 </group>
                 <group string="Access">
                     <field name="model_id" />
@@ -31,13 +27,12 @@
                     <field name="field_uuid" domain="[('model_id', '=', model_id)]" />
                     <field name="rights" />
                 </group>
-                <group string="Additional field mapping">
-                    <field
-                        name="field_mapping_ids"
-                        nolabel="1"
-                        context="{'default_collection_id': active_id}"
-                    />
-                </group>
+                <group string="Additional field mapping" />
+                <field
+                    name="field_mapping_ids"
+                    nolabel="1"
+                    context="{'default_collection_id': active_id}"
+                />
             </form>
         </field>
     </record>
@@ -63,29 +58,25 @@
                     <field name="name" />
                     <field name="mapping_type" />
                     <field name="field_id" domain="[('model_id', '=', model_id)]" />
-                    <field
-                        name="import_code"
-                        attrs="{'invisible': [('mapping_type', '!=', 'code')]}"
-                    />
-                    <field
-                        name="export_code"
-                        attrs="{'invisible': [('mapping_type', '!=', 'code')]}"
-                    />
+                    <field name="import_code" invisible="mapping_type != 'code'" />
+                    <field name="export_code" invisible="mapping_type != 'code'" />
                 </group>
             </form>
         </field>
     </record>
 
-    <act_window
-        id="action_dav_collection"
-        name="WebDAV collections"
-        res_model="dav.collection"
-        view_mode="tree,form"
-    />
+    <record id="action_dav_collection" model="ir.actions.act_window">
+        <field name="name">WebDAV collections</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dav.collection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <menuitem
         id="menu_dav_collection"
         parent="base.menu_administration"
         action="action_dav_collection"
         sequence="100"
     />
+
 </odoo>

@@ -93,6 +93,7 @@ class Collection(BaseCollection):
             )
 
     def _odoo_to_http_datetime(self, value):
+        value = str(value).split(".")[0]
         return time.strftime(
             "%a, %d %b %Y %H:%M:%S GMT",
             time.strptime(value, "%Y-%m-%d %H:%M:%S"),

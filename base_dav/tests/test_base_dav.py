@@ -56,7 +56,7 @@ class TestBaseDav(TransactionCase):
         patcher.start()
 
     def auth_string(self, user, password):
-        return b64encode(("%s:%s" % (user.login, password)).encode()).decode()
+        return b64encode((f"{user.login}:{password}").encode()).decode()
 
     def init_mocks(self, coll_mock, auth_mock, req_mock):
         req_mock.env = self.env

@@ -75,6 +75,9 @@ to Odoo via odoorpc. It should be possible to recycle most of the code
 from this addon, which actually implements those plugins, but then
 within Odoo.
 
+In order to install this module and use it make sure you use right version of `radicale==2.1.12` library.
+
+
 Bug Tracker
 ===========
 
