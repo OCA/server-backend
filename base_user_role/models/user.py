@@ -11,12 +11,14 @@ class ResUsers(models.Model):
         inverse_name="user_id",
         string="Role lines",
         default=lambda self: self._default_role_lines(),
+        groups="base.group_erp_manager",
     )
     role_ids = fields.One2many(
         comodel_name="res.users.role",
         string="Roles",
         compute="_compute_role_ids",
         compute_sudo=True,
+        groups="base.group_erp_manager",
     )
 
     @api.model
