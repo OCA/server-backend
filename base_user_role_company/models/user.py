@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
+from odoo.http import request
 
 
 class ResUsers(models.Model):
@@ -20,12 +21,17 @@ class ResUsers(models.Model):
         return uid
 
     def _get_enabled_roles(self):
+        """Get the roles that are enabled for the user, if multi company is selected, only get roles with no company."""
         res = super()._get_enabled_roles()
-        # Enable only the Roles corresponing to the currently selected company
         if self.role_line_ids:
-            res = res.filtered(
-                lambda x: not x.company_id or x.company_id == self.env.company
-            )
+            cids_str = request.httprequest.cookies.get("cids", str(self.env.company.id))
+            cids = [int(cid) for cid in cids_str.split(",")]
+            if len(cids) > 1:
+                res = res.filtered(lambda x: not x.company_id)
+            else:
+                res = res.filtered(
+                    lambda x: not x.company_id or x.company_id == self.env.company
+                )
         return res
 
     def set_groups_from_roles(self, force=False, company_id=False):
