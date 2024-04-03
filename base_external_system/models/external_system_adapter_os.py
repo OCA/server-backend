@@ -3,30 +3,36 @@
 
 import os
 
-from odoo import models
+from odoo import api, models
 
 
-class ExternalSystemOs(models.Model):
+class ExternalSystemAdapterOs(models.AbstractModel):
     """This is an Interface implementing the OS module.
 
     For the most part, this is just a sample of how to implement an external
     system interface. This is still a fully usable implementation, however.
     """
 
-    _name = "external.system.os"
+    __slots__ = ["previous_dir"]
+
+    _name = "external.system.adapter.os"
     _inherit = "external.system.adapter"
     _description = "External System OS"
 
-    previous_dir = None
+    def __init__(self, name, bases, attrs):
+        """Declare previous_dir variable."""
+        super().__init__(name, bases, attrs)
+        self.previous_dir = None
 
+    @api.model
     def external_get_client(self):
         """Return a usable client representing the remote system."""
-        super(ExternalSystemOs, self).external_get_client()
         if self.system_id.remote_path:
-            ExternalSystemOs.previous_dir = os.getcwd()
+            self.previous_dir = os.getcwd()
             os.chdir(self.system_id.remote_path)
         return os
 
+    @api.model
     def external_destroy_client(self, client):
         """Perform any logic necessary to destroy the client connection.
 
@@ -34,8 +40,6 @@ class ExternalSystemOs(models.Model):
             client (mixed): The client that was returned by
              ``external_get_client``.
         """
-        result = super(ExternalSystemOs, self).external_destroy_client(client)
-        if ExternalSystemOs.previous_dir:
-            os.chdir(ExternalSystemOs.previous_dir)
-            ExternalSystemOs.previous_dir = None
-        return result
+        if self.previous_dir:
+            os.chdir(self.previous_dir)
+            self.previous_dir = None
