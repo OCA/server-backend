@@ -4,7 +4,7 @@
 """Extend external system with oauth authentication."""
 import logging
 
-from odoo import _, api, models
+from odoo import _, models
 from odoo.exceptions import UserError
 
 # You must initialize logging, otherwise you'll not see debug output.
@@ -44,15 +44,13 @@ class ExternalSystemAdapterOAuth(models.AbstractModel):
 
     token = None
 
-    @api.multi
     def external_get_client(self):
         """Return token that can be used to access remote system."""
-        client = super(ExternalSystemAdapterOAuth, self).external_get_client()
+        client = super().external_get_client()
         oauth = self.system_id.oauth_definition_id
         self.token = oauth.get_access_token()
         return client
 
-    @api.multi
     def external_destroy_client(self, client):
         """Perform any logic necessary to destroy the client connection.
 
@@ -62,22 +60,19 @@ class ExternalSystemAdapterOAuth(models.AbstractModel):
         """
         if self.token:
             self.token = None
-        super(ExternalSystemAdapterOAuth, self).external_destroy_client(client)
 
     def post(self, endpoint=None, data=None, json=None, **kwargs):
         """Send post request."""
         headers = kwargs.pop("headers", {})
         self._set_oauth_headers(headers)
-        return super(ExternalSystemAdapterOAuth, self).post(
+        return super().post(
             endpoint=endpoint, data=data, json=json, headers=headers, **kwargs
         )
 
     def get_json(self, endpoint=None, params=None, **kwargs):
         """Get json formatted data from remote system."""
         self._set_oauth_headers(**kwargs)
-        return super(ExternalSystemAdapterOAuth, self).get(
-            endpoint=endpoint, params=params, **kwargs
-        )
+        return super().get(endpoint=endpoint, params=params, **kwargs)
 
     def _set_oauth_headers(self, headers):
         """Set headers in keyword arguments."""
