@@ -38,11 +38,15 @@ def strip_empty_spaces(string):
 class ExternalSystemAdapterOAuth(models.AbstractModel):
     """This is an Interface implementing the OAuth module."""
 
+    __slots__ = ["token"]
+
     _name = "external.system.adapter.oauth"
     _inherit = "external.system.adapter.http"
     _description = "External System Adapter OAuth"
 
-    token = None
+    def __init__(self, name, bases, attrs):
+        """Declare previous_dir variable."""
+        super().__init__(name, bases, attrs)
 
     def external_get_client(self):
         """Return token that can be used to access remote system."""
