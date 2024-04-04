@@ -13,11 +13,16 @@ class ExternalSystemAdapterOs(models.AbstractModel):
     system interface. This is still a fully usable implementation, however.
     """
 
+    __slots__ = ["previous_dir"]
+
     _name = "external.system.adapter.os"
     _inherit = "external.system.adapter"
     _description = "External System OS"
 
-    previous_dir = None
+    def __init__(self, name, bases, attrs):
+        """Declare previous_dir variable."""
+        super().__init__(name, bases, attrs)
+        self.previous_dir = None
 
     @api.model
     def external_get_client(self):
