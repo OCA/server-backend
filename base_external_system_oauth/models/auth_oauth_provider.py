@@ -22,6 +22,7 @@ class AuthOAuthProvider(models.Model):
     client_secret = fields.Char()
     provider_type = fields.Selection(
         selection=[
+            ("demo", "Use client_id and client_secret, but return fixed result"),
             ("basic", "Use client_id and client_secret for basic Authentication"),
             ("microsoft_client_secret", "Microsoft Client Secret autehntication"),
         ],
@@ -38,6 +39,12 @@ class AuthOAuthProvider(models.Model):
         self.ensure_one()
         handler = getattr(self, "_get_access_token_" + self.provider_type)
         return handler()
+
+    def _get_access_token_demo(self):
+        """Get fixed access token using basic authentication."""
+        if self.client_id == "api_example_com" and self.client_secret == "the-secret":
+            return "you_are_in"
+        raise UserError(_("Wrong client_id or client_secret"))
 
     def _get_access_token_basic(self):
         """Get access token using basic authentication."""

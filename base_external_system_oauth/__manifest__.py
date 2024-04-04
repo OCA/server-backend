@@ -15,6 +15,8 @@
         "base_external_system_http",
     ],
     "data": [
+        "demo/auth_oauth_provider_demo.xml",
+        "demo/external_system_demo.xml",
         "views/external_system.xml",
         "views/auth_oauth_provider.xml",
     ],
