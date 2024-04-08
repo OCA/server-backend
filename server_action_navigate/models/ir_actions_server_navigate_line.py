@@ -10,7 +10,7 @@ class IrActionsServerNavigateLine(models.Model):
     _description = "Server Actions Navigation Lines"
     _order = "sequence, id"
 
-    sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer()
 
     field_model = fields.Char(string="Model", related="field_id.relation", store=True)
 
