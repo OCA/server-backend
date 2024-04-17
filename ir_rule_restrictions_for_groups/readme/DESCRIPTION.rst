@@ -1,0 +1,1 @@
+Base module that allows rules to be restrictive for particular groups.

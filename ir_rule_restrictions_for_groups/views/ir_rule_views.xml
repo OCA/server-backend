@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- © 2024 FactorLibre - Aritz Olea <aritz.olea@factorlibre.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="view_rule_form_inherit" model="ir.ui.view">
+        <field name="name">view.rule.form.inherit</field>
+        <field name="model">ir.rule</field>
+        <field name="inherit_id" ref="base.view_rule_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='global']" position="after">
+                <field name="and_restriction_for_groups" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
