@@ -38,7 +38,7 @@ class Base(models.AbstractModel):
             # Needed to match with converted data field names
             clean_fields = [f[0] for f in import_fields]
             for dbid, xmlid, record, info in converted_data:
-                row = dict(zip(clean_fields, data[info["record"]]))
+                row = dict(zip(clean_fields, data[info["record"]], strict=False))
                 match = self
                 if xmlid:
                     # Skip rows with ID, they do not need all this
@@ -61,4 +61,4 @@ class Base(models.AbstractModel):
             # We will import the patched data to get updates on matches
             data = newdata
         # Normal method handles the rest of the job
-        return super(Base, self).load(fields, data)
+        return super().load(fields, data)

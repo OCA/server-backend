@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -118,12 +118,6 @@ msgstr ""
 #: model:ir.model.fields,help:base_import_match.field_base_import_match__model_id
 #: model:ir.model.fields,help:base_import_match.field_base_import_match_field__model_id
 msgid "In this model you will apply the match."
-msgstr ""
-
-#. module: base_import_match
-#: model:ir.model.fields,field_description:base_import_match.field_base_import_match____last_update
-#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: base_import_match
