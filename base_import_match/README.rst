@@ -17,61 +17,65 @@ Base Import Match
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/16.0/base_import_match
+    :target: https://github.com/OCA/server-backend/tree/17.0/base_import_match
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_import_match
+    :target: https://translation.odoo-community.org/projects/server-backend-17-0/server-backend-17-0-base_import_match
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-By default, when importing data (like CSV import) with the ``base_import``
-module, Odoo follows this rule:
+By default, when importing data (like CSV import) with the
+``base_import`` module, Odoo follows this rule:
 
-- If you import the XMLID of a record, make an **update**.
-- If you do not, **create** a new record.
+-  If you import the XMLID of a record, make an **update**.
+-  If you do not, **create** a new record.
 
-This module allows you to set additional rules to match if a given import is an
-update or a new record.
+This module allows you to set additional rules to match if a given
+import is an update or a new record.
 
-This is useful when you need to sync heterogeneous databases, and the field you
-use to match records in those databases with Odoo's is not the XMLID but the
-name, VAT, email, etc.
+This is useful when you need to sync heterogeneous databases, and the
+field you use to match records in those databases with Odoo's is not the
+XMLID but the name, VAT, email, etc.
 
 After installing this module, the import logic will be changed to:
 
-- If you import the XMLID of a record, make an **update**.
-- If you do not:
+-  If you import the XMLID of a record, make an **update**.
+-  If you do not:
 
-  - If there are import match rules for the model you are importing:
+   -  If there are import match rules for the model you are importing:
 
-    - Discard the rules that require fields you are not importing.
-    - Traverse the remaining rules one by one in order to find a match in the database.
+      -  Discard the rules that require fields you are not importing.
+      -  Traverse the remaining rules one by one in order to find a
+         match in the database.
 
-      - Skip the rule if it requires a special condition that is not
-        satisfied.
-      - If one match is found:
+         -  Skip the rule if it requires a special condition that is not
+            satisfied.
+         -  If one match is found:
 
-        - Stop traversing the rest of valid rules.
-        - **Update** that record.
-      - If zero or multiple matches are found:
+            -  Stop traversing the rest of valid rules.
+            -  **Update** that record.
 
-        - Continue with the next rule.
-      - If all rules are exhausted and no single match is found:
+         -  If zero or multiple matches are found:
 
-        - **Create** a new record.
-  - If there are no match rules for your model:
+            -  Continue with the next rule.
 
-    - **Create** a new record.
+         -  If all rules are exhausted and no single match is found:
+
+            -  **Create** a new record.
+
+   -  If there are no match rules for your model:
+
+      -  **Create** a new record.
 
 By default 2 rules are installed for production instances:
 
-- One rule that will allow you to update companies based on their VAT, when
-  ``is_company`` is ``True``.
-- One rule that will allow you to update users based on their login.
+-  One rule that will allow you to update companies based on their VAT,
+   when ``is_company`` is ``True``.
+-  One rule that will allow you to update users based on their login.
 
 In demo instances there are more examples.
 
@@ -85,18 +89,19 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to *Settings > Technical > Database Structure > Import Match*.
-#. *Create*.
-#. Choose a *Model*.
-#. Choose the *Fields* that conform a unique key in that model.
-#. If the rule must be used only for certain imported values, check
-   *Conditional* and enter the **exact string** that is going to be imported
-   in *Imported value*.
+1. Go to *Settings > Technical > Database Structure > Import Match*.
+2. *Create*.
+3. Choose a *Model*.
+4. Choose the *Fields* that conform a unique key in that model.
+5. If the rule must be used only for certain imported values, check
+   *Conditional* and enter the **exact string** that is going to be
+   imported in *Imported value*.
 
-   #. Keep in mind that the match here is evaluated as a case sensitive
-      **text string** always. If you enter e.g. ``True``, it will match that
-      string, but will not match ``1`` or ``true``.
-#. *Save*.
+   1. Keep in mind that the match here is evaluated as a case sensitive
+      **text string** always. If you enter e.g. ``True``, it will match
+      that string, but will not match ``1`` or ``true``.
+
+6. *Save*.
 
 In that list view, you can sort rules by drag and drop.
 
@@ -105,15 +110,15 @@ Usage
 
 To use this module, you need to:
 
-#. Follow steps in **Configuration** section above.
-#. Go to any list view.
-#. Press *Import* and follow the import procedure as usual.
+1. Follow steps in **Configuration** section above.
+2. Go to any list view.
+3. Press *Import* and follow the import procedure as usual.
 
 Known issues / Roadmap
 ======================
 
-* Add a setting to throw an error when multiple matches are found, instead of
-  falling back to creation of new record.
+-  Add a setting to throw an error when multiple matches are found,
+   instead of falling back to creation of new record.
 
 Bug Tracker
 ===========
@@ -121,7 +126,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_import_match%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_import_match%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -129,20 +134,21 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
-  * Jairo Llopis
-  * Vicent Cubells
-  * Ernesto Tejeda
+-  `Tecnativa <https://www.tecnativa.com>`__:
+
+   -  Jairo Llopis
+   -  Vicent Cubells
+   -  Ernesto Tejeda
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -154,6 +160,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/16.0/base_import_match>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/17.0/base_import_match>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
