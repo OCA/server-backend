@@ -42,9 +42,12 @@ class BaseImportMatch(models.Model):
     def _compute_name(self):
         """Automatic self-descriptive name for the setting records."""
         for one in self:
+            display_names = one.field_ids.filtered(lambda f: f.display_name).mapped(
+                "display_name"
+            )
             one.name = "{}: {}".format(
                 one.model_id.display_name,
-                " + ".join(one.field_ids.mapped("display_name")),
+                " + ".join(display_names),
             )
 
     @api.model
@@ -161,16 +164,14 @@ class BaseImportMatchField(models.Model):
     )
 
     @api.depends("conditional", "field_id", "imported_value")
-    def name_get(self):
-        result = []
+    def _compute_display_name(self):
         for one in self:
             pattern = "{name} ({cond})" if one.conditional else "{name}"
             name = pattern.format(
                 name=one.field_id.name,
                 cond=one.imported_value,
             )
-            result.append((one.id, name))
-        return result
+            one.display_name = name
 
     @api.onchange("field_id", "match_id", "conditional", "imported_value")
     def _onchange_match_id_name(self):
