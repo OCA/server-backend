@@ -18,7 +18,6 @@
         "web",
     ],
     "data": [
-        "security/base_ical.xml",
         "security/ir.model.access.csv",
         "views/base_ical.xml",
         "views/res_users.xml",
