@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="group_readonly" model="res.groups">
+        <field name="name">Readonly access</field>
+        <field name="category_id" ref="base.module_category_user_type" />
+    </record>
+    <function model="res.groups" name="action_user_group_readonly" eval="[[ref('group_readonly')]]" />
+</data>
