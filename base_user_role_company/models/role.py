@@ -27,7 +27,8 @@ class ResUsersRoleLine(models.Model):
             ):
                 raise ValidationError(
                     _(
-                        'User "%(user)s" does not have access to the company "%(company)s"'
+                        'User "%(user)s" does not have access to the company '
+                        '"%(company)s"'
                     )
                     % {"user": record.user_id.name, "company": record.company_id.name}
                 )
