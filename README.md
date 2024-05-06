@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 15.0.1.0.0 |  | External Database Source - SQLite
 [base_external_system](base_external_system/) | 15.0.1.0.0 |  | Data models allowing for connection to external systems.
 [base_global_discount](base_global_discount/) | 15.0.1.0.0 |  | Base Global Discount
+[base_ical](base_ical/) | 15.0.1.0.0 | [![hbrunn](https://github.com/hbrunn.png?size=30px)](https://github.com/hbrunn) | Provide (readonly) .ics URLs to calendar-like models
 [base_import_match](base_import_match/) | 15.0.1.0.1 |  | Try to avoid duplicates before importing
 [base_user_role](base_user_role/) | 15.0.0.4.1 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
 
