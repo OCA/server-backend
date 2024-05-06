@@ -1,0 +1,291 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_ical
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
+msgid ""
+"<strong>Important:</strong>\n"
+"                        The url cannot be retrieved later and provides."
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__active
+msgid "Active"
+msgstr ""
+
+#. module: base_ical
+#: code:addons/base_ical/models/base_ical.py:0
+#, python-format
+msgid "Advanced"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
+msgid "Advanced Configuration"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__auto
+msgid "Allow automatically"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__allowed_users_ids
+msgid "Allowed Users"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__calendar_id
+msgid "Calendar"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
+msgid "Calendars"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_description_form
+msgid "Cancel"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__code
+msgid "Code"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__create_uid
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__create_date
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtend
+msgid "DTEND"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtstamp
+msgid "DTSTAMP"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtstart
+msgid "DTSTART"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model,name:base_ical.model_base_ical
+msgid "Definition of an iCal export"
+msgstr ""
+
+#. module: base_ical
+#: model:base.ical,name:base_ical.demo_calendar
+msgid "Demo calendar"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__name
+msgid "Description"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model,name:base_ical.model_base_ical_url_description
+msgid "Description for iCalendar"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__display_name
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__domain
+msgid "Domain"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
+msgid "Done!"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
+msgid "Existing Access"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_description_form
+msgid "Generate url"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
+msgid "Help"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__help_text
+msgid "Help Text"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
+msgid "Here is your new URL to the calendar."
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__id
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__id
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_show__id
+msgid "ID"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_res_users__ical_ids
+msgid "Ical"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,help:base_ical.field_base_ical__auto
+msgid ""
+"If you check this, the calendar will be enabled for all current and future "
+"users. Not that unchecking this will not disable existing calendar "
+"subscriptions"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical____last_update
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__write_uid
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__write_date
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__mode
+msgid "Mode"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__model_id
+msgid "Model"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__model
+msgid "Model Name"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__name
+msgid "Name"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
+msgid "New URL"
+msgstr ""
+
+#. module: base_ical
+#: code:addons/base_ical/models/base_ical_url_description.py:0
+#, python-format
+msgid "Only internal users can create API keys"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__preview
+#: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
+msgid "Preview"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_summary
+msgid "SUMMARY"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model,name:base_ical.model_base_ical_url_show
+msgid "Show URL for iCalendar"
+msgstr ""
+
+#. module: base_ical
+#: code:addons/base_ical/models/base_ical.py:0
+#, python-format
+msgid "Simple"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
+msgid "Simple Configuration"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_uid
+msgid "UID"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,field_description:base_ical.field_base_ical_url_show__url
+msgid "Url"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model,name:base_ical.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,help:base_ical.field_base_ical__domain
+msgid "You can use variables `env` and `user` here"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.model.fields,help:base_ical.field_base_ical__expression_dtend
+#: model:ir.model.fields,help:base_ical.field_base_ical__expression_dtstamp
+#: model:ir.model.fields,help:base_ical.field_base_ical__expression_dtstart
+#: model:ir.model.fields,help:base_ical.field_base_ical__expression_summary
+#: model:ir.model.fields,help:base_ical.field_base_ical__expression_uid
+msgid "You can use variables `record` and `user` here"
+msgstr ""
+
+#. module: base_ical
+#: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
+msgid "[('user_id', '=', user.id)]"
+msgstr ""
+
+#. module: base_ical
+#: model:ir.actions.act_window,name:base_ical.action_base_ical
+#: model:ir.ui.menu,name:base_ical.menu_ical
+msgid "iCalendars"
+msgstr ""
