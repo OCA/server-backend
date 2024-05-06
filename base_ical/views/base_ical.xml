@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_icalendar_url_show_form" model="ir.ui.view">
+        <field name="name">iCalendar: Show Url</field>
+        <field name="model">base.ical.url.show</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <p>
+                        Here is your new URL to the calendar.
+                    </p>
+                    <p><code><field name="url" readonly="True" /></code></p>
+                    <p class="alert alert-warning" role="alert">
+                        <strong>Important:</strong>
+                        The url cannot be retrieved later and provides.
+                    </p>
+                    <footer>
+                        <button special="cancel" data-hotkey="z" string="Done!" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_icalendar_url_description_form" model="ir.ui.view">
+        <field name="name">iCalendar: Show Url</field>
+        <field name="model">base.ical.url.description</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="calendar_id" invisible="1" />
+                        <field name="name" />
+                    </group>
+                    <footer>
+                        <button
+                            name="make_url"
+                            type="object"
+                            string="Generate url"
+                            class="btn-primary"
+                            data-hotkey="q"
+                        />
+                        <button
+                            special="cancel"
+                            data-hotkey="z"
+                            string="Cancel"
+                            class="btn-secondary"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_base_ical_form" model="ir.ui.view">
+        <field name="model">base.ical</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label class="oe_edit_only" for="name" />
+                    <h1><field name="name" /></h1>
+                    <group>
+                        <group name="main">
+                            <field name="mode" />
+                            <field name="model_id" />
+                            <field name="model" invisible="True" />
+                            <field
+                                name="domain"
+                                placeholder="[('user_id', '=', user.id)]"
+                            />
+                            <field name="allowed_users_ids" widget="many2many_tags" />
+                            <field name="auto" />
+                        </group>
+                        <group
+                            name="fields"
+                            string="Simple Configuration"
+                            attrs="{'invisible': [('mode', '!=', 'simple')]}"
+                        >
+
+                            <field
+                                name="expression_dtstamp"
+                                attrs="{'required': [('mode', '=', 'simple')]}"
+                            />
+                            <field
+                                name="expression_uid"
+                                attrs="{'required': [('mode', '=', 'simple')]}"
+                            />
+                            <field
+                                name="expression_dtstart"
+                                attrs="{'required': [('mode', '=', 'simple')]}"
+                            />
+                            <field
+                                name="expression_dtend"
+                                attrs="{'required': [('mode', '=', 'simple')]}"
+                            />
+                            <field
+                                name="expression_summary"
+                                attrs="{'required': [('mode', '=', 'simple')]}"
+                            />
+                        </group>
+                        <group
+                            name="advanced"
+                            string="Advanced Configuration"
+                            attrs="{'invisible': [('mode', '!=', 'advanced')]}"
+                        >
+                            <field
+                                name="code"
+                                nolabel="1"
+                                widget="ace"
+                                options="{'mode': 'python'}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Help">
+                            <field name="help_text" />
+                        </page>
+                        <page string="Preview" groups="base.group_no_one">
+                            <field name="preview" widget="ace" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_base_ical_tree" model="ir.ui.view">
+        <field name="model">base.ical</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="model_id" />
+                <field name="domain" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_base_ical" model="ir.actions.act_window">
+        <field name="name">iCalendars</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">base.ical</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_ical" parent="base.menu_custom" action="action_base_ical" />
+</data>
