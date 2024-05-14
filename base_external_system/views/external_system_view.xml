@@ -36,9 +36,18 @@
                     </group>
                     <notebook>
                         <page string="Keys">
-                            <group>
-                                <group>
+                            <group colspan="6" col="2">
+                                <group name="group_private_key">
+                                    <separator
+                                        string="For client assertion just name of keyfile"
+                                    />
                                     <field name="private_key" />
+                                    <field
+                                        name="private_key_password"
+                                        password="True"
+                                        force_save="1"
+                                    />
+                                    <field name="private_key_thumbprint" />
                                 </group>
                                 <group>
                                     <field name="fingerprint" />
