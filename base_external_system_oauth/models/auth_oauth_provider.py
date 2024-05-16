@@ -1,4 +1,4 @@
-# Copyright 2020 Therp BV <https://therp.nl>.
+# Copyright 2020-2024 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 # pylint: disable=no-self-use
 """Provide extra functionality to use Microsoft oauth for applications."""
@@ -22,11 +22,10 @@ class AuthOAuthProvider(models.Model):
     client_secret = fields.Char()
     provider_type = fields.Selection(
         selection=[
-            ("demo", "Use client_id and client_secret, but return fixed result"),
-            ("basic", "Use client_id and client_secret for basic Authentication"),
-            ("microsoft_client_secret", "Microsoft Client Secret autehntication"),
+            ("demo", "DEMO Just for testing purposes"),
+            ("microsoft_client_secret", "Microsoft Client Secret Authentication"),
         ],
-        default="basic",
+        default="demo",
         help="Provider type determines the method to retrieve bearer token",
     )
 
@@ -45,18 +44,6 @@ class AuthOAuthProvider(models.Model):
         if self.client_id == "api_example_com" and self.client_secret == "the-secret":
             return "you_are_in"
         raise UserError(_("Wrong client_id or client_secret"))
-
-    def _get_access_token_basic(self):
-        """Get access token using basic authentication."""
-        login_params = {
-            "grant_type": "client_credentials",
-        }
-        basic = HTTPBasicAuth(self.client_id, self.client_secret)
-        response = requests.post(
-            url=self.auth_endpoint, params=login_params, auth=basic, timeout=16
-        )
-        self._check_response(response)
-        return response.json()["access_token"]
 
     def _get_access_token_microsoft_client_secret(self):
         """Get access token from Microsoft."""
