@@ -13,6 +13,7 @@
         "security/security.xml",
         "security/ir.model.access.csv",
         "views/global_discount_views.xml",
+        "views/product_views.xml",
         "views/res_partner_views.xml",
     ],
     "application": False,
