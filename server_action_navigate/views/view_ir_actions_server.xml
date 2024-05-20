@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_ir_actions_server_form" model="ir.ui.view">
+        <field name="model">ir.actions.server</field>
+        <field name="inherit_id" ref="base.view_server_action_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='code']" position="after">
+                <page
+                    string="Navigation Options"
+                    name='page_navigate'
+                    autofocus="autofocus"
+                    attrs="{'invisible': [('state', '!=', 'navigate')]}"
+                >
+                    <group>
+                        <field name="navigate_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom" delete="false">
+                                <field name="field_domain_model_id" />
+                                <field name="field_id" />
+                            </tree>
+                        </field>
+                        <button
+                            name="delete_last_line"
+                            string="Delete Last Line"
+                            type="object"
+                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
+                            colspan="2"
+                        />
+                        <field name="navigate_model_id" />
+                        <field name="navigate_model_technical_name" invisible="1" />
+                        <field
+                            name="navigate_action_id"
+                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
