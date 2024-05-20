@@ -28,6 +28,7 @@ msgid "Action Server Sort Lines"
 msgstr "Démo - Action serveur : Trier les lignes"
 
 #. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_base_automation__state
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__state
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__state
 msgid "Action To Do"
@@ -59,12 +60,14 @@ msgid "Field Name"
 msgstr "Nom de Champ"
 
 #. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_base_automation__sort_field_id
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_field_id
 msgid "Field to Sort"
 msgstr "Champ à trier"
 
 #. module: server_action_sort
+#: model:ir.model.fields,help:server_action_sort.field_base_automation__sort_field_id_model
 #: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__sort_field_id_model
 #: model:ir.model.fields,help:server_action_sort.field_ir_cron__sort_field_id_model
 msgid "For relationship fields, the technical name of the target model"
@@ -96,6 +99,7 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_base_automation__sort_field_id_model
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id_model
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_field_id_model
 msgid "Model of the Field to Sort"
@@ -127,6 +131,7 @@ msgid "Sort Options"
 msgstr "Options de tri"
 
 #. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_base_automation__sort_line_ids
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_line_ids
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_line_ids
 msgid "Sorting Criterias"
@@ -144,6 +149,7 @@ msgstr ""
 "Pas de lignes définies"
 
 #. module: server_action_sort
+#: model:ir.model.fields,help:server_action_sort.field_base_automation__state
 #: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__state
 #: model:ir.model.fields,help:server_action_sort.field_ir_cron__state
 msgid ""
