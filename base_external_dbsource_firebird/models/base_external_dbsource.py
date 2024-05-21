@@ -32,23 +32,31 @@ class BaseExternalDbsource(models.Model):
 
     PWD_STRING_FDB = 'Password=%s;'
 
-    @api.multi
+
     def connection_close_fdb(self, connection):
+        self.ensure_one()
+
         return connection.close()
 
-    @api.multi
+
     def connection_open_fdb(self):
+        self.ensure_one()
+
         kwargs = {}
         for option in self.conn_string_full.split(';'):
             try:
                 key, value = option.split('=')
             except ValueError:
                 continue
-            kwargs[key.lower()] = value
+            if key.lower() == "port" :
+                kwargs[key.lower()] = int(value)
+            else : 
+                kwargs[key.lower()] = value
         return fdb.connect(**kwargs)
 
-    @api.multi
     def execute_fdb(self, sqlquery, sqlparams, metadata):
+        self.ensure_one()
+
         with self.connection_open_fdb() as conn:
             cur = conn.cursor()
             cur.execute(sqlquery % sqlparams)
