@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo-addon-base_user_role>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role_company>=16.0dev,<16.1dev',
         'odoo-addon-base_user_role_history>=16.0dev,<16.1dev',
+        'odoo-addon-server_action_navigate>=16.0dev,<16.1dev',
         'odoo-addon-server_action_sort>=16.0dev,<16.1dev',
     ],
     classifiers=[
