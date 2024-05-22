@@ -4,22 +4,18 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     'name': 'External Database Source - Firebird',
-    'version': '10.0.1.0.0',
+    'version': "16.0.1.0.1",
     'category': 'Tools',
     'author': "Daniel Reis, "
               "LasLabs, "
               "Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/server-tools',
     'license': 'LGPL-3',
+    "external_dependencies": {"python": ["fdb", "pandas"]},
     'depends': [
         'base_external_dbsource',
     ],
-    # Uncomment this for v11
-    # 'external_dependencies': {
-    #     'python': [
-    #         'fdb',
-    #     ]
-    # },
+
     'demo': [
         'demo/base_external_dbsource.xml',
     ],
