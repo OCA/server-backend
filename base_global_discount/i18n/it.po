@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-05 15:36+0000\n"
+"PO-Revision-Date: 2024-05-27 15:36+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -60,7 +60,7 @@ msgstr "Nome visualizzato"
 #: model:ir.model.fields,field_description:base_global_discount.field_product_product__bypass_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_product_template__bypass_global_discount
 msgid "Don't apply global discount"
-msgstr ""
+msgstr "Non applicare sconto globale"
 
 #. module: base_global_discount
 #: model:ir.model.fields,help:base_global_discount.field_global_discount__sequence
@@ -91,6 +91,8 @@ msgid ""
 "If this checkbox is ticked, it means that this product will not be taken "
 "into account when calculating the global discounts."
 msgstr ""
+"Se selezionata, significa che questo prodotto non verrà preso in "
+"considerazione nel calcolo degli sconto globali."
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount____last_update
@@ -115,12 +117,12 @@ msgstr "Gestione sconti globali"
 #. module: base_global_discount
 #: model:ir.model,name:base_global_discount.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: base_global_discount
 #: model:ir.model,name:base_global_discount.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante prodotto"
 
 #. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_res_partner__supplier_global_discount_ids
