@@ -9,16 +9,17 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-21 04:22+0000\n"
-"PO-Revision-Date: 2019-09-03 01:23+0000\n"
-"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2024-05-29 14:36+0000\n"
+"Last-Translator: Rodrigo Macedo <sottomaiormacedotec@users.noreply."
+"translation.odoo-community.org>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -59,32 +60,33 @@ msgid ""
 "\"%(method)s\" method not found, check that all assets are installed for the "
 "%(connector)s connector type."
 msgstr ""
+"Método \"%(method)s\" não encontrado, verifique se todos os ativos estão "
+"instalados para o tipo de conector %(connector)s."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Ca Certs"
-msgstr ""
+msgstr "Certificados Ca"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_cert
 msgid "Client Cert"
-msgstr ""
+msgstr "Certificado de cliente"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 msgid "Client Key"
-msgstr ""
+msgstr "Chave de cliente"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
-#, fuzzy
 msgid "Conn String Full"
-msgstr "Caracter de Conexão"
+msgstr "Sequência de conexão completa"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -189,7 +191,7 @@ msgstr "Última atualização em"
 #. module: base_external_dbsource
 #: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mysql
 msgid "MySQL"
-msgstr ""
+msgstr "MySQL"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
