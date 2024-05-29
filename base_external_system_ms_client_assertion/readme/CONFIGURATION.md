@@ -33,13 +33,18 @@ To configure a connection that uses a Client Assertion two objects are needed.
    - Private key password: password for the private key;
    - Private key thumbprint: provided by the certificate authority.
 
-For security reasons the private key is not stored in the database and not shown on the
-web. It has to be placed in your datadirectory alongside the attachment directories in
-a directory called keystore that you must create manually. The full path will be
-as follows:
+For security reasons the private key should not be stored in the database,
+if this can be avoided. The preferred method is to store it in a datadirectory
+alongside the attachment directories in a directory called keystore that you
+must create manually. The full path will be as follows:
 <odoo data directory>/filestore/<database name>/keystore/<filename>
 
 In the field 'Private key' just store the bare filename, not a path.
+
+If you can not put files directly into the filesystem, like on odoo.sh
+instances, you can put the private key directly into the private key
+field. This module will recognize the field contents to be a private key
+and will use the value directly.
 
 You create the private key yourself using openssl, like so:
 $ openssl genrsa -out mykey.key 2048
