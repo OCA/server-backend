@@ -57,10 +57,13 @@ class ExternalSystemAdapterMsClientAssertion(models.AbstractModel):
         )
         return global_app
 
-    def _get_private_key(self, fname):
-        """Get private key from file system."""
+    def _get_private_key(self, private_key):
+        """Get private key from file system, or use it directly."""
+        use_direct = private_key.startswith("-----BEGIN ENCRYPTED PRIVATE KEY-----")
+        if use_direct:
+            return private_key
         attachment_model = self.env["ir.attachment"]
-        full_path = os.path.join(attachment_model._filestore(), "keystore", fname)
+        full_path = os.path.join(attachment_model._filestore(), "keystore", private_key)
         with open(full_path) as file:
             private_key = file.read()
         return private_key
@@ -79,5 +82,5 @@ class ExternalSystemAdapterMsClientAssertion(models.AbstractModel):
         response = global_app.acquire_token_for_client(scopes=scopes)
         if "access_token" not in response:
             raise UserError(_("Oauth response did not contain access_token"))
-        _logger.debug("Token was obtained from:", response["token_source"])
+        _logger.debug("Token was obtained from: %s", response["token_source"])
         return response["access_token"]

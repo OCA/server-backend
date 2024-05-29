@@ -36,21 +36,23 @@
                     </group>
                     <notebook>
                         <page string="Keys">
-                            <group colspan="6" col="2">
-                                <group name="group_private_key">
-                                    <separator
-                                        string="For client assertion just name of keyfile"
-                                    />
-                                    <field name="private_key" />
+                            <group name="group_keys" colspan="6" col="2">
+                                <group>
+                                    <field name="fingerprint" />
+                                    <field name="private_key_thumbprint" />
                                     <field
                                         name="private_key_password"
                                         password="True"
                                         force_save="1"
                                     />
-                                    <field name="private_key_thumbprint" />
                                 </group>
-                                <group>
-                                    <field name="fingerprint" />
+                                <group
+                                    name="group_private_key"
+                                    string="For client assertion name of keyfile or content"
+                                    colspan="2"
+                                    col="2"
+                                >
+                                    <field name="private_key" nolabel="1" colspan="2" />
                                 </group>
                             </group>
                         </page>
