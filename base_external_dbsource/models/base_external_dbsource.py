@@ -322,7 +322,7 @@ class BaseExternalDbsource(models.Model):
         """
 
         self.ensure_one()
-        method = "{}_{}".format(method_prefix, self.connector)
+        method = f"{method_prefix}_{self.connector}"
 
         try:
             return getattr(self, method)
