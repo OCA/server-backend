@@ -7,20 +7,21 @@ from odoo.tests import common
 
 
 class TestBaseExternalDbsource(common.TransactionCase):
-    def setUp(self):
-        super(TestBaseExternalDbsource, self).setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         # Obtain current odoo instance DB connection settings
-        connection_info = connection_info_for(self.env.cr.dbname)[1]
+        connection_info = connection_info_for(cls.env.cr.dbname)[1]
         # Adapt to the format expected by this module
         password = connection_info.get("password", "")
         connection_info["password"] = "%s"
         connection_info["dbname"] = connection_info["database"]
         del connection_info["database"]
         # Create a proper dbsource record to test
-        self.dbsource = self.env["base.external.dbsource"].create(
+        cls.dbsource = cls.env["base.external.dbsource"].create(
             {
                 "conn_string": " ".join(
-                    "%s='%s'" % item for item in connection_info.items()
+                    f"{key}='{value}'" for key, value in connection_info.items()
                 ),
                 "connector": "postgresql",
                 "name": "test postgres with current odoo config",
@@ -55,6 +56,16 @@ class TestBaseExternalDbsource(common.TransactionCase):
         self.dbsource.conn_string = "User=Derp;"
         self.dbsource.password = "password"
         expect = self.dbsource.conn_string + "PWD=%s;" % self.dbsource.password
+        self.assertEqual(self.dbsource.conn_string_full, expect)
+
+        self.dbsource.conn_string = "User=Derp;"
+        self.dbsource.password = ""
+        expect = self.dbsource.conn_string
+        self.assertEqual(self.dbsource.conn_string_full, expect)
+
+        self.dbsource.conn_string = "User=Derp;PWD=%s;"
+        self.dbsource.password = "password"
+        expect = self.dbsource.conn_string % self.dbsource.password
         self.assertEqual(self.dbsource.conn_string_full, expect)
 
     # Interface
@@ -228,3 +239,20 @@ class TestBaseExternalDbsource(common.TransactionCase):
         with mock.patch.object(type(self.dbsource), "connection_open") as connection:
             res = self.dbsource.conn_open()
             self.assertEqual(res, connection().__enter__())
+
+    def test_connection_close(self):
+        """It should call the close method on the connection object"""
+        mock_connection = mock.Mock()
+        self.dbsource.connection_close(mock_connection)
+        mock_connection.close.assert_called_once()
+
+    def test_execute_missing_query_and_params(self):
+        """It should raise a TypeError if both query and execute_params are missing"""
+        with self.assertRaises(TypeError):
+            self.dbsource.execute(metadata=True)
+
+    def test_connection_close_postgresql(self):
+        """It should call the close method on the connection object"""
+        mock_connection = mock.Mock()
+        self.dbsource.connection_close_postgresql(mock_connection)
+        mock_connection.close.assert_called_once()
