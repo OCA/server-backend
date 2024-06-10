@@ -329,7 +329,7 @@ class BaseExternalDbsource(models.Model):
         except AttributeError:
             raise NotImplementedError(
                 _(
-                    '"%(method)s" method not found, check that all assets are installed '
+                    '"%(method)s" method not found, check that all assets are installed'
                     "for the %(connector)s connector type.",
                     method=method,
                     conector=self.connector,
