@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_base_module_pip_install" model="ir.ui.view">
+        <field name="name">Pip Install Modules</field>
+        <field name="model">base.module.pip.install</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <p>Type the modeule name to be installed.</p>
+                <p
+                >The module name will be converted into the Pypi expected package name,
+                and that package will be installed</p>
+                <separator string="Module to install" />
+                <field name="module_name" />
+                <footer>
+                    <button
+                        name="button_pip_install"
+                        string="Install"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_view_base_module_pip_install" model="ir.actions.act_window">
+        <field name="name">Pip Install Module</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">base.module.pip.install</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Pip Install Module"
+        action="action_view_base_module_pip_install"
+        id="menu_view_base_module_pip_install"
+        parent="base.menu_management"
+        sequence="60"
+    />
+
+</odoo>
