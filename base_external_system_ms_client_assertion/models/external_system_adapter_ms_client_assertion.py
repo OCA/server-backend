@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 # pylint: disable=no-member
 """Extend external system with ms client assertion authentication."""
+import json
 import logging
 import os
 
@@ -84,3 +85,16 @@ class ExternalSystemAdapterMsClientAssertion(models.AbstractModel):
             raise UserError(_("Oauth response did not contain access_token"))
         _logger.debug("Token was obtained from: %s", response["token_source"])
         return response["access_token"]
+
+    def _set_headers(self, headers):
+        """Set headers in keyword arguments."""
+        result = super().set_headers(headers)
+        # Add x5t header
+        server = self.system_id
+        x5t = {
+            "alg": "RS256",
+            "typ": "JWT",
+            "x5t": server.private_key_thumbprint,
+        }
+        headers["x5t"] = json.dumps(x5t)
+        return result
