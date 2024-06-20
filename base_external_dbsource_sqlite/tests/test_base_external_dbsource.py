@@ -11,9 +11,10 @@ ADAPTER = (
 
 
 class TestBaseExternalDbsource(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.dbsource = self.env.ref("base_external_dbsource_sqlite.demo_sqlite")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.dbsource = cls.env.ref("base_external_dbsource_sqlite.demo_sqlite")
 
     def test_connection_close_sqlite(self):
         """It should close the connection"""
