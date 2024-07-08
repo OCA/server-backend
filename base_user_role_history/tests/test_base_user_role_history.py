@@ -6,10 +6,11 @@ from datetime import date, timedelta
 from odoo.tests.common import TransactionCase
 
 
+# DEPRECATED: This tests are deprecated but stay to show that the new code is working.
 class TestBaseUserRoleHistory(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestBaseUserRoleHistory, cls).setUpClass()
+        super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         # MODELS
 
@@ -138,4 +139,4 @@ class TestBaseUserRoleHistory(TransactionCase):
         """
         new_user = self.user_model.create({"login": "new_user", "name": "new_user"})
         history_lines = self.history_line_model.search([("user_id", "=", new_user.id)])
-        self.assertFalse(history_lines)
+        self.assertEqual(len(history_lines), 0)
