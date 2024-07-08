@@ -100,9 +100,9 @@ msgid "ID"
 msgstr "ID"
 
 #. module: base_user_role_history
-#: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history____last_update
-msgid "Last Modified on"
-msgstr "Última Modificação em"
+#: model:ir.model.fields,field_description:base_user_role_history.field_res_users__last_role_line_modification
+msgid "Last Role Line Modification"
+msgstr ""
 
 #. module: base_user_role_history
 #: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__write_uid
@@ -113,11 +113,6 @@ msgstr "Ultima Atualização por"
 #: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__write_date
 msgid "Last Updated on"
 msgstr "Última Atualização em"
-
-#. module: base_user_role_history
-#: model:ir.model.fields,field_description:base_user_role_history.field_res_users__last_role_line_modification
-msgid "Last roles modification"
-msgstr "Última modificação de funções"
 
 #. module: base_user_role_history
 #: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__new_date_to
@@ -164,3 +159,14 @@ msgstr "Histórico de funções"
 #: model:ir.model.fields,field_description:base_user_role_history.field_base_user_role_line_history__user_id
 msgid "User"
 msgstr "Utilizador"
+
+#. module: base_user_role_history
+#: model:ir.model,name:base_user_role_history.model_res_users_role_line
+msgid "Users associated to a role"
+msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificação em"
+
+#~ msgid "Last roles modification"
+#~ msgstr "Última modificação de funções"
