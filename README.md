@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[base_user_role](base_user_role/) | 17.0.1.0.3 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
+[base_user_role](base_user_role/) | 17.0.1.1.0 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) [![jcdrubay](https://github.com/jcdrubay.png?size=30px)](https://github.com/jcdrubay) [![novawish](https://github.com/novawish.png?size=30px)](https://github.com/novawish) | User roles
 [base_user_role_company](base_user_role_company/) | 17.0.1.1.1 |  | User roles by company
 
 [//]: # (end addons)
