@@ -42,7 +42,7 @@ class TestBaseIcal(TransactionCase):
 
     def test_config_simple(self):
         """Configure a simple calendar"""
-        with Form(self.calendar) as calendar_form:
+        with self.debug_mode(), Form(self.calendar) as calendar_form:
             calendar_form.mode = "simple"
             calendar_form.model_id = self.env.ref("base.model_res_partner")
             self.assertFalse(calendar_form.expression_dtstart)
@@ -54,7 +54,7 @@ class TestBaseIcal(TransactionCase):
             self.assertTrue(vobject.readOne(calendar_form.preview))
 
     def test_config_advanced_event(self):
-        with Form(self.calendar) as calendar_form:
+        with self.debug_mode(), Form(self.calendar) as calendar_form:
             calendar_form.mode = "advanced"
             calendar_form.model_id = self.env.ref("base.model_res_partner")
             self.assertFalse(calendar_form.preview)
@@ -74,7 +74,7 @@ class TestBaseIcal(TransactionCase):
             )
 
     def test_config_advanced_todo(self):
-        with Form(self.calendar) as calendar_form:
+        with self.debug_mode(), Form(self.calendar) as calendar_form:
             calendar_form.mode = "advanced"
             calendar_form.model_id = self.env.ref("base.model_res_partner")
             self.assertFalse(calendar_form.preview)
@@ -96,7 +96,7 @@ class TestBaseIcal(TransactionCase):
             "'dtstart':record.create_date,"
             "'dtend':record.write_date})\n"
         )
-        with Form(self.calendar) as calendar_form:
+        with self.debug_mode(), Form(self.calendar) as calendar_form:
             calendar_form.mode = "advanced"
             calendar_form.model_id = self.env.ref("base.model_res_partner")
             self.assertFalse(calendar_form.preview)

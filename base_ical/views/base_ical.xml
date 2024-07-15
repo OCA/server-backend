@@ -14,7 +14,7 @@
                     <p><code><field name="url" readonly="True" /></code></p>
                     <p class="alert alert-warning" role="alert">
                         <strong>Important:</strong>
-                        The url cannot be retrieved later and provides.
+                        The url cannot be retrieved later and provides access to this calendar without further authentication.
                     </p>
                     <footer>
                         <button special="cancel" data-hotkey="z" string="Done!" />

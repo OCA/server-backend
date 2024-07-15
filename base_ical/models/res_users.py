@@ -12,7 +12,7 @@ class ResUsers(models.Model):
 
     def _compute_ical_ids(self):
         domain = [("allowed_users_ids", "=", self.env.uid)]
-        self.write({"ical_ids": self.env["base.ical"].search(domain)})
+        self.ical_ids = self.env["base.ical"].search(domain)
 
     @property
     def SELF_READABLE_FIELDS(self):

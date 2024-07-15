@@ -21,7 +21,6 @@
                         </tree>
                     </field>
 
-                    <!-- TODO: Re-evaluate after migration to 16.0 -->
                     <label for="api_key_ids" string="Existing Access" />
                     <field
                         name="api_key_ids"
@@ -33,7 +32,12 @@
                             <field name="name" />
                             <field name="scope" />
                             <field name="create_date" />
-                            <button type="object" name="remove" icon="fa-trash" />
+                            <button
+                                type="object"
+                                name="remove"
+                                icon="fa-trash"
+                                title="Delete"
+                            />
                         </tree>
                     </field>
                 </page>
