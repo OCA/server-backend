@@ -7,7 +7,8 @@
   - Dave Lasley \<<dave@laslabs.com>\>
 
   -   - [Tecnativa](https://www.tecnativa.com):
-        
+
           - Sergio Teruel
+          - Carolina Fernandez
 
   - Andrea Cattalani ([Moduon](https://www.moduon.team/))
