@@ -35,6 +35,7 @@ class Base(models.AbstractModel):
                     if xmlid:
                         # Skip rows with ID, they do not need all this
                         row["id"] = xmlid
+                        newdata.append(tuple(row[f] for f in fields))
                         continue
                     elif dbid:
                         # Find the xmlid for this dbid
