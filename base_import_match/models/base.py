@@ -26,30 +26,34 @@ class Base(models.AbstractModel):
             # Mock Odoo to believe the user is importing the ID field
             if "id" not in fields:
                 fields.append("id")
-                import_fields.append(["id"])
             # Needed to match with converted data field names
-            clean_fields = [f[0] for f in import_fields]
             for dbid, xmlid, record, info in converted_data:
-                row = dict(zip(clean_fields, data[info["record"]]))
-                match = self
-                if xmlid:
-                    # Skip rows with ID, they do not need all this
-                    row["id"] = xmlid
-                    newdata.append(tuple(row[f] for f in clean_fields))
-                    continue
-                elif dbid:
-                    # Find the xmlid for this dbid
-                    match = self.browse(dbid)
-                else:
-                    # Store records that match a combination
-                    match = self.env["base_import.match"]._match_find(self, record, row)
-                # Give a valid XMLID to this row if a match was found
-                # To generate externals IDS.
-                match.export_data(fields)
-                ext_id = match.get_external_id()
-                row["id"] = ext_id[match.id] if match else row.get("id", "")
-                # Store the modified row, in the same order as fields
-                newdata.append(tuple(row[f] for f in clean_fields))
+                # In case of one2many on empty lines one record may contain several rows
+                for row_index in range(info["rows"]["from"], info["rows"]["to"] + 1):
+                    row = dict(zip(fields, data[row_index]))
+                    match = self
+                    if xmlid:
+                        # Skip rows with ID, they do not need all this
+                        row["id"] = xmlid
+                        newdata.append(tuple(row[f] for f in fields))
+                        continue
+                    elif dbid:
+                        # Find the xmlid for this dbid
+                        match = self.browse(dbid)
+                    elif row_index == info["rows"]["from"]:
+                        # Store records that match a combination
+                        # But only for first row of record,
+                        # because the rest contain one2many fields
+                        match = self.env["base_import.match"]._match_find(
+                            self, record, row
+                        )
+                    # Give a valid XMLID to this row if a match was found
+                    # To generate externals IDS.
+                    match.export_data(fields)
+                    ext_id = match.get_external_id()
+                    row["id"] = ext_id[match.id] if match else row.get("id", "")
+                    # Store the modified row, in the same order as fields
+                    newdata.append(tuple(row[f] for f in fields))
             # We will import the patched data to get updates on matches
             data = newdata
         # Normal method handles the rest of the job
