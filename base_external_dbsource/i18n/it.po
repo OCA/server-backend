@@ -56,11 +56,9 @@ msgstr ""
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
-"\"%(method)s\" method not found, check that all assets are installed for the "
+"\"%(method)s\" method not found, check that all assets are installedfor the "
 "%(connector)s connector type."
 msgstr ""
-"metodo \"%(method)s\" non trovato, verificare che tutti gli assets siano "
-"installati per il tipo di connettore %(connector)s."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
@@ -88,8 +86,12 @@ msgid "Conn String Full"
 msgstr "Stringa di connessione completa"
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
+msgid "Connection String"
+msgstr ""
+
+#. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 msgid "Connection string"
 msgstr "Stringa di connessione"
 
@@ -173,11 +175,6 @@ msgstr ""
 "avere conferma che i componenti richiesti siano stati rilevati."
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_uid
 msgid "Last Updated by"
 msgstr "Ultimo aggiornamento di"
@@ -186,11 +183,6 @@ msgstr "Ultimo aggiornamento di"
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_date
 msgid "Last Updated on"
 msgstr "Ultimo aggiornamento il"
-
-#. module: base_external_dbsource
-#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mysql
-msgid "MySQL"
-msgstr "MySQL"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
@@ -224,3 +216,17 @@ msgstr "Prova connessione"
 #, python-format
 msgid "query is a required argument"
 msgstr "la query è un valore richiesto"
+
+#, python-format
+#~ msgid ""
+#~ "\"%(method)s\" method not found, check that all assets are installed for "
+#~ "the %(connector)s connector type."
+#~ msgstr ""
+#~ "metodo \"%(method)s\" non trovato, verificare che tutti gli assets siano "
+#~ "installati per il tipo di connettore %(connector)s."
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
+
+#~ msgid "MySQL"
+#~ msgstr "MySQL"
