@@ -42,7 +42,7 @@ msgstr ""
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid ""
-"\"%(method)s\" method not found, check that all assets are installed for the "
+"\"%(method)s\" method not found, check that all assets are installedfor the "
 "%(connector)s connector type."
 msgstr ""
 
@@ -72,8 +72,12 @@ msgid "Conn String Full"
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
+msgid "Connection String"
+msgstr ""
+
+#. module: base_external_dbsource
+#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 msgid "Connection string"
 msgstr ""
 
@@ -150,11 +154,6 @@ msgid ""
 msgstr ""
 
 #. module: base_external_dbsource
-#: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource____last_update
-msgid "Last Modified on"
-msgstr "最後修改:"
-
-#. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_uid
 msgid "Last Updated by"
 msgstr "最後更新："
@@ -163,11 +162,6 @@ msgstr "最後更新："
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_date
 msgid "Last Updated on"
 msgstr "最後更新於"
-
-#. module: base_external_dbsource
-#: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__mysql
-msgid "MySQL"
-msgstr ""
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
@@ -200,3 +194,6 @@ msgstr ""
 #, python-format
 msgid "query is a required argument"
 msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "最後修改:"
