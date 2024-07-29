@@ -11,6 +11,7 @@ class ResUsers(models.Model):
         inverse_name="user_id",
         string="Role lines",
         default=lambda self: self._default_role_lines(),
+        groups="base.group_erp_manager",
     )
 
     show_alert = fields.Boolean(compute="_compute_show_alert")
@@ -25,6 +26,7 @@ class ResUsers(models.Model):
         string="Roles",
         compute="_compute_role_ids",
         compute_sudo=True,
+        groups="base.group_erp_manager",
     )
 
     @api.model
