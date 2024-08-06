@@ -23,7 +23,8 @@ class ExternalSystemInteractionOauthMixin(models.AbstractModel):
 
     def get_json(self, endpoint=None, params=None, **kwargs):
         """Get json formatted data from remote system."""
-        self._set_headers(**kwargs)
+        headers = kwargs.get("headers", {})
+        self._set_headers(headers)
         return super().get(endpoint=endpoint, params=params, **kwargs)
 
     def _set_headers(self, headers):
