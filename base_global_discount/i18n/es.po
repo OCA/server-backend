@@ -94,11 +94,6 @@ msgid ""
 msgstr ""
 
 #. module: base_global_discount
-#: model:ir.model.fields,field_description:base_global_discount.field_global_discount____last_update
-msgid "Last Modified on"
-msgstr "Última Modificación en"
-
-#. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__write_uid
 msgid "Last Updated by"
 msgstr "Última Actualización por"
@@ -151,3 +146,6 @@ msgstr "Ventas"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__sequence
 msgid "Sequence"
 msgstr "Secuencia"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificación en"

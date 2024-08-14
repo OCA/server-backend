@@ -27,3 +27,12 @@ class TestGlobalDiscount(common.TransactionCase):
     def test_02_display_name(self):
         """Test that the name is computed fine"""
         self.assertTrue("%)" in self.global_discount_1.display_name)
+
+    def test_03_bypass_products(self):
+        template_obj = self.env["product.template"]
+        template = template_obj.create({"name": "Test Template"})
+        template.bypass_global_discount = True
+        self.assertTrue(template.bypass_global_discount)
+        search_result = template._search_bypass_global_discount("=", True)
+        self.assertEqual(len(search_result), 1)
+        self.assertEqual(template.id, search_result[0][2][0])
