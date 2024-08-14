@@ -95,11 +95,6 @@ msgstr ""
 "considerazione nel calcolo degli sconto globali."
 
 #. module: base_global_discount
-#: model:ir.model.fields,field_description:base_global_discount.field_global_discount____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: base_global_discount
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__write_uid
 msgid "Last Updated by"
 msgstr "Ultimo aggiornamento di"
@@ -152,3 +147,6 @@ msgstr "Vendite"
 #: model:ir.model.fields,field_description:base_global_discount.field_global_discount__sequence
 msgid "Sequence"
 msgstr "Sequenza"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
