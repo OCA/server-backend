@@ -15,6 +15,7 @@ class ProductTemplate(models.Model):
         ),
         compute="_compute_bypass_global_discount",
         inverse="_inverse_bypass_global_discount",
+        search="_search_bypass_global_discount",
     )
 
     def _search_bypass_global_discount(self, operator, value):
@@ -31,9 +32,12 @@ class ProductTemplate(models.Model):
                 template.bypass_global_discount = (
                     template.product_variant_ids.bypass_global_discount
                 )
+            else:
+                template.bypass_global_discount = False
 
     def _inverse_bypass_global_discount(self):
-        if len(self.product_variant_ids) == 1:
-            self.product_variant_ids.bypass_global_discount = (
-                self.bypass_global_discount
-            )
+        for template in self:
+            if len(template.product_variant_ids) == 1:
+                template.product_variant_ids.bypass_global_discount = (
+                    template.bypass_global_discount
+                )

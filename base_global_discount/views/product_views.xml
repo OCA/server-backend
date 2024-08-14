@@ -23,7 +23,7 @@
             <xpath expr="//group[@name='group_standard_price']" position="inside">
                 <field
                     name="bypass_global_discount"
-                    attrs="{'invisible': [('product_variant_count', '>', 1)]}"
+                    invisible="product_variant_count > 1"
                     groups="base_global_discount.group_global_discount"
                 />
             </xpath>
