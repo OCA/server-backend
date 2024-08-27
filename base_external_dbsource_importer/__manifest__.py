@@ -3,13 +3,13 @@
 {
     "name": "Base External Dbsource Importer",
     "summary": "Import data from external DB Sources",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Alpha",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
-    "depends": ["base_external_dbsource", "base_location"],
+    "depends": ["base_external_dbsource", "base_location", "base_vat"],
     "data": ["security/ir.model.access.csv", "views/base_external_dbsource_view.xml"],
 }

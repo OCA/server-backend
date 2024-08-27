@@ -7,11 +7,10 @@
         <field name="model">base.external.dbsource</field>
         <field name="inherit_id" ref="base_external_dbsource.view_dbsource_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='connector']/../.." position="after">
-                <group string="Fields To Update">
+            <xpath expr="//field[@name='connector']/../../.." position="inside">
+                <group>
                     <field
                         name="fields_to_update_ids"
-                        nolabel="1"
                         context="{'default_db_source_id': active_id}"
                     >
                         <tree editable="top">
