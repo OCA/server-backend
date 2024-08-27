@@ -30,7 +30,7 @@ class BaseExternalModelImporter:
         return True
 
     def _get_external_records(self, table_name, fields="*", where=""):
-        sql = "SELECT {} FROM {} {};".format(fields, table_name, where)
+        sql = f"SELECT {fields} FROM {table_name} {where};"
         rows, cols = self.execute_query(text(sql), [], metadata=True)
         return rows
 
@@ -149,7 +149,7 @@ class BaseExternalDbsource(models.Model):
 
     def generate_iban_check_digits(self, iban):
         number_iban = self._number_iban(iban[:2] + "00" + iban[4:])
-        return "{:0>2}".format(98 - (int(number_iban) % 97))
+        return f"{98 - (int(number_iban) % 97):0>2}"
 
     @api.model
     @ormcache("code", "country_code")
@@ -191,14 +191,14 @@ class BaseExternalDbsource(models.Model):
             country_code, vat = ResPartner._split_vat(vat)
         if not country_code:
             country_code = "ES"
-        full_vat = "{}{}".format(country_code.upper(), vat)
+        full_vat = f"{country_code.upper()}{vat}"
         if ResPartner.simple_vat_check(country_code.lower(), vat):
             vals["vat"] = full_vat
         else:
             if vals.get("comment", False):
-                vals["comment"] += "\nVAT: {}".format(original_vat)
+                vals["comment"] += f"\nVAT: {original_vat}"
             else:
-                vals["comment"] = "VAT: {}".format(original_vat)
+                vals["comment"] = f"VAT: {original_vat}"
         return vals
 
     def generate_data_mapped_from_file(self, sheet_dic):
