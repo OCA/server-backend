@@ -1,4 +1,7 @@
 # generated from manifests external_dependencies
+# generated from manifests external_dependencies
+fdb
 mysqlclient
+pandas
 pymssql<=2.2.5
 sqlalchemy
