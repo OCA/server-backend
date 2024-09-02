@@ -10,7 +10,6 @@ class ResUsers(models.Model):
         comodel_name="res.users.role.line",
         inverse_name="user_id",
         string="Role lines",
-        default=lambda self: self._default_role_lines(),
         groups="base.group_erp_manager",
     )
     role_ids = fields.One2many(
@@ -21,21 +20,27 @@ class ResUsers(models.Model):
         groups="base.group_erp_manager",
     )
 
-    @api.model
-    def _default_role_lines(self):
+    def _set_roles_from_default_user(self, record):
         default_user = self.env.ref("base.default_user", raise_if_not_found=False)
-        default_values = []
-        if default_user:
-            for role_line in default_user.with_context(active_test=False).role_line_ids:
-                default_values.append(
+        role_line_model = self.env["res.users.role.line"]
+        if not default_user:
+            return
+        role_lines = default_user.with_context(active_test=False).role_line_ids
+        for user in record:
+            for role_line in role_lines:
+                if self.env["res.users.role.line"].search_count(
+                    [("role_id", "=", role_line.role_id.id), ("user_id", "=", user.id)]
+                ):
+                    continue
+                role_line_model.create(
                     {
                         "role_id": role_line.role_id.id,
                         "date_from": role_line.date_from,
                         "date_to": role_line.date_to,
                         "is_enabled": role_line.is_enabled,
+                        "user_id": user.id,
                     }
                 )
-        return default_values
 
     @api.depends("role_line_ids.role_id")
     def _compute_role_ids(self):
@@ -45,6 +50,7 @@ class ResUsers(models.Model):
     @api.model
     def create(self, vals):
         new_record = super(ResUsers, self).create(vals)
+        self._set_roles_from_default_user(new_record)
         new_record.set_groups_from_roles()
         return new_record
 

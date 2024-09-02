@@ -211,6 +211,23 @@ class TestUserRole(TransactionCase):
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
         self.assertEqual(user.role_ids, roles)
 
+    def test_no_default_user(self):
+        self.default_user.unlink()
+        user = self.user_model.create(
+            {"name": "USER TEST (DEFAULT ROLES)", "login": "user_test_default_roles"}
+        )
+        self.assertFalse(user.role_ids)
+
+    def test_already_assigned_role(self):
+        user = self.user_model.create(
+            {
+                "name": "USER TEST (DEFAULT ROLES)",
+                "login": "user_test_default_roles",
+                "role_line_ids": [(0, 0, {"role_id": self.role1_id.id})],
+            }
+        )
+        self.assertEqual(len(user.role_ids), 1)
+
     def test_role_multicompany(self):
         """Test AccessError when admin-like user accesses a role"""
         role = self.multicompany_role.with_user(self.multicompany_user_1)
