@@ -175,3 +175,16 @@ class ResUsersRoleLine(models.Model):
         res = super(ResUsersRoleLine, self).unlink()
         users.set_groups_from_roles(force=True)
         return res
+
+    @api.onchange("user_id")
+    def _onchange_user_id(self):
+        if self.user_id and self.user_id._is_admin():
+            return {
+                "warning": {
+                    "title": _("Warning"),
+                    "message": _(
+                        """When adding a role to an administrator,
+                        make sure no essential groups will be removed."""
+                    ),
+                }
+            }

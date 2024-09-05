@@ -1,6 +1,6 @@
 # Copyright 2014 ABF OSIELL <http://osiell.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class ResUsers(models.Model):
@@ -18,6 +18,19 @@ class ResUsers(models.Model):
         compute="_compute_role_ids",
         compute_sudo=True,
     )
+
+    @api.onchange("role_line_ids")
+    def _onchange_role_line_ids(self):
+        if self._is_admin():
+            return {
+                "warning": {
+                    "title": _("Warning"),
+                    "message": _(
+                        """When adding a role to an administrator,
+                    make sure no essential groups will be removed."""
+                    ),
+                }
+            }
 
     @api.model
     def _default_role_lines(self):
