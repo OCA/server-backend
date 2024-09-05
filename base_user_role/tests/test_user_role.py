@@ -16,6 +16,7 @@ class TestUserRole(TransactionCase):
         )
         cls.user_model = cls.env["res.users"]
         cls.role_model = cls.env["res.users.role"]
+        cls.wiz_model = cls.env["wizard.groups.into.role"]
 
         cls.company1 = cls.env.ref("base.main_company")
         cls.company2 = cls.env["res.company"].create({"name": "company2"})
@@ -254,3 +255,18 @@ class TestUserRole(TransactionCase):
         # disable role
         self.user_id.role_line_ids.unlink()
         self.assertFalse(self.user_id.show_alert)
+
+    def test_group_groups_into_role(self):
+        user_group_ids = [group.id for group in self.user_id.groups_id]
+        # Check that there is not a role with name: Test Role
+        self.assertFalse(self.role_model.search([("name", "=", "Test Role")]))
+        # Call create_role function to group groups into a role
+        wizard = self.wiz_model.with_context(active_ids=user_group_ids).create(
+            {"name": "Test Role"}
+        )
+        wizard.create_role()
+        # Check that a role with name: Test Role has been created
+        new_role = self.role_model.search([("name", "=", "Test Role")])
+        self.assertTrue(new_role)
+        # Check that the role has the correct groups
+        self.assertEqual(new_role.implied_ids.ids, user_group_ids)
