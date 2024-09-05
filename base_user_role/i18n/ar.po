@@ -95,6 +95,11 @@ msgid "Associated group's category"
 msgstr ""
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
+msgid "Cancel"
+msgstr ""
+
+#. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "Close"
 msgstr ""
@@ -111,7 +116,13 @@ msgstr ""
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
+#: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
 msgid "Create"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_wizard_groups_into_role
+msgid "Create Role"
 msgstr ""
 
 #. module: base_user_role
@@ -129,6 +140,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_uid
 msgid "Created by"
 msgstr "أنشئ بواسطة"
 
@@ -136,6 +148,7 @@ msgstr "أنشئ بواسطة"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
 msgstr "أنشئ في"
 
@@ -143,6 +156,7 @@ msgstr "أنشئ في"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__display_name
 msgid "Display Name"
 msgstr "اسم العرض"
 
@@ -167,6 +181,16 @@ msgid "Group created to set access rights for sharing data with some users."
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model,name:base_user_role.model_wizard_groups_into_role
+msgid "Group groups into a role"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_wizard_groups_into_role__name
+msgid "Group groups into a role and specify a name for this role"
+msgstr ""
+
+#. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Groups"
 msgstr ""
@@ -175,6 +199,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__id
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__id
 msgid "ID"
 msgstr "المعرف"
 
@@ -200,6 +225,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role____last_update
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line____last_update
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user____last_update
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role____last_update
 msgid "Last Modified on"
 msgstr "آخر تعديل في"
 
@@ -207,6 +233,7 @@ msgstr "آخر تعديل في"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_uid
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
@@ -214,6 +241,7 @@ msgstr "آخر تحديث بواسطة"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_date
 msgid "Last Updated on"
 msgstr "آخر تحديث في"
 
@@ -225,6 +253,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__name
+#: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__name
 msgid "Name"
 msgstr "الاسم"
 
