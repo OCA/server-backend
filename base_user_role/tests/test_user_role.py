@@ -269,4 +269,4 @@ class TestUserRole(TransactionCase):
         new_role = self.role_model.search([("name", "=", "Test Role")])
         self.assertTrue(new_role)
         # Check that the role has the correct groups
-        self.assertEqual(new_role.implied_ids.ids, user_group_ids)
+        self.assertEqual(set(new_role.implied_ids.ids), set(user_group_ids))
