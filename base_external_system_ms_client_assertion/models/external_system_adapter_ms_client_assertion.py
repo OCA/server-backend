@@ -88,7 +88,7 @@ class ExternalSystemAdapterMsClientAssertion(models.AbstractModel):
 
     def _set_headers(self, headers):
         """Set headers in keyword arguments."""
-        result = super().set_headers(headers)
+        result = super()._set_headers(headers)
         # Add x5t header
         server = self.system_id
         x5t = {
