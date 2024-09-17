@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    Copyright 2023-2024 Therp BV
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+
+    <record id="external_system_action" model="ir.actions.act_window">
+         <field name="name">External Systems</field>
+         <field name="res_model">external.system</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem
+        id="menu_external_system"
+        name="External Systems"
+        parent="base.menu_custom"
+        action="external_system_action"
+        sequence="50"
+    />
+
+</odoo>
