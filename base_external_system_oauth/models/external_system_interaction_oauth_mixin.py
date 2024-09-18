@@ -25,7 +25,7 @@ class ExternalSystemInteractionOauthMixin(models.AbstractModel):
         """Get json formatted data from remote system."""
         headers = kwargs.get("headers", {})
         self._set_headers(headers)
-        return super().get(endpoint=endpoint, params=params, **kwargs)
+        return super().get(endpoint=endpoint, params=params, **dict(kwargs, headers=headers))
 
     def _set_headers(self, headers):
         """Set headers in keyword arguments."""
