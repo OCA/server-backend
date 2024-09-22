@@ -42,8 +42,7 @@ class ResUsers(models.Model):
         return new_record
 
     def write(self, vals):
-        # inspired by base/models/res_users.py l. 491
-        if self == self.env.user and vals.get("profile_id"):
+        if not self.env.su and vals.get("profile_id"):
             self.sudo().write({"profile_id": vals["profile_id"]})
             del vals["profile_id"]
         res = super().write(vals)
