@@ -13,11 +13,13 @@
                         widget="many2many_tags"
                         attrs="{'readonly': True}"
                     />
+                    <field name="include_default_profile" />
                     <field
                         name="profile_id"
                         domain="[('id', 'in', profile_ids)]"
                         options="{'no_create_edit': True, 'no_open': True}"
                     />
+                    <field name="restrict_profile_switching" />
                 </group>
             </xpath>
             <xpath

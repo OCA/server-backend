@@ -9,7 +9,12 @@ class Http(models.AbstractModel):
     def session_info(self):  # pragma: no cover
         result = super().session_info()
         user = request.env.user
-        allowed_profiles = [(profile.id, profile.name) for profile in user.profile_ids]
+        if not user.restrict_profile_switching:
+            allowed_profiles = [
+                (profile.id, profile.name) for profile in user.profile_ids
+            ]
+        else:
+            allowed_profiles = []
         if len(allowed_profiles) > 1:
             current_profile = (user.profile_id.id, user.profile_id.name)
             result["user_profiles"] = {
