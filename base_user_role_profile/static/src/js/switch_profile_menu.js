@@ -34,7 +34,7 @@ odoo.define("base_user_role_profile.SwitchProfileMenu", function (require) {
             }
             _.each(session.user_profiles.allowed_profiles, function (profile) {
                 var a = "";
-                if (profile[0] == session.user_profiles.current_profile[0]) {
+                if (profile[0] === session.user_profiles.current_profile[0]) {
                     a = '<i class="fa fa-check mr8"></i>';
                 } else {
                     a = '<span style="margin-right: 24px;"/>';
