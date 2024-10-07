@@ -9,8 +9,8 @@
                 data-toggle="dropdown"
                 aria-expanded="false"
                 href="#"
-                aria-label="Dropdown menu"
-                title="Dropdown menu"
+                aria-label="Switch profile"
+                title="Switch profile"
             >
                 <span
                     t-attf-class="#{widget.isMobile ? 'fa fa-building-o' : 'oe_topbar_name'}"
