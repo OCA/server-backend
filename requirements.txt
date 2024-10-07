@@ -1,4 +1,5 @@
 # generated from manifests external_dependencies
+msal
 mysqlclient
 pymssql<=2.2.5
 sqlalchemy

@@ -1,20 +1,23 @@
 # Copyright 2017 LasLabs Inc.
+# Copyright 2023-2024 Therp BV.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import os
 
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
 
-from .common import Common
 
-
-class TestExternalSystem(Common):
-    def setUp(self):
-        super(TestExternalSystem, self).setUp()
-        self.record = self.env.ref("base_external_system.external_system_os")
+class TestExternalSystem(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.record = cls.env.ref("base_external_system.external_system_os_demo")
 
     def test_get_system_types(self):
         """It should return at least the test record's interface."""
+        system_type_os = self.env["external.system.adapter.os"]
         self.assertIn(
-            (self.record._name, self.record._description),
+            (system_type_os._name, system_type_os._description),
             self.env["external.system"]._get_system_types(),
         )
 
@@ -25,44 +28,14 @@ class TestExternalSystem(Common):
 
     def test_check_fingerprint_allowed(self):
         """It should not raise a validation error if there is a fingerprint."""
-        # In Odoo 13.0, due to the way inverse records (models inherited from)
-        # are handled, setting both fields at the same time causes an error.
-        self.record.write({"fingerprint": "Data"})
-        self.record.write({"ignore_fingerprint": False})
+        self.record.write({"ignore_fingerprint": False, "fingerprint": "Data"})
         self.assertTrue(True)
 
     def test_client(self):
         """It should yield the open interface client."""
-        with self._mock_method("client", self.record) as magic:
-            with self.record.system_id.client() as client:
-                self.assertEqual(client, magic().__enter__())
-
-    def test_create_creates_and_assigns_interface(self):
-        """It should create and assign the interface on record create."""
-        record = self.env["external.system"].create(
-            {"name": "Test", "system_type": "external.system.os"}
-        )
-        self.assertEqual(
-            record.interface._name,
-            "external.system.os",
-        )
-
-    def test_create_context_override(self):
-        """It should allow for interface create override with context."""
-        model = self.env["external.system"].with_context(
-            no_create_interface=True,
-        )
-        record = model.create({"name": "Test", "system_type": "external.system.os"})
-        self.assertFalse(record.interface)
+        with self.record.client() as client:
+            self.assertEqual(client, os)
 
     def test_action_test_connection(self):
         """It should proxy to the interface connection tester."""
-        with self.assertRaises(UserError):
-            self.record.system_id.action_test_connection()
-
-    def test_unlink_deletes_interface(self):
-        """It should delete the interface when the system is deleted."""
-        interface = self.record.interface
-        self.assertTrue(interface.exists())
-        self.record.unlink()
-        self.assertFalse(interface.exists())
+        self.record.action_test_connection()
