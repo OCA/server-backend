@@ -5,7 +5,6 @@
 import logging
 
 import requests
-from requests.auth import HTTPBasicAuth
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
