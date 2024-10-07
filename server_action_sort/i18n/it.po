@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-12 13:36+0000\n"
+"PO-Revision-Date: 2024-10-07 10:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: server_action_sort
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__action_id
@@ -70,7 +70,7 @@ msgstr "Campo da ordinare"
 #: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__sort_field_id_model
 #: model:ir.model.fields,help:server_action_sort.field_ir_cron__sort_field_id_model
 msgid "For relationship fields, the technical name of the target model"
-msgstr "Per campi relaziine, il nome tecnico del modello obiettivo"
+msgstr "Per campi relazione, il nome tecnico del modello obiettivo"
 
 #. module: server_action_sort
 #: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__id
