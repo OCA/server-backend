@@ -31,21 +31,20 @@ User profiles
 Extending the base_user_role module, this one adds the notion of profiles. Effectively profiles act as an additional filter to how the roles are used.
 
 This allows users to switch their permission groups dynamically. This can be useful for example to:
- 
+
   * finer grain control on menu and model permissions (with record rules this becomes very flexible)
   * break down complicated menus into simpler ones
   * easily restrict users accidentally editing or creating records in O2M fields and in general misusing the interface, instead of excessively explaining things to them
 
 When you define a role, you have the possibility to link it to a profile. Roles are applied to users in the following way:
-  
+
   * Apply user's roles without profiles in any case
   * Apply user's roles that are linked to the currently selected profile
 
 In addition you can:
-  
-  * Add a 'no profile' profile to the user's choice of profile, to allow him to select a specific profile which enables only the roles without a profile. 
-  * Restrict the user to change it's profile, which can be usefull in a security emergency.
 
+  * Add a 'no profile' profile to the user's choice of profile, to allow him to select a specific profile which enables only the roles without a profile.
+  * Restrict the user to change it's profile, which can be usefull in a security emergency.
 
 **Table of contents**
 
@@ -56,16 +55,16 @@ Configuration
 =============
 
 To configure this module, you need to go to *Configuration / Users / Profiles*,
-and create a new profile. 
+and create a new profile.
 
 Then go to *Configuration / Users / Roles* and set some roles with a profile.
 
 Then go to *Configuration / Users / Users* and add some roles if not already done. The allowed profiles will computes automatically.
 
 In addition you can:
-  
+
   * Check the "Include Default Profile" box to have the default profile as an allowed profile.
-  * Change the current profile if needed. 
+  * Change the current profile if needed.
   * Check the "Restrict Profile Switching" to restrict the user to change it's profile, in that case you can still change it from the user's settings form.
 
 Usage
@@ -111,6 +110,14 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-nayatec| image:: https://github.com/nayatec.png?size=40px
+    :target: https://github.com/nayatec
+    :alt: nayatec
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-nayatec| 
 
 This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/14.0/base_user_role_profile>`_ project on GitHub.
 
