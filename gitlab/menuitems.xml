@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+        id="gitlab_menu"
+        parent="base.menu_custom"
+        action="gitlab_action"
+        name="Gitlab Connections"
+    />
+</odoo>
