@@ -2,3 +2,4 @@
 mysqlclient
 pymssql<=2.2.5
 sqlalchemy
+vobject
