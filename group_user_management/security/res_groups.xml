@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright (c) 2024- Le Filament (https://le-filament.com)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+  -->
+<odoo>
+    <record model="res.groups" id="group_user_manager">
+        <field name="name">User Management</field>
+        <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]" />
+        <field name="category_id" ref="base.module_category_usability" />
+        <field
+            name="comment"
+        >This group allows to manage users and related access rights</field>
+    </record>
+    <record model="res.groups" id="base.group_erp_manager">
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('group_user_management.group_user_manager'))]"
+        />
+    </record>
+</odoo>
