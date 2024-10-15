@@ -1,24 +1,40 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-15 17:06+0000\n"
+"PO-Revision-Date: 2024-10-15 17:06+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
+
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__action_id
 msgid "Action"
-msgstr ""
+msgstr "Azione"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__state
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__state
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__state
 msgid "Action To Do"
-msgstr ""
+msgstr "Azione da compiere"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,help:server_action_navigate.field_base_automation__navigate_action_id
@@ -28,17 +44,19 @@ msgid ""
 "Define here the action used when the navigation will be executed if empty, a "
 "generic action will be used."
 msgstr ""
+"Definire qui l'azione utilizzata quando la navigazione verrà eseguita; se "
+"vuoto, verrà utilizzata un'azione generica."
 
 #. module: server_action_navigate
 #: model_terms:ir.ui.view,arch_db:server_action_navigate.view_ir_actions_server_form
 msgid "Delete Last Line"
-msgstr ""
+msgstr "Cancella l'ultima riga"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__display_name
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_id
@@ -70,7 +88,7 @@ msgstr ""
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: server_action_navigate
 #: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__max_navigate_line_model
