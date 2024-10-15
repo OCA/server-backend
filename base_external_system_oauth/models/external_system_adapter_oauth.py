@@ -8,14 +8,27 @@ from odoo import models
 class ExternalSystemAdapterOAuth(models.AbstractModel):
     """This is an Interface implementing the OAuth module."""
 
-    __slots__ = ["token"]
-
     _name = "external.system.adapter.oauth"
     _inherit = [
         "external.system.adapter.http",
         "external.system.interaction.oauth.mixin",
     ]
     _description = __doc__
+
+    def get_token(self):
+        """Get token from adapter_memory."""
+        return self.env.context["adapter_memory"].get("token", None)
+
+    def set_token(self, value):
+        """Store token in adapter_memor."""
+        self.env.context["adapter_memory"]["token"] = value
+
+    def del_token(self):
+        """Get system from environment."""
+        if "token" in self.env.context["adapter_memory"]:
+            del self.env.context["adapter_memory"]["token"]
+
+    token = property(get_token, set_token, del_token)
 
     def external_get_client(self):
         """Return token that can be used to access remote system."""
@@ -25,9 +38,9 @@ class ExternalSystemAdapterOAuth(models.AbstractModel):
         return client
 
     def external_destroy_client(self, client):
-        """Perform any logic necessary to destroy the client connection."""
-        if self.token:
-            self.token = None
+        """Delete token from client."""
+        del self.token
+        return super().external_destroy_client(client)
 
     def post(self, endpoint=None, data=None, json=None, **kwargs):
         """Send post request."""
