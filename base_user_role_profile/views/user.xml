@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
 <odoo>
-
     <record id="view_res_users_form_inherit_profile" model="ir.ui.view">
         <field name="name">res.users.form.inherit</field>
         <field name="model">res.users</field>
@@ -14,11 +13,13 @@
                         widget="many2many_tags"
                         attrs="{'readonly': True}"
                     />
+                    <field name="include_default_profile" />
                     <field
                         name="profile_id"
                         domain="[('id', 'in', profile_ids)]"
                         options="{'no_create_edit': True, 'no_open': True}"
                     />
+                    <field name="restrict_profile_switching" />
                 </group>
             </xpath>
             <xpath

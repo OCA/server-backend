@@ -10,6 +10,13 @@ class ResUsersRole(models.Model):
         "Profile",
     )
 
+    def write(self, vals):
+        res = super().write(vals)
+        if "profile_id" in vals:
+            # update the user's allowed profiles
+            self.user_ids._compute_profile_ids()
+        return res
+
 
 class ResUsersRoleLine(models.Model):
     _inherit = "res.users.role.line"

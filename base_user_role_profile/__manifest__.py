@@ -7,6 +7,7 @@
     "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/server-backend",
+    "maintainers": ["nayatec"],
     "depends": ["base_user_role", "web"],
     "post_init_hook": "post_init_hook",
     "data": [

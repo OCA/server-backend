@@ -21,6 +21,21 @@ class ResUsers(models.Model):
         string="Currently allowed profiles",
     )
 
+    restrict_profile_switching = fields.Boolean(
+        "Restrict Profile Switching",
+        help="If enabled, the user will be prevented from changing their profile. "
+        "This acts as a security measure to "
+        "lock users into their current profile.",
+    )
+
+    include_default_profile = fields.Boolean(
+        "Include Default Profile",
+        help="If enabled, the default profile ('no profile') will be added to "
+        "the user's allowed profiles. "
+        "This allows the user to select a profile that activates only the roles "
+        "not associated with any specific profile.",
+    )
+
     def _get_action_root_menu(self):
         # used JS-side. Reload the client; open the first available root menu
         menu = self.env["ir.ui.menu"].search([("parent_id", "=", False)])[:1]
@@ -31,7 +46,8 @@ class ResUsers(models.Model):
         }
 
     def action_profile_change(self, vals):
-        self.write(vals)
+        if not self.restrict_profile_switching:
+            self.write(vals)
         return self._get_action_root_menu()
 
     @api.model
@@ -42,12 +58,15 @@ class ResUsers(models.Model):
         return new_record
 
     def write(self, vals):
-        # inspired by base/models/res_users.py l. 491
-        if self == self.env.user and vals.get("profile_id"):
+        if not self.env.su and vals.get("profile_id"):
             self.sudo().write({"profile_id": vals["profile_id"]})
             del vals["profile_id"]
         res = super().write(vals)
-        if vals.get("profile_id") or vals.get("role_line_ids"):
+        if (
+            "profile_id" in vals
+            or "role_line_ids" in vals
+            or "include_default_profile" in vals
+        ):
             self.sudo()._compute_profile_ids()
         return res
 
@@ -67,9 +86,13 @@ class ResUsers(models.Model):
             self.write({"profile_id": self.profile_ids[0].id})
 
     def _compute_profile_ids(self):
+        default_profile = self._get_default_profile()
         for rec in self:
             role_lines = rec.role_line_ids
             profiles = role_lines.mapped("profile_id")
+            if rec.include_default_profile:
+                profiles = default_profile + profiles
+
             rec.profile_ids = profiles
             # set defaults in case applicable profile changes
             rec._update_profile_id()

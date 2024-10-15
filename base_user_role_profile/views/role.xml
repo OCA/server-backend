@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
 <odoo>
-
     <record id="view_res_users_form_inherit" model="ir.ui.view">
         <field name="name">res.users.role.form.inherit</field>
         <field name="model">res.users.role</field>
@@ -18,5 +17,24 @@
             </xpath>
         </field>
     </record>
-
+    <record id="view_res_users_role_tree" model="ir.ui.view">
+        <field name="name">res.users.role.tree</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="profile_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_res_users_role_search" model="ir.ui.view">
+        <field name="name">res.users.role.search</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="profile_id" />
+            </field>
+        </field>
+    </record>
 </odoo>
