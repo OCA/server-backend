@@ -2,6 +2,6 @@
 # generated from manifests external_dependencies
 fdb
 mysqlclient
-pandas
+polars
 pymssql<=2.2.5
 sqlalchemy

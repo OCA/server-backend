@@ -11,7 +11,7 @@
               "Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/server-tools',
     'license': 'LGPL-3',
-    "external_dependencies": {"python": ["fdb", "pandas"]},
+    "external_dependencies": {"python": ["fdb", "polars"]},
     'depends': [
         'base_external_dbsource',
     ],

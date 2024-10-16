@@ -19,27 +19,24 @@ try:
     try:
         import fdb
         CONNECTORS.append(('fdb', 'Firebird'))
-        import pandas as pd
-    except:
-        _logger.info('Firebird library not available. Please install "fdb and/or pandas" '
+        import polars as pl  
+    except ImportError:
+        _logger.info('Firebird library not available. Please install "fdb and/or polars" '
                      'python package.')
 except ImportError:
     _logger.info('base_external_dbsource Odoo module not found.')
 
 
 class BaseExternalDbsource(models.Model):
-    """ It provides logic for connection to an Firebird data source. """
+    """ It provides logic for connection to a Firebird data source. """
 
     _inherit = "base.external.dbsource"
 
     PWD_STRING_FDB = 'Password=%s;'
 
-
     def connection_close_fdb(self, connection):
         self.ensure_one()
-
         return connection.close()
-
 
     def connection_open_fdb(self):
         self.ensure_one()
@@ -50,9 +47,9 @@ class BaseExternalDbsource(models.Model):
                 key, value = option.split('=')
             except ValueError:
                 continue
-            if key.lower() == "port" :
+            if key.lower() == "port":
                 kwargs[key.lower()] = int(value)
-            else : 
+            else: 
                 kwargs[key.lower()] = value
         return fdb.connect(**kwargs)
 
@@ -64,8 +61,8 @@ class BaseExternalDbsource(models.Model):
             cur.execute(sqlquery % sqlparams)
             rows = cur.fetchall()
             columns = [desc[0] for desc in cur.description]
-        
-            # Create a DataFrame from the rows and columns
-            df = pd.DataFrame(rows, columns=columns)
+
+            # Create a DataFrame from the rows and columns using Polars
+            df = pl.DataFrame(rows, schema=columns)
             
             return df
