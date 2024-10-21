@@ -32,9 +32,9 @@
                     ref('base.ir_filters_employee_rule'),
                     ref('base.res_company_rule_employee'),
                     ref('mail.ir_rule_mail_notifications_group_user'),
-                    ref('mail.ir_rule_mail_channel_member_group_user'),
+                    ref('mail.ir_rule_discuss_channel_member_is_self_all'),
                     ref('mail.mail_activity_rule_user'),
-                    ref('mail.mail_channel_rule'),
+                    ref('mail.ir_rule_discuss_channel_all'),
                 ]),
             ]"
         />
