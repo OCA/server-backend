@@ -24,7 +24,7 @@
                     </field>
                 </page>
             </xpath>
-           <xpath expr="//page[@name='access_rights']/group" position="before">
+            <xpath expr="//page[@name='access_rights']/group" position="before">
                 <field name="show_alert" invisible="1" />
                 <div
                     class="alert alert-info text-center o_form_header"
@@ -42,7 +42,6 @@
                     <a class="close" data-bs-dismiss="alert" href="#">x</a>
                 </div>
             </xpath>
-
         </field>
     </record>
 

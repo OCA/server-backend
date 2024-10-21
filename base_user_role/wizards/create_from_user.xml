@@ -20,11 +20,11 @@
 
                 <footer>
                     <button
-                        name="create_from_user"
-                        string="Create"
-                        type="object"
-                        class="oe_highlight"
-                    />
+                    name="create_from_user"
+                    string="Create"
+                    type="object"
+                    class="oe_highlight"
+                />
                     or
                     <button string="Close" class="oe_link" special="cancel" />
                 </footer>
