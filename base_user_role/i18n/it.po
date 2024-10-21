@@ -31,7 +31,6 @@ msgstr "N° ruoli"
 #. module: base_user_role
 #. odoo-python
 #: code:addons/base_user_role/models/role.py:0
-#, python-format
 msgid "%s (copy)"
 msgstr "%s (copia)"
 
@@ -39,15 +38,20 @@ msgstr "%s (copia)"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<em>Any configuration changes made here will not be persistent.</em>"
 msgstr ""
-"<em>Qualsiasi modifica configurazione effettuata qui non sarà "
-"persistente.</em>"
+"<em>Qualsiasi modifica configurazione effettuata qui non sarà persistente.</"
+"em>"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
 msgstr ""
-"<strong>Le autorizzazioni di accesso di questo utente sono gestiti dai "
-"ruoli.</strong>"
+"<strong>Le autorizzazioni di accesso di questo utente sono gestiti dai ruoli."
+"</strong>"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
+msgid "API Keys maximum duration days"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
@@ -157,6 +161,13 @@ msgstr "Creato da"
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
 msgstr "Creato il"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
+msgid ""
+"Determines the maximum duration of an api key created by a user belonging to "
+"this group."
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
