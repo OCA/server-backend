@@ -45,7 +45,7 @@
                         </page>
                         <page string="Users">
                             <field name="line_ids" nolabel="1">
-                                <tree
+                                <list
                                     editable="bottom"
                                     decoration-muted="not is_enabled"
                                 >
@@ -53,7 +53,7 @@
                                     <field name="date_from" />
                                     <field name="date_to" />
                                     <field name="is_enabled" />
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page name="page_internal_notes" string="Internal Notes">
@@ -65,13 +65,13 @@
         </field>
     </record>
     <record id="view_res_users_role_tree" model="ir.ui.view">
-        <field name="name">res.users.role.tree</field>
+        <field name="name">res.users.role.list</field>
         <field name="model">res.users.role</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="user_ids" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_res_users_role_search" model="ir.ui.view">

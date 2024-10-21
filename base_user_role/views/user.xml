@@ -12,7 +12,7 @@
                 <page string="Roles">
                     <field name="role_ids" invisible="1" />
                     <field name="role_line_ids" nolabel="1">
-                        <tree editable="bottom" decoration-muted="not is_enabled">
+                        <list editable="bottom" decoration-muted="not is_enabled">
                             <field
                                 name="role_id"
                                 domain="[('id', 'not in', parent.role_ids)]"
@@ -20,7 +20,7 @@
                             <field name="date_from" />
                             <field name="date_to" />
                             <field name="is_enabled" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
