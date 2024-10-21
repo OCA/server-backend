@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="backend_dummy_model_tree_view" model="ir.ui.view">
+        <field name="name">Backend dummy tree view</field>
+        <field name="model">backend.dummy.model</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <field name="my_value" />
+                <field name="my_other_value" groups="base.group_user" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_dummy_list" model="ir.actions.act_window">
+        <field name="name">Dummies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">backend.dummy.model</field>
+        <field name="view_mode">tree,form,kanban,calendar,pivot,graph,activity</field>
+        <field name="view_id" ref="backend_dummy_model_tree_view" />
+    </record>
+
+    <menuitem
+        id="menu_dummy_root"
+        name="Dummy"
+        sequence="100"
+        groups="group_backend_ui_users,base.group_user"
+    />
+    <menuitem
+        id="menu_dummy_menu"
+        name="Dummy"
+        sequence="10"
+        groups="group_backend_ui_users,base.group_user"
+        parent="menu_dummy_root"
+    />
+    <menuitem
+        id="menu_dummy_list"
+        name="Dummy list"
+        sequence="100"
+        groups="group_backend_ui_users,base.group_user"
+        parent="menu_dummy_root"
+        action="action_dummy_list"
+    />
+
+</odoo>
