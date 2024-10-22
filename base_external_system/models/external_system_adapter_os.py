@@ -13,16 +13,24 @@ class ExternalSystemAdapterOs(models.AbstractModel):
     system interface. This is still a fully usable implementation, however.
     """
 
-    __slots__ = ["previous_dir"]
-
     _name = "external.system.adapter.os"
     _inherit = "external.system.adapter"
     _description = "External System OS"
 
-    def __init__(self, name, bases, attrs):
-        """Declare previous_dir variable."""
-        super().__init__(name, bases, attrs)
-        self.previous_dir = None
+    def get_previous_dir(self):
+        """Get previous_dir from adapter_memory."""
+        return self.env.context["adapter_memory"].get("previous_dir", None)
+
+    def set_previous_dir(self, value):
+        """Store previous_dir in adapter_memor."""
+        self.env.context["adapter_memory"]["previous_dir"] = value
+
+    def del_previous_dir(self):
+        """Get system from environment."""
+        if "previous_dir" in self.env.context["adapter_memory"]:
+            del self.env.context["adapter_memory"]["previous_dir"]
+
+    previous_dir = property(get_previous_dir, set_previous_dir, del_previous_dir)
 
     @api.model
     def external_get_client(self):
@@ -34,12 +42,7 @@ class ExternalSystemAdapterOs(models.AbstractModel):
 
     @api.model
     def external_destroy_client(self, client):
-        """Perform any logic necessary to destroy the client connection.
-
-        Args:
-            client (mixed): The client that was returned by
-             ``external_get_client``.
-        """
+        """Perform any logic necessary to destroy the client connection."""
         if self.previous_dir:
             os.chdir(self.previous_dir)
-            self.previous_dir = None
+        del self.previous_dir
