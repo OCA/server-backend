@@ -1,7 +1,7 @@
 # Copyright (C) 2021 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -26,7 +26,7 @@ class ResUsersRoleLine(models.Model):
                 and record.company_id not in record.user_id.company_ids
             ):
                 raise ValidationError(
-                    _(
+                    self.env._(
                         'User "%(user)s" does not have access to the company '
                         '"%(company)s"'
                     )

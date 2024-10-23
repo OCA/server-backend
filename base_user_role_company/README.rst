@@ -113,6 +113,10 @@ Contributors
 
    -  Robin Conjour <rconjour@wesolved.com>
 
+`Dynapps <http://dynapps.eu>`__
+
+   -  Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
+
 Maintainers
 -----------
 

@@ -7,3 +7,7 @@
 [WeSolved](http://wesolved.com)
 
 > - Robin Conjour \<<rconjour@wesolved.com>\>
+
+[Dynapps](http://dynapps.eu)
+
+> - Bert Van Groenendael \<<bert.vangroenendael@dynapps.eu>\>

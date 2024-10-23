@@ -12,7 +12,7 @@
                 expr="//field[@name='role_line_ids']//field[@name='role_id']"
                 position="after"
             >
-                <field name="allowed_company_ids" invisible="1" />
+                <field name="allowed_company_ids" column_invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
             </xpath>
         </field>
