@@ -8,16 +8,16 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     @classmethod
-    def authenticate(cls, db, login, password, user_agent_env):
-        uid = super().authenticate(db, login, password, user_agent_env)
+    def authenticate(cls, db, credential, user_agent_env):
+        auth_info = super().authenticate(db, credential, user_agent_env)
         # On login, ensure the proper roles are applied
         # The last Role applied may not be the correct one,
         # sonce the new session current company can be different
         with cls.pool.cursor() as cr:
-            env = api.Environment(cr, uid, {})
+            env = api.Environment(cr, auth_info["uid"], {})
             if env.user.role_line_ids:
                 env.user.set_groups_from_roles()
-        return uid
+        return auth_info
 
     def _get_enabled_roles(self):
         res = super()._get_enabled_roles()
