@@ -1,8 +1,0 @@
-<odoo>
-    <record id="sqlite_chinook" model="db.config">
-        <field name="name">Chinook</field>
-        <field
-            name="string_connexion"
-        >sqlite://.../polars_db_schema/tests/files/chinook.sqlite</field>
-    </record>
-</odoo>

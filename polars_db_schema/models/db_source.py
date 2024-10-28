@@ -1,6 +1,4 @@
 from odoo import models
-from odoo.modules.module import get_module_path
-from pathlib import Path
 
 
 class DfSource(models.Model):

@@ -16,8 +16,6 @@
         "views/db_type.xml",
         "data/db_type.xml",
     ],
-    "demo": [
-        "data/demo.xml",
-    ],
+    "demo": [],
     "installable": True,
 }

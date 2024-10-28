@@ -1,8 +1,6 @@
-import connectorx as cx
 import polars as pl
 
-from odoo.modules.module import get_module_path
-from odoo import _, exceptions, fields, models
+from odoo import fields, models
 
 
 class DbConfig(models.Model):
@@ -41,6 +39,7 @@ class DbConfig(models.Model):
     def _filter_df(self, df):
         "You may want ignore some tables: inherit me"
         return df
+
 
 def sqlite(value):
     "Extract row_count info from 'stat' column"
