@@ -1,0 +1,32 @@
+<odoo>
+    <record id="db_table_list" model="ir.ui.view">
+        <field name="model">db.table</field>
+        <field name="arch" type="xml">
+            <list limit="1000">
+                <button
+                    name="get_spreadsheet"
+                    type="object"
+                    string="📎"
+                    title="Get rows in Spreadsheet"
+                />
+                <field
+                    name="xlsx"
+                    widget="binary"
+                    filename="filename"
+                    options="{'accepted_file_extensions': '.xlsx'}"
+                />
+                <field name="filename" invisible="1" />
+                <field name="row_count" />
+                <field name="name" />
+                <field name="sql" />
+                <field name="uniques" />
+                <button
+                    name="get_metadata_info"
+                    type="object"
+                    class="fa fa-solid fa-file"
+                    title="Get informations on columns"
+                />
+            </list>
+        </field>
+    </record>
+</odoo>
