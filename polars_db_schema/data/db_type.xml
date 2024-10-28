@@ -23,10 +23,22 @@ ORDER BY row_count desc
     <record id="sqlite_db_type" model="db.type">
         <field name="name">Sqlite</field>
         <field name="code">sqlite</field>
-        <field name="excluded_types" />
+        <field name="excluded_types">BLOB</field>
         <field name="row_count_query">
 -- This query order tables by rows count
 SELECT tbl, stat FROM sqlite_stat1
+        </field>
+    </record>
+
+    <record id="postgres_db_type" model="db.type">
+        <field name="name">PostgreSQL</field>
+        <field name="code">postgresql</field>
+        <field name="excluded_types">bytea</field>
+        <field name="row_count_query">
+-- This query order tables by rows count
+SELECT relname AS name, n_live_tup AS row_count
+  FROM pg_stat_user_tables
+ORDER BY row_count DESC;
         </field>
     </record>
 </odoo>

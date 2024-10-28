@@ -4,7 +4,7 @@ import io
 import connectorx as cx
 import polars as pl
 
-from odoo import fields, models
+from odoo import _, exceptions, fields, models
 
 
 class DbTable(models.Model):
@@ -26,28 +26,6 @@ class DbTable(models.Model):
         "It could be useless to extract data from these columns,\n"
         "because they're probably unused by the application",
     )
-
-    def get_spreadsheet(self):
-        self.ensure_one()
-        if not self.sql:
-            self.get_metadata_info()
-        df = cx.read_sql(
-            self.db_config_id._get_connexion(), self.sql, return_type="polars"
-        )
-        excel_stream = io.BytesIO()
-        df.write_excel(
-            workbook=excel_stream,
-            position="B1",
-            table_style="Table Style Light 16",
-            dtype_formats={pl.Date: "mm/dd/yyyy"},
-            float_precision=6,
-            header_format={"bold": True, "font_color": "#702963"},
-            freeze_panes="A2",
-            autofit=True,
-        )
-        excel_stream.seek(0)
-        self.filename = f"{self.name}.xlsx"
-        self.xlsx = base64.encodebytes(excel_stream.read())
 
     def get_metadata_info(self):
         self.ensure_one()
@@ -72,4 +50,42 @@ class DbTable(models.Model):
                 # column has the same value whatever row
                 uniques[col] = res.to_series()[0]
         self.uniques = f"{uniques}"
-        self.sql = f"SELECT {', '. join(new_cols)}\nFROM {self.name};\n"
+        if new_cols:
+            self.sql = f"SELECT {', '. join(new_cols)}\nFROM {self.name};\n"
+
+    # WARNING Thread <Thread(odoo.service.http.request.129007460812352,
+    # started 129007460812352)> virtual real time limit (151/120s) reached.
+    # Dumping stacktrace of limit exceeding threads before reloading
+
+    def get_spreadsheet(self):
+        self.ensure_one()
+        if not self.sql:
+            self.get_metadata_info()
+        if not self.sql:
+            raise exceptions.ValidationError(
+                _(
+                    "There is no column with varaiable data in this table: "
+                    "check Uniques Values column"
+                )
+            )
+        df = cx.read_sql(
+            self.db_config_id._get_connexion(), self.sql, return_type="polars"
+        )
+        excel_stream = io.BytesIO()
+        vals = {"workbook": excel_stream}
+        vals.update(self.get_spreadsheet_settings())
+        df.write_excel(**vals)
+        excel_stream.seek(0)
+        self.filename = f"{self.name}.xlsx"
+        self.xlsx = base64.encodebytes(excel_stream.read())
+
+    def get_spreadsheet_settings(self):
+        return {
+            "position": "A1",
+            "table_style": "Table Style Light 16",
+            "dtype_formats": {pl.Date: "dd/mm/yyyy"},
+            "float_precision": 6,
+            "header_format": {"bold": True, "font_color": "#702963"},
+            "freeze_panes": "A2",
+            "autofit": True,
+        }

@@ -1,5 +1,5 @@
 <odoo>
-    <record id="sqlite_chinook" model="database.config">
+    <record id="sqlite_chinook" model="db.config">
         <field name="name">Chinook</field>
         <field
             name="string_connexion"

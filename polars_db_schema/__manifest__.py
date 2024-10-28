@@ -2,7 +2,9 @@
     "name": "Polars Db Schema",
     "version": "18.0.1.0.0",
     "author": "Akretion, Odoo Community Association (OCA)",
-    "license": "GPL-3",
+    "development_status": "Alpha",
+    "website": "https://github.com/OCA/server-backend",
+    "license": "AGPL-3",
     "depends": [
         "polars_db_process",
     ],
@@ -13,6 +15,9 @@
         "views/db_table.xml",
         "views/db_type.xml",
         "data/db_type.xml",
+    ],
+    "demo": [
+        "data/demo.xml",
     ],
     "installable": True,
 }

@@ -11,5 +11,5 @@ class DbType(models.Model):
         required=True, help="SQL code to find how many records contains each table"
     )
     excluded_types = fields.Text(
-        help="Database column type to ignore for introspection"
+        help="Column types to ignore for better introspection (set 1 data by line)"
     )

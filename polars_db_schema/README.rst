@@ -10,12 +10,12 @@ Polars Db Schema
    !! source digest: sha256:0e6c26c886f0fc18c585b743314981ec58966dd913b8a469530e62e313327de2
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-GPL--3-blue.png
-    :target: http://www.gnu.org/licenses/gpl-3.0-standalone.html
-    :alt: License: GPL-3
+    :alt: Alpha
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
     :target: https://github.com/OCA/server-backend/tree/18.0/polars_db_schema
     :alt: OCA/server-backend
@@ -34,6 +34,11 @@ Introspect external database
 
 Use case: you want discover an external database extracting data from
 only relevant tables and columns
+
+.. IMPORTANT::
+   This is an alpha version, the data model and design can change at any time without warning.
+   Only for development or testing purpose, do not use in production.
+   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 

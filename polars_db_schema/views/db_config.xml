@@ -6,7 +6,7 @@
             <xpath expr="//header" position="inside">
                 <button
                     type="object"
-                    name="get_metadata"
+                    name="get_db_metadata"
                     string="Metadata"
                     invisible="not row_count_query"
                 />
