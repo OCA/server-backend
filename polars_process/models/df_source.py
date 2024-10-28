@@ -1,0 +1,105 @@
+import base64
+from pathlib import Path
+
+from odoo import _, fields, models
+from odoo.modules.module import get_module_path
+
+
+class DfSource(models.Model):
+    _name = "df.source"
+    _description = "Dataframe data source"
+    _rec_name = "name"
+    _rec_names_search = ["name"]
+
+    model_map_id = fields.Many2one(
+        comodel_name="model.map", required=True, ondelete="cascade"
+    )
+    name = fields.Char(help="Supported files: .xlsx")
+    sequence = fields.Integer()
+    state = fields.Selection(selection=[('draft', "Draft"), ("ready", "Ready"), ("done", "Done")], default="draft")
+    rename = fields.Boolean(help="Display renamed Dataframe in wizard")
+    template = fields.Binary(string="File", attachment=False)
+    readonly = fields.Boolean(help="Imported records from module are readonly created")
+
+    def start(self):
+        self.ensure_one()
+        vals = {
+            "filename": self.name,
+            "df_source_id": self.id,
+            "model_map_id": self.model_map_id.id,
+        }
+        if ".xlsx" in self.name:
+            vals["file"] = base64.b64encode(self._get_file())
+        transient = self.env["df.process.wiz"].create(vals)
+        action = self.env.ref("polars_process.df_process_wiz_action")._get_action_dict()
+        action["res_id"] = transient.id
+        self.state = "done"
+        return action
+
+    def reset_process(self):
+        self.ensure_one()
+        self._reset_process()
+
+    def _reset_process(self):
+        "Inherit me"
+        self.state = "draft"
+
+    def _populate(self):
+        def create_attach(myfile, addon, idstring, relative_path):
+            with open(myfile, "rb") as f:
+                name = f.name[f.name.find(addon) :]
+                vals = {
+                    "model_map_id": self.env.ref(idstring).id,
+                    "name": name,
+                    "readonly": True,
+                    "rename": True,
+                }
+                vals.update(self._file_hook(name))
+                self.env[self._name].sudo().create(vals)
+
+        self.env[self._name].search([("template", "=", False)]).unlink()
+        paths = self._get_test_file_paths()
+        for addon, data in paths.items():
+            relative_path = data["relative_path"]
+            idstring = data["xmlid"]
+            if self.env.ref(idstring):
+                mpath = Path(get_module_path(addon)) / relative_path
+                for mfile in tuple(mpath.iterdir()):
+                    create_attach(mfile, addon, idstring, relative_path)
+        action = self.env.ref("polars_process.df_source_action")._get_action_dict()
+        return action
+
+    def _get_file(self, name=None):
+        # TODO Clean
+        if self.template:
+            return self.template
+        name = self.name or name
+        module = name[: name.find("/")]
+        relative = self._get_test_file_paths().get(module)
+        relative = relative and relative.get("relative_path")
+        if relative:
+            path = Path(get_module_path(module))
+            path = path / relative / name[name.rfind("/") + 1 :]
+            with open(path, "rb") as f:
+                return f.read()
+
+    def _get_test_file_paths(self):
+        """
+        You may override if you want populate files in your module
+        returns:
+        {"module_name": {
+            "relative_path": "tests/files",
+            "xmlid": "model_map_xml_id"}
+            }
+        }
+        """
+        return {
+            "polars_process": {
+                "relative_path": "tests/files",
+                "xmlid": "polars_process.model_map_contact",
+            }
+        }
+
+    def _file_hook(self, file):
+        "Overide me in your own module"
+        return {}
