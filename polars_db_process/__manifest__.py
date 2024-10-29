@@ -22,11 +22,12 @@
     "data": [
         "security/ir.model.access.xml",
         "wizards/df_process.xml",
-        "views/dataframe.xml",
+        "views/model_map.xml",
         "views/df_field.xml",
         "views/df_source.xml",
         "views/db_config.xml",
-        "data/demo.xml",
+        "data/action.xml",
+        "data/demo.xml",  # TODO remove
     ],
     "demo": [
         "data/demo.xml",

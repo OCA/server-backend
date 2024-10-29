@@ -34,7 +34,7 @@
         </field>
     </record>
 
-    <record id="dataframe_list" model="ir.ui.view">
+    <record id="model_map_list" model="ir.ui.view">
         <field name="model">db.config</field>
         <field name="arch" type="xml">
             <list>

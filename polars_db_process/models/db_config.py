@@ -42,3 +42,6 @@ class DbConfig(models.Model):
             raise exceptions.ValidationError(err) from err
         except Exception as err:
             raise exceptions.ValidationError(err) from err
+
+    def _set_uidstring_module_name(self):
+        return "polars"

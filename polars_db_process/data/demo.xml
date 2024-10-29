@@ -6,7 +6,7 @@
         >sqlite://.../polars_db_schema/tests/files/chinook.sqlite</field>
     </record>
 
-    <record id="contact_chinook" model="dataframe">
+    <record id="contact_chinook" model="model.map">
         <field name="model_id" ref="base.model_res_partner" />
         <field name="code">Chinook Customers</field>
     </record>
