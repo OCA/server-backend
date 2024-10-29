@@ -21,7 +21,7 @@
     },
     "data": [
         "security/ir.model.access.xml",
-        "wizards/df_process.xml",
+        "wizards/df_process_wiz.xml",
         "views/model_map.xml",
         "views/df_field.xml",
         "views/df_source.xml",
