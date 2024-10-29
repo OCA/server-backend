@@ -10,9 +10,9 @@ MODULE = __name__[12 : __name__.index(".", 13)]
 
 class DfProcessWiz(models.TransientModel):
     _name = "df.process.wiz"
-    _description = "Process Polars dataframe"
+    _description = "Process Polars DataFrame"
 
-    dataframe_id = fields.Many2one(comodel_name="dataframe", required=True)
+    model_map_id = fields.Many2one(comodel_name="model.map", required=True)
     comment = fields.Html(readonly=True)
     sample = fields.Html(readonly=True)
     filename = fields.Char()
@@ -25,7 +25,7 @@ class DfProcessWiz(models.TransientModel):
         return res
 
     def _pre_process(self):
-        if self.dataframe_id and self.file:
+        if self.model_map_id and self.file:
             self._pre_process_file()
 
     def _pre_process_file(self):
@@ -81,7 +81,7 @@ class DfProcessWiz(models.TransientModel):
         return missing or ""
 
     def _get_requireds(self, df):
-        requireds = self.dataframe_id.field_ids.filtered(
+        requireds = self.model_map_id.field_ids.filtered(
             lambda s, df=df: s.required and s.name or s.field_id.name in df.columns
         )
         return [x.name or x.field_id.name for x in requireds]
@@ -94,7 +94,7 @@ class DfProcessWiz(models.TransientModel):
     def _rename_df_columns(self, df):
         map_cols = {
             x.name: x.renamed
-            for x in self.dataframe_id.field_ids.filtered(lambda s: s.renamed)
+            for x in self.model_map_id.field_ids.filtered(lambda s: s.renamed)
         }
         new_cols = {x: map_cols.get(x) for x in df.columns if x in map_cols}
         if new_cols:

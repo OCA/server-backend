@@ -11,8 +11,8 @@ class DfSource(models.Model):
     _rec_name = "name"
     _rec_names_search = ["name"]
 
-    dataframe_id = fields.Many2one(
-        comodel_name="dataframe", required=True, ondelete="cascade"
+    model_map_id = fields.Many2one(
+        comodel_name="model.map", required=True, ondelete="cascade"
     )
     name = fields.Char(help="Supported files: .xlsx")
     sequence = fields.Integer()
@@ -25,7 +25,7 @@ class DfSource(models.Model):
             with open(myfile, "rb") as f:
                 name = f.name[f.name.find(addon) :]
                 vals = {
-                    "dataframe_id": self.env.ref(idstring).id,
+                    "model_map_id": self.env.ref(idstring).id,
                     "name": name,
                     "readonly": True,
                     "rename": True,
@@ -50,7 +50,7 @@ class DfSource(models.Model):
         vals = {
             "filename": self.name,
             "df_source_id": self.id,
-            "dataframe_id": self.dataframe_id.id,
+            "model_map_id": self.model_map_id.id,
         }
         if ".xlsx" in self.name:
             vals["file"] = base64.b64encode(self._get_file())
@@ -79,14 +79,14 @@ class DfSource(models.Model):
         returns:
         {"module_name": {
             "relative_path": "tests/files",
-            "xmlid": "dataframe_xml_id"}
+            "xmlid": "model_map_xml_id"}
             }
         }
         """
         return {
             "polars_process": {
                 "relative_path": "tests/files",
-                "xmlid": "polars_process.dataframe_contact",
+                "xmlid": "polars_process.model_map_contact",
             }
         }
 

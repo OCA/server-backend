@@ -5,7 +5,7 @@
             <form>
                 <group col="2">
                     <group>
-                        <field name="dataframe_id" readonly="dataframe_id" />
+                        <field name="model_map_id" readonly="model_map_id" />
                     </group>
                     <group>
                         <field name="df_source_id" invisible="1" />
@@ -33,7 +33,7 @@
                     <button
                         name="process"
                         string="Process"
-                        invisible="not dataframe_id"
+                        invisible="not model_map_id"
                         type="object"
                         class="btn-primary"
                     />

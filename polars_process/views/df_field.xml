@@ -5,8 +5,8 @@
             <list editable="top">
                 <field name="sequence" widget="handle" />
                 <field
-                    name="dataframe_id"
-                    context="{'default_dataframe_id': parent}"
+                    name="model_map_id"
+                    context="{'default_model_map_id': parent}"
                     optional="hide"
                 />
                 <field name="field_id" context="{'technical_name': 1}" />

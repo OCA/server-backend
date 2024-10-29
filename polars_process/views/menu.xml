@@ -1,8 +1,8 @@
 <odoo>
     <menuitem id="polars_menu" name="🐻‍❄️" parent="contacts.menu_contacts" sequence="3" />
     <menuitem
-        id="dataframe_menu"
-        action="action_dataframe"
+        id="model_map_menu"
+        action="action_model_map"
         sequence="1"
         parent="polars_menu"
     />

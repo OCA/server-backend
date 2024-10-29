@@ -3,7 +3,7 @@
 {
     "name": "Polars Process",
     "version": "18.0.1.0.0",
-    "summary": "Allow to create a Polars dataframe from file or db query and "
+    "summary": "Allow to create a Polars model_map from file or db query and "
     "process it according to rules",
     "category": "Reporting",
     "license": "AGPL-3",
@@ -24,8 +24,8 @@
         "data/action.xml",
         "data/demo.xml",
         "security/ir.model.access.xml",
-        "wizards/df_process.xml",
-        "views/dataframe.xml",
+        "wizards/df_process_wiz.xml",
+        "views/model_map.xml",
         "views/df_field.xml",
         "views/df_source.xml",
         "views/menu.xml",

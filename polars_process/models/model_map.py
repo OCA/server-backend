@@ -1,8 +1,8 @@
 from odoo import fields, models
 
 
-class Dataframe(models.Model):
-    _name = "dataframe"
+class ModelMap(models.Model):
+    _name = "model.map"
     _inherit = "mail.thread"
     _description = "File Configuration"
     _rec_name = "code"
@@ -16,7 +16,7 @@ class Dataframe(models.Model):
         tracking=True,
     )
     code = fields.Char(help="Allow to browse between several identical models")
-    rename = fields.Boolean(help="Rename dataframe fields")
+    rename = fields.Boolean(help="Rename Dataframe fields")
     action = fields.Selection(
         selection=[
             ("display", "Display"),
@@ -36,5 +36,5 @@ class Dataframe(models.Model):
         " - Skip record: current line'll be ignored from the next process",
     )
     field_ids = fields.One2many(
-        comodel_name="df.field", inverse_name="dataframe_id", copy=True
+        comodel_name="df.field", inverse_name="model_map_id", copy=True
     )

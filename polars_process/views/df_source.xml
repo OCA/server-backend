@@ -7,7 +7,7 @@
                     <header />
                     <group>
                         <group>
-                            <field name="dataframe_id" />
+                            <field name="model_map_id" />
                             <field name="name" />
                         </group>
                         <group name="right">
@@ -28,14 +28,14 @@
         <field name="arch" type="xml">
             <list editable="bottom">
                 <field name="sequence" widget="handle" />
-                <field name="dataframe_id" />
+                <field name="model_map_id" />
+                <button name="ui_form" type="object" string="Form" />
                 <button
                     name="start"
                     class="fa fa-play"
                     type="object"
                     title="Start process"
                 />
-                <button name="ui_form" type="object" string="Form" />
                 <field
                     name="template"
                     filename="name"
@@ -53,13 +53,13 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
-                <field name="dataframe_id" />
+                <field name="model_map_id" />
                 <group expand="0" string="Group By">
                     <filter
                         string="Dataframe"
-                        name="dataframe_id"
+                        name="model_map_id"
                         domain="[]"
-                        context="{'group_by': 'dataframe_id'}"
+                        context="{'group_by': 'model_map_id'}"
                     />
                 </group>
             </search>
