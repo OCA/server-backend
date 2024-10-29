@@ -28,14 +28,14 @@ class DbConfig(models.Model):
         return self.string_connexion.replace("PASSWORD", self.password or "")
 
     def test_connexion(self):
-        res = self._read_sql(self._get_connexion(), "SELECT 1")
+        res = self._read_sql("SELECT 1")
         if len(res):
             # Not invalid in reality
             raise exceptions.ValidationError(_("Connexion OK !"))
 
-    def _read_sql(self, connexion, query):
+    def _read_sql(self, query):
         try:
-            return cx.read_sql(connexion, query, return_type="polars")
+            return cx.read_sql(self._get_connexion(), query, return_type="polars")
         except RuntimeError as err:
             raise exceptions.ValidationError(err) from err
         except TimeoutError as err:

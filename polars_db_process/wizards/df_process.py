@@ -1,7 +1,5 @@
 from odoo import _, exceptions, models
 
-MODULE = __name__[12 : __name__.index(".", 13)]
-
 
 class DfProcessWiz(models.TransientModel):
     _inherit = "df.process.wiz"
@@ -13,4 +11,15 @@ class DfProcessWiz(models.TransientModel):
         return res
 
     def _pre_process_sql(self):
-        raise exceptions.ValidationError(_("to be continued"))
+        "You may inherit to set your own behavior"
+        if not self.df_source_id.db_conf_id:
+            raise exceptions.ValidationError(
+                _("Missing database configuration in your df source ")
+            )
+        self._process_sql()
+
+    def _process_sql(self):
+        self.ensure_one()
+        df = self.df_source_id.db_conf_id._read_sql(self.df_source_id.query)
+        if self.dataframe_id:
+            self.env[self.dataframe_id.model_id.model].create(df.to_dicts())

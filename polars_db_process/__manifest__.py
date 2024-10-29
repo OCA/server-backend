@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "author": "Akretion, Odoo Community Association (OCA)",
     "development_status": "Alpha",
-    "website": "https://github.com/OCA/reporting-engine",
+    "website": "https://github.com/OCA/server-backend",
     "maintainers": ["bealdav"],
     "depends": [
         "polars_process",

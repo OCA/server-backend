@@ -6,7 +6,7 @@
             <xpath expr="//group[1]" position="after">
                 <separator />
                 <group>
-                    <field name="db_id" invisible="template" />
+                    <field name="db_conf_id" invisible="template" />
                     <field name="query" widget="code" invisible="template" />
                 </group>
             </xpath>
@@ -18,12 +18,15 @@
         <field name="inherit_id" ref="polars_process.df_source_list" />
         <field name="arch" type="xml">
             <xpath expr="//list/field[last()]" position="after">
-                <field name="db_id" />
+                <field name="db_conf_id" />
             </xpath>
             <xpath expr="//list/field[@name='template']" position="attributes">
                 <attribute
                     name="options"
                 >{'accepted_file_extensions': '.xlsx,.sql'}</attribute>
+            </xpath>
+            <xpath expr="//list/button[@name='start']" position="attributes">
+                <attribute name="invisible">query and not db_conf_id</attribute>
             </xpath>
         </field>
     </record>
@@ -33,14 +36,14 @@
         <field name="inherit_id" ref="polars_process.df_source_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="db_id" />
+                <field name="db_conf_id" />
             </xpath>
             <xpath expr="//group" position="inside">
                 <filter
                     string="Database"
-                    name="db_id"
+                    name="db_conf_id"
                     domain="[]"
-                    context="{'group_by': 'db_id'}"
+                    context="{'group_by': 'db_conf_id'}"
                 />
             </xpath>
         </field>

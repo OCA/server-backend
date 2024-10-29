@@ -9,8 +9,8 @@ MODULE = __name__[12 : __name__.index(".", 13)]
 HELP = """Supported files: .xlsx and .sql
 Sql files may contains a comment on first line
 to be mapped automatically with dataframe, i.e:\n
--- {'model_id': 'product.product', 'db_id': mydb}
--- {'code': 'my_delivery_address', 'db_id': mydb}
+-- {'model_id': 'product.product', 'db_conf_id': mydb}
+-- {'code': 'my_delivery_address', 'db_conf_id': mydb}
 """
 
 
@@ -19,8 +19,9 @@ class DfSource(models.Model):
 
     name = fields.Char(help=HELP)
     query = fields.Char()
-    # TODO : -> db_config_id
-    db_id = fields.Many2one(comodel_name="db.config", help="Database")
+    db_conf_id = fields.Many2one(
+        comodel_name="db.config", help="Database Configuration"
+    )
 
     def _file_hook(self, file):
         "Map sql file with the right Odoo model via dataframe and the right db.config"
@@ -39,7 +40,7 @@ class DfSource(models.Model):
                     dataframes = (
                         self.env["df.source"]
                         .search([])
-                        .filtered(lambda s: not s.db_id)
+                        .filtered(lambda s: not s.db_conf_id)
                         .mapped("dataframe_id")
                     )
                     dataframe = self.env["dataframe"].search(
@@ -52,9 +53,9 @@ class DfSource(models.Model):
                         # TODO use first
                         vals["dataframe_id"] = dataframe[0].id
                         db_config = self.env["db.config"].search(
-                            [("name", "ilike", metadata.get("db_id"))]
+                            [("name", "ilike", metadata.get("db_conf_id"))]
                         )
-                        vals["db_id"] = db_config and db_config[0].id or False
+                        vals["db_conf_id"] = db_config and db_config[0].id or False
                     else:
                         df = self.env["dataframe"].create(
                             {"code": model.name, "model_id": model and model[0].id}
