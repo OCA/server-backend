@@ -20,7 +20,7 @@ class ModelMap(models.Model):
     action = fields.Selection(
         selection=[
             ("display", "Display"),
-            ("dataframe", "Dataframe"),
+            ("import", "Import data"),
         ],
         default="display",
         tracking=True,
