@@ -12,10 +12,9 @@ class DbConfig(models.Model):
 
     def get_db_metadata(self):
         self.ensure_one()
-        connexion = self._get_connexion()
         if self.row_count_query:
-            self._read_sql(connexion, "SELECT 1")
-            df = self._read_sql(connexion, self.row_count_query)
+            self._read_sql("SELECT 1")
+            df = self._read_sql(self.row_count_query)
             if self.db_type_id.code == "sqlite":
                 # https://docs.pola.rs/user-guide/expressions/user-defined-functions/#processing-individual-values-with-map_elements
                 df = (

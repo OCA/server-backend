@@ -23,7 +23,7 @@
         </field>
     </record>
 
-    <record id="dataframe_type_list" model="ir.ui.view">
+    <record id="db_type_list" model="ir.ui.view">
         <field name="model">db.type</field>
         <field name="arch" type="xml">
             <list>
