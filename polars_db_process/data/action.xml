@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="remove_related_uidstring_record" model="ir.actions.server">
+        <field name="name">Remove ir_model_data created from there</field>
+        <field name="model_id" ref="polars_db_process.model_model_map" />
+        <field name="binding_model_id" ref="polars_db_process.model_model_map" />
+        <field name="state">code</field>
+        <field name="code">env['model.map']._remove_uidstring_related_records()</field>
+    </record>
+</odoo>
