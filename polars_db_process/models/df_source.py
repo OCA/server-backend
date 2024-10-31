@@ -41,9 +41,6 @@ class DfSource(models.Model):
         return res
 
     # def tmp(self, file, vals=None):
-    #     db_confs = {x.name: x.id for x in self.env['db.config'].search([])}
-    #     if meta:
-    #         vals['params'] = meta
     #     def guess_model_and_db():
     #         domain=[]
     #         if meta.get("model"):
@@ -61,12 +58,15 @@ class DfSource(models.Model):
         vals = super()._file_hook(file)
         if ".sql" in file:
             # TODO: improve
+            db_confs = {x.name: x.id for x in self.env['db.config'].search([])}
             content = self._get_file(file).decode("utf-8")
             contents = content.split("\n")
             if contents:
                 # we only detect first line
-                metadata = safe_eval(contents[0].replace("--", ""))
-                model_name = metadata.get("model")
+                meta = safe_eval(contents[0].replace("--", ""))
+                if meta:
+                    vals['params'] = meta
+                model_name = meta.get("model")
                 model = self.env["ir.model"].search([("model", "=", model_name)])
                 if model_name:
                     # we don't want to use these model_maps
@@ -86,7 +86,7 @@ class DfSource(models.Model):
                         # TODO use first
                         vals["model_map_id"] = model_map[0].id
                         db_config = self.env["db.config"].search(
-                            [("name", "ilike", metadata.get("db_conf_id"))]
+                            [("name", "ilike", meta.get("db_conf_id"))]
                         )
                         vals["db_conf_id"] = db_config and db_config[0].id or False
                     else:
