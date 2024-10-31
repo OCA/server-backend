@@ -29,7 +29,6 @@
             <list editable="bottom">
                 <field name="sequence" widget="handle" />
                 <field name="model_map_id" />
-                <button name="ui_form" type="object" string="Form" />
                 <button
                     name="start"
                     class="fa fa-play"
@@ -43,11 +42,20 @@
                     options="{'accepted_file_extensions': '.xlsx'}"
                 />
                 <field name="name" />
-                <field name="rename" />
+                <field name="state" />
+                <button
+                    type="object"
+                    name="reset_process"
+                    class="fa fa-refresh"
+                    invisible="state!='done'"
+                    title="Not yet implemented in this module"
+                />
+                <!-- <field name="id" optional="hide" /> -->
+                <field name="rename" optional="hide" />
             </list>
         </field>
     </record>
-
+ 
     <record id="df_source_search" model="ir.ui.view">
         <field name="model">df.source</field>
         <field name="arch" type="xml">
@@ -67,7 +75,7 @@
     </record>
 
     <record id="df_source_action" model="ir.actions.act_window">
-        <field name="name">Polars data source</field>
+        <field name="name">Data sources for Polars</field>
         <field name="res_model">df.source</field>
         <field name="view_mode">list,form</field>
         <field name="path">df-source</field>

@@ -16,9 +16,33 @@ class DfSource(models.Model):
     )
     name = fields.Char(help="Supported files: .xlsx")
     sequence = fields.Integer()
+    state = fields.Selection(selection=[('draft', "Draft"), ("ready", "Ready"), ("done", "Done")], default="draft")
     rename = fields.Boolean(help="Display renamed Dataframe in wizard")
     template = fields.Binary(string="File", attachment=False)
     readonly = fields.Boolean(help="Imported records from module are readonly created")
+
+    def start(self):
+        self.ensure_one()
+        vals = {
+            "filename": self.name,
+            "df_source_id": self.id,
+            "model_map_id": self.model_map_id.id,
+        }
+        if ".xlsx" in self.name:
+            vals["file"] = base64.b64encode(self._get_file())
+        transient = self.env["df.process.wiz"].create(vals)
+        action = self.env.ref("polars_process.df_process_wiz_action")._get_action_dict()
+        action["res_id"] = transient.id
+        self.state = "done"
+        return action
+
+    def reset_process(self):
+        self.ensure_one()
+        self._reset_process()
+
+    def _reset_process(self):
+        "Inherit me"
+        self.state = "draft"
 
     def _populate(self):
         def create_attach(myfile, addon, idstring, relative_path):
@@ -43,20 +67,6 @@ class DfSource(models.Model):
                 for mfile in tuple(mpath.iterdir()):
                     create_attach(mfile, addon, idstring, relative_path)
         action = self.env.ref("polars_process.df_source_action")._get_action_dict()
-        return action
-
-    def start(self):
-        self.ensure_one()
-        vals = {
-            "filename": self.name,
-            "df_source_id": self.id,
-            "model_map_id": self.model_map_id.id,
-        }
-        if ".xlsx" in self.name:
-            vals["file"] = base64.b64encode(self._get_file())
-        transient = self.env["df.process.wiz"].create(vals)
-        action = self.env.ref("polars_process.df_process_wiz_action")._get_action_dict()
-        action["res_id"] = transient.id
         return action
 
     def _get_file(self, name=None):
@@ -88,17 +98,6 @@ class DfSource(models.Model):
                 "relative_path": "tests/files",
                 "xmlid": "polars_process.model_map_contact",
             }
-        }
-
-    def ui_form(self):
-        self.ensure_one()
-        return {
-            "name": _("Dataframe source"),
-            "res_model": self._name,
-            "view_mode": "form",
-            "res_id": self.id,
-            "type": "ir.actions.act_window",
-            "target": "current",
         }
 
     def _file_hook(self, file):

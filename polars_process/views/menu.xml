@@ -1,5 +1,5 @@
 <odoo>
-    <menuitem id="polars_menu" name="🐻‍❄️" parent="contacts.menu_contacts" sequence="3" />
+    <menuitem id="polars_menu" name="🐻‍❄️ Polars" parent="contacts.menu_contacts" sequence="3" />
     <menuitem
         id="model_map_menu"
         action="action_model_map"
@@ -8,6 +8,7 @@
     />
     <menuitem
         id="df_source_menu"
+        name="Data source"
         action="df_source_action"
         parent="polars_menu"
         sequence="4"
@@ -18,11 +19,10 @@
         sequence="5"
         parent="polars_menu"
     />
-
     <menuitem
         id="df_process_wiz_menu"
         action="df_process_wiz_action"
         parent="polars_menu"
-        sequence="6"
+        sequence="9"
     />
 </odoo>
