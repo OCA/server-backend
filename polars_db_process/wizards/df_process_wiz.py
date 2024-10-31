@@ -27,15 +27,15 @@ class DfProcessWiz(models.TransientModel):
         df = self.df_source_id.db_conf_id._read_sql(self.df_source_id.query)
         if self.model_map_id:
             if self.model_map_id.action == "import":
-                self._data_import(df)
+                self._odoo_data_import(df)
 
-    def _data_import(self, df):
+    def _odoo_data_import(self, df):
         model = self.model_map_id.model_id.model
         vals_list = df.to_dicts()
         mapper = {}
         rebellious = {}
         for vals in vals_list:
-            for key in self._get_rebellious_fields().get(model):
+            for key in self.env["model.map"]._get_touchy_fields_to_import().get(model):
                 if key in vals:
                     rebellious[key] = vals.pop(key)
             uidstring = vals.pop("id")
@@ -43,13 +43,14 @@ class DfProcessWiz(models.TransientModel):
                 x: val for x, val in vals.items() if x in self.env[model]._fields.keys()
             }
             if "parent_id" in nvals:
+                # here for product.category
                 # TODO move this specific behavior elsewhere
                 nvals["parent_id"] = mapper.get(nvals["parent_id"])
             rec = self.env[model].create(nvals)
             mapper[uidstring] = rec.id
             logger.info(f"  >>> {vals}")
             self._set_uidstring(uidstring, rec, model)
-            self._process_rebellious_fields(rec, rebellious)
+            self._process_touchy_fields(rec, rebellious)
 
     def _set_uidstring(self, uidstring, record, model):
         """Create Unique Id String also know as XmlId in the Odoo world,
@@ -64,24 +65,16 @@ class DfProcessWiz(models.TransientModel):
             }
         )
 
-    def _process_rebellious_fields(self, record, rebellious):
+    def _process_touchy_fields(self, record, rebellious):
         """Override Suggestion:
-        self._rebellious_fallback(record, rebellious)
+        self._touchy_fields_fallback(record, rebellious)
         or any other alternative
         """
 
-    def _rebellious_fallback(self, record, rebellious):
+    def _touchy_fields_fallback(self, record, rebellious):
         for key in rebellious:
             try:
                 record[key] = rebellious[key]
             except Exception:
                 logger.warning(f"\n\n\n\n\nPb here {rebellious[key]}")
                 continue
-
-    def _get_rebellious_fields(self):
-        """inherit me
-         Some fields may break your process and could be benefit
-         of a specific process. We have to know them
-        i.e. {"res.partner": ["vat"]}
-        """
-        return {}

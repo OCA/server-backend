@@ -7,6 +7,12 @@
                 <separator />
                 <group>
                     <field name="db_conf_id" invisible="template" />
+                    <field
+                        name="params"
+                        widget="code"
+                        invisible="template or not query"
+                        options="{'mode': 'python'}"
+                    />
                     <field name="query" widget="code" invisible="template" />
                 </group>
             </xpath>
@@ -17,8 +23,13 @@
         <field name="model">df.source</field>
         <field name="inherit_id" ref="polars_process.df_source_list" />
         <field name="arch" type="xml">
-            <xpath expr="//list/field[last()]" position="after">
+            <xpath expr="//list/field[@name='name']" position="after">
                 <field name="db_conf_id" />
+            </xpath>
+            <xpath expr="//list/button[@name='reset_process']" position="attributes">
+                <attribute
+                    name="title"
+                >Remove data for model map action on 'import'</attribute>
             </xpath>
             <xpath expr="//list/field[@name='template']" position="attributes">
                 <attribute

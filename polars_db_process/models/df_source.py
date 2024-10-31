@@ -13,15 +13,48 @@ to be mapped automatically with model_map, i.e:\n
 -- {'code': 'my_delivery_address', 'db_conf_id': mydb}
 """
 
+PARAMS = """{'model': False, 'code': False, 'db_conf': False}
+# 'model/code' to guess model.map', db_conf' name to guess db.config
+"""
+
 
 class DfSource(models.Model):
     _inherit = "df.source"
 
     name = fields.Char(help=HELP)
     query = fields.Char()
+    params = fields.Char(
+        string="File Parameters",
+        default=PARAMS,
+        readonly=True,
+        help="Coming from sql files",
+    )
     db_conf_id = fields.Many2one(
         comodel_name="db.config", help="Database Configuration"
     )
+
+    def _reset_process(self):
+        res = super()._reset_process()
+        mapp = self.model_map_id
+        if mapp and mapp.action == "import":
+            mapp._remove_uidstring_related_records()
+        return res
+
+    # def tmp(self, file, vals=None):
+    #     db_confs = {x.name: x.id for x in self.env['db.config'].search([])}
+    #     if meta:
+    #         vals['params'] = meta
+    #     def guess_model_and_db():
+    #         domain=[]
+    #         if meta.get("model"):
+    #             domain.append(("model_id.name", '=', meta.get("model")))
+    #         if meta.get("code"):
+    #             domain.append(("code", '=', meta.get("code")))
+    #         if domain:
+    #             res = self.env["model.map"].search(domain)
+    #             vals["model_map_id"] = res and res[0].id
+    #         vals["db_conf_id"] = db_confs.get(meta.get("db_conf"))
+    #     guess_model_and_db()
 
     def _file_hook(self, file):
         "Map sql file with the right Odoo model via model_map and the right db.config"
