@@ -10,14 +10,30 @@
                     string="Metadata"
                     invisible="not row_count_query"
                 />
+                <button
+                    type="action"
+                    name="%(db_table_action)d"
+                    context="{'search_db_conf_id': id, 'majors': 1}"
+                    string="Tables"
+                    invisible="not db_table_ids"
+                />
             </xpath>
+            <field name="name" position="after">
+                <field name="table_exclude" />
+            </field>
             <field name="password" position="after">
                 <field name="db_type_id" />
             </field>
+            <field name="string_connexion" position="before">
+                <field name="manually_entries" invisible="not manually_entries" />
+            </field>
             <xpath expr="//group[@name='connexion']" position="after">
                 <group col="4">
+                    <field name="table_sort" invisible="not db_table_ids" />
                     <separator string="Tables" />
-                    <field name="db_table_ids" nolabel="1" readonly="1" />
+                    <field name="db_table_ids" nolabel="1" editable="bottom">
+                        <list default_order="alias DESC" />
+                    </field>
                 </group>
             </xpath>
         </field>

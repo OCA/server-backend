@@ -1,20 +1,19 @@
 from pathlib import Path
 
 from odoo import fields, models
+from odoo.exceptions import ValidationError
 from odoo.modules.module import get_module_path
 from odoo.tools.safe_eval import safe_eval
 
+from odoo.addons.polars_process import slug_me
+
 MODULE = __name__[12 : __name__.index(".", 13)]
 
-HELP = """Supported files: .xlsx and .sql
-Sql files may contains a comment on first line
-to be mapped automatically with model_map, i.e:\n
--- {'model_id': 'product.product', 'db_conf_id': mydb}
--- {'code': 'my_delivery_address', 'db_conf_id': mydb}
-"""
+HELP = """Supported: .xlsx  files and .sql
+Sql files may contains a comment on first line captured by File Parameters field
+to be mapped automatically with related objects, i.e:\n
+{'map_model': 'my_delivery_address', 'db_conf': mydb, 'where': [{''}]}
 
-PARAMS = """{'model': False, 'code': False, 'db_conf': False}
-# 'model/code' to guess model.map', db_conf' name to guess db.config
 """
 
 
@@ -22,16 +21,12 @@ class DfSource(models.Model):
     _inherit = "df.source"
 
     name = fields.Char(help=HELP)
-    query = fields.Char()
-    params = fields.Char(
-        string="File Parameters",
-        default=PARAMS,
-        readonly=True,
-        help="Coming from sql files",
-    )
+    query = fields.Text(string="Base query", related="query_id.query")
+    where = fields.Char(help="Sql where condition")
     db_conf_id = fields.Many2one(
         comodel_name="db.config", help="Database Configuration"
     )
+    query_id = fields.Many2one(comodel_name="df.query", help="Dataframe Query")
 
     def _reset_process(self):
         res = super()._reset_process()
@@ -40,77 +35,75 @@ class DfSource(models.Model):
             mapp._remove_uidstring_related_records()
         return res
 
-    # def tmp(self, file, vals=None):
-    #     def guess_model_and_db():
-    #         domain=[]
-    #         if meta.get("model"):
-    #             domain.append(("model_id.name", '=', meta.get("model")))
-    #         if meta.get("code"):
-    #             domain.append(("code", '=', meta.get("code")))
-    #         if domain:
-    #             res = self.env["model.map"].search(domain)
-    #             vals["model_map_id"] = res and res[0].id
-    #         vals["db_conf_id"] = db_confs.get(meta.get("db_conf"))
-    #     guess_model_and_db()
-
-    def _file_hook(self, file):
+    def _file_hook(self, initial_vals, file, db_confs, model_map):
         "Map sql file with the right Odoo model via model_map and the right db.config"
-        vals = super()._file_hook(file)
-        if ".sql" in file:
-            # TODO: improve
-            db_confs = {x.name: x.id for x in self.env['db.config'].search([])}
+        vals = super()._file_hook(initial_vals, file, db_confs, model_map)
+        if ".sql" in file and model_map:
             content = self._get_file(file).decode("utf-8")
             contents = content.split("\n")
+            meta, sql = [], []
             if contents:
-                # we only detect first line
-                meta = safe_eval(contents[0].replace("--", ""))
-                if meta:
-                    vals['params'] = meta
-                model_name = meta.get("model")
-                model = self.env["ir.model"].search([("model", "=", model_name)])
-                if model_name:
-                    # we don't want to use these model_maps
-                    model_maps = (
-                        self.env["df.source"]
-                        .search([])
-                        .filtered(lambda s: not s.db_conf_id)
-                        .mapped("model_map_id")
-                    )
-                    model_map = self.env["model.map"].search(
-                        [
-                            ("id", "not in", model_maps.ids),
-                            ("model_id", "=", model_name),
-                        ]
-                    )
-                    if model_map:
-                        # TODO use first
-                        vals["model_map_id"] = model_map[0].id
-                        db_config = self.env["db.config"].search(
-                            [("name", "ilike", meta.get("db_conf_id"))]
-                        )
-                        vals["db_conf_id"] = db_config and db_config[0].id or False
+                meta_end = False
+                for content in contents:
+                    if content[:2] == "--" and not meta_end:
+                        # collect first lines prefixed by '--'
+                        meta.append(content.replace("--", ""))
                     else:
-                        df = self.env["model.map"].create(
-                            {"code": model.name, "model_id": model and model[0].id}
+                        # collect other lines
+                        meta_end = True
+                        sql.append(content)
+                if meta and sql:
+                    meta = safe_eval(" ".join(meta))
+                    # {'map_code': chinook customers', 'db_conf': Chinook}
+                    keys = ("model_code", "db_conf", "name")
+                    if [x for x in keys if x not in meta]:
+                        raise ValidationError(
+                            f"At least one of these keys {keys} is not in params"
                         )
-                        vals["model_map_id"] = df.id
-            vals["query"] = content
+                    model_map_id = (model_map.get(meta["model_code"]),)
+                    qvals = {
+                        "db_conf_id": db_confs.get(meta["db_conf"]),
+                        "params": meta,
+                        "query": "\n".join(sql),
+                        "name": meta["name"],
+                    }
+                    xml_id = slug_me(meta["name"])
+                    self._upsert_record("df.query", xml_id, qvals, module="df_query")
+                    query = self.env.ref(f"df_query.{xml_id}")
+                    src = 0
+                    for source in meta.get("where"):
+                        xml_id = slug_me(initial_vals["name"])
+                        if src > 0:
+                            xml_id = f"{xml_id}_{src}"
+                        svals = {
+                            "where": source,
+                            "model_map_id": model_map_id,
+                            "query_id": query.id,
+                            "name": initial_vals["name"],
+                        }
+                        src += 1
+                        self._upsert_record(
+                            "df.source", xml_id, svals, module="df_source"
+                        )
         return vals
+
+    def _get_db_confs(self):
+        return {x.name: x.id for x in self.env["db.config"].search([])}
 
     def _populate(self):
         chinook = self.env.ref(f"{MODULE}.sqlite_chinook")
         if chinook:
+            # TODO fix
             # Demo behavior only
             path = Path(get_module_path(MODULE)) / "data/chinook.sqlite"
             chinook.string_connexion = f"sqlite://{str(path)}"
         return super()._populate()
 
-    def _get_test_file_paths(self):
-        res = super()._get_test_file_paths()
+    def _get_modules_w_df_files(self):
+        res = super()._get_modules_w_df_files()
         res.update(
             {
                 "polars_db_process": {
-                    "relative_path": "data/files",
                     "xmlid": "polars_db_process.contact_chinook",
                 }
             }

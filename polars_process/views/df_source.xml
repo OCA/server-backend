@@ -35,12 +35,6 @@
                     type="object"
                     title="Start process"
                 />
-                <field
-                    name="template"
-                    filename="name"
-                    widget="binary"
-                    options="{'accepted_file_extensions': '.xlsx'}"
-                />
                 <field name="name" />
                 <field name="state" />
                 <button
@@ -50,12 +44,17 @@
                     invisible="state!='done'"
                     title="Not yet implemented in this module"
                 />
-                <!-- <field name="id" optional="hide" /> -->
+                <field
+                    name="template"
+                    filename="name"
+                    widget="binary"
+                    options="{'accepted_file_extensions': '.xlsx'}"
+                />
                 <field name="rename" optional="hide" />
             </list>
         </field>
     </record>
- 
+
     <record id="df_source_search" model="ir.ui.view">
         <field name="model">df.source</field>
         <field name="arch" type="xml">

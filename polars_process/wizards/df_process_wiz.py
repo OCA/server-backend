@@ -3,7 +3,9 @@ import base64
 import polars as pl
 from lxml import etree, html
 
-from odoo import fields, models
+from odoo import exceptions, fields, models
+
+from .. import slug_me
 
 MODULE = __name__[12 : __name__.index(".", 13)]
 
@@ -48,8 +50,8 @@ class DfProcessWiz(models.TransientModel):
         self._pre_process_file_hook(df, attribs)
         comment = "\n".join(
             [
-                f'<div id="{self._slug_me(key)}"><div>{key}:</div>'
-                f'<div id="{self._slug_me(key)}-data">{self._2html(data)}</div></div>'
+                f'<div id="{slug_me(key)}"><div>{key}:</div>'
+                f'<div id="{slug_me(key)}-data">{self._2html(data)}</div></div>'
                 for key, data in attribs.items()
             ]
         )
@@ -64,9 +66,13 @@ class DfProcessWiz(models.TransientModel):
         self.ensure_one()
 
     def _get_dataframe(self):
-        return pl.read_excel(source=base64.b64decode(self.file)).with_row_index(
-            name="N°", offset=1
-        )
+        source = base64.b64decode(self.file)
+        try:
+            res = pl.read_excel(source=source)
+        except Exception as err:
+            error = err
+            raise exceptions.ValidationError(error) from err
+        return res.with_row_index(name="N°", offset=1)
 
     def _check_missing_values(self, df, requireds):
         dico = {}
@@ -113,7 +119,3 @@ class DfProcessWiz(models.TransientModel):
         action = self.env.ref(f"{MODULE}.df_process_wiz_action")._get_action_dict()
         action["res_id"] = self.id
         return action
-
-    def _slug_me(self, string):
-        string = string.replace("'", "").replace(" ", "-").lower()
-        return string

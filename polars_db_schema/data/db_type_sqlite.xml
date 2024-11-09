@@ -1,0 +1,26 @@
+<odoo>
+    <record id="sqlite_db_type" model="db.type">
+        <field name="name">Sqlite</field>
+        <field name="code">sqlite</field>
+        <field name="excluded_types">BLOB</field>
+        <field
+            name="foreign_key_query"
+        >-- This query comes from https://dataedo.com/kb/query/sql-server/list-of-foreign-keys-with-columns
+SELECT
+    m.name,
+    p.*
+FROM
+    sqlite_master m
+    JOIN pragma_foreign_key_list(m.name) p ON m.name != p."table"
+WHERE m.type = 'table'
+ORDER BY m.name
+;        </field>
+
+        <field name="row_count_query">
+-- This query order tables by rows count
+
+SELECT tbl AS name, stat FROM sqlite_stat1
+WHERE 1=1 ;
+        </field>
+    </record>
+</odoo>

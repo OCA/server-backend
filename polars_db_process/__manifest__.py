@@ -23,8 +23,9 @@
         "security/ir.model.access.xml",
         "wizards/df_process_wiz.xml",
         "views/model_map.xml",
-        "views/df_field.xml",
+        "views/field_map.xml",
         "views/df_source.xml",
+        "views/df_query.xml",
         "views/db_config.xml",
         "data/action.xml",
         "data/demo.xml",  # TODO remove

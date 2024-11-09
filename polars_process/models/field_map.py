@@ -1,10 +1,9 @@
 from odoo import fields, models
 
 
-class FileField(models.Model):
-    _name = "df.field"
-    _inherit = ["mail.thread"]
-    _description = "Configuration de l'import de champ"
+class FieldMap(models.Model):
+    _name = "field.map"
+    _description = "Field mapping"
     _order = "field_id ASC"
     _rec_name = "field_id"
     _rec_names_search = ["field_id"]

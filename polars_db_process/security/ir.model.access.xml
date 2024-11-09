@@ -8,4 +8,13 @@
         <field name="perm_write" eval="1" />
         <field name="perm_unlink" eval="1" />
     </record>
+    <record id="df_query_all" model="ir.model.access">
+        <field name="name">Dataframe Query</field>
+        <field name="model_id" ref="model_df_query" />
+        <field name="group_id" ref="base.group_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
 </odoo>

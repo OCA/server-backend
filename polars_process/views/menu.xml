@@ -1,5 +1,10 @@
 <odoo>
-    <menuitem id="polars_menu" name="🐻‍❄️ Polars" parent="contacts.menu_contacts" sequence="3" />
+    <menuitem
+        id="polars_menu"
+        name="🐻‍❄️ Polars"
+        parent="contacts.menu_contacts"
+        sequence="3"
+    />
     <menuitem
         id="model_map_menu"
         action="action_model_map"

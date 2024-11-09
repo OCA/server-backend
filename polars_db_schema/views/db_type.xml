@@ -15,8 +15,22 @@
                         </group>
                     </group>
                     <group>
-                        <field name="row_count_query" widget="code" />
-                        <separator />
+                        <group name="row_count" string="Order tables by row count">
+                            <field
+                                name="row_count_query"
+                                widget="code"
+                                nolabel="1"
+                                readonly="row_count_query"
+                            />
+                        </group>
+                        <group name="foreign_key" string="Table foreign keys">
+                            <field
+                                name="foreign_key_query"
+                                widget="code"
+                                nolabel="1"
+                                readonly="foreign_key_query"
+                            />
+                        </group>
                     </group>
                 </sheet>
             </form>

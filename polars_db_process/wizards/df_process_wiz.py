@@ -33,26 +33,53 @@ class DfProcessWiz(models.TransientModel):
         model = self.model_map_id.model_id.model
         vals_list = df.to_dicts()
         mapper = {}
-        rebellious = {}
+        touchy = {}
+        if model == "product.product":
+            categs = {
+                x.name: x.res_id
+                for x in self._get_ir_model_data("product.category", "cat-")
+            }
+        if model == "res.partner" and "livr.sql" in self.df_source_id.name:
+            parents = {
+                x.name: x.res_id
+                for x in self._get_ir_model_data("res.partner", "societe")
+            }
+        cpt = 0
         for vals in vals_list:
-            for key in self.env["model.map"]._get_touchy_fields_to_import().get(model):
-                if key in vals:
-                    rebellious[key] = vals.pop(key)
+            # if cpt == 200:
+            #     self.env.cr.commit()
+            #     logger.info("200 created")
+            #     cpt = 0
+            touchy_model = (
+                self.env["model.map"]._get_touchy_fields_to_import().get(model)
+            )
+            if touchy_model:
+                for key in (
+                    self.env["model.map"]._get_touchy_fields_to_import().get(model)
+                ):
+                    if key in vals:
+                        touchy[key] = vals.pop(key)
             uidstring = vals.pop("id")
             nvals = {
                 x: val for x, val in vals.items() if x in self.env[model]._fields.keys()
             }
+            if "categ_id" in nvals:
+                nvals["categ_id"] = categs.get(nvals["categ_id"]) or 1
             if "parent_id" in nvals:
                 # here for product.category
                 # TODO move this specific behavior elsewhere
-                nvals["parent_id"] = mapper.get(nvals["parent_id"])
+                if model == "res.partner":
+                    nvals["parent_id"] = parents.get(nvals["parent_id"])
+                if model == "product.category":
+                    nvals["parent_id"] = mapper.get(nvals["parent_id"])
             rec = self.env[model].create(nvals)
-            mapper[uidstring] = rec.id
-            logger.info(f"  >>> {vals}")
-            self._set_uidstring(uidstring, rec, model)
-            self._process_touchy_fields(rec, rebellious)
+            if model == "product.category":
+                mapper[uidstring] = rec.id
+            self._set_unique_idstring(uidstring, rec, model)
+            self._process_touchy_fields(rec, touchy)
+            cpt += 1
 
-    def _set_uidstring(self, uidstring, record, model):
+    def _set_unique_idstring(self, uidstring, record, model):
         """Create Unique Id String also know as XmlId in the Odoo world,
         even if not really xml ;-)"""
         self.env["ir.model.data"].create(
@@ -65,16 +92,26 @@ class DfProcessWiz(models.TransientModel):
             }
         )
 
-    def _process_touchy_fields(self, record, rebellious):
+    def _get_ir_model_data(self, model, string, module=None):
+        module = module or self.env["db.config"]._set_uidstring_module_name()
+        return self.env["ir.model.data"].search(
+            [
+                ("module", "=", module),
+                ("model", "=", model),
+                ("name", "ilike", f"%{string}%"),
+            ]
+        )
+
+    def _process_touchy_fields(self, record, touchy):
         """Override Suggestion:
-        self._touchy_fields_fallback(record, rebellious)
+        self._touchy_fields_fallback(record, touchy)
         or any other alternative
         """
 
-    def _touchy_fields_fallback(self, record, rebellious):
-        for key in rebellious:
+    def _touchy_fields_fallback(self, record, touchy):
+        for key in touchy:
             try:
-                record[key] = rebellious[key]
+                record[key] = touchy[key]
             except Exception:
-                logger.warning(f"\n\n\n\n\nPb here {rebellious[key]}")
+                logger.warning(f"\n\n\n\n\nCarefull here {touchy[key]}")
                 continue

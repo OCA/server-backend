@@ -6,14 +6,9 @@
             <xpath expr="//group[1]" position="after">
                 <separator />
                 <group>
-                    <field name="db_conf_id" invisible="template" />
-                    <field
-                        name="params"
-                        widget="code"
-                        invisible="template or not query"
-                        options="{'mode': 'python'}"
-                    />
-                    <field name="query" widget="code" invisible="template" />
+                    <field name="query_id" invisible="template" />
+                    <field name="query" widget="code" />
+                    <field name="where" invisible="not query" />
                 </group>
             </xpath>
         </field>
@@ -24,7 +19,9 @@
         <field name="inherit_id" ref="polars_process.df_source_list" />
         <field name="arch" type="xml">
             <xpath expr="//list/field[@name='name']" position="after">
-                <field name="db_conf_id" />
+                <field name="where" optional="show" />
+                <field name="query_id" optional="show" />
+                <field name="query" optional="hide" />
             </xpath>
             <xpath expr="//list/button[@name='reset_process']" position="attributes">
                 <attribute
@@ -36,9 +33,9 @@
                     name="options"
                 >{'accepted_file_extensions': '.xlsx,.sql'}</attribute>
             </xpath>
-            <xpath expr="//list/button[@name='start']" position="attributes">
-                <attribute name="invisible">query and not db_conf_id</attribute>
-            </xpath>
+            <!--             <xpath expr="//list/button[@name='start']" position="attributes">
+                <attribute name="invisible">query</attribute>
+            </xpath> -->
         </field>
     </record>
 
@@ -47,14 +44,14 @@
         <field name="inherit_id" ref="polars_process.df_source_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="db_conf_id" />
+                <field name="query_id" />
             </xpath>
             <xpath expr="//group" position="inside">
                 <filter
                     string="Database"
                     name="db_conf_id"
                     domain="[]"
-                    context="{'group_by': 'db_conf_id'}"
+                    context="{'group_by': 'query_id'}"
                 />
             </xpath>
         </field>

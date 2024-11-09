@@ -15,18 +15,67 @@
                     filename="filename"
                     options="{'accepted_file_extensions': '.xlsx'}"
                 />
-                <field name="filename" invisible="1" />
                 <field name="row_count" />
                 <field name="name" />
-                <field name="sql" />
-                <field name="uniques" />
+                <field name="alias" />
+                <field name="odoo_model" />
+                <field name="display" />
+                <field name="foreign_keys" />
+                <field name="sql" optional="hide" />
+                <field name="unique" optional="hide" />
                 <button
                     name="get_metadata_info"
                     type="object"
                     class="fa fa-solid fa-file"
                     title="Get informations on columns"
                 />
+                <field name="filename" optional="hide" />
+                <field name="db_config_id" optional="hide" />
             </list>
         </field>
+    </record>
+
+    <record id="db_table_search" model="ir.ui.view">
+        <field name="model">db.table</field>
+        <field name="arch" type="xml">
+            <search string="String">
+                <field
+                    name="name"
+                    string="Table"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <field
+                    name="foreign_keys"
+                    string="Foreign"
+                    filter_domain="[('foreign_keys', 'ilike', self)]"
+                />
+                <field
+                    name="odoo_model"
+                    string="Odoo model"
+                    filter_domain="[('odoo_model', 'ilike', self)]"
+                />
+                <filter
+                    name="majors"
+                    string="Count > 99"
+                    domain="[('row_count', '>', 99)]"
+                />
+                <separator />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Db Conf"
+                        name="db_config_id"
+                        domain="[]"
+                        context="{'group_by': 'db_config_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="db_table_action" model="ir.actions.act_window">
+        <field name="name">Database Tables</field>
+        <field name="res_model">db.table</field>
+        <field name="view_mode">list,form</field>
+        <field name="path">db-table</field>
     </record>
 </odoo>

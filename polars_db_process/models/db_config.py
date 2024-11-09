@@ -1,7 +1,11 @@
+from pathlib import Path
+
 import connectorx as cx
 
 from odoo import _, exceptions, fields, models
+from odoo.modules.module import get_module_path
 
+MODULE = __name__[12 : __name__.index(".", 13)]
 HELP = """
 String connexion samples:
 
@@ -28,14 +32,33 @@ class DbConfig(models.Model):
         return self.string_connexion.replace("PASSWORD", self.password or "")
 
     def test_connexion(self):
-        res = self._read_sql("SELECT 1")
-        if len(res):
-            # Not invalid in reality
-            raise exceptions.ValidationError(_("Connexion OK !"))
-
-    def _read_sql(self, query):
         try:
-            return cx.read_sql(self._get_connexion(), query, return_type="polars")
+            query = "SELECT 1"
+            if "sqlite" in self.string_connexion:
+                query = "SELECT tbl FROM sqlite_stat1"
+            self._read_sql(query)
+            message = _("Connexion OK !")
+            kind = "success"
+            emoji = ":-)"
+        except Exception as error:
+            emoji = ":-("
+            kind = "warning"
+            message = f"Something bad with connexion:\n\n'{error}'"
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": f"Test connexion {emoji}",
+                "type": kind,  # warning/success
+                "message": message,
+                "sticky": True,  # True/False will display for few seconds if false
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
+
+    def _read_sql(self, query, return_type="polars"):
+        try:
+            return cx.read_sql(self._get_connexion(), query, return_type=return_type)
         except RuntimeError as err:
             raise exceptions.ValidationError(err) from err
         except TimeoutError as err:
@@ -45,3 +68,11 @@ class DbConfig(models.Model):
 
     def _set_uidstring_module_name(self):
         return "polars"
+
+    def _update_sqlite_demo_file_path(self):
+        "Only relative path is known in xml data, we need to recompute when inserted"
+        chinook = self.env.ref(f"{MODULE}.sqlite_chinook")
+        if chinook:
+            chinook.string_connexion = (
+                f"sqlite://{Path(get_module_path(MODULE)) / 'data/chinook.sqlite'}"
+            )

@@ -6,36 +6,36 @@
         <field name="rename" eval="1" />
     </record>
 
-    <record id="model_map_contact_country" model="df.field">
+    <record id="field_map_contact_country" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__country_code" />
         <field name="name">Country</field>
     </record>
-    <record id="model_map_contact_name" model="df.field">
+    <record id="field_map_contact_name" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__name" />
         <field name="name">Name</field>
         <field name="required" eval="1" />
     </record>
-    <record id="model_map_contact_street" model="df.field">
+    <record id="field_map_contact_street" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__street" />
         <field name="name">Street</field>
         <field name="required" eval="1" />
     </record>
-    <record id="model_map_contact_street2" model="df.field">
+    <record id="field_map_contact_street2" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__street2" />
         <field name="name">2nd Street</field>
         <field name="renamed">street2</field>
     </record>
-    <record id="model_map_contact_date" model="df.field">
+    <record id="field_map_contact_date" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__write_date" />
         <field name="name">Date</field>
         <field name="check_type" eval="1" />
     </record>
-    <record id="model_map_contact_color" model="df.field">
+    <record id="field_map_contact_color" model="field.map">
         <field name="model_map_id" ref="model_map_contact" />
         <field name="field_id" ref="base.field_res_partner__color" />
         <field name="name">Colour</field>

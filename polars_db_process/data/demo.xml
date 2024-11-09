@@ -1,13 +1,15 @@
-<odoo noupdate="1">
+<odoo noupdate="0">
     <record id="sqlite_chinook" model="db.config">
         <field name="name">Chinook</field>
-        <field
-            name="string_connexion"
-        >sqlite://.../polars_db_schema/tests/files/chinook.sqlite</field>
+        <field name="string_connexion">sqlite://chinook.sqlite</field>
     </record>
 
     <record id="contact_chinook" model="model.map">
         <field name="model_id" ref="base.model_res_partner" />
-        <field name="code">Chinook Customers</field>
+        <field name="code">chinook customers</field>
     </record>
+
+    <function model="db.config" name="_update_sqlite_demo_file_path">
+        <value eval="[ref('sqlite_chinook')]" />
+    </function>
 </odoo>

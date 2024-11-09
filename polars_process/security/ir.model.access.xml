@@ -9,9 +9,9 @@
         <field name="perm_unlink" eval="1" />
     </record>
 
-    <record id="df_field_all" model="ir.model.access">
+    <record id="field_map_all" model="ir.model.access">
         <field name="name">Df Field</field>
-        <field name="model_id" ref="model_df_field" />
+        <field name="model_id" ref="model_field_map" />
         <field name="group_id" ref="base.group_user" />
         <field name="perm_read" eval="1" />
         <field name="perm_create" eval="1" />

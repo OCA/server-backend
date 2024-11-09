@@ -15,7 +15,9 @@ class ModelMap(models.Model):
         ondelete="cascade",
         tracking=True,
     )
-    code = fields.Char(help="Allow to browse between several identical models")
+    code = fields.Char(
+        required=True, help="Allow to browse between several identical models"
+    )
     rename = fields.Boolean(help="Rename Dataframe fields")
     action = fields.Selection(
         selection=[
@@ -36,5 +38,5 @@ class ModelMap(models.Model):
         " - Skip record: current line'll be ignored from the next process",
     )
     field_ids = fields.One2many(
-        comodel_name="df.field", inverse_name="model_map_id", copy=True
+        comodel_name="field.map", inverse_name="model_map_id", copy=True
     )

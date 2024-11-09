@@ -1,6 +1,6 @@
 <odoo>
-    <record id="df_field_list" model="ir.ui.view">
-        <field name="model">df.field</field>
+    <record id="field_map_list" model="ir.ui.view">
+        <field name="model">field.map</field>
         <field name="arch" type="xml">
             <list editable="top">
                 <field name="sequence" widget="handle" />
@@ -18,10 +18,10 @@
         </field>
     </record>
 
-    <record id="action_df_field" model="ir.actions.act_window">
-        <field name="name">Df Field</field>
-        <field name="res_model">df.field</field>
+    <record id="action_field_map" model="ir.actions.act_window">
+        <field name="name">Field map</field>
+        <field name="res_model">field.map</field>
         <field name="view_mode">list</field>
-        <field name="path">df-field</field>
+        <field name="path">field-map</field>
     </record>
 </odoo>
