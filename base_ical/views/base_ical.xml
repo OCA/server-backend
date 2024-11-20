@@ -105,9 +105,11 @@
                             string="Advanced Configuration"
                             attrs="{'invisible': [('mode', '!=', 'advanced')]}"
                         >
+                            <field name="remove_repetition_rule" />
                             <field
                                 name="code"
                                 nolabel="1"
+                                colspan="2"
                                 widget="ace"
                                 options="{'mode': 'python'}"
                             />

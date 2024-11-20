@@ -39,6 +39,10 @@ class BaseIcal(models.Model):
     )
     preview = fields.Text(compute="_compute_preview")
     code = fields.Text()
+    remove_repetition_rule = fields.Boolean(
+        help="Automatically remove the repetition rules. Useful if the repetition "
+        "already created multiple records"
+    )
     expression_dtstamp = fields.Char(
         vevent_field="dtstamp",
         string="DTSTAMP",
@@ -89,6 +93,7 @@ class BaseIcal(models.Model):
         "expression_summary",
         "code",
         "mode",
+        "remove_repetition_rule",
     )
     def _compute_preview(self):
         for this in self:
@@ -194,6 +199,9 @@ class BaseIcal(models.Model):
 
     def _get_ical(self, records=None, limit=None):
         """Return the vcalendar as text"""
+        if not self.model_id:
+            return ""
+
         if self.mode == "simple":
             return self._get_ical_simple(records=records, limit=limit)
 
@@ -239,6 +247,8 @@ class BaseIcal(models.Model):
             }
         )
 
+        to_remove = ["rrule"] if self.remove_repetition_rule else []
+
         calendar = vobject.iCalendar()
         tz = pytz.timezone(self.env.user.tz or "UTC")
         calendar.add(vobject.icalendar.TimezoneComponent(tz))
@@ -260,7 +270,7 @@ class BaseIcal(models.Model):
                 if isinstance(cal, str):
                     cal = vobject.readOne(cal)
 
-                self._copy_ical_calendar(calendar, cal)
+                self._copy_ical_calendar(calendar, cal, to_remove=to_remove)
 
             event, todo = map(context.get, ("event", "todo"))
             if event:
@@ -275,9 +285,16 @@ class BaseIcal(models.Model):
         for key, value in data.items():
             component.add(key).value = self._format_ical_value(value)
 
-    def _copy_ical_calendar(self, dst_calendar, src_calendar):
+    def _copy_ical_calendar(self, dst_calendar, src_calendar, *, to_remove=None):
+        """Copy all events and todos from an calendar. Optionally remove children
+        of the items (like rrule)"""
         for item in src_calendar.getChildren():
             if item.name.lower() in ("vevent", "vtodo"):
+                if to_remove:
+                    for attr in list(item.getChildren()):
+                        if attr.name.lower() in to_remove:
+                            item.remove(attr)
+
                 dst_calendar.add(item)
 
     def _format_ical_value(self, value, field=None):

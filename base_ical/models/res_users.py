@@ -22,5 +22,5 @@ class ResUsers(models.Model):
     def create(self, vals_list):
         result = super().create(vals_list)
         calendars = self.env["base.ical"].search([("auto", "=", True)])
-        calendars.sudo().write({"allowed_users_ids": [(4, result.id)]})
+        calendars.sudo().write({"allowed_users_ids": [(4, r.id) for r in result]})
         return result
