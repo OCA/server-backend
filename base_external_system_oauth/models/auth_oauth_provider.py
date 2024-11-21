@@ -5,6 +5,7 @@
 import logging
 
 import requests
+from requests.auth import HTTPBasicAuth
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
@@ -22,6 +23,7 @@ class AuthOAuthProvider(models.Model):
     provider_type = fields.Selection(
         selection=[
             ("demo", "DEMO Just for testing purposes"),
+            ("basic", "Use client_id and client_secret for basic Authentication"),
             ("microsoft_client_secret", "Microsoft Client Secret Authentication"),
         ],
         default="demo",
@@ -43,6 +45,18 @@ class AuthOAuthProvider(models.Model):
         if self.client_id == "api_example_com" and self.client_secret == "the-secret":
             return "you_are_in"
         raise UserError(_("Wrong client_id or client_secret"))
+
+    def _get_access_token_basic(self):
+        """Get access token using basic authentication."""
+        login_params = {
+            "grant_type": "client_credentials",
+        }
+        basic = HTTPBasicAuth(self.client_id, self.client_secret)
+        response = requests.post(
+            url=self.auth_endpoint, params=login_params, auth=basic, timeout=16
+        )
+        self._check_response(response)
+        return response.json()["access_token"]
 
     def _get_access_token_microsoft_client_secret(self):
         """Get access token from Microsoft."""
