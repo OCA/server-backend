@@ -27,7 +27,6 @@ msgstr ""
 #. module: base_user_role
 #. odoo-python
 #: code:addons/base_user_role/models/role.py:0
-#, python-format
 msgid "%s (copy)"
 msgstr ""
 
@@ -39,6 +38,11 @@ msgstr ""
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
+msgid "API Keys maximum duration days"
 msgstr ""
 
 #. module: base_user_role
@@ -149,6 +153,13 @@ msgstr "สร้างโดย"
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
 msgstr "สร้างเมื่อ"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
+msgid ""
+"Determines the maximum duration of an api key created by a user belonging to "
+"this group."
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
