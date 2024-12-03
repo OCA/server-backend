@@ -57,6 +57,12 @@ class BaseExternalModelImporter:
         fds_records = BaseExternalModel(self.env.cr, rows, cols)
         return fds_records
 
+    def _get_external_records_from_file(self):
+        """Return the same structure of db query but from a file.
+        To be implemented by other modules
+        """
+        return {}
+
     def load_data(
         self,
         model_name,
@@ -65,10 +71,16 @@ class BaseExternalModelImporter:
         where="",
         odoo_key="",
         load_all_odoo_records=False,
+        origin=False,
     ):
         odoo_key = odoo_key or self._external_key
         Model = self.env[model_name]
-        fds_records = self._get_external_records(table_name, fields=fields, where=where)
+        if not origin:
+            fds_records = self._get_external_records(
+                table_name, fields=fields, where=where
+            )
+        else:
+            fds_records = self._get_external_records_from_file()
         domain = []
         if not load_all_odoo_records:
             domain = [(odoo_key, "!=", False)]
