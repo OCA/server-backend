@@ -10,9 +10,10 @@ ADAPTER = (
 
 
 class TestBaseExternalDbsource(common.TransactionCase):
-    def setUp(self):
-        super(TestBaseExternalDbsource, self).setUp()
-        self.dbsource = self.env.ref(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.dbsource = cls.env.ref(
             "base_external_dbsource_firebird.demo_firebird",
         )
 
