@@ -12,6 +12,7 @@
         "base",
         "base_install_request",  # weird module, we need to survive with it
         "mail",
+        "calendar",
     ],
     "maintainers": ["FranzPoize", "bealdav"],
     "demo": [
