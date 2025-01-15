@@ -27,9 +27,9 @@ class Users(models.Model):
                 "base_group_backend.base_group_backend"
             ) or super().has_group("base_group_backend.group_backend_ui_users")
             if has_base_group_backend:
-                _logger.warning(
+                _logger.debug(
                     "Forcing has_group to return True"
-                    + " for group_backend and base_group_backend_ui_users"
+                    + " for base_group_backend and base_group_backend_ui_users"
                 )
             return has_base_group_backend
         return res

@@ -41,4 +41,14 @@
         action="action_dummy_list"
     />
 
+    <menuitem id="menu_root_no_group" name="No Group" sequence="100" />
+    <menuitem
+        id="menu_dummy_list_no_group"
+        name="Dummy list No group"
+        sequence="100"
+        groups="group_backend_ui_users,base.group_user"
+        parent="menu_root_no_group"
+        action="action_dummy_list"
+    />
+
 </odoo>
