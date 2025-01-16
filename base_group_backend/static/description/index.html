@@ -370,48 +370,45 @@ ul.auto-toc {
 !! source digest: sha256:879007f368a0b75ad5da7f5d3e3d1d6ae386da26d27df7fc4dec1a6865cf0233
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/16.0/base_group_backend"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_group_backend"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module was written to extend the standard functionality regarding users
-and groups management by adding a new <cite>Backend user</cite> group that only gives access
-to odoo backend (<cite>/web</cite>):</p>
+<p>This module adds two “Backend User” groups (<tt class="docutils literal">group_backend</tt> and <tt class="docutils literal">group_backend_ui_users</tt>) with restricted access to odoo backend only (<tt class="docutils literal">/web</tt>), with less and more controlled access than the native “Internal User” group.</p>
+<blockquote>
+The problem with the “Internal User” group (<tt class="docutils literal">base.group_user</tt>) is that it can be used by any new module added to your project, so you don’t control clearly this group’s accesses.</blockquote>
+<p>The UI access is provided only for <tt class="docutils literal">group_backend_ui_users</tt> :</p>
 <ul class="simple">
-<li>minimal default access:
-* users and partners (this is necessary to access your own data)
-* mail activity, notification and channel
-* presence</li>
-<li>minimal default menu
-* notification
-* activities</li>
-<li>minimal default access rules</li>
+<li><dl class="first docutils">
+<dt>minimal default access rules to access the user’s own data:</dt>
+<dd><ul class="first last">
+<li>users and partners</li>
+<li>mail activity, notification and channel</li>
+<li>presence</li>
 </ul>
-<p>The problem with the <cite>Internal user</cite> is when you want to gives access to the
-backend to a really thin part of your business to some users, it’s quite hard
-to properly maintain those roles over the project life, a lot of models use
-that group (<cite>base.group_user</cite>) by default which makes hard to maintains.</p>
-<p>So that helps creating well-defined user groups with more controls.</p>
-<p>This modules does 3 things:
-* It hijack the has_group method of res.users by returning True for group_backend users when the requested group is group_user (The need for this needs to be investigated)
-* It sets the res_users.share to False for group_backend users. This allows those users to access the backend.
-* It sets the bare minimum permission in the ir.model.access.csv to display the backend</p>
-<p>We suggest to use this module with its compagnon <cite>base_user_role</cite></p>
-<p>Here is an example where a backend ui user can only access and use the dummy app. No other application are available to this user. You may define your own application instead of the dummy one.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>minimal default menu to restrict the available ones:</dt>
+<dd><ul class="first last">
+<li>notification</li>
+<li>activities</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Here is an example where a user from <tt class="docutils literal">group_backend_ui_users</tt> can only access and use the Dummy App. No other application is available to this user (you may define your own application instead of the Dummy one).</p>
 <div class="figure">
 <img alt="Dummy app for demo" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/dummy_app.png" />
 </div>
+<p>We suggest to use this module with its companion <tt class="docutils literal">base_user_role</tt>.</p>
 <div class="section" id="limitations">
 <h1>Limitations</h1>
-<p>At the time of writing, Odoo uses <cite>res.users.share == False</cite> to give the
-backend access.
-However to be able to access the backend without any errors some basic rights are necessary.
-This module change the way <cite>res.users.share</cite> is computed to allow <cite>group_backend users</cite> to use the backend.</p>
-<p>This avoids to write a lot of overwrite in different controllers from
-different modules (‘portal’, ‘web’, ‘base’, ‘website’) with hard coded statements
-that check if user is part of the <cite>base.group_user</cite> or <cite>share == False</cite> group.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Using this module and grant a user with <cite>group_backend</cite>’s group is
-equivalent to grant <cite>group_user</cite>’s group everywhere <cite>has_group</cite>
-has been used.</p>
-</div>
+<p>At the time of writing, Odoo uses <tt class="docutils literal">user.share == False</tt> and <tt class="docutils literal"><span class="pre">user.has_group(&quot;base.group_user&quot;)</span> == True</tt> to give the backend access to <tt class="docutils literal">user</tt>.</p>
+<p>So technically, the module does 2 things :</p>
+<ul class="simple">
+<li>It sets the <tt class="docutils literal">share</tt> parameter to <tt class="docutils literal">False</tt> for <tt class="docutils literal">group_backend</tt> users.</li>
+<li>It hijacks the <tt class="docutils literal">has_group</tt> method of res.users by returning <tt class="docutils literal">True</tt> for <tt class="docutils literal">group_backend</tt> users when the requested group is <tt class="docutils literal">base.group_user</tt></li>
+</ul>
+<p>This avoids to write a lot of overwrite in different controllers from different modules (‘portal’, ‘web’, ‘base’, ‘website’) with hard coded statements that check if user is part of the <tt class="docutils literal">base.group_user</tt> or <tt class="docutils literal">share == False</tt> group.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">This is an alpha version, the data model and design can change at any time without warning.
@@ -423,43 +420,26 @@ Only for development or testing purpose, do not use in production.
 <ul class="simple">
 <li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
 <li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
-<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-3">Known issues / Roadmap</a></li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-4">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-5">Credits</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-3">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-4">Credits</a></li>
 </ul>
 </div>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#toc-entry-1">Configuration</a></h2>
-<p>To allow <cite>group_backend</cite> to interact with a model you can either add access rules to the group
-or you can add <cite>implied_ids</cite> to <cite>group_backend</cite>.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Be aware users can only belong to one group from the user type category
-(<cite>base.module_category_user_type</cite>). So your other groups can’t inherit both
-internal users and backend users.</p>
-</div>
+<p>To allow a user from the <tt class="docutils literal">group_backend_ui_users</tt> group to interact with a specific model you can either add an access rules to this model for <tt class="docutils literal">group_backend_ui_users</tt> or you can add <tt class="docutils literal">group_backend_ui_users</tt> to the <tt class="docutils literal">implied_ids</tt> of a new specific group.</p>
+<p>The Backend groups are from the “User types” category (<tt class="docutils literal">base.module_category_user_type</tt>), the same category as “Internal User” (<tt class="docutils literal">base.group_user</tt>), “Portal” (<tt class="docutils literal">base.group_portal</tt>) or Public (<tt class="docutils literal">base.group_public</tt>). Be aware that a user can only belongs to <strong>one group of this category</strong>.</p>
 </div>
 <div class="section" id="usage">
 <h2><a class="toc-backref" href="#toc-entry-2">Usage</a></h2>
-<p>To use this module, you need to:</p>
-<ol class="arabic simple">
-<li>Go to Configuration / Users / Users, choose a user and set the user type.</li>
-</ol>
-<p>You get a users that is only able to access to the Odoo backend which you
-can attach other groups that not implies other kind of users (<cite>portal</cite>,
-<cite>internal users</cite>)</p>
+<p>To use this module, add a user to the group “Backend user” or “Backend UI user” through the user’s form page.</p>
 <div class="figure">
 <img alt="Backend UI user" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/backend_ui.png" />
 </div>
-</div>
-<div class="section" id="known-issues-roadmap">
-<h2><a class="toc-backref" href="#toc-entry-3">Known issues / Roadmap</a></h2>
-<p>Current module depends on <cite>base_install_request</cite> instead of <cite>base</cite>.</p>
-<p>We don’t need <cite>base_install_request</cite> auto install module but we must override it to set a security group on <cite>App</cite> menu.</p>
-<p>This dependency should be remove if possible in future versions.</p>
+<p>If you created a specific group with <tt class="docutils literal">group_backend</tt> or <tt class="docutils literal">group_backend_ui_users</tt> in its <tt class="docutils literal">implied_ids</tt>, you need to go through the group’s form page in order to add the user to this specific group, because it won’t be displayed on the user’s form page (a specific group with its own category is displayed on user’s form page only if the group inherits the “Internal user” group).</p>
+<p>This module also <strong>restricts the root menus</strong> displayed to Backend users, so be sure to explicitly add your Backend group to all the necessary root menus for these users.</p>
 </div>
 <div class="section" id="bug-tracker">
-<h2><a class="toc-backref" href="#toc-entry-4">Bug Tracker</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h2>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/server-backend/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -467,7 +447,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h2><a class="toc-backref" href="#toc-entry-5">Credits</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">Credits</a></h2>
 </div>
 </div>
 <div class="section" id="authors">

@@ -1,8 +1,3 @@
-To allow `group_backend` to interact with a model you can either add access rules to the group
-or you can add `implied_ids` to `group_backend`.
+To allow a user from the ``group_backend_ui_users`` group to interact with a specific model you can either add an access rules to this model for ``group_backend_ui_users`` or you can add ``group_backend_ui_users`` to the ``implied_ids`` of a new specific group.
 
-.. note::
-
-   Be aware users can only belong to one group from the user type category
-   (`base.module_category_user_type`). So your other groups can't inherit both
-   internal users and backend users.
+The Backend groups are from the "User types" category (``base.module_category_user_type``), the same category as "Internal User" (``base.group_user``), "Portal" (``base.group_portal``) or Public (``base.group_public``). Be aware that a user can only belongs to **one group of this category**.

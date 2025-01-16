@@ -1,10 +1,8 @@
-To use this module, you need to:
-
-#. Go to Configuration / Users / Users, choose a user and set the user type.
-
-You get a users that is only able to access to the Odoo backend which you
-can attach other groups that not implies other kind of users (`portal`,
-`internal users`)
+To use this module, add a user to the group "Backend user" or "Backend UI user" through the user's form page.
 
 .. figure:: ../static/description/backend_ui.png
     :alt: Backend UI user
+
+If you created a specific group with ``group_backend`` or ``group_backend_ui_users`` in its ``implied_ids``, you need to go through the group's form page in order to add the user to this specific group, because it won't be displayed on the user's form page (a specific group with its own category is displayed on user's form page only if the group inherits the "Internal user" group).
+
+This module also **restricts the root menus** displayed to Backend users, so be sure to explicitly add your Backend group to all the necessary root menus for these users.
