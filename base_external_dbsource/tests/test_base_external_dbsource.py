@@ -42,7 +42,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
             args = []
         if kwargs is None:
             kwargs = {}
-        adapter = "%s_postgresql" % method_name
+        adapter = f"{method_name}_postgresql"
         with mock.patch.object(type(self.dbsource), adapter, create=create) as adapter:
             if side_effect is not None:
                 adapter.side_effect = side_effect
@@ -55,7 +55,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should add password if string interpolation not detected"""
         self.dbsource.conn_string = "User=Derp;"
         self.dbsource.password = "password"
-        expect = self.dbsource.conn_string + "PWD=%s;" % self.dbsource.password
+        expect = f"{self.dbsource.conn_string}PWD={self.dbsource.password};"
         self.assertEqual(self.dbsource.conn_string_full, expect)
 
         self.dbsource.conn_string = "User=Derp;"

@@ -83,7 +83,7 @@ class BaseExternalDbsource(models.Model):
                 if "%s" not in record.conn_string:
                     pwd_string = getattr(
                         record,
-                        "PWD_STRING_%s" % record.connector.upper(),
+                        f"PWD_STRING_{record.connector.upper()}",
                         record.PWD_STRING,
                     )
                     record.conn_string += pwd_string
