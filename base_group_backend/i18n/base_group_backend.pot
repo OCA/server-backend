@@ -95,6 +95,11 @@ msgid "Dummy list"
 msgstr ""
 
 #. module: base_group_backend
+#: model:ir.ui.menu,name:base_group_backend.menu_dummy_list_no_group
+msgid "Dummy list No group"
+msgstr ""
+
+#. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__id
 msgid "ID"
 msgstr ""
@@ -115,6 +120,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: base_group_backend
+#: model:ir.model,name:base_group_backend.model_ir_ui_menu
+msgid "Menu"
+msgstr ""
+
+#. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_other_value
 msgid "My Other Value"
 msgstr ""
@@ -122,6 +132,11 @@ msgstr ""
 #. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_value
 msgid "My Value"
+msgstr ""
+
+#. module: base_group_backend
+#: model:ir.ui.menu,name:base_group_backend.menu_root_no_group
+msgid "No Group"
 msgstr ""
 
 #. module: base_group_backend
