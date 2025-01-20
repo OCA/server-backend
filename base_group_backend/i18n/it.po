@@ -25,7 +25,8 @@ msgid ""
 "            While users in `base.group_user` gets a lot of default access\n"
 "            which makes hard to define properly records/rules/menu access.\n"
 "\n"
-"            So for maintainability you shouldn't linked any access right, rules,\n"
+"            So for maintainability you shouldn't linked any access right, "
+"rules,\n"
 "            menu, and so on to this group directly.\n"
 "\n"
 "            The only intent of this groups is to be able to get a session\n"
@@ -119,6 +120,11 @@ msgid "Dummy list"
 msgstr "Elenco principiante"
 
 #. module: base_group_backend
+#: model:ir.ui.menu,name:base_group_backend.menu_dummy_list_no_group
+msgid "Dummy list No group"
+msgstr ""
+
+#. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__id
 msgid "ID"
 msgstr "ID"
@@ -139,6 +145,11 @@ msgid "Last Updated on"
 msgstr "Ultimo aggiornamento il"
 
 #. module: base_group_backend
+#: model:ir.model,name:base_group_backend.model_ir_ui_menu
+msgid "Menu"
+msgstr ""
+
+#. module: base_group_backend
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_other_value
 msgid "My Other Value"
 msgstr "Altro valore mio"
@@ -147,6 +158,11 @@ msgstr "Altro valore mio"
 #: model:ir.model.fields,field_description:base_group_backend.field_backend_dummy_model__my_value
 msgid "My Value"
 msgstr "Mio valore"
+
+#. module: base_group_backend
+#: model:ir.ui.menu,name:base_group_backend.menu_root_no_group
+msgid "No Group"
+msgstr ""
 
 #. module: base_group_backend
 #: model:ir.model,name:base_group_backend.model_res_users
