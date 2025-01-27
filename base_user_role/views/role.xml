@@ -85,10 +85,11 @@
             </search>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_res_users_role_tree">
+    <record id="action_res_users_role_tree" model="ir.actions.act_window">
         <field name="name">Roles</field>
-        <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.users.role</field>
+        <field name="path">user-role</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_res_users_role_tree" />
     </record>
     <menuitem
