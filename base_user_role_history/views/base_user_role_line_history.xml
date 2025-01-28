@@ -30,14 +30,14 @@
             </form>
         </field>
     </record>
-    <!--TREE view-->
+    <!--LIST view-->
     <record model="ir.ui.view" id="base_user_role_line_history_tree_view">
         <field
             name="name"
         >base.user.role.line.history.tree (in base_user_role_history)</field>
         <field name="model">base.user.role.line.history</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-success="performed_action == 'add'"
                 decoration-danger="performed_action == 'unlink'"
                 create="0"
@@ -55,7 +55,7 @@
                 <field name="new_date_to" />
                 <field name="old_is_enabled" />
                 <field name="new_is_enabled" />
-            </tree>
+            </list>
         </field>
     </record>
     <!--SEARCH view-->
