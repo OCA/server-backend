@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 
 class ResUsers(models.Model):
@@ -22,9 +22,9 @@ class ResUsers(models.Model):
         self.ensure_one()
         domain = [("user_id", "=", self.id)]
         return {
-            "name": _("Roles history"),
+            "name": self.env._("Roles history"),
             "type": "ir.actions.act_window",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "base.user.role.line.history",
             "domain": domain,
         }

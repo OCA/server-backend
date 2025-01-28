@@ -1,9 +1,9 @@
 from datetime import date
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestResUsersRole(TransactionCase):
+class TestResUsersRole(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -89,8 +89,8 @@ class TestResUsersRole(TransactionCase):
                         0,
                         {
                             "user_id": self.user.id,
-                            "date_from": "2024-05-01",
-                            "date_to": "2024-05-30",
+                            "date_from": date(2024, 5, 1),
+                            "date_to": date(2024, 5, 30),
                         },
                     )
                 ],
@@ -103,8 +103,8 @@ class TestResUsersRole(TransactionCase):
         # write same values again
         role_01_line.write(
             {
-                "date_from": "2024-05-01",
-                "date_to": "2024-05-30",
+                "date_from": date(2024, 5, 1),
+                "date_to": date(2024, 5, 30),
             }
         )
 
@@ -117,7 +117,7 @@ class TestResUsersRole(TransactionCase):
         history_lines_edit = history_lines_all.filtered(
             lambda x: x.performed_action == "edit"
         )
-        self.assertTrue(len(history_lines_edit), 0)
+        self.assertEqual(len(history_lines_edit), 0)
 
     def test_create_adds_history_entry(self):
         # arrange
