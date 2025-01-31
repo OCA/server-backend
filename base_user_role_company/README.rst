@@ -66,21 +66,21 @@ to all active companies will be activated.
 
 For example:
 
--  A "SALES PERSON" and a "SALES MANAGER" roles are created.
+- A "SALES PERSON" and a "SALES MANAGER" roles are created.
 
--  A user is assigned to the roles:
+- A user is assigned to the roles:
 
-   -  "SALES PERSON", with no specific company assigned (meaning all)
-   -  "SALES MANAGER" only to "My Company (Chicago)"
+  - "SALES PERSON", with no specific company assigned (meaning all)
+  - "SALES MANAGER" only to "My Company (Chicago)"
 
--  When selecting active companies from the UI widget:
+- When selecting active companies from the UI widget:
 
-   -  If only "My Company (San Francisco)" is active, "SALES PERSON"
-      will be active.
-   -  If only "My Company (Chicago)" is active, "SALES PERSON" and
-      "SALES MANAGER" will be active.
-   -  If both "My Company (San Francisco)" and "My Company (Chicago)" is
-      active, "SALES PERSON" will be active.
+  - If only "My Company (San Francisco)" is active, "SALES PERSON" will
+    be active.
+  - If only "My Company (Chicago)" is active, "SALES PERSON" and "SALES
+    MANAGER" will be active.
+  - If both "My Company (San Francisco)" and "My Company (Chicago)" is
+    active, "SALES PERSON" will be active.
 
 Bug Tracker
 ===========
@@ -105,13 +105,13 @@ Contributors
 
 `Open Source Integrators <http://opensourceintegrators.com>`__
 
-   -  Daniel Reis <dreis@opensourceintegrators.com>
-   -  Chandresh Thakkar <cthakkr@opensourceintegrators.com>
-   -  Urvisha Desai <udesai@opensourceintegrators.com>
+   - Daniel Reis <dreis@opensourceintegrators.com>
+   - Chandresh Thakkar <cthakkr@opensourceintegrators.com>
+   - Urvisha Desai <udesai@opensourceintegrators.com>
 
 `WeSolved <http://wesolved.com>`__
 
-   -  Robin Conjour <rconjour@wesolved.com>
+   - Robin Conjour <rconjour@wesolved.com>
 
 Maintainers
 -----------

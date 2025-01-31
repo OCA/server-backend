@@ -10,8 +10,7 @@
     "website": "https://github.com/OCA/server-backend",
     "depends": ["base_user_role"],
     "data": [
-        "views/role.xml",
-        "views/user.xml",
+        "views/res_users_views.xml",
     ],
     "installable": True,
     "auto_install": True,
