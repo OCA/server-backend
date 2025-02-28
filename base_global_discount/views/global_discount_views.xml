@@ -5,13 +5,13 @@
     <record id="global_discount_view_tree" model="ir.ui.view">
         <field name="model">global.discount</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="discount" />
                 <field name="discount_scope" />
                 <field name="company_id" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="global_discount_view_form" model="ir.ui.view">
@@ -34,7 +34,7 @@
         <field name="name">Global Discounts</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">global.discount</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="menu_global_discount"
