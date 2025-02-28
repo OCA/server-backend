@@ -5,3 +5,5 @@
   - Rafael Blasco
   - Ernesto Tejeda
 - Omar Castiñeira \<<omar@comunitea.com>\>
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia
