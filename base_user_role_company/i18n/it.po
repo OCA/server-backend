@@ -53,7 +53,6 @@ msgstr "Utente"
 #. module: base_user_role_company
 #. odoo-python
 #: code:addons/base_user_role_company/models/role.py:0
-#, python-format
 msgid "User \"%(user)s\" does not have access to the company \"%(company)s\""
 msgstr "L'utente \"%(user)s\" non ha accesso all'azienda \"%(company)s\""
 
