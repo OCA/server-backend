@@ -134,6 +134,10 @@ class BaseExternalModelImporter:
             model_name, key_value, field_key or self._external_key, return_field
         )
 
+    def with_context(self, *args, **kwargs):
+        context = dict(args[0] if args else self.dbsource._context, **kwargs)
+        return self.dbsource.with_context(**context)
+
 
 class BaseExternalDbsource(models.Model):
     """It provides logic for connection to a MySQL data source."""
