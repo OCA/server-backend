@@ -17,6 +17,9 @@ class DbsourceExternalMixin(models.AbstractModel):
 
     _name = "dbsource.external.mixin"
     _external_field_key = "nexus_key"
+    # The name of mapped records to other existing records has the format
+    # 'model.xxx.mapped' where xxx is the _mapped_name property
+    _mapped_name = None
 
     @api.model
     def search_external(self, key_value, field_key):
@@ -26,7 +29,11 @@ class DbsourceExternalMixin(models.AbstractModel):
         mapped_model = self.env.context.get("mapped_model")
         if mapped_model:
             domain = [(self._external_field_key, "=", key_value)]
-            mapped = self.env["%s.mapped" % mapped_model].search(domain)
+            if self._mapped_name:
+                mapped_name = f"{mapped_model}.{self._mapped_name}.mapped"
+            else:
+                mapped_name = f"{mapped_model}.mapped"
+            mapped = self.env[mapped_name].search(domain)
             if mapped:
                 key_value = mapped.mapped_key
 
