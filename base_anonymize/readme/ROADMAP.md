@@ -1,0 +1,3 @@
+- add more anonymization methods to generate syntactically correct data like IBANs, phone numbers, ...
+- write the same data on related fields
+- add definitions for all relevant OCA modules

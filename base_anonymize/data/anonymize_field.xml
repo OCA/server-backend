@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data noupdate="1">
+    <!-- account -->
+    <record id="anon_ir_attachment__datas_account_move" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">datas</field>
+        <field
+            name="domain"
+        >[('res_model', 'in', ['account.move', 'account.payment']), ('id', '>', 0)]</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <!-- base -->
+    <record id="anon_res_partner__name" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record id="anon_res_partner__display_name" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">display_name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record id="anon_res_partner__display_company_name" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">company_name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record
+        id="anon_res_partner__display_commercial_company_name"
+        model="anonymize.field"
+    >
+        <field name="model_name">res.partner</field>
+        <field name="field_name">commercial_company_name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record id="anon_res_partner__title" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">title</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__comment" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">comment</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__vat" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">vat</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__ref" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">ref</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__city" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">city</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__zip" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">zip</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__state_id" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">state_id</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__country_id" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">country_id</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__street" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">street</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__street2" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">street2</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__email" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">email</field>
+        <field name="method">anonymize.method.random.email</field>
+    </record>
+    <record id="anon_res_partner__phone" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">phone</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__mobile" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">mobile</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner_bank__sanitized_acc_number" model="anonymize.field">
+        <field name="model_name">res.partner.bank</field>
+        <field name="field_name">sanitized_acc_number</field>
+        <field name="method">anonymize.method.random.number</field>
+    </record>
+    <record id="anon_res_partner_bank__acc_number" model="anonymize.field">
+        <field name="model_name">res.partner.bank</field>
+        <field name="field_name">acc_number</field>
+        <field name="method">anonymize.method.random.number</field>
+    </record>
+    <record id="anon_res_partner_bank__acc_holder_name" model="anonymize.field">
+        <field name="model_name">res.partner.bank</field>
+        <field name="field_name">acc_holder_name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record id="anon_res_users__login" model="anonymize.field">
+        <field name="model_name">res.users</field>
+        <field name="field_name">login</field>
+        <field name="method">anonymize.method.random.email</field>
+        <field name="domain">[('login', 'like', '%@%')]</field>
+    </record>
+    <record id="anon_res_users__password" model="anonymize.field">
+        <field name="model_name">res.users</field>
+        <field name="field_name">password</field>
+        <field name="method">anonymize.method.fixed.string</field>
+        <field name="options">{"string": "password"}</field>
+    </record>
+    <record id="anon_ir_attachment__datas_partners" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">datas</field>
+        <field
+            name="domain"
+        >[('res_model', 'in', ['res.partner', 'res.users']), ('id', '>', 0)]</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_ir_attachment__index_content" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">index_content</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_ir_attachment__description" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">description</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_ir_config_parameter__value" model="anonymize.field">
+        <field name="model_name">ir.config_parameter</field>
+        <field name="field_name">value</field>
+        <field name="method">anonymize.method.random.string</field>
+        <field
+            name="domain"
+        >[('key', 'in', ('database.secret', 'database.uuid'))]</field>
+    </record>
+    <!-- mail -->
+    <record id="anon_mail_message__body" model="anonymize.field">
+        <field name="model_name">mail.message</field>
+        <field name="field_name">body</field>
+        <field name="method">anonymize.method.fixed.string</field>
+        <field
+            name="options"
+        >{"string": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}</field>
+    </record>
+    <record id="anon_mail_message__subject" model="anonymize.field">
+        <field name="model_name">mail.message</field>
+        <field name="field_name">subject</field>
+        <field name="method">anonymize.method.random.string</field>
+    </record>
+    <!-- partner_firstname -->
+    <record id="anon_res_partner__firstname" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">firstname</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_partner__lastname" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">lastname</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <!-- sale -->
+    <record id="anon_ir_attachment__datas_sale_order" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">datas</field>
+        <field
+            name="domain"
+        >[('res_model', 'in', ['sale.order']), ('id', '>', 0)]</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+</data>

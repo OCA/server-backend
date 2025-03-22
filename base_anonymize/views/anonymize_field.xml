@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_anonymize_field_tree" model="ir.ui.view">
+        <field name="model">anonymize.field</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="model_id" required="True" />
+                <field name="model_name" invisible="True" />
+                <field name="field_id" required="True" />
+                <field name="field_name" invisible="True" />
+                <field name="method" />
+                <field name="domain" />
+                <field name="options_display" />
+                <field name="has_options" invisible="True" />
+                <button
+                    type="object"
+                    name="action_options"
+                    string="Edit options"
+                    attrs="{'invisible': [('has_options', '=', False)]}"
+                    class="oe_link"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_anonymize_field_search" model="ir.ui.view">
+        <field name="model">anonymize.field</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_name" />
+                <field name="field_name" />
+                <filter
+                    name="archived"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <filter
+                    name="groupby_model"
+                    string="Model"
+                    context="{'group_by': 'model_name'}"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_anonymize_field" model="ir.actions.act_window">
+        <field name="name">Field Definitions</field>
+        <field name="res_model">anonymize.field</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_groupby_model': True}</field>
+        <field name="domain">[('applicable', '=', True)]</field>
+    </record>
+</data>
