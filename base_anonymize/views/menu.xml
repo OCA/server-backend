@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <menuitem id="menu_root" name="Anonymization" parent="base.menu_custom" />
+    <menuitem id="menu_fields" parent="menu_root" action="action_anonymize_field" />
+    <menuitem id="menu_wizard" parent="menu_root" action="action_anonymize_wizard" />
+</data>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_anonymize_field,access_anonymize_field,model_anonymize_field,base.group_system,1,1,1,1
+access_anonymize_wizard,access_anonymize_wizard,model_anonymize_wizard,base.group_system,1,1,1,1
+access_anonymize_method_fictional_character_data,access_anonymize_method_fictional_character_data,model_anonymize_method_fictional_character_data,base.group_system,1,1,1,1
