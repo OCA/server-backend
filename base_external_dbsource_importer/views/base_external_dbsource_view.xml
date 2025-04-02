@@ -28,6 +28,10 @@
                 <group string="Options">
                     <field name="only_update" />
                 </group>
+                <group string="Import records between dates if supported">
+                    <field name="date_from" />
+                    <field name="date_to" />
+                </group>
             </xpath>
         </field>
     </record>
