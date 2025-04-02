@@ -1,10 +1,14 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
+import base64
 import logging
 import string
 
-from odoo import api, fields, models
+import xlrd
+from sqlalchemy import text
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.tools import ormcache
 
 _logger = logging.getLogger(__name__)
@@ -53,7 +57,7 @@ class BaseExternalModelImporter:
 
     def _get_external_records(self, table_name, fields="*", where=""):
         sql = "SELECT {} FROM {} {};".format(fields, table_name, where)
-        rows, cols = self.execute_query(sql, [], metadata=True)
+        rows, cols = self.execute_query(text(sql), [], metadata=True)
         fds_records = BaseExternalModel(self.env.cr, rows, cols)
         return fds_records
 
@@ -150,6 +154,12 @@ class BaseExternalDbsource(models.Model):
         string="Fields To Update",
     )
     only_update = fields.Boolean(string="Only update values", default=True)
+    date_from = fields.Date()
+    date_to = fields.Date()
+    data_mapper_file = fields.Binary(string="Excel file with data mapped")
+    data_mapper_filename = fields.Char(
+        string="Excel file filename",
+    )
 
     @api.model
     @ormcache("model_name", "key_value", "field_key", "return_field")
@@ -217,6 +227,40 @@ class BaseExternalDbsource(models.Model):
             else:
                 vals["comment"] = "VAT: {}".format(original_vat)
         return vals
+
+    def generate_data_mapped_from_file(self, sheet_dic):
+        """
+        param:
+        sheet_dic: Dictionary type {'sheet_name': {
+                                        'odoo_col': 1,
+                                        'source_col': 2,
+                                    }}
+        """
+        if not self.data_mapper_file:
+            raise UserError(_("Debe seleccionar un archivo para importar"))
+        xl_workbook = xlrd.open_workbook(
+            file_contents=base64.b64decode(self.data_mapper_file)
+        )
+        data_dic = {}
+        for sheet_name, cols_dic in sheet_dic.items():
+            xl_sheet = xl_workbook.sheet_by_name(sheet_name)
+            odoo_col = cols_dic["odoo_col"]
+            source_col = cols_dic["source_col"]
+            data_dic[sheet_name] = {}
+            for row_idx in range(1, xl_sheet.nrows):
+                if xl_sheet.cell_type(row_idx, source_col) == xlrd.XL_CELL_EMPTY:
+                    continue
+                odoo_ref = xl_sheet.cell(row_idx, odoo_col).value
+                if xl_sheet.cell_type(row_idx, source_col) != xlrd.XL_CELL_TEXT:
+                    vila_code = str(int(xl_sheet.cell(row_idx, 2).value))
+                else:
+                    vila_code = xl_sheet.cell(row_idx, source_col).value
+                if xl_sheet.cell_type(row_idx, odoo_col) != xlrd.XL_CELL_TEXT:
+                    odoo_external = False
+                else:
+                    odoo_external = self.env.ref(odoo_ref, raise_if_not_found=False)
+                data_dic[sheet_name][vila_code] = odoo_external
+        return data_dic
 
 
 class DbSourceFieldsUpdate(models.Model):
