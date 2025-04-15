@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_form_view">
+        <field name="model">base.security.update.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" />
+
+                    <field name="action_confirm_allowed" invisible="1" />
+                    <button
+                        name="action_confirm"
+                        type="object"
+                        string="Confirm"
+                        class="btn-primary"
+                        attrs="{'invisible': [('action_confirm_allowed', '=', False)]}"
+                    />
+                    <field name="action_first_approval_allowed" invisible="1" />
+                    <button
+                        name="action_first_approval"
+                        type="object"
+                        string="Approve"
+                        class="btn-primary"
+                        attrs="{'invisible': [('action_first_approval_allowed', '=', False)]}"
+                    />
+                    <field name="action_second_approval_allowed" invisible="1" />
+                    <button
+                        name="action_second_approval"
+                        type="object"
+                        string="Approve"
+                        class="btn-primary"
+                        attrs="{'invisible': [('action_second_approval_allowed', '=', False)]}"
+                    />
+                    <field name="action_reject_allowed" invisible="1" />
+                    <button
+                        name="action_reject"
+                        type="object"
+                        string="Reject"
+                        attrs="{'invisible': [('action_reject_allowed', '=', False)]}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <widget
+                        name="web_ribbon"
+                        title="Approved"
+                        bg_color="bg-success"
+                        attrs="{'invisible': [('state', '!=', 'approved')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Rejected"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('state', '!=', 'rejected')]}"
+                    />
+                    <h1>
+                        # <field name="id" />
+                    </h1>
+                    <group>
+                        <group name="left">
+                            <field name="user_id" readonly="1" force_save="1" />
+                        </group>
+                        <group name="right">
+                            <field name="date" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="lines" string="Lines">
+                            <field name="line_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field
+                        name="message_ids"
+                        options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_search_view">
+        <field name="model">base.security.update.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="id" />
+                <field name="user_id" />
+                <field name="date" />
+                <separator />
+                <filter
+                    name="to_approve"
+                    string="To approve"
+                    domain="[('state', 'in', ('first_approval', 'second_approval'))]"
+                />
+                <separator />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_tree_view">
+        <field name="model">base.security.update.request</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="state == 'approved'"
+                decoration-danger="state == 'rejected'"
+                decoration-info="state == 'approval'"
+                decoration-warning="state == 'second_approval'"
+            >
+                <field name="display_name" />
+                <field name="user_id" />
+                <field name="date" />
+                <field name="activity_ids" widget="list_activity" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'approved'"
+                    decoration-danger="state == 'rejected'"
+                    decoration-info="state == 'approval'"
+                    decoration-warning="state == 'second_approval'"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        model="ir.actions.act_window"
+        id="base_security_update_request_request_act_window"
+    >
+        <field name="name">Security Update Requests</field>
+        <field name="res_model">base.security.update.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="base_security_update_request_request_menu">
+        <field name="name">Security Update Requests</field>
+        <field name="parent_id" ref="base.menu_users" />
+        <field name="action" ref="base_security_update_request_request_act_window" />
+        <field name="sequence" eval="70" />
+    </record>
+
+</odoo>

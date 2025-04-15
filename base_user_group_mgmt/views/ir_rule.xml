@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="ir_rule_tree_view">
+        <field name="model">ir.rule</field>
+        <field name="inherit_id" ref="base.view_rule_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+                <attribute name="delete">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ir_rule_form_view">
+        <field name="model">ir.rule</field>
+        <field name="inherit_id" ref="base.view_rule_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">0</attribute>
+                <attribute name="create">0</attribute>
+                <attribute name="delete">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

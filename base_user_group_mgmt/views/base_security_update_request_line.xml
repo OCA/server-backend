@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_line_form_view">
+        <field name="model">base.security.update.request.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                </header>
+                <sheet>
+                    <h2>
+                         <field name="name" nolabel="1" />
+                    </h2>
+                    <group name="top">
+                        <group name="left">
+                            <field name="action" />
+                        </group>
+                    </group>
+                    <group name="main">
+                        <field name="is_group_1_ids_visible" invisible="1" />
+                        <field
+                            name="group_1_ids"
+                            options="{'no_create': True}"
+                            widget="many2many_tags"
+                            attrs="{'invisible': [('is_group_1_ids_visible', '=', False)], 'required': [('is_group_1_ids_visible', '=', True)]}"
+                        />
+                        <field name="is_user_ids_visible" invisible="1" />
+                        <field
+                            name="user_ids"
+                            options="{'no_create': True}"
+                            widget="many2many_tags"
+                            attrs="{'invisible': [('is_user_ids_visible', '=', False)], 'required': [('is_user_ids_visible', '=', True)]}"
+                        />
+                        <field name="is_group_2_ids_visible" invisible="1" />
+                        <field
+                            name="group_2_ids"
+                            options="{'no_create': True}"
+                            widget="many2many_tags"
+                            attrs="{'invisible': [('is_group_2_ids_visible', '=', False)], 'required': [('is_group_2_ids_visible', '=', True)]}"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record
+        model="ir.ui.view"
+        id="base_security_update_request_request_line_search_view"
+    >
+        <field name="model">base.security.update.request.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="id" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_line_tree_view">
+        <field name="model">base.security.update.request.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

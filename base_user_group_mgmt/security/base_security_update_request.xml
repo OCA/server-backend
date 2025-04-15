@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.model.access" id="base_security_update_request_access_name">
+        <field
+            name="name"
+        >base.security.update.request access security management user</field>
+        <field name="model_id" ref="model_base_security_update_request" />
+        <field name="group_id" ref="base_user_group_mgmt.security_management_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+    <record model="ir.rule" id="base_security_update_request_user_edit_requests">
+        <field name="name">You can only modify your own requests.</field>
+        <field name="model_id" ref="model_base_security_update_request" />
+        <field name="domain_force">
+          [('user_id', '=', user.id), ('state', '=', 'draft')]
+        </field>
+        <field
+            name="groups"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_user'))]"
+        />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+    <record model="ir.rule" id="base_security_update_request_user_read_requests">
+        <field name="name">You can only see your own requests.</field>
+        <field name="model_id" ref="model_base_security_update_request" />
+        <field name="domain_force">
+          [('user_id', '=', user.id)]
+        </field>
+        <field
+            name="groups"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_user'))]"
+        />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+    <record model="ir.rule" id="base_security_update_request_approver_requests">
+        <field name="name">You can only modify your own requests.</field>
+        <field name="model_id" ref="model_base_security_update_request" />
+        <field name="domain_force">
+          [(1, '=', 1)]
+        </field>
+        <field
+            name="groups"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_approver'))]"
+        />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+    <record model="ir.rule" id="base_security_update_request_non_draft_readonly">
+        <field name="name">Non drafts security requests must be readonly</field>
+        <field name="model_id" ref="model_base_security_update_request" />
+        <field name="domain_force">
+          [('state', '=', 'draft')]
+        </field>
+        <field name="perm_read" eval="0" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+</odoo>

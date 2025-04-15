@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.module.category" id="category_security_management">
+        <field name="name">Security Management</field>
+        <field name="sequence">60</field>
+        <field name="visible" eval="0" />
+    </record>
+    <record model="res.groups" id="security_management_user">
+        <field name="name">User</field>
+        <field
+            name="category_id"
+            ref="base_user_group_mgmt.category_security_management"
+        />
+        <field
+            name="users"
+            eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]"
+        />
+    </record>
+    <record model="res.groups" id="security_management_approver">
+        <field name="name">Approver</field>
+        <field
+            name="category_id"
+            ref="base_user_group_mgmt.category_security_management"
+        />
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_user'))]"
+        />
+        <field name="users" eval="[Command.link(ref('base.user_root'))]" />
+    </record>
+    <record model="res.groups" id="security_management_super_approver">
+        <field name="name">Approver (can validate its requests)</field>
+        <field
+            name="category_id"
+            ref="base_user_group_mgmt.category_security_management"
+        />
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_approver'))]"
+        />
+        <field name="users" eval="[Command.link(ref('base.user_root'))]" />
+    </record>
+    <record model="res.groups" id="security_management_manager">
+        <field name="name">Manager</field>
+        <field
+            name="category_id"
+            ref="base_user_group_mgmt.category_security_management"
+        />
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_user_group_mgmt.security_management_super_approver'))]"
+        />
+        <field name="users" eval="[Command.link(ref('base.user_root'))]" />
+    </record>
+</odoo>
