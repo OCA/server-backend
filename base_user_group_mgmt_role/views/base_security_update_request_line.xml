@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="base_security_update_request_request_line_form_view">
+        <field name="model">base.security.update.request.line</field>
+        <field
+            name="inherit_id"
+            ref="base_user_group_mgmt.base_security_update_request_request_line_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='group_1_ids']" position="after">
+                <field name="is_role_edit_data_visible" invisible="1" />
+                <field name="is_role_ids_visible" invisible="1" />
+                <field
+                    name="role_ids"
+                    options="{'no_create': True}"
+                    widget="many2many_tags"
+                    attrs="{'invisible': [('is_role_ids_visible', '=', False)], 'required': [('is_role_ids_visible', '=', True)]}"
+                />
+            </xpath>
+            <xpath expr="//group[@name='main']" position="after">
+                <group
+                    name="role_edit"
+                    attrs="{'invisible': [('is_role_edit_data_visible', '=', False)]}"
+                >
+                    <group name="left">
+                        <field name="role_date_from" string="Date from" />
+                    </group>
+                    <group name="right">
+                        <field name="role_date_to" string="Date to" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
