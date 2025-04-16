@@ -6,7 +6,6 @@ import string
 
 import xlrd
 from sqlalchemy import text
-from sqlalchemy.engine.row import Row
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -115,43 +114,6 @@ class BaseExternalModelImporter:
     def with_context(self, *args, **kwargs):
         context = dict(args[0] if args else self.dbsource._context, **kwargs)
         return self.dbsource.with_context(**context)
-
-
-class TrimmedRow:
-    """Wrapper class that trims whitespace from string values."""
-
-    __slots__ = ("_row",)
-
-    def __init__(self, row: Row):
-        self._row = row
-
-    def __getattr__(self, item):
-        val = getattr(self._row, item)
-        if isinstance(val, str):
-            return val.strip()
-        return val
-
-    def __getitem__(self, item):
-        val = self._row[item]
-        if isinstance(val, str):
-            return val.strip()
-        return val
-
-    def __iter__(self):
-        for val in self._row:
-            if isinstance(val, str):
-                yield val.strip()
-            else:
-                yield val
-
-    def keys(self):
-        return self._row.keys()
-
-    def items(self):
-        return zip(self.keys(), self.__iter__())
-
-    def __repr__(self):
-        return f"TrimmedRow({dict(self.items())})"
 
 
 class BaseExternalDbsource(models.Model):
