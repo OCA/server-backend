@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Alberto Martínez <alberto.martinez@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_model_access_restrictions_form" model="ir.ui.view">
+        <field name="model">ir.model.access.restriction</field>
+        <field name="arch" type="xml">
+            <form string="Model Access Restrictions">
+                <sheet>
+                <group>
+                    <group string="General">
+                        <field name="name" />
+                        <field name="model_id" />
+                        <field name="active" widget="boolean_toggle" />
+                    </group>
+                    <group col="4" string="Access Rights">
+                        <field name="perm_read" />
+                        <field name="perm_write" />
+                        <field name="perm_create" />
+                        <field name="perm_unlink" />
+                    </group>
+                </group>
+                <group string="Allowed Groups">
+                    <field name="groups" nolabel="1" colspan="4" />
+                </group>
+                <i
+                        class="fa fa-info fa-3x text-info float-left"
+                        role="img"
+                        aria-label="Info"
+                        title="Info"
+                    />
+                <h3>Interaction between access records</h3>
+                <div>
+                    <p>
+                        Normal access records give permissions. Access restriction records removes permissions, if a user does not have one group of a resctriction the access will be forbidden.
+                    </p>
+                    Detailed algorithm:
+                    <ol>
+                        <li
+                            >Normal access records are combined together with a logical OR operator, if a user has the group of an acess record access, access will be granted</li>
+                        <li
+                            >Access restriction records are applied before normal access, and combines together with a logical AND operator. If a restriction is not met, the access is forbidden.</li>
+                        <li
+                            >A restriction is not met if the user does not belong to any of the allowed groups.</li>
+                    </ol>
+                    <p
+                        >Example: ACCESS_1 OR ACCESS_2 AND (ACCESS_RESTRICTION_1 AND ACCESS_RESTRICTION_2)
+                        <ol>
+                            <li>ACCESS_1. Group: Internal Users</li>
+                            <li>ACCESS_2. Group: Administrator</li>
+                            <li
+                                >ACCESS_RESTRICTION_1. Allowed Groups: Internal Users</li>
+                            <li>ACCESS_RESTRICTION_2. Allowed Groups: Administrator</li>
+                        </ol>
+                        A internal user won't have access in this example because it does not met the ACCESS_RESTRICTION_2. TRUE OR FALSE AND (TRUE AND FALSE) = TRUE AND (FALSE) = FALSE
+                    </p>
+                </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_model_access_restrictions_tree" model="ir.ui.view">
+        <field name="model">ir.model.access.restriction</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="not groups">
+                <field name="name" />
+                <field name="model_id" />
+                <field
+                    name="groups"
+                    widget="many2many_tags"
+                    options="{'no_create':True}"
+                />
+                <field name="perm_read" />
+                <field name="perm_write" />
+                <field name="perm_create" />
+                <field name="perm_unlink" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_model_access_restrictions_search" model="ir.ui.view">
+        <field name="model">ir.model.access.restriction</field>
+        <field name="arch" type="xml">
+            <search string="Model Access Restrictions">
+                <field name="name" />
+                <field name="model_id" />
+                <field name="groups" />
+                <separator />
+                <filter
+                    string="Read Access Right"
+                    name="read_access_right"
+                    domain="[('perm_read', '=', True)]"
+                />
+                <filter
+                    string="Write Access Right"
+                    name="write_access_right"
+                    domain="[('perm_write', '=', True)]"
+                />
+                <filter
+                    string="Create Access Right"
+                    name="create_access_right"
+                    domain="[('perm_create', '=' ,True)]"
+                />
+                <filter
+                    string="Delete Access Right"
+                    name="delete_access_right"
+                    domain="[('perm_unlink', '=', True)]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <group string="Group By">
+                    <filter
+                        string="Model"
+                        name="group_by_object"
+                        domain="[]"
+                        context="{'group_by': 'model_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_model_access_restrictions" model="ir.actions.act_window">
+        <field name="name">Model Access Restrictions</field>
+        <field name="res_model">ir.model.access.restriction</field>
+        <field name="view_id" ref="view_model_access_restrictions_tree" />
+        <field name="search_view_id" ref="view_model_access_restrictions_search" />
+    </record>
+
+    <menuitem
+        action="action_model_access_restrictions"
+        id="menu_action_model_access_restrictions"
+        parent="base.menu_security"
+        sequence="4"
+    />
+
+
+</odoo>
