@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.menu" id="base.menu_administration">
+        <field
+            name="groups_id"
+            eval="[Command.link(ref('base_group_erp_user.group_erp_user'))]"
+        />
+    </record>
+</odoo>

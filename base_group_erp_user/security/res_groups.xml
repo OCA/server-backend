@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="res.groups" id="group_erp_user">
+        <field name="name">User</field>
+        <field
+            name="category_id"
+            ref="base.module_category_administration_administration"
+        />
+        <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]" />
+    </record>
+    <record model="res.groups" id="base.group_erp_manager">
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_group_erp_user.group_erp_user')), Command.unlink(ref('base.group_erp_manager'))]"
+        />
+    </record>
+
+  <record model="ir.model.access" id="res_groups_erp_user">
+    <field name="name">res.groups erp user access</field>
+    <field name="model_id" ref="base.model_res_groups" />
+    <field name="group_id" ref="base_group_erp_user.group_erp_user" />
+    <field name="perm_read" eval="1" />
+    <field name="perm_create" eval="1" />
+    <field name="perm_write" eval="1" />
+    <field name="perm_unlink" eval="0" />
+  </record>
+</odoo>
