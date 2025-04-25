@@ -1,7 +1,7 @@
 # Copyright 2025 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import SUPERUSER_ID, _, api, fields, models
 from odoo.exceptions import UserError
 
 READONLY_STATES = {
@@ -39,6 +39,7 @@ class BaseSecurityUpdateRequest(models.Model):
         string="Lines",
         readonly=True,
         states=READONLY_STATES,
+        copy=True,
     )
     state = fields.Selection(
         selection="_selection_state",
@@ -204,7 +205,7 @@ class BaseSecurityUpdateRequest(models.Model):
                 "approver_2_user_id": self.env.user.id,
             }
         )
-        self_sudo.line_ids._do_updates()
+        self_sudo.with_user(SUPERUSER_ID).line_ids._do_updates()
 
     def _check_action_reject_allowed(self):
         for rec in self:
