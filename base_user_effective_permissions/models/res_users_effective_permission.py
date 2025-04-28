@@ -13,7 +13,7 @@ class ResUsersEffectivePermission(models.TransientModel):
     model_id = fields.Many2one("ir.model", string="Model")
     model_name = fields.Char(related="model_id.model", string="Model name")
     model_human_name = fields.Char(
-        related="model_id.name", store=True, string="Human readable model name"
+        related="model_id.name", string="Human readable model name"
     )
     create_permission = fields.Boolean("Create")
     create_domain = fields.Char("Create restrictions")
@@ -48,22 +48,17 @@ class ResUsersEffectivePermission(models.TransientModel):
                 .with_company(user.company_id)
                 .with_context(allowed_company_ids=user.company_id.ids)
             )
+            if model._abstract:
+                continue
             vals = {"model_id": model_record.id}
-            vals.update(
-                {
-                    f"{operation}_permission": model.check_access_rights(
-                        operation, False
-                    )
-                    for operation in operations
-                }
-            )
-            vals.update(
-                {
-                    f"{operation}_domain": IrRule._compute_domain(
+            ir_model_access = self.env["ir.model.access"].with_user(user)
+            for operation in operations:
+                vals[f"{operation}_permission"] = ir_model_access.check(
+                    model._name, operation, raise_exception=False
+                )
+                if vals[f"{operation}_permission"]:
+                    vals[f"{operation}_domain"] = IrRule._compute_domain(
                         model._name, operation
                     )
-                    for operation in operations
-                }
-            )
             permissions += self.create(vals)
         return permissions

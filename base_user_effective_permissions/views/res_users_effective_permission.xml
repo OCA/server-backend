@@ -5,7 +5,7 @@
     <record id="res_users_effective_permission_tree" model="ir.ui.view">
         <field name="model">res.users.effective.permission</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="model_id" />
                 <field name="model_name" invisible="1" />
                 <field name="create_permission" optional="show" />
@@ -40,7 +40,7 @@
                     widget="domain"
                     options="{'model': 'model_name'}"
                 />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="res_users_effective_permission_search" model="ir.ui.view">

@@ -17,6 +17,7 @@ class ResUsers(models.Model):
             "type": "ir.actions.act_window",
             "name": _("Effective permissions for %s") % self.name,
             "res_model": "res.users.effective.permission",
-            "view_mode": "tree",
+            "view_mode": "list",
+            "views": [[False, "list"]],
             "domain": [("id", "in", permissions.ids)],
         }
