@@ -12,7 +12,9 @@
                     type="object"
                     groups="base.group_no_one"
                     icon="fa-shield"
-                ><span class="o_stat_text">Effective permissions</span></button>
+                >
+                    <span class="o_stat_text">Effective permissions</span>
+                </button>
             </xpath>
         </field>
     </record>

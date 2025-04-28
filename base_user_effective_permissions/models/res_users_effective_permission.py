@@ -51,15 +51,17 @@ class ResUsersEffectivePermission(models.TransientModel):
             vals = {"model_id": model_record.id}
             vals.update(
                 {
-                    "%s_permission"
-                    % operation: model.check_access_rights(operation, False)
+                    f"{operation}_permission": model.check_access_rights(
+                        operation, False
+                    )
                     for operation in operations
                 }
             )
             vals.update(
                 {
-                    "%s_domain"
-                    % operation: IrRule._compute_domain(model._name, operation)
+                    f"{operation}_domain": IrRule._compute_domain(
+                        model._name, operation
+                    )
                     for operation in operations
                 }
             )
