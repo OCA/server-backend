@@ -5,7 +5,6 @@ Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-
     <record id="view_ir_actions_server_form" model="ir.ui.view">
         <field name="model">ir.actions.server</field>
         <field name="inherit_id" ref="base.view_server_action_form" />
@@ -38,5 +37,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             </xpath>
         </field>
     </record>
-
 </odoo>

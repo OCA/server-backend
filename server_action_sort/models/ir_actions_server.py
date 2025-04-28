@@ -48,7 +48,7 @@ class IrActionsServer(models.Model):
         order_list = []
         for line in self.sort_line_ids:
             order_list.append(
-                line.desc and "%s desc" % line.field_id.name or line.field_id.name
+                f"{line.field_id.name} desc" if line.desc else line.field_id.name
             )
         order = ", ".join(order_list)
 

@@ -5,7 +5,6 @@ Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-
     <record id="sort_action_server_lines" model="ir.actions.server">
         <field name="name">Action Server Sort Lines</field>
         <field name="state">sort</field>
@@ -39,5 +38,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <function model="ir.actions.server" name="create_action">
         <value eval="[ref('sort_action_server_lines')]" />
     </function>
-
 </odoo>
