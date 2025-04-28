@@ -9,35 +9,33 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">ir.actions.server</field>
         <field name="inherit_id" ref="base.view_server_action_form" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='code']" position="after">
-                <page
-                    string="Navigation Options"
-                    name='page_navigate'
-                    autofocus="autofocus"
-                    attrs="{'invisible': [('state', '!=', 'navigate')]}"
+            <xpath expr="//field[@name='child_ids']" position="after">
+                <field
+                    name="navigate_line_ids"
+                    nolabel="1"
+                    colspan="2"
+                    invisible="state != 'navigate'"
                 >
-                    <group>
-                        <field name="navigate_line_ids" nolabel="1" colspan="2">
-                            <tree editable="bottom" delete="false">
-                                <field name="field_domain_model_id" />
-                                <field name="field_id" />
-                            </tree>
-                        </field>
-                        <button
-                            name="delete_last_line"
-                            string="Delete Last Line"
-                            type="object"
-                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
-                            colspan="2"
-                        />
-                        <field name="navigate_model_id" />
-                        <field name="navigate_model_technical_name" invisible="1" />
-                        <field
-                            name="navigate_action_id"
-                            attrs="{'invisible': [('navigate_line_ids', '=', [])]}"
-                        />
-                    </group>
-                </page>
+                    <list editable="bottom" delete="false">
+                        <field name="field_domain_model_id" />
+                        <field name="field_id" />
+                    </list>
+                </field>
+                <group invisible="state != 'navigate'">
+                    <button
+                        name="delete_last_line"
+                        string="Delete Last Line"
+                        type="object"
+                        invisible="navigate_line_ids in []"
+                        colspan="2"
+                    />
+                    <field name="navigate_model_id" />
+                    <field name="navigate_model_technical_name" invisible="1" />
+                    <field
+                        name="navigate_action_id"
+                        invisible="navigate_line_ids in []"
+                    />
+                </group>
             </xpath>
         </field>
     </record>

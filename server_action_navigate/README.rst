@@ -74,14 +74,14 @@ Usage
   action.
 - click on 'Action' Button
 
-|image1|
+|Users List|
 
 - then click on the name of the configured Action and see the results
 
-|image2|
+|Partner Category List|
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_navigate/static/description/res_users_tree.png
-.. |image2| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_navigate/static/description/res_partner_category_tree.png
+.. |Users List| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_navigate/static/description/res_users_tree.png
+.. |Partner Category List| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_navigate/static/description/res_partner_category_tree.png
 
 Bug Tracker
 ===========
@@ -106,6 +106,9 @@ Contributors
 
 - Sylvain LE GAL (https://www.twitter.com/legalsylvain)
 - Ashish Hirpara (https://ashish-hirpara.com)
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`__
+
+  - Bhavesh Heliconia
 
 Maintainers
 -----------

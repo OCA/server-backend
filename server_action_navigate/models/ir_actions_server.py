@@ -80,7 +80,7 @@ class IrActionsServer(models.Model):
                 "res_model": self.navigate_model_id.model,
                 "target": "current",
                 "type": "ir.actions.act_window",
-                "view_mode": "tree,form",
+                "view_mode": "list,form",
             }
 
         return result

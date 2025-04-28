@@ -9,14 +9,15 @@ from odoo.addons.server_action_navigate import hooks
 
 
 class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.action_server = self.env.ref(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.action_server = cls.env.ref(
             "server_action_navigate.navigate_partner_2_tags"
         )
-        self.navigate_line_1 = self.env.ref("server_action_navigate.navigate_line_1")
-        self.navigate_line_2 = self.env.ref("server_action_navigate.navigate_line_2")
-        self.users = self.env["res.users"].search([])
+        cls.navigate_line_1 = cls.env.ref("server_action_navigate.navigate_line_1")
+        cls.navigate_line_2 = cls.env.ref("server_action_navigate.navigate_line_2")
+        cls.users = cls.env["res.users"].search([])
 
     def test_action_result(self):
         result = self.action_server.with_context(
