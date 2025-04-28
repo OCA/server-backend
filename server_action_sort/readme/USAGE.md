@@ -3,14 +3,14 @@
 - Select some items you want to reorder.
 - click on 'Action' Button
 
-![](../static/description/sale_order_tree.png)
+![Sale Order Tree](../static/description/sale_order_tree.png)
 
 - then click on the name of the configured Action and see the results
 
 **Before**
 
-![](../static/description/sale_order_form_before.png)
+![Sale Order Form Before](../static/description/sale_order_form_before.png)
 
 **After**
 
-![](../static/description/sale_order_form_after.png)
+![Sale Order Form After](../static/description/sale_order_form_after.png)

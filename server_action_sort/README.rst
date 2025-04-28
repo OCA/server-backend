@@ -68,21 +68,21 @@ Usage
 - Select some items you want to reorder.
 - click on 'Action' Button
 
-|image1|
+|Sale Order Tree|
 
 - then click on the name of the configured Action and see the results
 
 **Before**
 
-|image2|
+|Sale Order Form Before|
 
 **After**
 
-|image3|
+|Sale Order Form After|
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_tree.png
-.. |image2| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_form_before.png
-.. |image3| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_form_after.png
+.. |Sale Order Tree| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_tree.png
+.. |Sale Order Form Before| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_form_before.png
+.. |Sale Order Form After| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/server_action_sort/static/description/sale_order_form_after.png
 
 Known issues / Roadmap
 ======================
@@ -113,6 +113,9 @@ Contributors
 ------------
 
 - Sylvain LE GAL (https://www.twitter.com/legalsylvain)
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`__
+
+  - Bhavesh Heliconia
 
 Maintainers
 -----------

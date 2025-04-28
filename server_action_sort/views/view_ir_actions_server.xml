@@ -9,31 +9,28 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">ir.actions.server</field>
         <field name="inherit_id" ref="base.view_server_action_form" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='code']" position="after">
-                <page
-                    string="Sort Options"
-                    name='page_sort'
-                    autofocus="autofocus"
-                    attrs="{'invisible': [('state', '!=', 'sort')]}"
+            <xpath expr="//field[@name='child_ids']" position="after">
+                <field
+                    name="sort_line_ids"
+                    nolabel="1"
+                    colspan="2"
+                    invisible="state != 'sort'"
                 >
-                    <group>
-                        <field
-                            name="sort_field_id"
-                            attrs="{'required': [('state', '=', 'sort')]}"
-                        />
-                        <field name="sort_field_id_model" />
-                    </group>
-                    <group>
-                        <field name="sort_line_ids" nolabel="1" colspan="2">
-                            <tree editable="bottom">
-                                <field name="sequence" widget="handle" />
-                                <field name="field_id" />
-                                <field name="field_name" />
-                                <field name="desc" />
-                            </tree>
-                        </field>
-                    </group>
-                </page>
+                    <list editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field name="field_id" />
+                        <field name="field_name" />
+                        <field name="desc" />
+                    </list>
+                </field>
+            </xpath>
+            <xpath expr="//group[@name='action_content']" position="inside">
+                <field
+                    name="sort_field_id"
+                    required="state == 'sort'"
+                    invisible="state != 'sort'"
+                />
+                <field name="sort_field_id_model" invisible="state != 'sort'" />
             </xpath>
         </field>
     </record>

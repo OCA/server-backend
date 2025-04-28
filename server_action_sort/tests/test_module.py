@@ -6,11 +6,12 @@ from odoo.tests.common import TransactionCase
 
 
 class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.action_server = self.env.ref("server_action_sort.sort_action_server_lines")
-        self.line_1 = self.env.ref("server_action_sort.sort_action_server_lines_line_1")
-        self.line_2 = self.env.ref("server_action_sort.sort_action_server_lines_line_2")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.action_server = cls.env.ref("server_action_sort.sort_action_server_lines")
+        cls.line_1 = cls.env.ref("server_action_sort.sort_action_server_lines_line_1")
+        cls.line_2 = cls.env.ref("server_action_sort.sort_action_server_lines_line_2")
 
     def test_action_result(self):
         self.assertEqual(self.line_1.sequence, 1)

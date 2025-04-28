@@ -2,7 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -33,13 +33,15 @@ class IrActionsServer(models.Model):
         self.ensure_one()
         if len(self.sort_line_ids) == 0:
             raise UserError(
-                _("The Action Server %s is not correctly set :\n" "No lines defined")
+                self.env._(
+                    "The Action Server %s is not correctly set :\n" "No lines defined"
+                )
                 % (self.name)
             )
 
         if eval_context is None:
             raise UserError(
-                _(
+                self.env._(
                     "You can not run this Action Server that way.\n"
                     " Please use contextual 'Action' menu."
                 )
