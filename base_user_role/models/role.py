@@ -148,13 +148,17 @@ class ResUsersRoleLine(models.Model):
     date_from = fields.Date("From")
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
-    _sql_constraints = [
-        (
-            "user_role_uniq",
-            "unique (user_id,role_id)",
-            "Roles can be assigned to a user only once at a time",
-        )
-    ]
+
+    # Quatra custom: Avoid constraint error when loading this module during the
+    # migration to 18.0. base_user_role_company adapts the constraint to its
+    # altered implementation of user roles, but by then it is already too late.
+    # _sql_constraints = [
+    #     (
+    #         "user_role_uniq",
+    #         "unique (user_id,role_id)",
+    #         "Roles can be assigned to a user only once at a time",
+    #     )
+    # ]
 
     @api.depends("date_from", "date_to")
     def _compute_is_enabled(self):
