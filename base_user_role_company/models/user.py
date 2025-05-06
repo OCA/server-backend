@@ -27,7 +27,7 @@ class ResUsers(models.Model):
                 company_ids = self.env.context.get("active_company_ids")
             else:
                 company_ids = self.company_id.ids
-            for role_line in self.role_line_ids:
+            for role_line in res:
                 if not role_line.company_id:
                     active_roles |= role_line
                 elif role_line.company_id.id in company_ids:
