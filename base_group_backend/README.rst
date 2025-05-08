@@ -17,13 +17,13 @@ Group backend
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/16.0/base_group_backend
+    :target: https://github.com/OCA/server-backend/tree/15.0/base_group_backend
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_group_backend
+    :target: https://translation.odoo-community.org/projects/server-backend-15-0/server-backend-15-0-base_group_backend
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=15.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -44,7 +44,7 @@ The UI access is provided only for ``group_backend_ui_users`` :
 
 Here is an example where a user from ``group_backend_ui_users`` can only access and use the Dummy App. No other application is available to this user (you may define your own application instead of the Dummy one).
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/dummy_app.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_group_backend/static/description/dummy_app.png
     :alt: Dummy app for demo
 
 We suggest to use this module with its companion ``base_user_role``.
@@ -84,7 +84,7 @@ Usage
 
 To use this module, add a user to the group "Backend user" or "Backend UI user" through the user's form page.
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/backend_ui.png
+.. figure:: https://raw.githubusercontent.com/OCA/server-backend/15.0/base_group_backend/static/description/backend_ui.png
     :alt: Backend UI user
 
 If you created a specific group with ``group_backend`` or ``group_backend_ui_users`` in its ``implied_ids``, you need to go through the group's form page in order to add the user to this specific group, because it won't be displayed on the user's form page (a specific group with its own category is displayed on user's form page only if the group inherits the "Internal user" group).
@@ -97,7 +97,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -141,6 +141,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-FranzPoize| |maintainer-bealdav| 
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/16.0/base_group_backend>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/15.0/base_group_backend>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
