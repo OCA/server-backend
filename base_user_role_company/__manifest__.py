@@ -14,7 +14,6 @@
         "views/user.xml",
     ],
     "installable": True,
-    "auto_install": True,
     "maintainer": "dreispt",
     "development_status": "Beta",
 }
