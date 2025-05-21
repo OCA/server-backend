@@ -39,9 +39,9 @@ class IrModelAccessRestriction(models.Model):
         column2="group_id",
         ondelete="restrict",
     )
-    perm_read = fields.Boolean(string="Apply for Read", default=True)
+    perm_read = fields.Boolean(string="Apply for Read")
     perm_write = fields.Boolean(string="Apply for Write", default=True)
-    perm_create = fields.Boolean(string="Apply for Create")
+    perm_create = fields.Boolean(string="Apply for Create", default=True)
     perm_unlink = fields.Boolean(string="Apply for Delete", default=True)
 
     def init(self):
@@ -61,9 +61,12 @@ class IrModelAccessRestriction(models.Model):
             "unlink": _("delete"),
         }[operation]
         msg = _(
-            "You are not allowed to {operation} {model} "
-            "due to the following model access restriction(s): {restrictions}",
-        ).format(operation=operation_txt, model=model, restrictions=restriction_names)
+            "You are not allowed to %(operation)s %(model)s "
+            "due to the following model access restriction(s): %(restrictions)s",
+            operation=operation_txt,
+            model=model,
+            restrictions=restriction_names,
+        )
         raise AccessError(msg)
 
     def _get_model_restrictions(self, model, operation):

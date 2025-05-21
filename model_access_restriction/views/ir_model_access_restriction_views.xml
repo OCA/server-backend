@@ -22,7 +22,7 @@
                     </group>
                 </group>
                 <group string="Allowed Groups">
-                    <field name="groups" nolabel="1" colspan="4" />
+                    <field name="groups" nolabel="1" colspan="2" />
                 </group>
                 <i
                         class="fa fa-info fa-3x text-info float-left"

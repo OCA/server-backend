@@ -1,1 +1,0 @@
-- Read and write permissions are not implemented yet.

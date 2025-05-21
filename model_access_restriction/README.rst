@@ -86,11 +86,6 @@ Example:
   meet the requirement of ACCESS_RESTRICTION_2.
 | ``TRUE OR FALSE AND (TRUE AND FALSE) = TRUE AND (FALSE) = FALSE``
 
-Known issues / Roadmap
-======================
-
--  Read and write permissions are not implemented yet.
-
 Bug Tracker
 ===========
 

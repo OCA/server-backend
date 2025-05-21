@@ -3,7 +3,7 @@
 {
     "name": "Model Access Restriction",
     "summary": "New type of access rule to restrict permissions based on groups",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "author": "Sygel, Odoo Community Association (OCA)",
