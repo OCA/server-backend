@@ -6,6 +6,8 @@ from odoo import fields
 from odoo.exceptions import AccessError
 from odoo.tests.common import TransactionCase
 
+from .common import role_new_test_user
+
 
 class TestUserRole(TransactionCase):
     @classmethod
@@ -250,6 +252,23 @@ class TestUserRole(TransactionCase):
         user_group_ids = sorted(set(self.user_id.groups_id.ids))
         role_group_ids = sorted(set(role.trans_implied_ids.ids))
         self.assertEqual(user_group_ids, role_group_ids)
+
+        # Check that a new user created with the role has the same groups as the role
+        self.env["ir.model.data"].create(
+            {
+                "module": "base_user_role",
+                "model": "res.users.role",
+                "name": "test_role",
+                "res_id": role_id,
+            }
+        )
+        user = role_new_test_user(
+            self.env, "base_user_role.test_role", login="test_user"
+        )
+        self.assertEqual(
+            frozenset(user.groups_id.ids),
+            frozenset(role.group_id.ids + role.trans_implied_ids.ids),
+        )
 
     def test_show_alert_computation(self):
         """Test the computation of the `show_alert` field."""
