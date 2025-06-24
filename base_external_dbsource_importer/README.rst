@@ -73,6 +73,7 @@ Contributors
 
   - Sergio Teruel
   - Carlos Dauden
+  - David Bañón Gil
 
 Maintainers
 -----------
