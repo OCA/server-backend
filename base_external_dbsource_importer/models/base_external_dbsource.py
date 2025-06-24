@@ -117,7 +117,7 @@ class BaseExternalModelImporter:
 
 
 class BaseExternalDbsource(models.Model):
-    """It provides logic for connection to a MySQL data source."""
+    """Provides logic for connection to an external data source."""
 
     _inherit = "base.external.dbsource"
 

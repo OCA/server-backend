@@ -7,20 +7,20 @@
         <field name="model">base.external.dbsource</field>
         <field name="inherit_id" ref="base_external_dbsource.view_dbsource_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='connector']/../../.." position="inside">
+            <xpath expr="//sheet" position="inside">
                 <group>
                     <field
                         name="fields_to_update_ids"
-                        context="{'default_db_source_id': active_id}"
+                        context="{'default_db_source_id': id}"
                     >
-                        <tree editable="top">
+                        <list editable="top">
                             <field name="model_id" />
                             <field
                                 name="field_ids"
                                 domain="[('model_id', '=', model_id)]"
                                 widget="many2many_tags"
                             />
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <group string="Options">
