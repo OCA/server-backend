@@ -79,6 +79,7 @@ class BaseExternalModelImporter:
         only_update=False,
         force_update=False,
     ):
+        force_update = force_update or self.dbsource.force_update
         model_name = records._name
         fields_to_update = self.dbsource.fields_to_update_ids.filtered(
             lambda x: x.model_id.model == model_name
@@ -117,7 +118,7 @@ class BaseExternalModelImporter:
 
 
 class BaseExternalDbsource(models.Model):
-    """It provides logic for connection to a MySQL data source."""
+    """Provides logic for connection to an external data source."""
 
     _inherit = "base.external.dbsource"
 
@@ -127,6 +128,7 @@ class BaseExternalDbsource(models.Model):
         string="Fields To Update",
     )
     only_update = fields.Boolean(string="Only update values", default=True)
+    force_update = fields.Boolean(string="Force update all values")
     date_from = fields.Date()
     date_to = fields.Date()
     data_mapper_file = fields.Binary(string="Excel file with data mapped")

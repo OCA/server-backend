@@ -7,15 +7,12 @@ from psycopg2.extensions import AsIs
 
 from odoo import api, models
 
-# special columns automatically created by the ORM
-LOG_ACCESS_COLUMNS = ["create_uid", "create_date", "write_uid", "write_date"]
-MAGIC_COLUMNS = ["id"] + LOG_ACCESS_COLUMNS
-
 
 class DbsourceExternalMixin(models.AbstractModel):
-    """It provides the unique key for mysql table."""
+    """Provides utilities for identifying records using a unique external key."""
 
     _name = "dbsource.external.mixin"
+    _description = "Mixin for models that need to map external records"
 
     @api.model
     def search_external(self, key_value, field_key):
@@ -35,7 +32,7 @@ class DbsourceExternalMixin(models.AbstractModel):
         # From v12 create method
         bad_names = {"id", "parent_path"}
         if self._log_access:
-            bad_names.update(LOG_ACCESS_COLUMNS)
+            bad_names.update(models.LOG_ACCESS_COLUMNS)
         unknown_names = set()
         data_list = []
         inversed_fields = set()

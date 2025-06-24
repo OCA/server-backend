@@ -3,7 +3,7 @@
 {
     "name": "Base External Dbsource Importer",
     "summary": "Import data from external DB Sources",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "development_status": "Alpha",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
@@ -11,5 +11,6 @@
     "license": "AGPL-3",
     "installable": True,
     "depends": ["base_external_dbsource", "base_location", "base_vat"],
+    "external_dependencies": {"python": ["sqlalchemy"]},
     "data": ["security/ir.model.access.csv", "views/base_external_dbsource_view.xml"],
 }
