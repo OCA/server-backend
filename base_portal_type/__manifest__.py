@@ -16,6 +16,7 @@
     ],
     "data": [
         "data/ir_module_category.xml",
+        "views/res_groups_views.xml",
     ],
     "demo": [
         "demo/res_groups.xml",

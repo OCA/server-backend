@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_groups_search_portal" model="ir.ui.view">
+        <field name="name">res.groups.search_portal</field>
+        <field name="inherit_id" ref="base.view_groups_search" />
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='share']" position="after">
+                <field name="portal" />
+            </xpath>
+            <xpath expr="//filter[@name='filter_no_share']" position="attributes">
+                <attribute name="domain">[
+                    ('share','=',False),
+                    ('portal','=',False),
+                    ('category_id','!=',%(base_portal_type.category_portal_type)d)
+                    ]
+                </attribute>
+            </xpath>
+            <xpath expr="//filter[@name='filter_no_share']" position="after">
+                <filter
+                    name="filter_portal"
+                    string="Portal Groups"
+                    domain="[
+                        '|',
+                        ('portal','=',True),
+                        ('category_id','=',%(base_portal_type.category_portal_type)d)
+                    ]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_groups_form_portal" model="ir.ui.view">
+        <field name="name">res.groups.form.portal</field>
+        <field name="inherit_id" ref="base.view_groups_form" />
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='share']" position="after">
+                <field name="portal" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

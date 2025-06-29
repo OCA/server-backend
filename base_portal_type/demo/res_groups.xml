@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2023 Hunki Enterprises BV
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
-<data>
-
-<record id="group_portal_type" model="res.groups">
-    <field name="name">A portal type</field>
-    <field name="category_id" ref="category_portal_type" />
-</record>
-
-</data>
+<odoo>
+    <record id="group_portal_type" model="res.groups">
+        <field name="name">A portal type</field>
+        <!-- demonstrating backwards compatibility before introduction of this field -->
+        <field name="portal" eval="False" />
+        <field name="category_id" ref="category_portal_type" />
+    </record>
+    <record id="group_portal_example_1" model="res.groups">
+        <field name="name">Portal Group 1</field>
+        <field name="portal">True</field>
+        <field name="category_id" ref="base.module_category_technical" />
+    </record>
+    <record id="group_portal_example_2" model="res.groups">
+        <field name="name">Portal Group 2</field>
+        <field name="portal">True</field>
+        <field name="category_id" ref="base.module_category_technical" />
+    </record>
+    <record id="group_portal_example_3" model="res.groups">
+        <field name="name">Portal Group 3</field>
+        <field name="portal">True</field>
+        <!-- just to demonstrate that portal groups don't need a category_id and will be put into "Other" section -->
+        <field name="category_id" eval="False" />
+    </record>
+</odoo>
