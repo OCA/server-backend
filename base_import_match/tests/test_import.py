@@ -22,7 +22,7 @@ class ImportCase(TransactionCase):
                 {
                     "res_model": res_model,
                     "file": demo_file.read(),
-                    "file_name": "%s.csv" % file_name,
+                    "file_name": f"{file_name}.csv",
                     "file_type": "csv",
                 }
             )
@@ -97,14 +97,21 @@ class ImportCase(TransactionCase):
         )
 
     def test_res_partner_name_duplicated(self):
-        """Change function based on name."""
-        record = self._base_import_record("res.partner", "res_partner_name")
+        """Change function with duplicate names."""
+        record = self._base_import_record("res.partner", "res_partner_name_mail")
         partner_1 = self.env.ref("base.res_partner_address_4")
         partner_2 = self.env.ref("base.res_partner_2")
-        function = partner_1.function
         partner_2.name = partner_1.name
-        record.execute_import(["function", "name"], [], OPTIONS)
-        self.assertEqual(self.env.ref("base.res_partner_address_4").function, function)
+        partner_2.email = "unique@example.com"
+        original_function_partner_1 = partner_1.function
+        record.execute_import(["function", "name", "email"], [], OPTIONS)
+        self.assertEqual(
+            self.env.ref("base.res_partner_address_4").function,
+            original_function_partner_1,
+        )
+        self.assertEqual(
+            self.env.ref("base.res_partner_2").function, "Function Changed"
+        )
 
     def test_res_users_login(self):
         """Change name based on login."""

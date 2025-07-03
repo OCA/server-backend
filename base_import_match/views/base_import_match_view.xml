@@ -15,7 +15,7 @@
                     <group>
                         <field name="model_id" />
                         <field name="field_ids">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="field_id" options="{'no_create': True}" />
                                 <field
                                     name="match_id"
@@ -28,7 +28,7 @@
                                     name="imported_value"
                                     readonly="not conditional"
                                 />
-                            </tree>
+                            </list>
                         </field>
                         <field name="sequence" />
                     </group>
@@ -37,13 +37,13 @@
         </field>
     </record>
     <record id="match_tree_view" model="ir.ui.view">
-        <field name="name">Import match tree view</field>
+        <field name="name">Import match list view</field>
         <field name="model">base_import.match</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="sequence" column_invisible="True" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="match_search_view" model="ir.ui.view">
@@ -70,7 +70,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="name">Import Match</field>
         <field name="res_model">base_import.match</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="match_menu" action="match_action" parent="base.next_id_9" />
