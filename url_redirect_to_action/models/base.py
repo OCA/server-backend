@@ -2,7 +2,7 @@ from odoo import api, models
 
 
 class Base(models.AbstractModel):
-    _inherit = 'base'
+    _inherit = "base"
 
     @api.model
     def _redirect_to_action_from_url(self, action_name, values):
