@@ -26,6 +26,13 @@
                 <group string="Options">
                     <field name="only_update" />
                     <field name="force_update" />
+                    <div>Clear ormcache</div>
+                    <button
+                        name="action_clear_cache"
+                        type="object"
+                        string="Clear"
+                        class="btn btn-warning"
+                    />
                 </group>
                 <group string="Import records between dates if supported">
                     <field name="date_from" />
