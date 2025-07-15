@@ -136,6 +136,16 @@ class BaseExternalDbsource(models.Model):
         string="Excel file filename",
     )
 
+    @ormcache("query", "execute_params", "metadata")
+    def execute_and_cache(
+        self, query=None, execute_params=None, metadata=False, **kwargs
+    ):
+        """Caches query response, but requires execute_params to be a tuple"""
+        return self.execute(query, list(execute_params), metadata, **kwargs)
+
+    def action_clear_cache(self):
+        self.clear_caches()
+
     @api.model
     @ormcache("model_name", "key_value", "field_key", "return_field")
     def get_m2_odoo_id(
