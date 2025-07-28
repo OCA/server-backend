@@ -14,12 +14,17 @@ class DbsourceExternalMixin(models.AbstractModel):
     _name = "dbsource.external.mixin"
     _description = "Mixin for models that need to map external records"
 
+    _mapped_suffix = ""
+
     @api.model
     def search_external(self, key_value, field_key):
         """
         Mapped model is an model to mapp external records to only one
         """
-        mapped_model = self.env.context.get("mapped_model")
+        mapped_model = self.env.context.get("mapped_model", False)
+        mapped_model_name = self._name + ".mapped" + self._mapped_suffix
+        if not mapped_model and mapped_model_name in self.env:
+            mapped_model = mapped_model_name
         if mapped_model:
             domain = [("external_key", "=", key_value)]
             mapped = self.env[mapped_model].search(domain)
