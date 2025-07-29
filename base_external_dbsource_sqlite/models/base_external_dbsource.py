@@ -2,6 +2,7 @@
 # Copyright 2016 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import sqlalchemy
+from sqlalchemy import text
 
 from odoo import fields, models
 
@@ -33,9 +34,9 @@ class BaseExternalDbsource(models.Model):
         for record in self:
             with record.connection_open() as connection:
                 if sqlparams is None:
-                    cur = connection.execute(sqlquery)
+                    cur = connection.execute(text(sqlquery))
                 else:
-                    cur = connection.execute(sqlquery, sqlparams)
+                    cur = connection.execute(text(sqlquery), sqlparams)
                 if metadata:
                     cols = list(cur.keys())
                 # If the query doesn't return rows, trying to get them anyway
