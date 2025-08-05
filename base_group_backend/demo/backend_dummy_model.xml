@@ -50,5 +50,4 @@
         parent="menu_root_no_group"
         action="action_dummy_list"
     />
-
 </odoo>

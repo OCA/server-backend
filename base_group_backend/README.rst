@@ -17,50 +17,68 @@ Group backend
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/16.0/base_group_backend
+    :target: https://github.com/OCA/server-backend/tree/18.0/base_group_backend
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_group_backend
+    :target: https://translation.odoo-community.org/projects/server-backend-18-0/server-backend-18-0-base_group_backend
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module adds two "Backend User" groups (``group_backend`` and ``group_backend_ui_users``) with restricted access to odoo backend only (``/web``), with less and more controlled access than the native "Internal User" group.
+This module adds two "Backend User" groups (``group_backend`` and
+``group_backend_ui_users``) with restricted access to odoo backend only
+(``/web``), with less and more controlled access than the native
+"Internal User" group.
 
-  The problem with the "Internal User" group (``base.group_user``) is that it can be used by any new module added to your project, so you don't control clearly this group's accesses.
+   The problem with the "Internal User" group (``base.group_user``) is
+   that it can be used by any new module added to your project, so you
+   don't control clearly this group's accesses.
 
 The UI access is provided only for ``group_backend_ui_users`` :
 
-* minimal default access rules to access the user's own data:
-    * users and partners
-    * mail activity, notification and channel
-    * presence
-* minimal default menu to restrict the available ones:
-    * notification
-    * activities
+-  minimal default access rules to access the user's own data:
 
-Here is an example where a user from ``group_backend_ui_users`` can only access and use the Dummy App. No other application is available to this user (you may define your own application instead of the Dummy one).
+   -  users and partners
+   -  mail activity, notification and channel
+   -  presence
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/dummy_app.png
-    :alt: Dummy app for demo
+-  minimal default menu to restrict the available ones:
+
+   -  notification
+   -  activities
+
+Here is an example where a user from ``group_backend_ui_users`` can only
+access and use the Dummy App. No other application is available to this
+user (you may define your own application instead of the Dummy one).
+
+|image1|
 
 We suggest to use this module with its companion ``base_user_role``.
 
 Limitations
-~~~~~~~~~~~
+-----------
 
-At the time of writing, Odoo uses ``user.share == False`` and ``user.has_group("base.group_user") == True`` to give the backend access to ``user``.
+At the time of writing, Odoo uses ``user.share == False`` and
+``user.has_group("base.group_user") == True`` to give the backend access
+to ``user``.
 
 So technically, the module does 2 things :
 
-* It sets the ``share`` parameter to ``False`` for ``group_backend`` users.
-* It hijacks the ``has_group`` method of res.users by returning ``True`` for ``group_backend`` users when the requested group is ``base.group_user``
+-  It sets the ``share`` parameter to ``False`` for ``group_backend``
+   users.
+-  It hijacks the ``has_group`` method of res.users by returning
+   ``True`` for ``group_backend`` users when the requested group is
+   ``base.group_user``
 
+This avoids to write a lot of overwrite in different controllers from
+different modules ('portal', 'web', 'base', 'website') with hard coded
+statements that check if user is part of the ``base.group_user`` or
+``share == False`` group.
 
-This avoids to write a lot of overwrite in different controllers from different modules ('portal', 'web', 'base', 'website') with hard coded statements that check if user is part of the ``base.group_user`` or ``share == False`` group.
+.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/dummy_app.png
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -75,21 +93,37 @@ This avoids to write a lot of overwrite in different controllers from different 
 Configuration
 =============
 
-To allow a user from the ``group_backend_ui_users`` group to interact with a specific model you can either add an access rules to this model for ``group_backend_ui_users`` or you can add ``group_backend_ui_users`` to the ``implied_ids`` of a new specific group.
+To allow a user from the ``group_backend_ui_users`` group to interact
+with a specific model you can either add an access rules to this model
+for ``group_backend_ui_users`` or you can add ``group_backend_ui_users``
+to the ``implied_ids`` of a new specific group.
 
-The Backend groups are from the "User types" category (``base.module_category_user_type``), the same category as "Internal User" (``base.group_user``), "Portal" (``base.group_portal``) or Public (``base.group_public``). Be aware that a user can only belongs to **one group of this category**.
+The Backend groups are from the "User types" category
+(``base.module_category_user_type``), the same category as "Internal
+User" (``base.group_user``), "Portal" (``base.group_portal``) or Public
+(``base.group_public``). Be aware that a user can only belongs to **one
+group of this category**.
 
 Usage
 =====
 
-To use this module, add a user to the group "Backend user" or "Backend UI user" through the user's form page.
+To use this module, add a user to the group "Backend user" or "Backend
+UI user" through the user's form page.
 
-.. figure:: https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/backend_ui.png
-    :alt: Backend UI user
+|image1|
 
-If you created a specific group with ``group_backend`` or ``group_backend_ui_users`` in its ``implied_ids``, you need to go through the group's form page in order to add the user to this specific group, because it won't be displayed on the user's form page (a specific group with its own category is displayed on user's form page only if the group inherits the "Internal user" group).
+If you created a specific group with ``group_backend`` or
+``group_backend_ui_users`` in its ``implied_ids``, you need to go
+through the group's form page in order to add the user to this specific
+group, because it won't be displayed on the user's form page (a specific
+group with its own category is displayed on user's form page only if the
+group inherits the "Internal user" group).
 
-This module also **restricts the root menus** displayed to Backend users, so be sure to explicitly add your Backend group to all the necessary root menus for these users.
+This module also **restricts the root menus** displayed to Backend
+users, so be sure to explicitly add your Backend group to all the
+necessary root menus for these users.
+
+.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/backend_ui.png
 
 Bug Tracker
 ===========
@@ -97,7 +131,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -105,20 +139,21 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Pierre Verkest
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Pierre Verkest <pierreverkest84@gmail.com>
-* François Poizat <francois.poizat@gmail.com>
+-  Pierre Verkest <pierreverkest84@gmail.com>
+-  François Poizat <francois.poizat@gmail.com>
 
-Do not contact contributors directly about support or help with technical issues.
+Do not contact contributors directly about support or help with
+technical issues.
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -141,6 +176,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-FranzPoize| |maintainer-bealdav| 
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/16.0/base_group_backend>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/18.0/base_group_backend>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

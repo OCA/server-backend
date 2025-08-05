@@ -1,5 +1,4 @@
 <odoo>
-
     <record model="res.groups" id="base_group_backend">
         <field name="name">Backend user</field>
         <field name="category_id" ref="base.module_category_user_type" />
@@ -39,5 +38,4 @@
             ]"
         />
     </record>
-
 </odoo>
