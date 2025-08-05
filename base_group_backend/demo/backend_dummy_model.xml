@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record id="backend_dummy_model_tree_view" model="ir.ui.view">
-        <field name="name">Backend dummy tree view</field>
+        <field name="name">Backend dummy list view</field>
         <field name="model">backend.dummy.model</field>
         <field name="arch" type="xml">
-            <tree create="false" delete="false">
+            <list create="false" delete="false">
                 <field name="my_value" />
                 <field name="my_other_value" groups="base.group_user" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -15,7 +15,7 @@
         <field name="name">Dummies</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">backend.dummy.model</field>
-        <field name="view_mode">tree,form,kanban,calendar,pivot,graph,activity</field>
+        <field name="view_mode">list,form,kanban,calendar,pivot,graph,activity</field>
         <field name="view_id" ref="backend_dummy_model_tree_view" />
     </record>
 

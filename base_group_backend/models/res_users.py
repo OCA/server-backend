@@ -9,7 +9,7 @@ class Users(models.Model):
     _inherit = "res.users"
 
     @api.model
-    def has_group(self, group_ext_id):
+    def _has_group(self, group_ext_id):
         """While ensuring a user is part of `base.group_user` this code will
         try if user is in the `base_group_backend.group_backend` group to let access
         to the odoo backend.
@@ -21,11 +21,11 @@ class Users(models.Model):
         As far `base.group_user` have a lot of default permission this
         makes hard to maintain proper access right according your business.
         """
-        res = super().has_group(group_ext_id)
+        res = super()._has_group(group_ext_id)
         if not res and (group_ext_id == "base.group_user"):
-            has_base_group_backend = super().has_group(
+            has_base_group_backend = super()._has_group(
                 "base_group_backend.base_group_backend"
-            ) or super().has_group("base_group_backend.group_backend_ui_users")
+            ) or super()._has_group("base_group_backend.group_backend_ui_users")
             if has_base_group_backend:
                 _logger.debug(
                     "Forcing has_group to return True"
