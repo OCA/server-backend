@@ -15,6 +15,7 @@ class ResUsersRoleLine(models.Model):
         domain="[('id', 'in', allowed_company_ids)]",
         help="If set, this role only applies when this is the main company selected."
         " Otherwise it applies to all companies.",
+        store=True,
     )
 
     @api.constrains("user_id", "company_id")
