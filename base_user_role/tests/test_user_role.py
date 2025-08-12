@@ -227,7 +227,7 @@ class TestUserRole(TransactionCase):
         # Check that the user cannot read multicompany data again since it lost
         # its admin privileges
         with self.assertRaisesRegex(
-            AccessError, "You are not allowed to access 'User role'"
+            AccessError, "You are not allowed to access 'User Role'"
         ):
             role.read()
 

@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="base.view_users_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[1]" position="before">
-                <page string="Roles">
+                <page string="User Roles">
                     <field name="role_ids" invisible="1" />
                     <field name="role_line_ids" nolabel="1">
                         <list editable="bottom" decoration-muted="not is_enabled">
