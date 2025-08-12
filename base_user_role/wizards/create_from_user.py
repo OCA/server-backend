@@ -40,7 +40,7 @@ class WizardCreateRoleFromUser(models.TransientModel):
 
         return {
             "context": self.env.context,
-            "name": "Role",
+            "name": "User Role",
             "view_type": "form",
             "view_mode": "form",
             "res_model": "res.users.role",

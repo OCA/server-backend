@@ -78,7 +78,7 @@
         <field name="name">res.users.role.search</field>
         <field name="model">res.users.role</field>
         <field name="arch" type="xml">
-            <search string="Roles">
+            <search>
                 <field name="name" />
                 <field name="user_ids" />
                 <field name="implied_ids" />
@@ -86,7 +86,7 @@
         </field>
     </record>
     <record id="action_res_users_role_tree" model="ir.actions.act_window">
-        <field name="name">Roles</field>
+        <field name="name">User Roles</field>
         <field name="res_model">res.users.role</field>
         <field name="path">user-role</field>
         <field name="view_mode">list,form</field>

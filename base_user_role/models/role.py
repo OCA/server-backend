@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class ResUsersRole(models.Model):
     _name = "res.users.role"
     _inherits = {"res.groups": "group_id"}
-    _description = "User role"
+    _description = "User Role"
 
     group_id = fields.Many2one(
         comodel_name="res.groups",
@@ -152,7 +152,7 @@ class ResUsersRoleLine(models.Model):
         (
             "user_role_uniq",
             "unique (user_id,role_id)",
-            "Roles can be assigned to a user only once at a time",
+            "User roles can be assigned to a user only once at a time",
         )
     ]
 
