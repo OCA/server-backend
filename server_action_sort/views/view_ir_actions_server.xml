@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright (C) 2020 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_ir_actions_server_form" model="ir.ui.view">
+        <field name="model">ir.actions.server</field>
+        <field name="inherit_id" ref="base.view_server_action_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='child_ids']" position="after">
+                <field
+                    name="sort_line_ids"
+                    nolabel="1"
+                    colspan="2"
+                    invisible="state != 'sort'"
+                >
+                    <list editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field name="field_id" />
+                        <field name="field_name" />
+                        <field name="desc" />
+                    </list>
+                </field>
+            </xpath>
+            <xpath expr="//group[@name='action_content']" position="inside">
+                <field
+                    name="sort_field_id"
+                    required="state == 'sort'"
+                    invisible="state != 'sort'"
+                />
+                <field name="sort_field_id_model" invisible="state != 'sort'" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
