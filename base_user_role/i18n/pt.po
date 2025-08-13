@@ -23,8 +23,8 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
-msgid "# Roles"
-msgstr "# Funções"
+msgid "# User Roles"
+msgstr ""
 
 #. module: base_user_role
 #. odoo-python
@@ -302,23 +302,6 @@ msgid "Role lines"
 msgstr "Linhas de funções"
 
 #. module: base_user_role
-#: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
-#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
-#: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
-#: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
-#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
-#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
-msgid "Roles"
-msgstr "Funções"
-
-#. module: base_user_role
-#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
-msgid "Roles can be assigned to a user only once at a time"
-msgstr "As funções podem ser atribuídas a um utilizadores apenas uma vez"
-
-#. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
 msgid "Roles in which the group is involved"
@@ -367,13 +350,29 @@ msgstr "Utilizador"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role
-msgid "User role"
-msgstr "Função de utilizador"
+msgid "User Role"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
+#: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
+#: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "User Roles"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.module.category,name:base_user_role.ir_module_category_role
 msgid "User roles"
 msgstr "Funções de utilizador"
+
+#. module: base_user_role
+#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
+msgid "User roles can be assigned to a user only once at a time"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__users
@@ -406,6 +405,18 @@ msgstr "Vistas"
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "or"
 msgstr "ou"
+
+#~ msgid "# Roles"
+#~ msgstr "# Funções"
+
+#~ msgid "Roles"
+#~ msgstr "Funções"
+
+#~ msgid "Roles can be assigned to a user only once at a time"
+#~ msgstr "As funções podem ser atribuídas a um utilizadores apenas uma vez"
+
+#~ msgid "User role"
+#~ msgstr "Função de utilizador"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Última Modificação Em"

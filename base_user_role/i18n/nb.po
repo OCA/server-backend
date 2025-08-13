@@ -22,7 +22,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
-msgid "# Roles"
+msgid "# User Roles"
 msgstr ""
 
 #. module: base_user_role
@@ -297,23 +297,6 @@ msgid "Role lines"
 msgstr ""
 
 #. module: base_user_role
-#: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
-#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
-#: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
-#: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
-#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
-#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
-msgid "Roles"
-msgstr ""
-
-#. module: base_user_role
-#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
-msgid "Roles can be assigned to a user only once at a time"
-msgstr ""
-
-#. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
 msgid "Roles in which the group is involved"
@@ -362,12 +345,28 @@ msgstr "Bruker"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role
-msgid "User role"
+msgid "User Role"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
+#: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
+#: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "User Roles"
 msgstr ""
 
 #. module: base_user_role
 #: model:ir.module.category,name:base_user_role.ir_module_category_role
 msgid "User roles"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
+msgid "User roles can be assigned to a user only once at a time"
 msgstr ""
 
 #. module: base_user_role
