@@ -21,7 +21,7 @@ class ResGroups(models.Model):
     role_ids = fields.Many2many(
         comodel_name="res.users.role",
         relation="res_groups_implied_roles_rel",
-        string="Roles",
+        string="User Roles",
         compute="_compute_role_ids",
         help="Roles in which the group is involved",
     )
@@ -43,7 +43,7 @@ class ResGroups(models.Model):
         recursive=True,
     )
 
-    role_count = fields.Integer("# Roles", compute="_compute_role_count")
+    role_count = fields.Integer("# User Roles", compute="_compute_role_count")
 
     def _compute_role_count(self):
         for group in self:
