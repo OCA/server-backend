@@ -22,7 +22,7 @@ class BaseExternalModelImporter:
 
     def __init__(self, dbsource, file_path="", file_name=""):
         self.env = dbsource.env
-        self.dbsource = dbsource
+        self.dbsource: BaseExternalDbsource = dbsource
         self.file_path = file_path
         self.file_name = file_name
 
@@ -187,10 +187,8 @@ class BaseExternalDbsource(models.Model):
 
     def _validate_vat(self, vals, country_code):
         ResPartner = self.env["res.partner"]
-        original_vat = vals.pop("vat", False)
+        original_vat = vals.pop("vat", "") or ""
         vat = original_vat
-        if not vat:
-            return vals
         # Clean vat
         vat = (
             vat.replace("-", "")
@@ -199,6 +197,8 @@ class BaseExternalDbsource(models.Model):
             .replace("*", "")
             .upper()
         )
+        if not vat:
+            return vals
         if not vat[1:2].isnumeric():
             country_code, vat = ResPartner._split_vat(vat)
         if not country_code:
