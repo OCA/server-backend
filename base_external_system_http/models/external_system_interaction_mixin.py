@@ -35,6 +35,14 @@ class ExternalSystemInteractionMixin(models.AbstractModel):
         response = requests.post(url, data=data, json=json, timeout=timeout, **kwargs)
         return self._return_checked_response(endpoint, response)
 
+    def put(self, endpoint=None, data=None, json=None, **kwargs):
+        """Post data to http server."""
+        url = self._get_url(endpoint=endpoint)
+        _logger.debug("Will post data to %s", url)
+        timeout = kwargs.pop("timeout", 60)  # default timeout a full minute.
+        response = requests.put(url, data=data, json=json, timeout=timeout, **kwargs)
+        return self._return_checked_response(endpoint, response)
+
     def _get_url(self, endpoint=None, url_suffix=None):
         """Make full url for endpoint.
 
