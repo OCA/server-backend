@@ -4,6 +4,7 @@ import datetime
 
 from odoo import fields
 from odoo.exceptions import AccessError
+from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 
@@ -230,6 +231,18 @@ class TestUserRole(TransactionCase):
             AccessError, "You are not allowed to access 'User Role'"
         ):
             role.read()
+
+    @tagged("-at_install", "post_install")
+    def test_notification_type_not_reset(self):
+        """Test that roles don't reset notification settings."""
+        if self.env["ir.module.module"]._get("mail").state != "installed":
+            self.skipTest("Mail module is not installed.")
+        notification_group = self.env.ref("mail.group_mail_notification_type_inbox")
+        self.assertNotIn(notification_group, self.user_id.groups_id)
+        self.user_id.notification_type = "inbox"
+        self.assertIn(notification_group, self.user_id.groups_id)
+        self.user_id.write({"role_line_ids": [(0, 0, {"role_id": self.role1_id.id})]})
+        self.assertIn(notification_group, self.user_id.groups_id)
 
     def test_create_role_from_user(self):
         # Use a wizard instance to create a new role based on the user.

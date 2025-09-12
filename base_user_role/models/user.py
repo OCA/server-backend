@@ -64,6 +64,13 @@ class ResUsers(models.Model):
     def _get_enabled_roles(self):
         return self.role_line_ids.filtered(lambda rec: rec.is_enabled)
 
+    @api.model
+    def _get_self_writable_groups(self):
+        group = self.env.ref(
+            "mail.group_mail_notification_type_inbox", raise_if_not_found=False
+        )
+        return group or self.env["res.groups"]
+
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
         If no role is defined on the user, its groups are let untouched unless
@@ -80,16 +87,17 @@ class ResUsers(models.Model):
                     + role.trans_implied_ids.ids
                 )
             )
+        self_writable_group_ids = self._get_self_writable_groups().ids
         for user in self:
             if not user.role_line_ids and not force:
                 continue
-            group_ids = []
+            user_group_ids = set(user.groups_id.ids).difference(self_writable_group_ids)
+            group_ids = set()
             for role_line in user._get_enabled_roles():
                 role = role_line.role_id
-                group_ids += role_groups[role]
-            group_ids = list(set(group_ids))  # Remove duplicates IDs
-            groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
-            groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
+                group_ids.update(role_groups[role])
+            groups_to_add = group_ids - user_group_ids
+            groups_to_remove = user_group_ids - group_ids
             to_add = [(4, gr) for gr in groups_to_add]
             to_remove = [(3, gr) for gr in groups_to_remove]
             groups = to_remove + to_add
