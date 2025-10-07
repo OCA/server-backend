@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_add_multiple_users_wizard" model="ir.actions.act_window">
+        <field name="name">Add Multiple Users</field>
+        <field name="res_model">role.add.users.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_role_id': active_id}</field>
+    </record>
+
+    <record id="view_res_users_role_add_users_wizard" model="ir.ui.view">
+        <field name="name">role.add.users.wizard.form</field>
+        <field name="model">role.add.users.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="role_id" readonly="1" />
+                    <field
+                        name="user_ids"
+                        widget="many2many_tags"
+                        options="{'no_create': True, 'no_create_edit': True}"
+                        domain="[('share','=',False)]"
+                    />
+                    <field name="date_from" />
+                    <field name="date_to" />
+                </group>
+                <footer>
+                    <button
+                        name="action_add_users"
+                        string="Add Users"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
