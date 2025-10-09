@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =====================
 User roles by company
 =====================
@@ -13,17 +17,17 @@ User roles by company
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/18.0/base_user_role_company
+    :target: https://github.com/OCA/server-backend/tree/19.0/base_user_role_company
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-18-0/server-backend-18-0-base_user_role_company
+    :target: https://translation.odoo-community.org/projects/server-backend-19-0/server-backend-19-0-base_user_role_company
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -66,21 +70,21 @@ to all active companies will be activated.
 
 For example:
 
-- A "SALES PERSON" and a "SALES MANAGER" roles are created.
+-  A "SALES PERSON" and a "SALES MANAGER" roles are created.
 
-- A user is assigned to the roles:
+-  A user is assigned to the roles:
 
-  - "SALES PERSON", with no specific company assigned (meaning all)
-  - "SALES MANAGER" only to "My Company (Chicago)"
+   -  "SALES PERSON", with no specific company assigned (meaning all)
+   -  "SALES MANAGER" only to "My Company (Chicago)"
 
-- When selecting active companies from the UI widget:
+-  When selecting active companies from the UI widget:
 
-  - If only "My Company (San Francisco)" is active, "SALES PERSON" will
-    be active.
-  - If only "My Company (Chicago)" is active, "SALES PERSON" and "SALES
-    MANAGER" will be active.
-  - If both "My Company (San Francisco)" and "My Company (Chicago)" is
-    active, "SALES PERSON" will be active.
+   -  If only "My Company (San Francisco)" is active, "SALES PERSON"
+      will be active.
+   -  If only "My Company (Chicago)" is active, "SALES PERSON" and
+      "SALES MANAGER" will be active.
+   -  If both "My Company (San Francisco)" and "My Company (Chicago)" is
+      active, "SALES PERSON" will be active.
 
 Bug Tracker
 ===========
@@ -88,7 +92,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_company%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_company%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -105,17 +109,17 @@ Contributors
 
 `Open Source Integrators <http://opensourceintegrators.com>`__
 
-   - Daniel Reis <dreis@opensourceintegrators.com>
-   - Chandresh Thakkar <cthakkr@opensourceintegrators.com>
-   - Urvisha Desai <udesai@opensourceintegrators.com>
+   -  Daniel Reis <dreis@opensourceintegrators.com>
+   -  Chandresh Thakkar <cthakkr@opensourceintegrators.com>
+   -  Urvisha Desai <udesai@opensourceintegrators.com>
 
 `WeSolved <http://wesolved.com>`__
 
-   - Robin Conjour <rconjour@wesolved.com>
+   -  Robin Conjour <rconjour@wesolved.com>
 
 `Dynapps <http://dynapps.eu>`__
 
-   - Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
+   -  Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
 
 Maintainers
 -----------
@@ -130,6 +134,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/18.0/base_user_role_company>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/19.0/base_user_role_company>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

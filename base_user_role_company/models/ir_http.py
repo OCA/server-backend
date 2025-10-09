@@ -8,13 +8,13 @@ from odoo.http import request
 class IrHttp(models.AbstractModel):
     _inherit = "ir.http"
 
-    def session_info(self):
+    def session_info(self, *args, **kwargs):
         """
         Based on the selected companies (cids),
         calculate the roles to enable.
         A role should be enabled only when it applies to all selected companies.
         """
-        result = super().session_info()
+        result = super().session_info(*args, **kwargs)
         if self.env.user.role_line_ids:
             cids_str = request.httprequest.cookies.get("cids", str(self.env.company.id))
             cids = [int(cid) for cid in cids_str.split("-")]

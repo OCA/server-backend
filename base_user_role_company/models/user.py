@@ -7,20 +7,18 @@ from odoo import api, models
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    @classmethod
-    def authenticate(cls, db, credential, user_agent_env):
-        auth_info = super().authenticate(db, credential, user_agent_env)
-        # On login, ensure the proper roles are applied
-        # The last Role applied may not be the correct one,
-        # sonce the new session current company can be different
-        with cls.pool.cursor() as cr:
-            env = api.Environment(cr, auth_info["uid"], {})
+    def authenticate(self, *args, **kwargs):
+        auth_info = super().authenticate(*args, **kwargs)
+        # Ensure proper roles are applied for the logged-in user
+        uid = auth_info.get("uid") if isinstance(auth_info, dict) else None
+        if uid:
+            env = api.Environment(self.env.cr, uid, {})
             if env.user.role_line_ids:
                 env.user.set_groups_from_roles()
         return auth_info
 
-    def _get_enabled_roles(self):
-        res = super()._get_enabled_roles()
+    def _get_enabled_roles(self, *args, **kwargs):
+        res = super()._get_enabled_roles(*args, **kwargs)
         if self.role_line_ids:
             active_roles = self.env["res.users.role.line"]
             if self.env.context.get("active_company_ids"):
@@ -32,8 +30,9 @@ class ResUsers(models.Model):
                     active_roles |= role_line
                 elif role_line.company_id.id in company_ids:
                     role_line_companies = self.role_line_ids.filtered(
-                        lambda x, rl=role_line: x.role_id == rl.role_id
-                        and x.company_id.id in company_ids
+                        lambda x, rl=role_line: (
+                            x.role_id == rl.role_id and x.company_id.id in company_ids
+                        )
                     )
                     if len(role_line_companies) == len(company_ids):
                         active_roles |= role_line

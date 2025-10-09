@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from datetime import timedelta
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests.common import TransactionCase
 
 
@@ -25,11 +25,11 @@ class TestUserRoleCompany(TransactionCase):
         user_vals = {
             "name": "Role test user",
             "login": "role_test_user",
-            "company_ids": [(fields.Command.set([cls.company1.id]))],
+            "company_ids": [(Command.set([cls.company1.id]))],
             "role_line_ids": [
-                (fields.Command.create({"role_id": cls.roleA.id})),
+                (Command.create({"role_id": cls.roleA.id})),
                 (
-                    fields.Command.create(
+                    Command.create(
                         {
                             "role_id": cls.roleB.id,
                             "date_to": fields.Date.today() + timedelta(days=1),
@@ -46,7 +46,7 @@ class TestUserRoleCompany(TransactionCase):
             active_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA | self.groupB
-        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
 
     def test_120_disabled_role_is_not_used(self):
@@ -58,5 +58,5 @@ class TestUserRoleCompany(TransactionCase):
             active_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA
-        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
