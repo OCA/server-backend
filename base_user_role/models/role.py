@@ -3,7 +3,8 @@
 import datetime
 import logging
 
-from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo import api, fields, models
+from odoo.api import SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
@@ -40,11 +41,10 @@ class ResUsersRole(models.Model):
         required=False,
     )
     model_access_count = fields.Integer(compute="_compute_model_access_ids")
-    group_category_id = fields.Many2one(
-        related="group_id.category_id",
-        default=lambda cls: cls.env.ref("base_user_role.ir_module_category_role").id,
-        string="Associated category",
-        help="Associated group's category",
+    group_privilege_id = fields.Many2one(
+        related="group_id.privilege_id",
+        string="Associated privilege",
+        help="Privilege assigned to the associated group.",
         readonly=False,
     )
 
@@ -105,7 +105,7 @@ class ResUsersRole(models.Model):
 
     def copy(self, default=None):
         self.ensure_one()
-        default = dict(default or {}, name=_("%s (copy)", self.name))
+        default = dict(default or {}, name=self.env._("%s (copy)", self.name))
         return super().copy(default)
 
     def update_users(self):
@@ -117,7 +117,14 @@ class ResUsersRole(models.Model):
     @api.model
     def cron_update_users(self):
         logging.info("Update user roles")
-        self.search([]).update_users()
+        offset = 0
+        batch = 2000
+        while True:
+            roles = self.search([], offset=offset, limit=batch)
+            if not roles:
+                break
+            roles.update_users()
+            offset += batch
 
     def show_rule_ids(self):
         action = self.env["ir.actions.actions"]._for_xml_id("base.action_rule")
@@ -148,13 +155,10 @@ class ResUsersRoleLine(models.Model):
     date_from = fields.Date("From")
     date_to = fields.Date("To")
     is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
-    _sql_constraints = [
-        (
-            "user_role_uniq",
-            "unique (user_id,role_id)",
-            "User roles can be assigned to a user only once at a time",
-        )
-    ]
+    _user_role_uniq = models.Constraint(
+        "UNIQUE (user_id, role_id)",
+        "User roles can be assigned to a user only once at a time",
+    )
 
     @api.depends("date_from", "date_to")
     def _compute_is_enabled(self):

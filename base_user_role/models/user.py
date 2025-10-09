@@ -31,10 +31,14 @@ class ResUsers(models.Model):
 
     @api.model
     def _default_role_lines(self):
-        default_user = self.env.ref("base.default_user", raise_if_not_found=False)
+        template_user = self.env.ref(
+            "base.template_portal_user_id", raise_if_not_found=False
+        )
         default_values = []
-        if default_user:
-            for role_line in default_user.with_context(active_test=False).role_line_ids:
+        if template_user:
+            for role_line in template_user.with_context(
+                active_test=False
+            ).role_line_ids:
                 default_values.append(
                     {
                         "role_id": role_line.role_id.id,
@@ -73,13 +77,8 @@ class ResUsers(models.Model):
         # We obtain all the groups associated to each role first, so that
         # it is faster to compare later with each user's groups.
         for role in self.mapped("role_line_ids.role_id"):
-            role_groups[role] = list(
-                set(
-                    role.group_id.ids
-                    + role.implied_ids.ids
-                    + role.trans_implied_ids.ids
-                )
-            )
+            # v19: use transitive implied groups provided by ORM
+            role_groups[role] = list(set(role.all_implied_ids.ids))
         for user in self:
             if not user.role_line_ids and not force:
                 continue
@@ -88,12 +87,24 @@ class ResUsers(models.Model):
                 role = role_line.role_id
                 group_ids += role_groups[role]
             group_ids = list(set(group_ids))  # Remove duplicates IDs
-            groups_to_add = list(set(group_ids) - set(user.groups_id.ids))
-            groups_to_remove = list(set(user.groups_id.ids) - set(group_ids))
+            # Preserve admin only if dropping it would leave zero administrators
+            admin_group = self.env.ref("base.group_system", raise_if_not_found=False)
+            if (
+                admin_group
+                and admin_group.id in user.group_ids.ids
+                and admin_group.id not in group_ids
+            ):
+                other_admins = self.sudo().search_count(
+                    [("id", "!=", user.id), ("group_ids", "in", admin_group.id)]
+                )
+                if other_admins == 0:
+                    group_ids.append(admin_group.id)
+            groups_to_add = list(set(group_ids) - set(user.group_ids.ids))
+            groups_to_remove = list(set(user.group_ids.ids) - set(group_ids))
             to_add = [(4, gr) for gr in groups_to_add]
             to_remove = [(3, gr) for gr in groups_to_remove]
             groups = to_remove + to_add
             if groups:
-                vals = {"groups_id": groups}
+                vals = {"group_ids": groups}
                 super(ResUsers, user).write(vals)
         return True
