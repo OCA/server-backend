@@ -68,7 +68,7 @@
             <search>
                 <field name="old_role_id" />
                 <field name="new_role_id" />
-                <group string="Group By" name="groupby">
+                <group>
                     <filter
                         name="group_by_old_role"
                         string="Old role"
