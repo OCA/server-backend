@@ -8,9 +8,11 @@ from odoo.addons.web.controllers.home import Home
 
 class HomeExtended(Home):
     @http.route()
-    def web_load_menus(self, unique):
-        response = super().web_load_menus(unique)
-        # On logout & re-login we could see wrong menus being rendered
-        # To avoid this, menu http cache must be disabled
-        response.headers.remove("Cache-Control")
+    def web_load_menus(self, lang=None):
+        # v19 signature: (lang=None). Keep behavior of disabling menu HTTP cache.
+        response = super().web_load_menus(lang=lang)
+        # Avoid bare except-pass: remove header defensively
+        if "Cache-Control" in response.headers:
+            # Werkzeug Headers behaves like a dict for deletion
+            del response.headers["Cache-Control"]
         return response

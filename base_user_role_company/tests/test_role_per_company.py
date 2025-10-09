@@ -49,7 +49,7 @@ class TestUserRoleCompany(TransactionCase):
             active_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA | self.groupB | self.groupC
-        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
 
     def test_120_company_2(self):
@@ -57,7 +57,7 @@ class TestUserRoleCompany(TransactionCase):
         self.test_user.with_context(
             active_company_ids=self.company2.ids
         ).set_groups_from_roles()
-        enabled = self.test_user.groups_id
+        enabled = self.test_user.group_ids
         expected = self.groupA | self.groupC
         found = enabled.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
@@ -71,7 +71,7 @@ class TestUserRoleCompany(TransactionCase):
         self.test_user.with_context(
             active_company_ids=[self.company1.id, self.company2.id]
         ).set_groups_from_roles()
-        enabled = self.test_user.groups_id
+        enabled = self.test_user.group_ids
         expected = self.groupA | self.groupC
         found = enabled.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)

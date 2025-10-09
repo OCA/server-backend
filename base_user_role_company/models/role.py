@@ -25,18 +25,12 @@ class ResUsersRoleLine(models.Model):
                 and record.company_id != record.user_id.company_id
                 and record.company_id not in record.user_id.company_ids
             ):
-                raise ValidationError(
-                    self.env._(
-                        'User "%(user)s" does not have access to the company '
-                        '"%(company)s"'
-                    )
-                    % {"user": record.user_id.name, "company": record.company_id.name}
-                )
+                msg = self.env._("User does not have access to the selected company")
+                raise ValidationError(msg)
 
-    _sql_constraints = [
-        (
-            "user_role_uniq",
-            "unique (user_id,role_id,company_id)",
-            "Roles can be assigned to a user only once at a time",
-        )
-    ]
+    # Override parent unique constraint to allow the same role multiple times
+    # for a user, provided company_id differs.
+    _user_role_uniq = models.Constraint(
+        "UNIQUE (user_id, role_id, company_id)",
+        "Roles can be assigned to a user only once at a time",
+    )

@@ -46,7 +46,7 @@ class TestUserRoleCompany(TransactionCase):
             active_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA | self.groupB
-        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
 
     def test_120_disabled_role_is_not_used(self):
@@ -58,5 +58,5 @@ class TestUserRoleCompany(TransactionCase):
             active_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA
-        found = self.test_user.groups_id.filtered(lambda x: x in expected)
+        found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)

@@ -7,14 +7,13 @@ from odoo import api, models
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    @classmethod
-    def authenticate(cls, db, credential, user_agent_env):
-        auth_info = super().authenticate(db, credential, user_agent_env)
-        # On login, ensure the proper roles are applied
-        # The last Role applied may not be the correct one,
-        # sonce the new session current company can be different
-        with cls.pool.cursor() as cr:
-            env = api.Environment(cr, auth_info["uid"], {})
+    def authenticate(self, credential, user_agent_env):
+        # v19 signature: instance method with (credential, user_agent_env)
+        auth_info = super().authenticate(credential, user_agent_env)
+        # Ensure proper roles are applied for the logged-in user
+        uid = auth_info.get("uid") if isinstance(auth_info, dict) else None
+        if uid:
+            env = api.Environment(self.env.cr, uid, {})
             if env.user.role_line_ids:
                 env.user.set_groups_from_roles()
         return auth_info
