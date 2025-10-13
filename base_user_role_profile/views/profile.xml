@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
 <odoo>
-
     <record id="view_res_users_profile_form" model="ir.ui.view">
         <field name="name">res.users.profile.form</field>
         <field name="model">res.users.profile</field>
@@ -39,5 +38,4 @@
         parent="base.menu_users"
         action="action_res_users_profile_tree"
     />
-
 </odoo>
