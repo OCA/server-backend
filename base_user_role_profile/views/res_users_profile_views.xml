@@ -17,12 +17,12 @@
     </record>
 
     <record id="view_res_users_profile_tree" model="ir.ui.view">
-        <field name="name">res.users.profile.tree</field>
+        <field name="name">res.users.profile.list</field>
         <field name="model">res.users.profile</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
-            </tree>
+            </list>
         </field>
     </record>
 

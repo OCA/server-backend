@@ -86,23 +86,37 @@ class TestUserProfile(TransactionCase):
         self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
         self.assertEqual(self.user_id.profile_ids, self.profile1_id + self.profile2_id)
         self.assertEqual(self.user_id.profile_id, self.profile1_id)
+        self.assertFalse(self.user_id.restrict_profile_switching)
         self.user_id.action_profile_change({"profile_id": self.profile1_id.id})
 
         user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role1_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)
 
+        self.assertFalse(self.user_id.restrict_profile_switching)
         self.user_id.action_profile_change({"profile_id": self.profile2_id.id})
 
         user_group_ids = sorted({group.id for group in self.user_id.groups_id})
         expected_group_ids = sorted(set(self.role2_group_ids))
         self.assertEqual(user_group_ids, expected_group_ids)
 
+    def test_restrict_profile_switching(self):
+        line1_vals = {"role_id": self.role1_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
+        line2_vals = {"role_id": self.role2_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
+        self.assertEqual(self.user_id.profile_id, self.profile1_id)
+        self.user_id.restrict_profile_switching = True
+        self.assertTrue(self.user_id.restrict_profile_switching)
+        self.user_id.action_profile_change({"profile_id": self.profile2_id.id})
+        self.assertEqual(self.user_id.profile_id, self.profile1_id)
+
     def test_allow_by_noprofile(self):
         line1_vals = {"role_id": self.role1_id.id, "user_id": self.user_id.id}
         self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
         line2_vals = {"role_id": self.role3_id.id, "user_id": self.user_id.id}
         self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
+        self.assertFalse(self.user_id.include_default_profile)
         self.assertEqual(self.user_id.profile_ids, self.profile1_id)
         user_group_ids = []
         for group in self.user_id.groups_id:
@@ -110,3 +124,29 @@ class TestUserProfile(TransactionCase):
         user_group_ids = set(user_group_ids)
         expected_groups = set(self.role1_group_ids + self.role3_group_ids)
         self.assertEqual(user_group_ids, expected_groups)
+
+    def test_include_default_profile(self):
+        line1_vals = {"role_id": self.role1_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
+        line2_vals = {"role_id": self.role3_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
+        self.user_id.write({"include_default_profile": True})
+        self.assertTrue(self.user_id.include_default_profile)
+        self.assertEqual(
+            self.user_id.profile_ids,
+            self.user_id._get_default_profile() + self.profile1_id,
+        )
+
+    def test_update_profile_id(self):
+        line1_vals = {"role_id": self.role1_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line1_vals)]})
+        line2_vals = {"role_id": self.role3_id.id, "user_id": self.user_id.id}
+        self.user_id.write({"role_line_ids": [(0, 0, line2_vals)]})
+        self.assertFalse(self.user_id.include_default_profile)
+        self.user_id.profile_ids = False
+        self.user_id._update_profile_id()
+        self.assertEqual(self.user_id.profile_id, self.profile1_id)
+        self.user_id.write({"include_default_profile": True})
+        self.user_id.profile_id = False
+        self.user_id._update_profile_id()
+        self.assertEqual(self.user_id.profile_id, self.user_id._get_default_profile())
