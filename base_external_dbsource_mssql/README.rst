@@ -17,13 +17,13 @@ External Database Source - MSSQL
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/17.0/base_external_dbsource_mssql
+    :target: https://github.com/OCA/server-backend/tree/18.0/base_external_dbsource_mssql
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-17-0/server-backend-17-0-base_external_dbsource_mssql
+    :target: https://translation.odoo-community.org/projects/server-backend-18-0/server-backend-18-0-base_external_dbsource_mssql
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=17.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -41,9 +41,9 @@ Installation
 
 To install this module, you need to:
 
--  Install & configure FreeTDS driver (tdsodbc package)
--  Install ``sqlalchemy`` & ``pymssql`` python libraries
--  Install ``base_external_dbsource`` Odoo module
+- Install & configure FreeTDS driver (tdsodbc package)
+- Install ``sqlalchemy`` & ``pymssql`` python libraries
+- Install ``base_external_dbsource`` Odoo module
 
 Configuration
 =============
@@ -58,17 +58,17 @@ Usage
 
 To use this module:
 
--  Go to Settings > Technical > Database Structure > Database Sources
--  Click on Create to enter the following information:
--  Datasource name 
--  Pasword
--  Connector: Choose the database to which you want to connect
--  Connection string: Specify how to connect to database
+- Go to Settings > Technical > Database Structure > Database Sources
+- Click on Create to enter the following information:
+- Datasource name 
+- Pasword
+- Connector: Choose the database to which you want to connect
+- Connection string: Specify how to connect to database
 
 Known issues / Roadmap
 ======================
 
--  Add X.509 authentication
+- Add X.509 authentication
 
 Bug Tracker
 ===========
@@ -76,7 +76,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_external_dbsource_mssql%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_external_dbsource_mssql%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -92,22 +92,22 @@ Authors
 Contributors
 ------------
 
--  Daniel Reis <dreis.pt@hotmail.com>
+- Daniel Reis <dreis.pt@hotmail.com>
 
--  Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+- Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 
--  Gervais Naoussi <gervaisnaoussi@gmail.com>
+- Gervais Naoussi <gervaisnaoussi@gmail.com>
 
--  Dave Lasley <dave@laslabs.com>
+- Dave Lasley <dave@laslabs.com>
 
--  
+- 
 
-   -  `Tecnativa <https://www.tecnativa.com>`__:
+  - `Tecnativa <https://www.tecnativa.com>`__:
 
-      -  Sergio Teruel
-      -  Carolina Fernandez
+    - Sergio Teruel
+    - Carolina Fernandez
 
--  Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
+- Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
 
 Maintainers
 -----------
@@ -130,6 +130,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-anddago78| 
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/17.0/base_external_dbsource_mssql>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/18.0/base_external_dbsource_mssql>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
