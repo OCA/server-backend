@@ -12,3 +12,7 @@
           - Carolina Fernandez
 
   - Andrea Cattalani ([Moduon](https://www.moduon.team/))
+
+  - [Opensourceintegrators](https://www.opensourceintegrators.com):
+
+      - Nikul Chaudhary \<<nchaudhary@opensourceintegrators.com>\>

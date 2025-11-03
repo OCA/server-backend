@@ -109,6 +109,10 @@ Contributors
 
 - Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
 
+- `Opensourceintegrators <https://www.opensourceintegrators.com>`__:
+
+  - Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+
 Maintainers
 -----------
 

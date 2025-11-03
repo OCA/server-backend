@@ -36,9 +36,9 @@ class BaseExternalDbsource(models.Model):
         for record in self:
             with record.connection_open() as connection:
                 if sqlparams is None:
-                    cur = connection.execute(sqlquery)
+                    cur = connection.execute(sqlalchemy.text(sqlquery))
                 else:
-                    cur = connection.execute(sqlquery, sqlparams)
+                    cur = connection.execute(sqlalchemy.text(sqlquery), sqlparams)
                 if metadata:
                     cols = list(cur.keys())
                 # If the query doesn't return rows, trying to get them anyway
