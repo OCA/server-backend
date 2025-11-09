@@ -13,12 +13,12 @@ class TestBaseExternalDbsource(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.dbsource = cls.env.ref("base_external_dbsource_mssql.demo_mssql")
+        cls.dbsource = cls.env.ref("base_external_dbsource_mssql.demo_mssql_alchemy")
 
     def test_connection_close_mssql(self):
         """It should close the connection"""
         connection = mock.MagicMock()
-        res = self.dbsource.connection_close_mssql(connection)
+        res = self.dbsource.connection_close_mssql_alchemy(connection)
         self.assertEqual(res, connection.close())
 
     def test_connection_open_mssql(self):
@@ -26,12 +26,12 @@ class TestBaseExternalDbsource(common.TransactionCase):
         with mock.patch.object(
             type(self.dbsource), "_connection_open_mssql"
         ) as parent_method:
-            self.dbsource.connection_open_mssql()
+            self.dbsource.connection_open_mssql_alchemy()
             parent_method.assert_called_once_with()
 
     def test_excecute_mssql(self):
         """It should pass args to SQLAlchemy execute"""
         expect = "sqlquery", "sqlparams", "metadata"
         with mock.patch.object(type(self.dbsource), "_execute_mssql") as parent_method:
-            self.dbsource.execute_mssql(*expect)
+            self.dbsource.execute_mssql_alchemy(*expect)
             parent_method.assert_called_once_with(*expect)
