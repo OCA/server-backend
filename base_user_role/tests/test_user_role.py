@@ -201,14 +201,9 @@ class TestUserRole(TransactionCase):
         self.assertFalse(role2_groups <= self.user_id.group_ids)
 
     def test_default_user_roles(self):
-        self.default_user.write(
-            {
-                "role_line_ids": [
-                    fields.Command.create({"role_id": self.role1_id.id}),
-                    fields.Command.create({"role_id": self.role2_id.id}),
-                ]
-            }
-        )
+        # Mark roles as default on new users
+        self.role1_id.is_default = True
+        self.role2_id.is_default = True
         user = self.user_model.create(
             {"name": "USER TEST (DEFAULT ROLES)", "login": "user_test_default_roles"}
         )
