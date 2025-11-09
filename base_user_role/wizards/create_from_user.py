@@ -28,7 +28,7 @@ class WizardCreateRoleFromUser(models.TransientModel):
             }
         )
 
-        role.implied_ids = [(6, 0, user.group_ids.ids)]
+        role.implied_ids = [fields.Command.set(user.group_ids.ids)]
 
         if self.assign_to_user:
             role_line_obj.create(
