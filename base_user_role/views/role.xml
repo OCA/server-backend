@@ -38,6 +38,7 @@
                     <group>
                         <field name="name" />
                         <field name="group_id" required="0" readonly="1" />
+                        <field name="is_default" />
                     </group>
                     <notebook>
                         <page string="Groups">
@@ -76,6 +77,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name" />
+                <field name="is_default" />
                 <field name="user_ids" />
             </list>
         </field>
@@ -88,6 +90,11 @@
                 <field name="name" />
                 <field name="user_ids" />
                 <field name="implied_ids" />
+                <filter
+                    name="is_default"
+                    string="Default"
+                    domain="[('is_default', '=', True)]"
+                />
             </search>
         </field>
     </record>

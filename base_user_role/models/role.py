@@ -47,6 +47,10 @@ class ResUsersRole(models.Model):
         help="Privilege assigned to the associated group.",
         readonly=False,
     )
+    is_default = fields.Boolean(
+        string="Default on new users",
+        help=("When enabled, this role is assigned to newly created users by default."),
+    )
 
     @api.depends("line_ids.user_id")
     def _compute_user_ids(self):

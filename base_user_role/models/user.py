@@ -31,23 +31,15 @@ class ResUsers(models.Model):
 
     @api.model
     def _default_role_lines(self):
-        template_user = self.env.ref(
-            "base.template_portal_user_id", raise_if_not_found=False
-        )
-        default_values = []
-        if template_user:
-            for role_line in template_user.with_context(
-                active_test=False
-            ).role_line_ids:
-                default_values.append(
-                    {
-                        "role_id": role_line.role_id.id,
-                        "date_from": role_line.date_from,
-                        "date_to": role_line.date_to,
-                        "is_enabled": role_line.is_enabled,
-                    }
-                )
-        return default_values
+        """Default role lines for a new user.
+
+        In Odoo 19, the former ``base.default_user`` template was removed in
+        favor of a default group. There is no default user anymore to copy
+        role lines from. Use a boolean on roles to mark the ones that should
+        apply to new users.
+        """
+        default_roles = self.env["res.users.role"].search([("is_default", "=", True)])
+        return [{"role_id": r.id} for r in default_roles]
 
     @api.depends("role_line_ids.role_id")
     def _compute_role_ids(self):
