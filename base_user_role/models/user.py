@@ -101,8 +101,8 @@ class ResUsers(models.Model):
                     group_ids.append(admin_group.id)
             groups_to_add = list(set(group_ids) - set(user.group_ids.ids))
             groups_to_remove = list(set(user.group_ids.ids) - set(group_ids))
-            to_add = [(4, gr) for gr in groups_to_add]
-            to_remove = [(3, gr) for gr in groups_to_remove]
+            to_add = [fields.Command.link(gr) for gr in groups_to_add]
+            to_remove = [fields.Command.unlink(gr) for gr in groups_to_remove]
             groups = to_remove + to_add
             if groups:
                 vals = {"group_ids": groups}
