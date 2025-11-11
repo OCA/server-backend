@@ -1,8 +1,5 @@
 # generated from manifests external_dependencies
-<<<<<<< HEAD
 mysqlclient
-=======
 pymssql
 pyodbc
->>>>>>> 43408ef8 ([ADD] base_external_dbsource_mssql: Support for ODBC)
 sqlalchemy

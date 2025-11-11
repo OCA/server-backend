@@ -55,6 +55,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Install system dependencies
+        run: apt update && apt install -y --no-install-recommends libodbc2 unixodbc-dev
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses

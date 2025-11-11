@@ -41,9 +41,9 @@ Installation
 
 To install this module, you need to:
 
--  Install & configure FreeTDS driver (tdsodbc package)
--  Install ``sqlalchemy`` & ``pymssql`` python libraries
--  Install ``base_external_dbsource`` Odoo module
+- Install & configure FreeTDS driver (tdsodbc package)
+- Install ``sqlalchemy`` & ``pymssql`` python libraries
+- Install ``base_external_dbsource`` Odoo module
 
 Configuration
 =============
@@ -58,17 +58,17 @@ Usage
 
 To use this module:
 
--  Go to Settings > Technical > Database Structure > Database Sources
--  Click on Create to enter the following information:
--  Datasource name
--  Pasword
--  Connector: Choose the database to which you want to connect
--  Connection string: Specify how to connect to database
+- Go to Settings > Technical > Database Structure > Database Sources
+- Click on Create to enter the following information:
+- Datasource name
+- Pasword
+- Connector: Choose the database to which you want to connect
+- Connection string: Specify how to connect to database
 
 Known issues / Roadmap
 ======================
 
--  Add X.509 authentication
+- Add X.509 authentication
 
 Bug Tracker
 ===========
@@ -92,26 +92,26 @@ Authors
 Contributors
 ------------
 
--  Daniel Reis <dreis.pt@hotmail.com>
+- Daniel Reis <dreis.pt@hotmail.com>
 
--  Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+- Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 
--  Gervais Naoussi <gervaisnaoussi@gmail.com>
+- Gervais Naoussi <gervaisnaoussi@gmail.com>
 
--  Dave Lasley <dave@laslabs.com>
+- Dave Lasley <dave@laslabs.com>
 
--  
+- 
 
-   -  `Tecnativa <https://www.tecnativa.com>`__:
+  - `Tecnativa <https://www.tecnativa.com>`__:
 
-      -  Sergio Teruel
-      -  Carolina Fernandez
+    - Sergio Teruel
+    - Carolina Fernandez
 
--  Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
+- Andrea Cattalani (`Moduon <https://www.moduon.team/>`__)
 
--  `Opensourceintegrators <https://www.opensourceintegrators.com>`__:
+- `Opensourceintegrators <https://www.opensourceintegrators.com>`__:
 
-   -  Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
+  - Nikul Chaudhary <nchaudhary@opensourceintegrators.com>
 
 Maintainers
 -----------

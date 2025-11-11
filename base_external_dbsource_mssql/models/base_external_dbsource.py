@@ -61,7 +61,13 @@ class BaseExternalDbsource(models.Model):
                         cursor.execute(sqlquery, sqlparams)
                     if metadata:
                         cols = [column[0] for column in cursor.description]
-                    rows = cursor.fetchall()
+                    # rows = cursor.fetchall()
+                    if (
+                        cursor.description
+                    ):  # description is only set for queries that return data
+                        rows = cursor.fetchall()
+                    else:
+                        rows = None
                 else:  # mssql-alchemy
                     if sqlparams is None:
                         cursor = connection.execute(sqlalchemy.text(sqlquery))
