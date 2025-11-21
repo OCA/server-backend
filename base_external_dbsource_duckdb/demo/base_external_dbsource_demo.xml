@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="base.external.dbsource" id="demo_duckdb">
+        <field name="name">DuckDB in memory</field>
+        <field name="conn_string">:memory:</field>
+        <field name="connector">duckdb</field>
+    </record>
+</odoo>
