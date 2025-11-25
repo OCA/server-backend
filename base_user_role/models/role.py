@@ -24,8 +24,8 @@ class ResUsersRole(models.Model):
     line_ids = fields.One2many(
         comodel_name="res.users.role.line", inverse_name="role_id", string="Role lines"
     )
-    user_ids = fields.One2many(
-        comodel_name="res.users", string="Users list", compute="_compute_user_ids"
+    role_user_ids = fields.One2many(
+        comodel_name="res.users", string="Users list", compute="_compute_role_user_ids"
     )
     rule_ids = fields.Many2many(
         comodel_name="ir.rule",
@@ -53,9 +53,9 @@ class ResUsersRole(models.Model):
     )
 
     @api.depends("line_ids.user_id")
-    def _compute_user_ids(self):
+    def _compute_role_user_ids(self):
         for role in self.sudo() if self._bypass_rules() else self:
-            role.user_ids = role.line_ids.mapped("user_id")
+            role.role_user_ids = role.line_ids.mapped("user_id")
 
     @api.depends("implied_ids", "implied_ids.model_access")
     def _compute_model_access_ids(self):
@@ -102,7 +102,7 @@ class ResUsersRole(models.Model):
         return res
 
     def unlink(self):
-        users = self.mapped("user_ids")
+        users = self.mapped("role_user_ids")
         res = super().unlink()
         users.set_groups_from_roles(force=True)
         return res
@@ -114,7 +114,7 @@ class ResUsersRole(models.Model):
 
     def update_users(self):
         """Update all the users concerned by the roles identified by `ids`."""
-        users = self.mapped("user_ids")
+        users = self.mapped("role_user_ids")
         users.set_groups_from_roles()
         return True
 
