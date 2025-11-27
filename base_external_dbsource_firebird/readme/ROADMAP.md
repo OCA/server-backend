@@ -1,0 +1,2 @@
+- Setting ``metadata`` to ``True`` in ``execute_fdb`` will do nothing.
+- ``execute`` is susceptible to SQL injection.
