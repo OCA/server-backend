@@ -1,0 +1,10 @@
+<odoo noupdate="1">
+    <record model="base.external.dbsource" id="demo_mssql_pyodbc">
+        <field name="name">MSSQL PyODBC Demo</field>
+        <field
+            name="conn_string"
+        >DRIVER={ODBC Driver 17 for SQL Server};SERVER=myServerAddress,port;DATABASE=myDataBase;UID=myUsernamea;PWD=%s;</field>
+        <field name="password">password</field>
+        <field name="connector">mssql_pyodbc</field>
+    </record>
+</odoo>
