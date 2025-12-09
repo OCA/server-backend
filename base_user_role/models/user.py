@@ -66,10 +66,12 @@ class ResUsers(models.Model):
 
     @api.model
     def _get_self_writable_groups(self):
-        group = self.env.ref(
+        groups = self.env.ref("base.group_multi_company")
+        if group := self.env.ref(
             "mail.group_mail_notification_type_inbox", raise_if_not_found=False
-        )
-        return group or self.env["res.groups"]
+        ):
+            groups |= group
+        return groups
 
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
