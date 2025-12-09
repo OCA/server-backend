@@ -12,6 +12,7 @@ class ResUsersRole(models.Model):
     _name = "res.users.role"
     _inherits = {"res.groups": "group_id"}
     _description = "User role"
+    _order = "name"
 
     group_id = fields.Many2one(
         comodel_name="res.groups",
