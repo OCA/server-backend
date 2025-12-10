@@ -4,6 +4,7 @@ import datetime
 import logging
 
 from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -98,6 +99,21 @@ class ResUsersRole(models.Model):
         return res
 
     def unlink(self):
+        # Check if any of the roles being deleted are still assigned to users
+        role_lines = self.env["res.users.role.line"].search(
+            [("role_id", "in", self.ids)]
+        )
+        if role_lines:
+            # Get role names for better error message
+            role_names = ", ".join(role_lines.mapped("role_id.name"))
+            raise UserError(
+                _(
+                    "You cannot delete a role that is still assigned to one or "
+                    "more users. Please remove the users from the role(s) "
+                    "before deleting. Roles in use: %s"
+                )
+                % role_names
+            )
         users = self.mapped("user_ids")
         res = super().unlink()
         users.set_groups_from_roles(force=True)

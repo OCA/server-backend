@@ -437,6 +437,18 @@ msgid "Wizard to add multiple users to a role"
 msgstr ""
 
 #. module: base_user_role
+#. odoo-python
+#: code:addons/base_user_role/models/role.py:0
+msgid ""
+"You cannot delete a role that is still assigned to one or "
+"more users. Please remove the users from the role(s) "
+"before deleting. Roles in use: %s"
+msgstr ""
+"Sie können eine Rolle nicht löschen, die noch einem oder mehreren Benutzern "
+"zugewiesen ist. Bitte entfernen Sie die Benutzer aus der/den Rolle(n), "
+"bevor Sie löschen. Rollen in Verwendung: %s"
+
+#. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "or"
 msgstr "oder"

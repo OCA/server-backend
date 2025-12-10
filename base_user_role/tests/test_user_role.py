@@ -3,7 +3,7 @@
 import datetime
 
 from odoo import fields
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -154,12 +154,20 @@ class TestUserRole(TransactionCase):
         # Check user has groups from role1 and role2
         self.assertLessEqual(role1_groups, self.user_id.groups_id)
         self.assertLessEqual(role2_groups, self.user_id.groups_id)
-        # Remove role2
+        # Remove role2 from user before unlinking
+        self.user_id.role_line_ids.filtered(
+            lambda rl: rl.role_id.id == self.role2_id.id
+        ).unlink()
+        # Now unlink role2
         self.role2_id.unlink()
         # Check user has groups from only role1
         self.assertLessEqual(role1_groups, self.user_id.groups_id)
         self.assertFalse(role2_groups <= self.user_id.groups_id)
-        # Remove role1
+        # Remove role1 from user before unlinking
+        self.user_id.role_line_ids.filtered(
+            lambda rl: rl.role_id.id == self.role1_id.id
+        ).unlink()
+        # Now unlink role1
         self.role1_id.unlink()
         # Check user has no groups from role1 and role2
         self.assertFalse(role1_groups <= self.user_id.groups_id)
@@ -196,6 +204,18 @@ class TestUserRole(TransactionCase):
         # Check user has no groups from role1 and role2
         self.assertFalse(role1_groups <= self.user_id.groups_id)
         self.assertFalse(role2_groups <= self.user_id.groups_id)
+
+    def test_role_unlink_with_users_assigned(self):
+        """Test that deleting a role with assigned users raises UserError."""
+        # Assign role1 to a user
+        self.user_id.write({"role_line_ids": [(0, 0, {"role_id": self.role1_id.id})]})
+
+        # Try to delete the role - should raise UserError
+        with self.assertRaisesRegex(
+            UserError,
+            "You cannot delete a role that is still assigned to one or " "more users",
+        ):
+            self.role1_id.unlink()
 
     def test_default_user_roles(self):
         self.default_user.write(
