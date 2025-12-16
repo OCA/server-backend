@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
+from odoo.fields import Domain
 
 
 class ProductTemplate(models.Model):
@@ -20,7 +21,7 @@ class ProductTemplate(models.Model):
 
     def _search_bypass_global_discount(self, operator, value):
         templates = self.with_context(active_test=False).search(
-            [("product_variant_ids.bypass_global_discount", operator, value)]
+            Domain("product_variant_ids.bypass_global_discount", operator, value)
         )
         return [("id", "in", templates.ids)]
 
