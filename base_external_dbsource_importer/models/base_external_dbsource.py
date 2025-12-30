@@ -51,22 +51,22 @@ class BaseExternalModelImporter:
         load_all_odoo_records=False,
         origin=False,
     ):
-        odoo_key = odoo_key or self._external_key
-        Model = self.env[model_name]
         if not origin:
             fds_records = self._get_external_records(
                 table_name, fields=fields, where=where
             )
         else:
             fds_records = self._get_external_records_from_file()
-        domain = []
-        if not load_all_odoo_records:
-            domain = [(odoo_key, "!=", False)]
-        if hasattr(Model, "active"):
-            domain.extend(["|", ("active", "=", True), ("active", "=", False)])
-        records = Model.search(domain).with_context(prefetch_fields=False)
-        records_dic = {c[odoo_key]: c.id for c in records if c[odoo_key]}
+        odoo_key = odoo_key or self._external_key
+        records, records_dic = self.load_odoo_records(
+            model_name, odoo_key, load_all_odoo_records
+        )
         return fds_records, records, records_dic
+
+    def load_odoo_records(self, model_name, odoo_key=None, load_all=False):
+        return self.dbsource.load_odoo_records(
+            model_name, odoo_key or self._external_key, load_all
+        )
 
     def upsert(
         self,
@@ -82,9 +82,6 @@ class BaseExternalModelImporter:
     ):
         force_update = force_update or self.dbsource.force_update
         model_name = records._name
-        fields_to_update = self.dbsource.fields_to_update_ids.filtered(
-            lambda x: x.model_id.model == model_name
-        ).mapped("field_ids.name")
         record = specific_record or records.browse(records_dic.get(fds_key, False))
         if record:
             if not update_method:
@@ -94,14 +91,14 @@ class BaseExternalModelImporter:
             values = (update_vals or vals).copy()
             if not force_update:
                 for k, v in values.copy().items():
-                    if k not in fields_to_update or (
+                    if self.dbsource.skip_update_field(model_name, k) or (
                         record._fields[k].convert_to_write(record[k], record) == v
                     ):
                         values.pop(k)
             if values:
                 record.with_context(tracking_disable=True).write(values)
         else:
-            Model = self.env[records._name]
+            Model = self.env[model_name]
             if only_update:
                 return Model.browse()
             record = Model.with_context(tracking_disable=True).create(vals)
@@ -181,6 +178,25 @@ class BaseExternalDbsource(models.Model):
     def generate_iban_check_digits(self, iban):
         number_iban = self._number_iban(iban[:2] + "00" + iban[4:])
         return f"{98 - (int(number_iban) % 97):0>2}"
+
+    @api.model
+    @ormcache("self.fields_to_update_ids.field_ids", "model_name", "field_name")
+    def skip_update_field(self, model_name, field_name):
+        return field_name not in self.fields_to_update_ids.filtered(
+            lambda x: x.model_id.model == model_name
+        ).mapped("field_ids.name")
+
+    @api.model
+    def load_odoo_records(self, model_name, odoo_key, load_all=False):
+        Model = self.env[model_name]
+        domain = []
+        if not load_all:
+            domain = [(odoo_key, "!=", False)]
+        if hasattr(Model, "active"):
+            domain.extend(["|", ("active", "=", True), ("active", "=", False)])
+        records = Model.search(domain).with_context(prefetch_fields=False)
+        records_dic = {c[odoo_key]: c.id for c in records if c[odoo_key]}
+        return records, records_dic
 
     @api.model
     @ormcache("code", "country_code")
