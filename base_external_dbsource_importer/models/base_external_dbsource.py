@@ -19,6 +19,7 @@ LETTERS = {ord(d): str(i) for i, d in enumerate(string.digits + string.ascii_upp
 class BaseExternalModelImporter:
     _name = "base.external.model.importer"
     _external_key = None
+    _mapped_model = None
 
     def __init__(self, dbsource, file_path="", file_name=""):
         self.env = dbsource.env
@@ -107,9 +108,20 @@ class BaseExternalModelImporter:
             records_dic[fds_key] = record.id
         return record
 
-    def get_m2_odoo_id(self, model_name, key_value, field_key=False, return_field="id"):
+    def get_m2_odoo_id(
+        self,
+        model_name,
+        key_value,
+        field_key=False,
+        mapped_model=False,
+        return_field="id",
+    ):
         return self.dbsource.get_m2_odoo_id(
-            model_name, key_value, field_key or self._external_key, return_field
+            model_name,
+            key_value,
+            field_key or self._external_key,
+            mapped_model or self._mapped_model,
+            return_field,
         )
 
     def with_context(self, *args, **kwargs):
@@ -147,13 +159,20 @@ class BaseExternalDbsource(models.Model):
         self.clear_caches()
 
     @api.model
-    @ormcache("model_name", "key_value", "field_key", "return_field")
+    @ormcache("model_name", "key_value", "field_key", "mapped_model", "return_field")
     def get_m2_odoo_id(
-        self, model_name, key_value, field_key="fds_key", return_field="id"
+        self,
+        model_name,
+        key_value,
+        field_key="fds_key",
+        mapped_model=False,
+        return_field="id",
     ):
         if not key_value:
             return False
-        record = self.env[model_name].search_external(key_value, field_key)
+        record = self.env[model_name].search_external(
+            key_value, field_key, mapped_model
+        )
         return record.id if return_field == "id" else record[return_field].id
 
     def _number_iban(self, iban):
