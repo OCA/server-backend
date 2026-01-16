@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2023 Therp BV <https://therp.nl>.
+# Copyright 2026 Therp BV <https://therp.nl>.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 """Endpoint on remote system to get from or post to."""
 
