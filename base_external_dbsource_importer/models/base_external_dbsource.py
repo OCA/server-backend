@@ -188,14 +188,18 @@ class BaseExternalDbsource(models.Model):
 
     @api.model
     def load_odoo_records(self, model_name, odoo_key, load_all=False):
-        Model = self.env[model_name]
+        Model = self.env[model_name].with_context(
+            active_test=False, prefetch_fields=False
+        )
         domain = []
         if not load_all:
             domain = [(odoo_key, "!=", False)]
-        if hasattr(Model, "active"):
-            domain.extend(["|", ("active", "=", True), ("active", "=", False)])
-        records = Model.search(domain).with_context(prefetch_fields=False)
-        records_dic = {c[odoo_key]: c.id for c in records if c[odoo_key]}
+        records = Model.search(domain)
+        records_dic = {
+            rec[odoo_key]: rec["id"]
+            for rec in records.read([odoo_key])
+            if rec.get(odoo_key)
+        }
         return records, records_dic
 
     @api.model
