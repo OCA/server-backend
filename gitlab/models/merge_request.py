@@ -54,7 +54,8 @@ class MergeRequest(models.Model):
         (
             "gitlab_merge_request_uniq",
             "unique(project_id, external_id)",
-            "A merge request with the same External ID already exists for this project.",
+            "A merge request with the same External "
+            "ID already exists for this project.",
         ),
     ]
 
@@ -95,7 +96,9 @@ class MergeRequest(models.Model):
         create_values = []
         for approval in approvals.approved_by:
             approval_user_id = str(approval["user"]["id"])
-            if self.approval_ids.filtered(lambda a: a.approver_id == approval_user_id):
+            if self.approval_ids.filtered(
+                lambda a, iid=approval_user_id: a.approver_id == iid
+            ):
                 continue
             create_values.append(
                 {

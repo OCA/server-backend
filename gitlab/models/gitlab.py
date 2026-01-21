@@ -21,9 +21,9 @@ class Gitlab(models.Model):
         self.ensure_one()
         conn = gitlab.Gitlab(
             url=self.url, private_token=self.private_token, retry_transient_errors=True
-        )  # Use the gitlab library rate limiting and retry logic instead of RetryableJobError, because
-        # GitlabHttpError doesn't include rate limit headers, if this is blocking other jobs you should create
-        # a separate channel
+        )  # Use the gitlab library rate limiting and retry logic instead of
+        # RetryableJobError, because GitlabHttpError doesn't include rate limit headers,
+        # if this is blocking other jobs you should create a separate channel
         if self.debug:
             conn.enable_debug()
         return conn

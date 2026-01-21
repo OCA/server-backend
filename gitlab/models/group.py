@@ -75,7 +75,7 @@ class Group(models.Model):
                 )
             else:
                 gitlab_group = existing_groups.filtered(
-                    lambda g: g.external_id == subgroup_id
+                    lambda g, iid=subgroup_id: g.external_id == iid
                 )
             gitlab_group.with_delay()._import_subgroups()
 

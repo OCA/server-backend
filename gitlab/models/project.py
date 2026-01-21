@@ -116,7 +116,7 @@ class Project(models.Model):
         for issue in issues:
             issue_iid = str(issue.iid)
             existing_issue = self.issue_ids.filtered(
-                lambda i: i.external_id == issue_iid
+                lambda i, iid=issue_iid: i.external_id == iid
             )
             if existing_issue:
                 existing_issue.write(
@@ -186,7 +186,7 @@ class Project(models.Model):
         for mr in mrs:
             mr_iid = str(mr.iid)
             existing_mr = self.merge_request_ids.filtered(
-                lambda m: m.external_id == mr_iid
+                lambda m, iid=mr_iid: m.external_id == iid
             )
             if existing_mr:
                 existing_mr.write(
