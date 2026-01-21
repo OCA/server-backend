@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_form" model="ir.ui.view">
+        <field name="model">gitlab.group</field>
+        <field name="arch" type="xml">
+            <form string="Gitlab Group">
+                <header>
+                    <button
+                        name="import_subgroups"
+                        type="object"
+                        string="Import Subgroups"
+                    />
+                    <button
+                        name="import_projects"
+                        type="object"
+                        string="Import Projects"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="gitlab_id" />
+                        <field name="name" />
+                        <field name="external_id" />
+                        <field name="parent_id" />
+                        <field name="child_ids">
+                            <list>
+                                <field name="name" />
+                            </list>
+                        </field>
+                        <field name="project_ids">
+                            <list>
+                                <field name="name" />
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="group_list" model="ir.ui.view">
+        <field name="model">gitlab.group</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="gitlab_id" />
+                <field name="name" />
+                <field name="parent_id" />
+            </list>
+        </field>
+    </record>
+
+    <record id="group_search" model="ir.ui.view">
+        <field name="model">gitlab.group</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="gitlab_id" />
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="group_action" model="ir.actions.act_window">
+        <field name="name">Gitlab Groups</field>
+        <field name="res_model">gitlab.group</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

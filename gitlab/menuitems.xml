@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="gitlab_root_menu" parent="base.menu_custom" name="Gitlab" />
+    <menuitem
+        id="gitlab_menu"
+        parent="gitlab_root_menu"
+        action="gitlab_action"
+        name="Connections"
+    />
+
+    <menuitem
+        id="group_menu"
+        parent="gitlab_root_menu"
+        action="group_action"
+        name="Groups"
+    />
+    <menuitem
+        id="project_menu"
+        parent="gitlab_root_menu"
+        action="project_action"
+        name="Projects"
+    />
+    <menuitem
+        id="commit_menu"
+        parent="gitlab_root_menu"
+        action="commit_action"
+        name="Commits"
+    />
+    <menuitem
+        id="issue_menu"
+        parent="gitlab_root_menu"
+        action="issue_action"
+        name="Issues"
+    />
+    <menuitem
+        id="merge_request_menu"
+        parent="gitlab_root_menu"
+        action="merge_request_action"
+        name="Merge Requests"
+    />
+    <menuitem
+        id="note_menu"
+        parent="gitlab_root_menu"
+        action="note_action"
+        name="Notes"
+    />
+    <menuitem
+        id="merge_request_approval_menu"
+        parent="gitlab_root_menu"
+        action="merge_request_approval_action"
+        name="Merge Request Approvals"
+    />
+</odoo>

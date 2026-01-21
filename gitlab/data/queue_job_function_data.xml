@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="queue.job.function" id="job_function_import_projects">
+        <field name="model_id" ref="model_gitlab_group" />
+        <field name="method">_import_projects</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_subgroups">
+        <field name="model_id" ref="model_gitlab_group" />
+        <field name="method">_import_subgroups</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_issue_notes">
+        <field name="model_id" ref="model_gitlab_issue" />
+        <field name="method">_import_notes</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_merge_request_notes">
+        <field name="model_id" ref="model_gitlab_merge_request" />
+        <field name="method">_import_notes</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_merge_request_approvals">
+        <field name="model_id" ref="model_gitlab_merge_request" />
+        <field name="method">_import_approvals</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_merge_requests">
+        <field name="model_id" ref="model_gitlab_project" />
+        <field name="method">_import_merge_requests</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_issues">
+        <field name="model_id" ref="model_gitlab_project" />
+        <field name="method">_import_issues</field>
+    </record>
+    <record model="queue.job.function" id="job_function_import_commits">
+        <field name="model_id" ref="model_gitlab_project" />
+        <field name="method">_import_commits</field>
+    </record>
+</odoo>

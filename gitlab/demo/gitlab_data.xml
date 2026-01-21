@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="gitlab_demo" model="gitlab">
+        <field name="url">https://gitlab.com</field>
+        <field name="private_token">fake_token</field>
+    </record>
+</odoo>

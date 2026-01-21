@@ -1,0 +1,1 @@
+- Support write operations on GitLab issues and merge requests from Odoo

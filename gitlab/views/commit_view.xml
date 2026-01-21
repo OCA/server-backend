@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="commit_form" model="ir.ui.view">
+        <field name="model">gitlab.commit</field>
+        <field name="arch" type="xml">
+            <form string="Gitlab Commit">
+                <sheet>
+                    <group>
+                        <field name="project_id" />
+                        <field name="external_id" />
+                        <field name="message" />
+                        <field name="author_name" />
+                        <field name="author_email" />
+                        <field name="committed_date" />
+                        <field name="url" widget="url" />
+                        <field name="partner_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="commit_list" model="ir.ui.view">
+        <field name="model">gitlab.commit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="project_id" />
+                <field name="external_id" />
+                <field name="message" />
+                <field name="author_name" />
+                <field name="author_email" />
+                <field name="committed_date" />
+                <field name="url" widget="url" />
+                <field name="partner_id" optional="hide" />
+            </list>
+        </field>
+    </record>
+
+    <record id="commit_action" model="ir.actions.act_window">
+        <field name="name">Gitlab Commits</field>
+        <field name="res_model">gitlab.commit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="commit_reconcile_partner_action" model="ir.actions.server">
+        <field name="name">Reconcile Partners</field>
+        <field name="model_id" ref="model_gitlab_commit" />
+        <field name="binding_model_id" ref="model_gitlab_commit" />
+        <field name="state">code</field>
+        <field name="code">
+            records.reconcile_partner()
+        </field>
+    </record>
+</odoo>
