@@ -27,6 +27,11 @@ msgid "# User Roles"
 msgstr "# Kullanıcı Rolleri"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_users_count
+msgid "# Users"
+msgstr ""
+
+#. module: base_user_role
 #. odoo-python
 #: code:addons/base_user_role/models/role.py:0
 msgid "%s (copy)"
@@ -42,6 +47,13 @@ msgstr "<em>Burada yapılan değişiklik kalıcı olmayacaktır.</em>"
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
 msgstr ""
 "<strong>Bu kullanıcının erişim hakları roller tarafından yönetilir.</strong>"
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__disjoint_ids
+msgid ""
+"A user may not belong to this group and one of those.  For instance, users "
+"may not be portal users and internal users."
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
@@ -75,19 +87,9 @@ msgid "Active"
 msgstr "Aktif"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__category_id
-msgid "Application"
-msgstr "Uygulama"
-
-#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
 msgid "Assign to user"
 msgstr "Kullanıcıya ata"
-
-#. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_category_id
-msgid "Associated category"
-msgstr "İlişkili kategori"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_id
@@ -95,9 +97,9 @@ msgid "Associated group"
 msgstr "İlişkili grup"
 
 #. module: base_user_role
-#: model:ir.model.fields,help:base_user_role.field_res_users_role__group_category_id
-msgid "Associated group's category"
-msgstr "İlişkili grup kategorisi"
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_privilege_id
+msgid "Associated privilege"
+msgstr ""
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
@@ -108,11 +110,6 @@ msgstr "İptal"
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "Close"
 msgstr "Kapat"
-
-#. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__color
-msgid "Color Index"
-msgstr "Renk İndeksi"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
@@ -158,6 +155,16 @@ msgid "Created on"
 msgstr "Oluşturuldu"
 
 #. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
+msgid "Default"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__is_default
+msgid "Default on new users"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
 msgid ""
 "Determines the maximum duration of an api key created by a user belonging to "
@@ -167,6 +174,13 @@ msgstr ""
 "maksimum süresini belirler."
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__disjoint_ids
+msgid "Disjoint Groups"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__display_name
@@ -212,6 +226,8 @@ msgid "Groups"
 msgstr "Gruplar"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_groups__id
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__id
@@ -221,8 +237,13 @@ msgstr "ID"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
-msgid "Inherits"
-msgstr "Devralır"
+msgid "Implied Groups"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_by_ids
+msgid "Implying Groups"
+msgstr ""
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
@@ -266,6 +287,11 @@ msgid "Name"
 msgstr "Adı"
 
 #. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__all_users_count
+msgid "Number of users having this group (implicitly or explicitly)"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_parent_ids
 msgid "Parent Groups"
@@ -276,6 +302,16 @@ msgstr "Üst Gruplar"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__parent_ids
 msgid "Parents"
 msgstr "Üstler"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__privilege_id
+msgid "Privilege"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__group_privilege_id
+msgid "Privilege assigned to the associated group."
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
@@ -319,6 +355,11 @@ msgid "Rules Count"
 msgstr "Kuralların Sayısı"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
 msgid "Share Group"
 msgstr "Grubu Paylaş"
@@ -329,14 +370,29 @@ msgid "Show Alert"
 msgstr "Uyarı Göster"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_group_hierarchy
+msgid "Technical field for default group setting"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__all_implied_ids
+msgid "The group itself with all its implied groups."
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
 msgid "To"
 msgstr "Karşı"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_implied_ids
-msgid "Transitively inherits"
-msgstr "Geçişli olarak miras alır"
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_ids
+msgid "Transitively Implied Groups"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_by_ids
+msgid "Transitively Implying Groups"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
@@ -345,6 +401,7 @@ msgstr "Kullanıcı rollerini güncelleme"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__user_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__user_id
 msgid "User"
 msgstr "Kullanıcı"
@@ -373,13 +430,18 @@ msgstr "Kullanıcı rolleri"
 #. module: base_user_role
 #: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
 msgid "User roles can be assigned to a user only once at a time"
-msgstr "Kullanıcı rolleri bir kullanıcıya aynı anda yalnızca bir kez atanabilir"
+msgstr ""
+"Kullanıcı rolleri bir kullanıcıya aynı anda yalnızca bir kez atanabilir"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__users
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Users"
 msgstr "Kullanıcılar"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_user_ids
+msgid "Users and implied users"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role_line
@@ -387,14 +449,24 @@ msgid "Users associated to a role"
 msgstr "Bir rolle ilişkili kullanıcılar"
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__user_ids
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__user_ids
+msgid "Users explicitly in this group"
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_by_ids
+msgid "Users in those groups are implicitly part of this group."
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_user_ids
 msgid "Users list"
 msgstr "Kullanıcılar listesi"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_ids
-msgid "Users of this group automatically inherit those groups"
-msgstr "Bu grubun kullanıcıları, bu grupları otomatik olarak devralır"
+msgid "Users of this group are also implicitly part of those groups"
+msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
@@ -403,9 +475,35 @@ msgid "Views"
 msgstr "Görünümler"
 
 #. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__is_default
+msgid "When enabled, this role is assigned to newly created users by default."
+msgstr ""
+
+#. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "or"
 msgstr "veya"
+
+#~ msgid "Application"
+#~ msgstr "Uygulama"
+
+#~ msgid "Associated category"
+#~ msgstr "İlişkili kategori"
+
+#~ msgid "Associated group's category"
+#~ msgstr "İlişkili grup kategorisi"
+
+#~ msgid "Color Index"
+#~ msgstr "Renk İndeksi"
+
+#~ msgid "Inherits"
+#~ msgstr "Devralır"
+
+#~ msgid "Transitively inherits"
+#~ msgstr "Geçişli olarak miras alır"
+
+#~ msgid "Users of this group automatically inherit those groups"
+#~ msgstr "Bu grubun kullanıcıları, bu grupları otomatik olarak devralır"
 
 #~ msgid "# Roles"
 #~ msgstr "# Roller"
