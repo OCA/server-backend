@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class DbsourceExternalMixin(models.AbstractModel):
@@ -35,6 +36,37 @@ class DbsourceExternalMixin(models.AbstractModel):
         ),
     ]
 
+    @api.constrains("external_key", "mapped_key", "record_model")
+    def _check_mapped_key_not_in_external_keys(self):
+        for record in self:
+            if self.search_count(
+                [
+                    ("external_key", "=", record.mapped_key),
+                    ("id", "!=", record.id),
+                    ("record_model", "=", record.record_model),
+                ]
+            ):
+                raise ValidationError(
+                    self.env._(
+                        "Target key %(key)s is the source of another mapping",
+                        key=record.mapped_key,
+                    )
+                )
+
+            if self.search_count(
+                [
+                    ("mapped_key", "=", record.external_key),
+                    ("id", "!=", record.id),
+                    ("record_model", "=", record.record_model),
+                ]
+            ):
+                raise ValidationError(
+                    self.env._(
+                        "Source key %(key)s is the target of another mapping",
+                        key=record.external_key,
+                    )
+                )
+
     @api.depends("mapped_key", "record_model")
     def _compute_record_id(self):
         for record in self:
@@ -47,3 +79,14 @@ class DbsourceExternalMixin(models.AbstractModel):
                 record.record_id = record.record_id
                 continue
             record.record_id = target.id
+
+    def ensure_mapping(self, vals):
+        existing = self.search(
+            [
+                ("external_key", "=", vals["external_key"]),
+                ("record_model", "=", vals["record_model"]),
+            ]
+        )
+        if existing:
+            return existing
+        return self.create(vals)

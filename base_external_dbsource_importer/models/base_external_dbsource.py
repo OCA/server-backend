@@ -3,11 +3,14 @@
 import base64
 import logging
 import string
+from queue import Queue
+from threading import Event, Thread
 
 import xlrd
+from psycopg2.extras import RealDictCursor
 from sqlalchemy import text
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import ormcache
 
@@ -261,7 +264,7 @@ class BaseExternalDbsource(models.Model):
                                     }}
         """
         if not self.data_mapper_file:
-            raise UserError(_("Debe seleccionar un archivo para importar"))
+            raise UserError(self.env._("Debe seleccionar un archivo para importar"))
         xl_workbook = xlrd.open_workbook(
             file_contents=base64.b64decode(self.data_mapper_file)
         )
@@ -285,6 +288,71 @@ class BaseExternalDbsource(models.Model):
                     odoo_external = self.env.ref(odoo_ref, raise_if_not_found=False)
                 data_dic[sheet_name][vila_code] = odoo_external
         return data_dic
+
+    def server_side_cursor_postgresql(self, table, fields, where, size=2000):
+        # Opens a server side cursor to stream the content of the table in batches
+        with self.connection_open() as conn:
+            with conn.cursor(
+                name="odoo_import", cursor_factory=RealDictCursor
+            ) as cursor:
+                cursor.itersize = size
+                query = f"SELECT {fields} FROM {table} {where} ;"
+                cursor.execute(query)
+                yield from cursor
+
+    def server_side_cursor(self, table, fields, where, size=2000):
+        # To be overwriten in downstream modules
+        method = self._get_adapter_method("server_side_cursor")
+        yield from method(table, fields, where, size)
+
+    def background_server_cursor(
+        self,
+        table,
+        field,
+        where,
+        killswitch,
+        queue,
+        size=2000,
+    ):
+        gen = self.server_side_cursor(table, field, where, size)
+        try:
+            for row in gen:
+                if killswitch.is_set():
+                    break
+                queue.put(row)
+            queue.put(None)
+        except Exception as e:
+            queue.put({"_fetch_error": e})
+        finally:
+            gen.close()
+
+    def background_fetch(self, table, fields, where, size=2000):
+        queue = Queue()
+        killswitch = Event()
+        fetch_thread = Thread(
+            target=self.background_server_cursor,
+            args=(table, fields, where, killswitch, queue, size),
+        )
+        _logger.info("Strating fetch thread...")
+        fetch_thread.start()
+        return queue, killswitch, fetch_thread
+
+    def queue_iterator(self, queue, killsiwtch):
+        try:
+            while True:
+                row = queue.get()
+                if row is None:
+                    yield None
+                    break
+                if "_fetch_error" in row:
+                    raise row["_fetch_error"]
+                yield row
+        except Exception as e:
+            killsiwtch.set()
+            _logger.critical(f"Error on process thread: {e}")
+            raise e
+        finally:
+            killsiwtch.set()
 
 
 class DbSourceFieldsUpdate(models.Model):
