@@ -6,7 +6,7 @@
     "name": "External Database Source - MSSQL",
     "version": "18.0.1.0.1",
     "category": "Tools",
-    "author": "Daniel Reis, " "LasLabs, " "Odoo Community Association (OCA)",
+    "author": "Daniel Reis, LasLabs, Odoo Community Association (OCA)",
     "maintainers": ["anddago78"],
     "website": "https://github.com/OCA/server-backend",
     "license": "LGPL-3",

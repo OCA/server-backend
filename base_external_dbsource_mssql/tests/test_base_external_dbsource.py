@@ -5,7 +5,7 @@ from unittest import mock
 from odoo.tests import common
 
 ADAPTER = (
-    "odoo.addons.base_external_dbsource_mssql.models" ".base_external_dbsource.pymssql"
+    "odoo.addons.base_external_dbsource_mssql.models.base_external_dbsource.pymssql"
 )
 
 
