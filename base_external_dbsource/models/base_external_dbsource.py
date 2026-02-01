@@ -7,7 +7,7 @@ from contextlib import contextmanager
 
 import psycopg2
 
-from odoo import _, api, fields, models, tools
+from odoo import api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -150,7 +150,9 @@ class BaseExternalDbsource(models.Model):
             try:
                 query = kwargs["sqlquery"]
             except KeyError:
-                raise TypeError(_("query is a required argument")) from KeyError
+                raise TypeError(
+                    self.env._("query is a required argument")
+                ) from KeyError
         if not execute_params:
             try:
                 execute_params = kwargs["sqlparams"]
@@ -176,11 +178,13 @@ class BaseExternalDbsource(models.Model):
                 pass
         except Exception as e:
             raise ValidationError(
-                _("Connection test failed:\nHere is what we got instead:\n%s")
-                % tools.ustr(e)
+                self.env._(
+                    "Connection test failed:\nHere is what we got instead:\n%(error)s",
+                    error=tools.ustr(e),
+                )
             ) from e
         raise ValidationError(
-            _("Connection test succeeded:\nEverything seems properly set up!")
+            self.env._("Connection test succeeded:\nEverything seems properly set up!")
         )
 
     def remote_browse(self, record_ids, *args, **kwargs):
@@ -328,7 +332,7 @@ class BaseExternalDbsource(models.Model):
             return getattr(self, method)
         except AttributeError:
             raise NotImplementedError(
-                _(
+                self.env._(
                     '"%(method)s" method not found, check that all assets are installed'
                     "for the %(connector)s connector type.",
                     method=method,
