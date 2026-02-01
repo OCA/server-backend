@@ -176,11 +176,11 @@ class BaseExternalDbsource(models.Model):
                 pass
         except Exception as e:
             raise ValidationError(
-                _("Connection test failed:\n" "Here is what we got instead:\n%s")
+                _("Connection test failed:\nHere is what we got instead:\n%s")
                 % tools.ustr(e)
             ) from e
         raise ValidationError(
-            _("Connection test succeeded:\n" "Everything seems properly set up!")
+            _("Connection test succeeded:\nEverything seems properly set up!")
         )
 
     def remote_browse(self, record_ids, *args, **kwargs):
