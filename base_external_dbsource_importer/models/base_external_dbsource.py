@@ -156,7 +156,7 @@ class BaseExternalDbsource(models.Model):
         return self.execute(query, list(execute_params), metadata, **kwargs)
 
     def action_clear_cache(self):
-        self.clear_caches()
+        self.env.registry.clear_all_caches()
 
     @api.model
     @ormcache("model_name", "key_value", "field_key", "mapped_model", "return_field")
