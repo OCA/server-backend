@@ -44,6 +44,13 @@
                             <field name="implied_ids" nolabel="1" />
                         </page>
                         <page string="Users">
+                            <button
+                                name="%(action_add_multiple_users_wizard)d"
+                                type="action"
+                                string="Add Multiple Users"
+                                icon="fa-users"
+                                class="btn-primary mb-3"
+                            />
                             <field name="line_ids" nolabel="1">
                                 <list
                                     editable="bottom"

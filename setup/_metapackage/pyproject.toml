@@ -1,11 +1,17 @@
 [project]
 name = "odoo-addons-oca-server-backend"
-version = "18.0.20250710.0"
+version = "18.0.20251127.0"
 dependencies = [
     "odoo-addon-base_external_dbsource==18.0.*",
+    "odoo-addon-base_external_dbsource_mssql==18.0.*",
+    "odoo-addon-base_external_dbsource_mysql==18.0.*",
     "odoo-addon-base_global_discount==18.0.*",
+    "odoo-addon-base_import_match==18.0.*",
+    "odoo-addon-base_portal_type==18.0.*",
     "odoo-addon-base_user_role==18.0.*",
     "odoo-addon-base_user_role_company==18.0.*",
+    "odoo-addon-base_user_role_history==18.0.*",
+    "odoo-addon-server_action_navigate==18.0.*",
     "odoo-addon-server_action_sort==18.0.*",
 ]
 classifiers=[

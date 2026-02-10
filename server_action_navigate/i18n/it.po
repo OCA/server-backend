@@ -1,0 +1,185 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-24 18:36+0000\n"
+"PO-Revision-Date: 2024-06-24 18:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__action_id
+msgid "Action"
+msgstr "Azione"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__state
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__state
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__state
+msgid "Action To Do"
+msgstr "Azione da compiere"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_base_automation__navigate_action_id
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__navigate_action_id
+#: model:ir.model.fields,help:server_action_navigate.field_ir_cron__navigate_action_id
+msgid ""
+"Define here the action used when the navigation will be executed if empty, a "
+"generic action will be used."
+msgstr ""
+"Definire qui l'azione utilizzata quando la navigazione verrà eseguita; se "
+"vuoto, verrà utilizzata un'azione generica."
+
+#. module: server_action_navigate
+#: model_terms:ir.ui.view,arch_db:server_action_navigate.view_ir_actions_server_form
+msgid "Delete Last Line"
+msgstr "Cancella l'ultima riga"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_id
+msgid "Field"
+msgstr "Campo"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__field_domain_model_id
+msgid "Field Model"
+msgstr "Modello campo"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_model_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_model_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_model_id
+msgid "Final Navigation Model"
+msgstr "Modello navigazione finale"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server_navigate_line__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: server_action_navigate
+#: model:ir.model.fields.selection,name:server_action_navigate.selection__ir_actions_server__state__navigate
+msgid "Navigate"
+msgstr "Naviga"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_line_ids
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_line_ids
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_line_ids
+msgid "Navigate Lines"
+msgstr "Naviga righe"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_model_technical_name
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_model_technical_name
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_model_technical_name
+msgid "Navigate Model Technical Name"
+msgstr "Naviga nome tecnico modello"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,field_description:server_action_navigate.field_base_automation__navigate_action_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_actions_server__navigate_action_id
+#: model:ir.model.fields,field_description:server_action_navigate.field_ir_cron__navigate_action_id
+msgid "Navigation Action"
+msgstr "Azione navigazione"
+
+#. module: server_action_navigate
+#: model_terms:ir.ui.view,arch_db:server_action_navigate.view_ir_actions_server_form
+msgid "Navigation Options"
+msgstr "Opzioni navigazione"
+
+#. module: server_action_navigate
+#: model:ir.actions.server,name:server_action_navigate.navigate_partner_2_tags
+msgid "See Tags of Partners of Users"
+msgstr "Visualizza etichette partner degli utenti"
+
+#. module: server_action_navigate
+#: model:ir.model,name:server_action_navigate.model_ir_actions_server
+msgid "Server Action"
+msgstr "Azione server"
+
+#. module: server_action_navigate
+#: model:ir.model,name:server_action_navigate.model_ir_actions_server_navigate_line
+msgid "Server Actions Navigation Lines"
+msgstr "Righe navigazione azioni server"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server_navigate_line__field_domain_model_id
+msgid "Technical field, used as a domain for the 'field' field."
+msgstr "Campo tecnico, utilizzato come dominio per il campo 'field'."
+
+#. module: server_action_navigate
+#. odoo-python
+#: code:addons/server_action_navigate/models/ir_actions_server.py:0
+#, python-format
+msgid ""
+"The Action Server %s is not correctly set\n"
+" : No fields defined"
+msgstr ""
+"L'azione server %s non è impostata correttamente\n"
+" :nessun campo definito"
+
+#. module: server_action_navigate
+#: model:ir.model.fields,help:server_action_navigate.field_base_automation__state
+#: model:ir.model.fields,help:server_action_navigate.field_ir_actions_server__state
+#: model:ir.model.fields,help:server_action_navigate.field_ir_cron__state
+msgid ""
+"Type of server action. The following values are available:\n"
+"- 'Execute Python Code': a block of python code that will be executed\n"
+"- 'Create a new Record': create a new record with new values\n"
+"- 'Update a Record': update the values of a record\n"
+"- 'Execute several actions': define an action that triggers several other "
+"server actions\n"
+"- 'Send Email': post a message, a note or send an email (Discuss)\n"
+"- 'Add Followers': add followers to a record (Discuss)\n"
+"- 'Create Next Activity': create an activity (Discuss)\n"
+"- 'Send SMS Text Message': send SMS, log them on documents (SMS)"
+msgstr ""
+"Tipo di azione server. Sono disponibili i seguenti valori:\n"
+"- 'Esegue codice Python': un blocco di codice Python che verrà eseguito\n"
+"- 'Crea un nuovo record': crea un nuovo record con nuovi valori\n"
+"- 'Aggiorna un record': aggiorna i valori di un record\n"
+"- 'Esegue diverse azioni': definisce un'azione che attiva diverse altre "
+"azioni\n"
+"- 'Invia e-mail': inva un messagio, una nota o inviauna e-mail (Discussione)"
+"\n"
+"- 'Aggiunge chi segue': aggiunge chi segue ad un record (Discussione)\n"
+"- 'Crea attività successiva': crea un'attività (Discussione)\n"
+"- 'Invia SMS': invia SMS, registrandoli nei documenti (SMS)"

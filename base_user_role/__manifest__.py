@@ -4,7 +4,7 @@
 
 {
     "name": "User roles",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.5",
     "category": "Tools",
     "author": "ABF OSIELL, Odoo Community Association (OCA)",
     "license": "LGPL-3",
@@ -16,6 +16,7 @@
         "security/ir.model.access.csv",
         "data/ir_cron.xml",
         "data/ir_module_category.xml",
+        "wizards/role_add_users_wizard_views.xml",
         "views/role.xml",
         "views/user.xml",
         "views/group.xml",

@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_portal_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-01-03 14:34+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: base_portal_type
+#: model:res.groups,name:base_portal_type.group_portal_type
+msgid "A portal type"
+msgstr "Un tipo portale"
+
+#. module: base_portal_type
+#: model:ir.model,name:base_portal_type.model_res_groups
+msgid "Access Groups"
+msgstr "Gruppi di accesso"
+
+#. module: base_portal_type
+#: model:ir.module.category,name:base_portal_type.category_portal_type
+msgid "Portal type"
+msgstr "Tipo portale"
