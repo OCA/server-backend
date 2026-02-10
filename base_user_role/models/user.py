@@ -58,7 +58,8 @@ class ResUsers(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        self.sudo().set_groups_from_roles()
+        if not self.env.context.get("base_user_role_write"):
+            self.sudo().with_context(base_user_role_write=True).set_groups_from_roles()
         return res
 
     def _get_enabled_roles(self):
@@ -101,7 +102,18 @@ class ResUsers(models.Model):
             to_add = [(4, gr) for gr in groups_to_add]
             to_remove = [(3, gr) for gr in groups_to_remove]
             groups = to_remove + to_add
+
             if groups:
-                vals = {"groups_id": groups}
+                # Prevent tiggering res_users_notification_type for share users
+                vals = {}
+                if (
+                    self.env.ref("base.group_user").id in groups_to_remove
+                    and "notification_type" in user._fields
+                    and user.notification_type == "inbox"
+                ):
+                    vals["notification_type"] = "email"
+                    pass
+
+                vals["groups_id"] = groups
                 super(ResUsers, user).write(vals)
         return True
