@@ -389,6 +389,7 @@ msgstr ""
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__user_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__user_id
 msgid "User"
 msgstr ""
@@ -435,12 +436,17 @@ msgid "Users associated to a role"
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model.fields,help:base_user_role.field_res_users_role__user_ids
+msgid "Users explicitly in this group"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_by_ids
 msgid "Users in those groups are implicitly part of this group."
 msgstr ""
 
 #. module: base_user_role
-#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__user_ids
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_user_ids
 msgid "Users list"
 msgstr ""
 
