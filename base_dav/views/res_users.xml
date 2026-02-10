@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_users_form_carddav" model="ir.ui.view">
+        <field name="name">res.users.form.carddav</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='login']" position="after">
+                <div class="o_row">
+                    <field name="carddav_url" readonly="1" widget="url"/>
+                    <a
+                        href="#"
+                        class="oe_link o_carddav_copy"
+                        data-copy-field="carddav_url"
+                        title="Copy URL"
+                    >Copy URL</a>
+                </div>
+                <div class="o_row">
+                    <field name="carddav_token" readonly="1"/>
+                    <button
+                        name="action_generate_carddav_token"
+                        type="object"
+                        string="Generate Token"
+                        class="oe_link"
+                    />
+                    <a
+                        href="#"
+                        class="oe_link o_carddav_copy"
+                        data-copy-field="carddav_token"
+                        title="Copy Token"
+                    >Copy Token</a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
