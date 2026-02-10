@@ -5,17 +5,18 @@
     "name": "Caldav and Carddav support",
     "version": "17.0.1.0.0",
     "author": "initOS GmbH,Therp BV,Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
     "category": "Extra Tools",
     "summary": "Access Odoo data as calendar or address book",
     "depends": [
-        'base',
+        "base",
     ],
     # Demo data removed for Odoo 17 compatibility (field xmlids no longer exist).
     "data": [
         "views/dav_collection.xml",
         "views/res_users.xml",
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
     ],
     "assets": {
         "web.assets_backend": [
@@ -24,6 +25,6 @@
     },
     "post_init_hook": "post_init_hook",
     "external_dependencies": {
-        'python': ['radicale', 'vobject'],
+        "python": ["radicale", "vobject"],
     },
 }

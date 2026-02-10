@@ -146,11 +146,8 @@ class DavCollection(models.Model):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         for record in self:
             if base_url and record.id:
-                record.url = "%s%s/%s/%s" % (
-                    base_url,
-                    PREFIX,
-                    self.env.user.login,
-                    record.id,
+                record.url = (
+                    f"{base_url}{PREFIX}/{self.env.user.login}/{record.id}"
                 )
             else:
                 record.url = False
@@ -239,7 +236,7 @@ class DavCollection(models.Model):
             if display_name:
                 vobj.add('fn').value = display_name
         if 'uid' not in vobj.contents:
-            vobj.add('uid').value = '%s,%s' % (record._name, record.id)
+            vobj.add("uid").value = f"{record._name},{record.id}"
         if 'rev' not in vobj.contents and 'write_date' in record._fields:
             write_date = fields.Datetime.to_datetime(record.write_date)
             if write_date:
@@ -341,7 +338,7 @@ class DavCollection(models.Model):
 
             record = collection_model.create(data)
             uuid = components[-1] if self.field_uuid else record.id
-            href = "%s/%s" % (href, uuid)
+            href = f"{href}/{uuid}"
         else:
             record.write(data)
 

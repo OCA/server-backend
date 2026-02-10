@@ -47,11 +47,8 @@ class ResUsers(models.Model):
 
         for user in self:
             if base_url and collection and user.login:
-                user.carddav_url = "%s%s/%s/%s" % (
-                    base_url,
-                    PREFIX,
-                    user.login,
-                    collection.id,
+                user.carddav_url = (
+                    f"{base_url}{PREFIX}/{user.login}/{collection.id}"
                 )
             else:
                 user.carddav_url = False

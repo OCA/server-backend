@@ -28,7 +28,7 @@ class Rights(OwnerOnlyRights, OwnerWriteRights, AuthenticatedRights):
                 return True
             # Some Radicale flows pass item hrefs relative to the collection
             # path (e.g. "10"). Resolve those under the authenticated user.
-            path = "/%s/%s" % (user, components[0])
+            path = f"/{user}/{components[0]}"
             components = list(filter(None, path.split('/')))
 
         collection = Collection(path)

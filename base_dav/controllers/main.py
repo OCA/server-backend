@@ -7,10 +7,10 @@ import hmac
 import io
 import logging
 import re
-from urllib.parse import urlparse
 import secrets
 import time
 from configparser import RawConfigParser as ConfigParser
+from urllib.parse import urlparse
 
 import werkzeug
 from odoo import http
@@ -21,8 +21,8 @@ try:
 except ImportError:
     radicale = None
 
-PREFIX = '/.dav'
-DIGEST_REALM = 'Odoo CardDAV'
+PREFIX = "/.dav"
+DIGEST_REALM = "Odoo CardDAV"
 NONCE_TTL_SECONDS = 300
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,9 +30,9 @@ _LOGGER = logging.getLogger(__name__)
 def _parse_digest_header(value):
     if not value or not value.startswith("Digest "):
         return {}
-    value = value[len("Digest "):]
+    value = value[len("Digest ") :]
     result = {}
-    for key, quoted, qvalue, uvalue in re.findall(
+    for key, _quoted, qvalue, uvalue in re.findall(
         r'(\\w+)=("([^"]*)"|([^,]*))', value
     ):
         result[key] = qvalue or uvalue.strip()
@@ -164,7 +164,7 @@ def _find_user_by_login(login):
     )
 
 
-def _authenticate_digest(method, path, body=None):
+def _authenticate_digest(method, path, body=None):  # noqa: C901
     auth_header = request.httprequest.headers.get("Authorization")
     if not auth_header:
         environ = request.httprequest.environ
@@ -212,7 +212,10 @@ def _authenticate_digest(method, path, body=None):
         )
         return False, _digest_challenge()
     _LOGGER.info(
-        "CardDAV Digest: auth header present for %s (user=%s realm=%s uri=%s algo=%s qop=%s)",
+        (
+            "CardDAV Digest: auth header present for %s "
+            "(user=%s realm=%s uri=%s algo=%s qop=%s)"
+        ),
         path,
         digest.get("username"),
         digest.get("realm"),
@@ -265,7 +268,12 @@ def _authenticate_digest(method, path, body=None):
             decoded = base64.b64decode(padded)
             if decoded:
                 token_candidates.append(decoded)
-        except Exception:
+        except Exception:  # pragma: no cover
+            _LOGGER.debug(
+                "CardDAV Digest: failed to decode token candidate for %s",
+                path,
+                exc_info=True,
+            )
             continue
     # de-dupe while preserving order
     seen_token = set()
@@ -289,8 +297,12 @@ def _authenticate_digest(method, path, body=None):
         try:
             encoded = base64.b64encode(nonce.encode()).decode()
             nonce_candidates.append(encoded)
-        except Exception:
-            pass
+        except Exception:  # pragma: no cover
+            _LOGGER.debug(
+                "CardDAV Digest: failed to encode nonce candidate for %s",
+                path,
+                exc_info=True,
+            )
     if qop and (not nc or not cnonce):
         # Some clients send qop without nc/cnonce; fall back to RFC 2069.
         qop = ""
@@ -309,9 +321,14 @@ def _authenticate_digest(method, path, body=None):
     uris.append(uri.lstrip("/"))
     try:
         from urllib.parse import unquote
+
         uris.append(unquote(uri))
-    except Exception:
-        pass
+    except Exception:  # pragma: no cover
+        _LOGGER.debug(
+            "CardDAV Digest: failed to unquote URI candidate for %s",
+            path,
+            exc_info=True,
+        )
     # de-dupe while preserving order
     seen = set()
     uris = [u for u in uris if not (u in seen or seen.add(u))]

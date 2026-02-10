@@ -200,9 +200,14 @@ class Collection(BaseCollection):
 
     def get_all_filtered(self, filters):
         items = self.get_all()
-        empty_filter = bool(filters) and all(len(filter_) == 0 for filter_ in filters)
+        empty_filter = bool(filters) and all(
+            len(filter_) == 0 for filter_ in filters
+        )
         _LOGGER.info(
-            "CardDAV Storage: get_all_filtered path=%s filters=%s empty_filter=%s returned=%s",
+            (
+                "CardDAV Storage: get_all_filtered path=%s filters=%s "
+                "empty_filter=%s returned=%s"
+            ),
             self.path,
             len(filters or []),
             empty_filter,

@@ -97,11 +97,11 @@ class TestCalendar(TransactionCase):
             setattr, radicale_collection, "request", original_request
         )
         radicale_collection.request.env = self.env
-        collection_url = "/%s/%s" % (self.env.user.login, self.collection.id)
+        collection_url = f"/{self.env.user.login}/{self.collection.id}"
         collection = list(Collection.discover(collection_url))[0]
 
         # Try to get the test record
-        record_url = "%s/%s" % (collection_url, self.record.id)
+        record_url = f"{collection_url}/{self.record.id}"
         self.assertIn(record_url, collection.list())
 
         # Get the test record using the URL and compare it

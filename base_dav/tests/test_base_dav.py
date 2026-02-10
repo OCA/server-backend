@@ -57,13 +57,13 @@ class TestBaseDav(TransactionCase):
 
     def auth_string(self, user, password):
         return b64encode(
-            ("%s:%s" % (user.login, password)).encode()
+            (f"{user.login}:{password}").encode()
         ).decode()
 
     def init_mocks(self):
         self.req_mock.env = self.env
         self.req_mock.httprequest.environ = {
-            "HTTP_AUTHORIZATION": "Basic %s" % self.auth_owner,
+            "HTTP_AUTHORIZATION": f"Basic {self.auth_owner}",
             "REQUEST_METHOD": "PROPFIND",
             "HTTP_X_SCRIPT_NAME": PREFIX,
         }
@@ -81,7 +81,7 @@ class TestBaseDav(TransactionCase):
     def check_access(self, environ, auth_string, read, write):
         environ.update({
             "REQUEST_METHOD": "PROPFIND",
-            "HTTP_AUTHORIZATION": "Basic %s" % auth_string,
+            "HTTP_AUTHORIZATION": f"Basic {auth_string}",
         })
         response = self.controller.handle_dav_request(self.dav_path)
         self.check_status_code(response, read)

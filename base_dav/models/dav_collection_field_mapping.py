@@ -93,8 +93,8 @@ class DavCollectionFieldMapping(models.Model):
         self.ensure_one()
         name = self.name.lower()
         conversion_funcs = [
-            '_from_vobject_%s_%s' % (self.field_id.ttype, name),
-            '_from_vobject_%s' % self.field_id.ttype,
+            f"_from_vobject_{self.field_id.ttype}_{name}",
+            f"_from_vobject_{self.field_id.ttype}",
         ]
 
         for conversion_func in conversion_funcs:
@@ -159,10 +159,8 @@ class DavCollectionFieldMapping(models.Model):
     def _to_vobject_simple(self, record):
         self.ensure_one()
         conversion_funcs = [
-            '_to_vobject_%s_%s' % (
-                self.field_id.ttype, self.name.lower()
-            ),
-            '_to_vobject_%s' % self.field_id.ttype,
+            f"_to_vobject_{self.field_id.ttype}_{self.name.lower()}",
+            f"_to_vobject_{self.field_id.ttype}",
         ]
         value = record[self.field_id.name]
         for conversion_func in conversion_funcs:
