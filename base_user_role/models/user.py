@@ -105,6 +105,16 @@ class ResUsers(models.Model):
             to_remove = [fields.Command.unlink(gr) for gr in groups_to_remove]
             groups = to_remove + to_add
             if groups:
-                vals = {"group_ids": groups}
+                # Prevent tiggering res_users_notification_type for share users
+                vals = {}
+                if (
+                    self.env.ref("base.group_user").id in groups_to_remove
+                    and "notification_type" in user._fields
+                    and user.notification_type == "inbox"
+                ):
+                    vals["notification_type"] = "email"
+                    pass
+
+                vals["group_ids"] = groups
                 super(ResUsers, user).write(vals)
         return True
