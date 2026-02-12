@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 02:07+0000\n"
-"PO-Revision-Date: 2025-08-16 13:25+0000\n"
+"PO-Revision-Date: 2026-02-12 12:09+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
@@ -31,7 +31,7 @@ msgstr "N° ruoli utente"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_users_count
 msgid "# Users"
-msgstr ""
+msgstr "N° utenti"
 
 #. module: base_user_role
 #. odoo-python
@@ -59,6 +59,8 @@ msgid ""
 "A user may not belong to this group and one of those.  For instance, users "
 "may not be portal users and internal users."
 msgstr ""
+"Un utente non può appartenere a questo gruppo e a uno di questi. Ad esempio, "
+"gli utenti non possono essere utenti del portale o utenti interni."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
@@ -104,7 +106,7 @@ msgstr "Gruppo associato"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_privilege_id
 msgid "Associated privilege"
-msgstr ""
+msgstr "Privilegio associato"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
@@ -162,12 +164,12 @@ msgstr "Creato il"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
 msgid "Default"
-msgstr ""
+msgstr "Predefinito"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__is_default
 msgid "Default on new users"
-msgstr ""
+msgstr "Predefinito su utenti nuovi"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
@@ -181,7 +183,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__disjoint_ids
 msgid "Disjoint Groups"
-msgstr ""
+msgstr "Scollega gruppi"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__display_name
@@ -243,12 +245,12 @@ msgstr "ID"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Implied Groups"
-msgstr ""
+msgstr "Gruppi impliciti"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_by_ids
 msgid "Implying Groups"
-msgstr ""
+msgstr "Gruppi sottintesi"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
@@ -296,7 +298,7 @@ msgstr "Nome"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_users_count
 msgid "Number of users having this group (implicitly or explicitly)"
-msgstr ""
+msgstr "Numero di utenti che hanno questo gruppo (implicito o esplicito)"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
@@ -313,12 +315,12 @@ msgstr "Padri"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__privilege_id
 msgid "Privilege"
-msgstr ""
+msgstr "Privilegio"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__group_privilege_id
 msgid "Privilege assigned to the associated group."
-msgstr ""
+msgstr "Privilegio assegnato al gruppo associato."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
@@ -364,7 +366,7 @@ msgstr "Numero regole"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenza"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
@@ -379,12 +381,12 @@ msgstr "Visualizza avviso"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_group_hierarchy
 msgid "Technical field for default group setting"
-msgstr ""
+msgstr "Campo tecnico per le impostazioni predefinite del gruppo"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_implied_ids
 msgid "The group itself with all its implied groups."
-msgstr ""
+msgstr "Il gruppo stesso con tutti i gruppi impliciti."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
@@ -394,12 +396,12 @@ msgstr "A"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_ids
 msgid "Transitively Implied Groups"
-msgstr ""
+msgstr "Gruppi impliciti transitivamente"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_by_ids
 msgid "Transitively Implying Groups"
-msgstr ""
+msgstr "Gruppi sottintesi transitivamente"
 
 #. module: base_user_role
 #: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
@@ -447,7 +449,7 @@ msgstr "Utenti"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_user_ids
 msgid "Users and implied users"
-msgstr ""
+msgstr "Utenti e utenti impliciti"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role_line
@@ -457,12 +459,12 @@ msgstr "Utenti associati al ruolo"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__user_ids
 msgid "Users explicitly in this group"
-msgstr ""
+msgstr "Utenti espliciti in questo gruppo"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_by_ids
 msgid "Users in those groups are implicitly part of this group."
-msgstr ""
+msgstr "Gli utenti in qui gruppi sono implicitamente parte di questo gruppo."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_user_ids
@@ -472,7 +474,7 @@ msgstr "Elenco utenti"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_ids
 msgid "Users of this group are also implicitly part of those groups"
-msgstr ""
+msgstr "Gli utenti di questo gruppo sono anche parte di quei gruppi"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
@@ -484,6 +486,8 @@ msgstr "Viste"
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__is_default
 msgid "When enabled, this role is assigned to newly created users by default."
 msgstr ""
+"Quando abilitata, il ruolo assegnato è assegnato in modo predefinito ai "
+"nuovi utenti creati."
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
