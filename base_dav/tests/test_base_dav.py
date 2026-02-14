@@ -2,118 +2,137 @@
 # Copyright 2019-2020 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from base64 import b64encode
-from unittest import mock
-from urllib.parse import urlparse
+from types import SimpleNamespace
 
-from odoo.tests.common import TransactionCase
-from odoo.tools import mute_logger
+import odoo.http as http
+from odoo.tests.common import TransactionCase, tagged
 
 from ..controllers.main import PREFIX
 from ..controllers.main import Main as Controller
-
-MODULE_PATH = "odoo.addons.base_dav"
-CONTROLLER_PATH = MODULE_PATH + ".controllers.main"
-RADICALE_PATH = MODULE_PATH + ".radicale"
-
-ADMIN_PASSWORD = "RadicalePa$$word"
+from ..radicale.rights import Rights
 
 
-@mute_logger("radicale")
-@mock.patch(CONTROLLER_PATH + ".request")
-@mock.patch(RADICALE_PATH + ".auth.request")
-@mock.patch(RADICALE_PATH + ".collection.request")
+@tagged("post_install", "-at_install")
 class TestBaseDav(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        """Prepare test users, DAV collection and controller for rights tests."""
+        super().setUpClass()
+
+        # Ensure we have a normal internal user for non-owner checks
+        group_user = cls.env.ref("base.group_user")
+        cls.test_user = cls.env["res.users"].create(
+            {
+                "login": "tester",
+                "name": "tester",
+                "groups_id": [(6, 0, [group_user.id])],
+            }
+        )
+
+        # Create a minimal dav.collection
+        # Use res.partner (safe to create/delete in tests)
+        cls.partner = cls.env["res.partner"].create({"name": "DAV Partner"})
+        cls.collection = cls.env["dav.collection"].create(
+            {
+                "name": "Test Collection",
+                "dav_type": "calendar",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "domain": f"[('id', '=', {cls.partner.id})]",
+            }
+        )
+
+        # NOTE: In our rights logic, owner is path's first segment (login)
+        cls.owner_login = cls.env.user.login
+        cls.tester_login = cls.test_user.login
+
+        cls.controller = Controller()
+
     def setUp(self):
+        """Bind HTTP request context and initialize Rights instance."""
         super().setUp()
 
-        self.collection = self.env["dav.collection"].create({
-            "name": "Test Collection",
-            "dav_type": "calendar",
-            "model_id": self.env.ref("base.model_res_users").id,
-            "domain": "[]",
-        })
+        # Bind odoo.http.request LocalProxy (needed because Rights uses request.env)
+        req = SimpleNamespace(env=self.env, uid=self.env.uid)
+        http._request_stack.push(req)
+        self.addCleanup(http._request_stack.pop)
 
-        self.dav_path = urlparse(self.collection.url).path.replace(PREFIX, '')
+        # Instantiate Rights without calling BaseRights.__init__
+        self.rights = object.__new__(Rights)
 
-        self.controller = Controller()
-        self.env.user.password_crypt = ADMIN_PASSWORD
+    def _assert_perm(self, user_login, path, expect_r, expect_w):
+        """Assert expected read/write permissions for given user and path."""
+        perms = self.rights.authorization(user_login, path) or ""
+        self.assertEqual(
+            "r" in perms,
+            expect_r,
+            f"permissions={perms!r} user={user_login!r} path={path!r}",
+        )
+        self.assertEqual(
+            "w" in perms,
+            expect_w,
+            f"permissions={perms!r} user={user_login!r} path={path!r}",
+        )
 
-        self.test_user = self.env["res.users"].create({
-            "login": "tester",
-            "name": "tester",
-        })
+    def test_well_known(self):
+        """Verify that well-known DAV endpoints redirect to the DAV prefix."""
+        resp = self.controller.handle_well_known_request()
+        self.assertEqual(resp.status_code, 301)
+        # redirect target must be /.dav
+        self.assertIn(PREFIX, resp.location)
 
-        self.auth_owner = self.auth_string(self.env.user, ADMIN_PASSWORD)
-        self.auth_tester = self.auth_string(self.test_user, ADMIN_PASSWORD)
-
-        patcher = mock.patch('odoo.http.request')
-        self.addCleanup(patcher.stop)
-        patcher.start()
-
-    def auth_string(self, user, password):
-        return b64encode(
-            ("%s:%s" % (user.login, password)).encode()
-        ).decode()
-
-    def init_mocks(self, coll_mock, auth_mock, req_mock):
-        req_mock.env = self.env
-        req_mock.httprequest.environ = {
-            "HTTP_AUTHORIZATION": "Basic %s" % self.auth_owner,
-            "REQUEST_METHOD": "PROPFIND",
-            "HTTP_X_SCRIPT_NAME": PREFIX,
-        }
-
-        auth_mock.env["res.users"]._login.return_value = self.env.uid
-        coll_mock.env = self.env
-
-    def check_status_code(self, response, forbidden):
-        if forbidden:
-            self.assertNotEqual(response.status_code, 403)
-        else:
-            self.assertEqual(response.status_code, 403)
-
-    def check_access(self, environ, auth_string, read, write):
-        environ.update({
-            "REQUEST_METHOD": "PROPFIND",
-            "HTTP_AUTHORIZATION": "Basic %s" % auth_string,
-        })
-        response = self.controller.handle_dav_request(self.dav_path)
-        self.check_status_code(response, read)
-
-        environ["REQUEST_METHOD"] = "PUT"
-        response = self.controller.handle_dav_request(self.dav_path)
-        self.check_status_code(response, write)
-
-    def test_well_known(self, coll_mock, auth_mock, req_mock):
-        req_mock.env = self.env
-
-        response = self.controller.handle_well_known_request()
-        self.assertEqual(response.status_code, 301)
-
-    def test_authenticated(self, coll_mock, auth_mock, req_mock):
-        self.init_mocks(coll_mock, auth_mock, req_mock)
-        environ = req_mock.httprequest.environ
-
+    def test_authenticated(self):
+        """Verify access control for collections with 'authenticated' rights mode."""
         self.collection.rights = "authenticated"
 
-        self.check_access(environ, self.auth_owner, read=True, write=True)
-        self.check_access(environ, self.auth_tester, read=True, write=True)
+        base = f"/{self.owner_login}/{self.collection.id}"
+        item = f"{base}/{self.partner.id}"
 
-    def test_owner_only(self, coll_mock, auth_mock, req_mock):
-        self.init_mocks(coll_mock, auth_mock, req_mock)
-        environ = req_mock.httprequest.environ
+        # owner: rw
+        self._assert_perm(self.owner_login, base, True, True)
+        self._assert_perm(self.owner_login, item, True, True)
 
+        # other authenticated user: rw
+        self._assert_perm(self.tester_login, base, True, True)
+        self._assert_perm(self.tester_login, item, True, True)
+
+        # anonymous: none
+        self._assert_perm("", base, False, False)
+        self._assert_perm("", item, False, False)
+
+    def test_owner_only(self):
+        """Verify access control for collections with 'owner_only' rights mode."""
         self.collection.rights = "owner_only"
 
-        self.check_access(environ, self.auth_owner, read=True, write=True)
-        self.check_access(environ, self.auth_tester, read=False, write=False)
+        base = f"/{self.owner_login}/{self.collection.id}"
+        item = f"{base}/{self.partner.id}"
 
-    def test_owner_write_only(self, coll_mock, auth_mock, req_mock):
-        self.init_mocks(coll_mock, auth_mock, req_mock)
-        environ = req_mock.httprequest.environ
+        # owner: rw
+        self._assert_perm(self.owner_login, base, True, True)
+        self._assert_perm(self.owner_login, item, True, True)
 
+        # other authenticated user: none
+        self._assert_perm(self.tester_login, base, False, False)
+        self._assert_perm(self.tester_login, item, False, False)
+
+        # anonymous: none
+        self._assert_perm("", base, False, False)
+        self._assert_perm("", item, False, False)
+
+    def test_owner_write_only(self):
+        """Verify access control for collections with 'owner_write_only' rights mode."""
         self.collection.rights = "owner_write_only"
 
-        self.check_access(environ, self.auth_owner, read=True, write=True)
-        self.check_access(environ, self.auth_tester, read=True, write=False)
+        base = f"/{self.owner_login}/{self.collection.id}"
+        item = f"{base}/{self.partner.id}"
+
+        # owner: rw
+        self._assert_perm(self.owner_login, base, True, True)
+        self._assert_perm(self.owner_login, item, True, True)
+
+        # other authenticated user: r only
+        self._assert_perm(self.tester_login, base, True, False)
+        self._assert_perm(self.tester_login, item, True, False)
+
+        # anonymous: none
+        self._assert_perm("", base, False, False)
+        self._assert_perm("", item, False, False)
