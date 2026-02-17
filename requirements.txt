@@ -1,7 +1,7 @@
 # generated from manifests external_dependencies
 hdbcli
 mysqlclient
-pymssql<=2.2.5
+pymssql>=2.3.0
 sqlalchemy
 sqlalchemy-hana
 vobject
