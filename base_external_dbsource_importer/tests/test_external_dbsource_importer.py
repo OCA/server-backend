@@ -8,27 +8,25 @@ from odoo.addons.base.tests.common import BaseCommon
 
 @tagged("post_install", "-at_install")
 class TestExternalDBSource(BaseCommon):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(self):
+        super().setUp()
         # Load a test model using odoo_test_helper
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .models import BaseExternalDbsourceTest, ResPartnerWithMixin
 
-        cls.loader.update_registry((BaseExternalDbsourceTest,))
-        cls.loader.update_registry((ResPartnerWithMixin,))
-        cls.dbsource = cls.dbsource = cls.env["base.external.dbsource"].create(
+        self.loader.update_registry((BaseExternalDbsourceTest,))
+        self.loader.update_registry((ResPartnerWithMixin,))
+        self.dbsource = self.dbsource = self.env["base.external.dbsource"].create(
             {
                 "connector": "test",
                 "name": "Test data loader",
             }
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        return super().tearDown()
 
     def _import_data(self):
         ext_records, records, records_dic = self.dbsource.test_importer.load_data(
