@@ -69,11 +69,11 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - Sergio Teruel
-  - Carlos Dauden
-  - David Bañón Gil
+   -  Sergio Teruel
+   -  Carlos Dauden
+   -  David Bañón Gil
 
 Maintainers
 -----------
