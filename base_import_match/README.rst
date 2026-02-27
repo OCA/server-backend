@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =================
 Base Import Match
 =================
@@ -17,7 +13,7 @@ Base Import Match
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
@@ -35,8 +31,8 @@ Base Import Match
 By default, when importing data (like CSV import) with the
 ``base_import`` module, Odoo follows this rule:
 
-- If you import the XMLID of a record, make an **update**.
-- If you do not, **create** a new record.
+-  If you import the XMLID of a record, make an **update**.
+-  If you do not, **create** a new record.
 
 This module allows you to set additional rules to match if a given
 import is an update or a new record.
@@ -45,41 +41,65 @@ This is useful when you need to sync heterogeneous databases, and the
 field you use to match records in those databases with Odoo's is not the
 XMLID but the name, VAT, email, etc.
 
-After installing this module, the import logic will be changed to:
+After installing this module, the import preview UI adds a **Match**
+column. Checking the box on a field means:
 
-- If you import the XMLID of a record, make an **update**.
-- If you do not:
+-  Use it to **find existing records** (match key).
+-  **Do not write** its value during the actual import.
 
-  - If there are import match rules for the model you are importing:
+This lets you update records by matching on fields like name, email or
+VAT without needing an XMLID in your file.
 
-    - Discard the rules that require fields you are not importing.
-    - Traverse the remaining rules one by one in order to find a match
-      in the database.
+Pre-configured **Import Match** rules act as templates: their fields are
+pre-checked in the import preview. You can toggle any field on or off
+before importing, regardless of whether a rule exists.
 
-      - Skip the rule if it requires a special condition that is not
-        satisfied.
-      - If one match is found:
+When match-only fields are selected in the UI, matching uses all
+selected fields together to search for a single existing record. If any
+row fails to match exactly one record (zero or multiple matches), the
+entire import is blocked and errors are shown for the affected rows.
+This prevents accidental creation of duplicate records.
 
-        - Stop traversing the rest of valid rules.
-        - **Update** that record.
+Note that conditional rules (fields with a required imported value) are
+only applied during programmatic imports; the UI-driven matching uses
+the selected fields unconditionally.
 
-      - If zero or multiple matches are found:
+For programmatic imports (without UI), the configured rules are used
+instead. The import logic in that case is:
 
-        - Continue with the next rule.
+-  If you import the XMLID of a record, make an **update**.
+-  If you do not:
 
-      - If all rules are exhausted and no single match is found:
+   -  If there are import match rules for the model you are importing:
 
-        - **Create** a new record.
+      -  Discard the rules that require fields you are not importing.
+      -  Traverse the remaining rules one by one in order to find a
+         match in the database.
 
-  - If there are no match rules for your model:
+         -  Skip the rule if it requires a special condition that is not
+            satisfied.
+         -  If one match is found:
 
-    - **Create** a new record.
+            -  Stop traversing the rest of valid rules.
+            -  **Update** that record.
+
+         -  If zero or multiple matches are found:
+
+            -  Continue with the next rule.
+
+         -  If all rules are exhausted and no single match is found:
+
+            -  **Create** a new record.
+
+   -  If there are no match rules for your model:
+
+      -  **Create** a new record.
 
 By default 2 rules are installed for production instances:
 
-- One rule that will allow you to update companies based on their VAT,
-  when ``is_company`` is ``True``.
-- One rule that will allow you to update users based on their login.
+-  One rule that will allow you to update companies based on their VAT,
+   when ``is_company`` is ``True``.
+-  One rule that will allow you to update users based on their login.
 
 In demo instances there are more examples.
 
@@ -91,7 +111,8 @@ In demo instances there are more examples.
 Configuration
 =============
 
-To configure this module, you need to:
+Import Match rules are optional templates that pre-check the **Match**
+column in the import preview. To configure them:
 
 1. Go to *Settings > Technical > Database Structure > Import Match*.
 2. *Create*.
@@ -114,15 +135,28 @@ Usage
 
 To use this module, you need to:
 
-1. Follow steps in **Configuration** section above.
-2. Go to any list view.
-3. Press *Import* and follow the import procedure as usual.
+1. Go to any list or kanban view.
+2. Go to *Action > Import records* and upload your file.
+3. In the import preview, check **Match** on the fields you want to use
+   as matching keys (e.g. name, email, VAT). These fields will be used
+   to find existing records but will not be written.
+4. Proceed with the import as usual. If any row cannot be matched to
+   exactly one existing record, the import will be blocked and error
+   messages will indicate which rows had zero or multiple matches.
+
+If Import Match rules are configured for the model, their fields will be
+pre-checked automatically.
 
 Known issues / Roadmap
 ======================
 
-- Add a setting to throw an error when multiple matches are found,
-  instead of falling back to creation of new record.
+-  Add a setting to throw an error when multiple matches are found
+   during programmatic imports, instead of falling back to creation of
+   new record. (UI-driven imports already block on zero or multiple
+   matches.)
+-  Support matching on child record fields (one2many subfields) in the
+   import preview. Currently, matching only works for direct fields of
+   the imported model.
 
 Bug Tracker
 ===========
@@ -145,11 +179,15 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - Jairo Llopis
-  - Vicent Cubells
-  - Ernesto Tejeda
+   -  Jairo Llopis
+   -  Vicent Cubells
+   -  Ernesto Tejeda
+
+-  `Quartile <https://www.quartile.co>`__:
+
+   -  Yoshi Tashiro
 
 Maintainers
 -----------
