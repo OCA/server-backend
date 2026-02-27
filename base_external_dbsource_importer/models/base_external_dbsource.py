@@ -289,6 +289,16 @@ class BaseExternalDbsource(models.Model):
                 data_dic[sheet_name][vila_code] = odoo_external
         return data_dic
 
+    def server_side_cursor_mysql(self, table, fields_sql, where, size=2000):
+        with self.connection_open() as conn:
+            query = text(f"SELECT {fields_sql} FROM {table} {where}")
+            result = conn.execution_options(
+                stream_results=True,
+                max_row_buffer=size,
+            ).execute(query)
+            for row in result:
+                yield dict(row._mapping)
+
     def server_side_cursor_postgresql(self, table, fields, where, size=2000):
         # Opens a server side cursor to stream the content of the table in batches
         with self.connection_open() as conn:
