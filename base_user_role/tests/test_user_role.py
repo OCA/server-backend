@@ -208,7 +208,7 @@ class TestUserRole(TransactionCase):
             {"name": "USER TEST (DEFAULT ROLES)", "login": "user_test_default_roles"}
         )
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
-        self.assertEqual(user.role_ids, roles)
+        self.assertEqual(user.user_role_ids, roles)
 
     def test_role_multicompany(self):
         """Test AccessError when admin-like user accesses a role"""

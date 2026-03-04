@@ -21,10 +21,10 @@ class ResUsers(models.Model):
         for user in self:
             user.show_alert = user.role_line_ids.filtered(lambda rec: rec.is_enabled)
 
-    role_ids = fields.One2many(
+    user_role_ids = fields.One2many(
         comodel_name="res.users.role",
-        string="User Roles",
-        compute="_compute_role_ids",
+        string="Roles",
+        compute="_compute_user_role_ids",
         compute_sudo=True,
         groups="base.group_erp_manager",
     )
@@ -42,9 +42,9 @@ class ResUsers(models.Model):
         return [{"role_id": r.id} for r in default_roles]
 
     @api.depends("role_line_ids.role_id")
-    def _compute_role_ids(self):
+    def _compute_user_role_ids(self):
         for user in self:
-            user.role_ids = user.role_line_ids.mapped("role_id")
+            user.user_role_ids = user.role_line_ids.mapped("role_id")
 
     @api.model_create_multi
     def create(self, vals_list):
