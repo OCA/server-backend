@@ -39,22 +39,22 @@ This module adds two "Backend User" groups (``group_backend`` and
 
 The UI access is provided only for ``group_backend_ui_users`` :
 
--  minimal default access rules to access the user's own data:
+- minimal default access rules to access the user's own data:
 
-   -  users and partners
-   -  mail activity, notification and channel
-   -  presence
+  - users and partners
+  - mail activity, notification and channel
+  - presence
 
--  minimal default menu to restrict the available ones:
+- minimal default menu to restrict the available ones:
 
-   -  notification
-   -  activities
+  - notification
+  - activities
 
 Here is an example where a user from ``group_backend_ui_users`` can only
 access and use the Dummy App. No other application is available to this
 user (you may define your own application instead of the Dummy one).
 
-|image1|
+|dummy_app|
 
 We suggest to use this module with its companion ``base_user_role``.
 
@@ -67,18 +67,18 @@ to ``user``.
 
 So technically, the module does 2 things :
 
--  It sets the ``share`` parameter to ``False`` for ``group_backend``
-   users.
--  It hijacks the ``has_group`` method of res.users by returning
-   ``True`` for ``group_backend`` users when the requested group is
-   ``base.group_user``
+- It sets the ``share`` parameter to ``False`` for ``group_backend``
+  users.
+- It hijacks the ``has_group`` method of res.users by returning ``True``
+  for ``group_backend`` users when the requested group is
+  ``base.group_user``
 
 This avoids to write a lot of overwrite in different controllers from
 different modules ('portal', 'web', 'base', 'website') with hard coded
 statements that check if user is part of the ``base.group_user`` or
 ``share == False`` group.
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/dummy_app.png
+.. |dummy_app| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/dummy_app.png
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -110,7 +110,7 @@ Usage
 To use this module, add a user to the group "Backend user" or "Backend
 UI user" through the user's form page.
 
-|image1|
+|backend_ui|
 
 If you created a specific group with ``group_backend`` or
 ``group_backend_ui_users`` in its ``implied_ids``, you need to go
@@ -123,7 +123,7 @@ This module also **restricts the root menus** displayed to Backend
 users, so be sure to explicitly add your Backend group to all the
 necessary root menus for these users.
 
-.. |image1| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/backend_ui.png
+.. |backend_ui| image:: https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/backend_ui.png
 
 Bug Tracker
 ===========
@@ -146,8 +146,8 @@ Authors
 Contributors
 ------------
 
--  Pierre Verkest <pierreverkest84@gmail.com>
--  François Poizat <francois.poizat@gmail.com>
+- Pierre Verkest <pierreverkest84@gmail.com>
+- François Poizat <francois.poizat@gmail.com>
 
 Do not contact contributors directly about support or help with
 technical issues.

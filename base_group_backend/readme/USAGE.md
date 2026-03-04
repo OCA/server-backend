@@ -1,7 +1,7 @@
 To use this module, add a user to the group "Backend user" or "Backend
 UI user" through the user's form page.
 
-![](../static/description/backend_ui.png)
+![backend_ui](../static/description/backend_ui.png)
 
 If you created a specific group with `group_backend` or
 `group_backend_ui_users` in its `implied_ids`, you need to go through

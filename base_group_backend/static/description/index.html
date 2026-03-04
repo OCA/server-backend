@@ -369,46 +369,51 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:94aa0fca553bd76339b493d1406d1fad68c724126ff95cfecea7d30228bd6b90
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/16.0/base_group_backend"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-16-0/server-backend-16-0-base_group_backend"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module adds two “Backend User” groups (<tt class="docutils literal">group_backend</tt> and <tt class="docutils literal">group_backend_ui_users</tt>) with restricted access to odoo backend only (<tt class="docutils literal">/web</tt>), with less and more controlled access than the native “Internal User” group.</p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/server-backend/tree/18.0/base_group_backend"><img alt="OCA/server-backend" src="https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/server-backend-18-0/server-backend-18-0-base_group_backend"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/server-backend&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module adds two “Backend User” groups (<tt class="docutils literal">group_backend</tt> and
+<tt class="docutils literal">group_backend_ui_users</tt>) with restricted access to odoo backend only
+(<tt class="docutils literal">/web</tt>), with less and more controlled access than the native
+“Internal User” group.</p>
 <blockquote>
-The problem with the “Internal User” group (<tt class="docutils literal">base.group_user</tt>) is that it can be used by any new module added to your project, so you don’t control clearly this group’s accesses.</blockquote>
+The problem with the “Internal User” group (<tt class="docutils literal">base.group_user</tt>) is
+that it can be used by any new module added to your project, so you
+don’t control clearly this group’s accesses.</blockquote>
 <p>The UI access is provided only for <tt class="docutils literal">group_backend_ui_users</tt> :</p>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>minimal default access rules to access the user’s own data:</dt>
-<dd><ul class="first last">
+<li>minimal default access rules to access the user’s own data:<ul>
 <li>users and partners</li>
 <li>mail activity, notification and channel</li>
 <li>presence</li>
 </ul>
-</dd>
-</dl>
 </li>
-<li><dl class="first docutils">
-<dt>minimal default menu to restrict the available ones:</dt>
-<dd><ul class="first last">
+<li>minimal default menu to restrict the available ones:<ul>
 <li>notification</li>
 <li>activities</li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
-<p>Here is an example where a user from <tt class="docutils literal">group_backend_ui_users</tt> can only access and use the Dummy App. No other application is available to this user (you may define your own application instead of the Dummy one).</p>
-<div class="figure">
-<img alt="Dummy app for demo" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/dummy_app.png" />
-</div>
+<p>Here is an example where a user from <tt class="docutils literal">group_backend_ui_users</tt> can only
+access and use the Dummy App. No other application is available to this
+user (you may define your own application instead of the Dummy one).</p>
+<p><img alt="dummy_app" src="https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/dummy_app.png" /></p>
 <p>We suggest to use this module with its companion <tt class="docutils literal">base_user_role</tt>.</p>
 <div class="section" id="limitations">
 <h1>Limitations</h1>
-<p>At the time of writing, Odoo uses <tt class="docutils literal">user.share == False</tt> and <tt class="docutils literal"><span class="pre">user.has_group(&quot;base.group_user&quot;)</span> == True</tt> to give the backend access to <tt class="docutils literal">user</tt>.</p>
+<p>At the time of writing, Odoo uses <tt class="docutils literal">user.share == False</tt> and
+<tt class="docutils literal"><span class="pre">user.has_group(&quot;base.group_user&quot;)</span> == True</tt> to give the backend access
+to <tt class="docutils literal">user</tt>.</p>
 <p>So technically, the module does 2 things :</p>
 <ul class="simple">
-<li>It sets the <tt class="docutils literal">share</tt> parameter to <tt class="docutils literal">False</tt> for <tt class="docutils literal">group_backend</tt> users.</li>
-<li>It hijacks the <tt class="docutils literal">has_group</tt> method of res.users by returning <tt class="docutils literal">True</tt> for <tt class="docutils literal">group_backend</tt> users when the requested group is <tt class="docutils literal">base.group_user</tt></li>
+<li>It sets the <tt class="docutils literal">share</tt> parameter to <tt class="docutils literal">False</tt> for <tt class="docutils literal">group_backend</tt>
+users.</li>
+<li>It hijacks the <tt class="docutils literal">has_group</tt> method of res.users by returning <tt class="docutils literal">True</tt>
+for <tt class="docutils literal">group_backend</tt> users when the requested group is
+<tt class="docutils literal">base.group_user</tt></li>
 </ul>
-<p>This avoids to write a lot of overwrite in different controllers from different modules (‘portal’, ‘web’, ‘base’, ‘website’) with hard coded statements that check if user is part of the <tt class="docutils literal">base.group_user</tt> or <tt class="docutils literal">share == False</tt> group.</p>
+<p>This avoids to write a lot of overwrite in different controllers from
+different modules (‘portal’, ‘web’, ‘base’, ‘website’) with hard coded
+statements that check if user is part of the <tt class="docutils literal">base.group_user</tt> or
+<tt class="docutils literal">share == False</tt> group.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">This is an alpha version, the data model and design can change at any time without warning.
@@ -426,24 +431,37 @@ Only for development or testing purpose, do not use in production.
 </div>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#toc-entry-1">Configuration</a></h2>
-<p>To allow a user from the <tt class="docutils literal">group_backend_ui_users</tt> group to interact with a specific model you can either add an access rules to this model for <tt class="docutils literal">group_backend_ui_users</tt> or you can add <tt class="docutils literal">group_backend_ui_users</tt> to the <tt class="docutils literal">implied_ids</tt> of a new specific group.</p>
-<p>The Backend groups are from the “User types” category (<tt class="docutils literal">base.module_category_user_type</tt>), the same category as “Internal User” (<tt class="docutils literal">base.group_user</tt>), “Portal” (<tt class="docutils literal">base.group_portal</tt>) or Public (<tt class="docutils literal">base.group_public</tt>). Be aware that a user can only belongs to <strong>one group of this category</strong>.</p>
+<p>To allow a user from the <tt class="docutils literal">group_backend_ui_users</tt> group to interact
+with a specific model you can either add an access rules to this model
+for <tt class="docutils literal">group_backend_ui_users</tt> or you can add <tt class="docutils literal">group_backend_ui_users</tt>
+to the <tt class="docutils literal">implied_ids</tt> of a new specific group.</p>
+<p>The Backend groups are from the “User types” category
+(<tt class="docutils literal">base.module_category_user_type</tt>), the same category as “Internal
+User” (<tt class="docutils literal">base.group_user</tt>), “Portal” (<tt class="docutils literal">base.group_portal</tt>) or Public
+(<tt class="docutils literal">base.group_public</tt>). Be aware that a user can only belongs to <strong>one
+group of this category</strong>.</p>
 </div>
 <div class="section" id="usage">
 <h2><a class="toc-backref" href="#toc-entry-2">Usage</a></h2>
-<p>To use this module, add a user to the group “Backend user” or “Backend UI user” through the user’s form page.</p>
-<div class="figure">
-<img alt="Backend UI user" src="https://raw.githubusercontent.com/OCA/server-backend/16.0/base_group_backend/static/description/backend_ui.png" />
-</div>
-<p>If you created a specific group with <tt class="docutils literal">group_backend</tt> or <tt class="docutils literal">group_backend_ui_users</tt> in its <tt class="docutils literal">implied_ids</tt>, you need to go through the group’s form page in order to add the user to this specific group, because it won’t be displayed on the user’s form page (a specific group with its own category is displayed on user’s form page only if the group inherits the “Internal user” group).</p>
-<p>This module also <strong>restricts the root menus</strong> displayed to Backend users, so be sure to explicitly add your Backend group to all the necessary root menus for these users.</p>
+<p>To use this module, add a user to the group “Backend user” or “Backend
+UI user” through the user’s form page.</p>
+<p><img alt="backend_ui" src="https://raw.githubusercontent.com/OCA/server-backend/18.0/base_group_backend/static/description/backend_ui.png" /></p>
+<p>If you created a specific group with <tt class="docutils literal">group_backend</tt> or
+<tt class="docutils literal">group_backend_ui_users</tt> in its <tt class="docutils literal">implied_ids</tt>, you need to go
+through the group’s form page in order to add the user to this specific
+group, because it won’t be displayed on the user’s form page (a specific
+group with its own category is displayed on user’s form page only if the
+group inherits the “Internal user” group).</p>
+<p>This module also <strong>restricts the root menus</strong> displayed to Backend
+users, so be sure to explicitly add your Backend group to all the
+necessary root menus for these users.</p>
 </div>
 <div class="section" id="bug-tracker">
 <h2><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h2>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/server-backend/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/server-backend/issues/new?body=module:%20base_group_backend%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -462,7 +480,8 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <li>Pierre Verkest &lt;<a class="reference external" href="mailto:pierreverkest84&#64;gmail.com">pierreverkest84&#64;gmail.com</a>&gt;</li>
 <li>François Poizat &lt;<a class="reference external" href="mailto:francois.poizat&#64;gmail.com">francois.poizat&#64;gmail.com</a>&gt;</li>
 </ul>
-<p>Do not contact contributors directly about support or help with technical issues.</p>
+<p>Do not contact contributors directly about support or help with
+technical issues.</p>
 </div>
 <div class="section" id="maintainers">
 <h1>Maintainers</h1>
@@ -475,7 +494,7 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainers</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/FranzPoize"><img alt="FranzPoize" src="https://github.com/FranzPoize.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/bealdav"><img alt="bealdav" src="https://github.com/bealdav.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/16.0/base_group_backend">OCA/server-backend</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/server-backend/tree/18.0/base_group_backend">OCA/server-backend</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>

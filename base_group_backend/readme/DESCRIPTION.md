@@ -22,7 +22,7 @@ Here is an example where a user from `group_backend_ui_users` can only
 access and use the Dummy App. No other application is available to this
 user (you may define your own application instead of the Dummy one).
 
-![](../static/description/dummy_app.png)
+![dummy_app](../static/description/dummy_app.png)
 
 We suggest to use this module with its companion `base_user_role`.
 
