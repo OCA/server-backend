@@ -10,12 +10,12 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[1]" position="before">
                 <page string="User Roles">
-                    <field name="role_ids" invisible="1" />
+                    <field name="user_role_ids" invisible="1" />
                     <field name="role_line_ids" nolabel="1">
                         <list editable="bottom" decoration-muted="not is_enabled">
                             <field
                                 name="role_id"
-                                domain="[('id', 'not in', parent.role_ids)]"
+                                domain="[('id', 'not in', parent.user_role_ids)]"
                             />
                             <field name="date_from" />
                             <field name="date_to" />
@@ -52,7 +52,7 @@
         <field name="arch" type="xml">
             <field name="company_ids" position="after">
                 <field
-                    name="role_ids"
+                    name="user_role_ids"
                     filter_domain="[('role_line_ids.role_id.name','ilike',self)]"
                 />
             </field>
@@ -63,7 +63,7 @@
         <field name="inherit_id" ref="base.view_users_tree" />
         <field name="arch" type="xml">
             <field name="role" position="after">
-                <field name="role_ids" widget="many2many_tags" />
+                <field name="user_role_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>
