@@ -136,3 +136,24 @@ class TestBaseDav(TransactionCase):
         # anonymous: none
         self._assert_perm("", base, False, False)
         self._assert_perm("", item, False, False)
+
+    def test_rights_root_and_principal_and_missing_collection(self):
+        """Verify root/principal paths and missing collection handling."""
+        self._assert_perm(self.owner_login, "/", True, True)
+        self._assert_perm("", "/", False, False)
+
+        self._assert_perm(self.owner_login, f"/{self.owner_login}", True, True)
+        self._assert_perm("", f"/{self.owner_login}", False, False)
+
+        self._assert_perm(self.owner_login, f"/{self.owner_login}/999999", False, False)
+        self._assert_perm(
+            self.owner_login, f"/{self.owner_login}/not-a-number", False, False
+        )
+
+    def test_rights_split_helper(self):
+        """Verify DAV path splitting helper."""
+        from ..radicale.rights import _split
+
+        self.assertEqual(_split(None), [])
+        self.assertEqual(_split("/"), [])
+        self.assertEqual(_split("//a///b/"), ["a", "b"])
