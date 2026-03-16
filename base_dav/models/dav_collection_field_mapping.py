@@ -11,6 +11,7 @@ import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
+from odoo.tools import html2plaintext
 from odoo.tools import safe_eval as safe_eval_mod
 
 
@@ -317,6 +318,7 @@ class DavCollectionFieldMapping(models.Model):
             "dateutil": SAFE_DATEUTIL,
             "tz": SAFE_TZ,
             "vobject": SAFE_VOBJECT,
+            "html2plaintext": html2plaintext,
             "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
             "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
         }
