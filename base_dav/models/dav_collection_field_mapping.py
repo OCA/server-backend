@@ -5,6 +5,7 @@
 import base64
 import binascii
 import datetime
+import re as re_mod
 
 import dateutil
 import vobject
@@ -317,6 +318,9 @@ class DavCollectionFieldMapping(models.Model):
             "dateutil": SAFE_DATEUTIL,
             "tz": SAFE_TZ,
             "vobject": SAFE_VOBJECT,
+            "re": safe_eval_mod.wrap_module(
+                re_mod, {"sub": {}, "match": {}, "search": {}, "compile": {}}
+            ),
             "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
             "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
         }
