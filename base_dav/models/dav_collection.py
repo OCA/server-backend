@@ -8,6 +8,7 @@ from operator import itemgetter
 from urllib.parse import quote_plus, unquote_plus
 
 import vobject
+from dateutil import tz
 
 from odoo import api, fields, models
 from odoo.exceptions import AccessError
@@ -259,7 +260,8 @@ class DavCollection(models.Model):
             vobj.add("uid").value = f"{record._name},{record.id}"
 
         if (
-            "rev" not in vobj.contents
+            self.dav_type == "addressbook"
+            and "rev" not in vobj.contents
             and "write_date" in record._fields
             and record.write_date
         ):
@@ -267,6 +269,14 @@ class DavCollection(models.Model):
             vobj.add("rev").value = (
                 s.replace("-", "").replace(" ", "T").replace(":", "") + "Z"
             )
+
+        if (
+            self.dav_type == "calendar"
+            and "dtstamp" not in vobj.contents
+            and "write_date" in record._fields
+            and record.write_date
+        ):
+            vobj.add("dtstamp").value = record.write_date.replace(tzinfo=tz.UTC)
 
         return result
 
