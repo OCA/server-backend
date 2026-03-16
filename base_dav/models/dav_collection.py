@@ -251,6 +251,23 @@ class DavCollection(models.Model):
                 continue
             if isinstance(value, bool):
                 continue
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        prop = vobj.add(mapping.name)
+                        prop_value = item.get("value", "")
+                        for pk, pv in item.get("params", {}).items():
+                            prop.params[pk] = [pv] if isinstance(pv, str) else pv
+                        if isinstance(prop_value, dict):
+                            for k, val in prop_value.items():
+                                prop.add(k).value = val
+                        else:
+                            prop.value = prop_value
+                    else:
+                        vobj.add(mapping.name).value = (
+                            str(item) if isinstance(item, (int | float)) else item
+                        )
+                continue
             if isinstance(value, (int | float)):
                 value = str(value)
             vobj.add(mapping.name).value = value
