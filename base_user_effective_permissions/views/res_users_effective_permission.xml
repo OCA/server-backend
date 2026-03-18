@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="model_id" />
-                <field name="model_name" invisible="1" />
+                <field name="model_name" column_invisible="1" />
                 <field name="create_permission" optional="show" />
                 <field name="create_domain" optional="show" />
                 <field

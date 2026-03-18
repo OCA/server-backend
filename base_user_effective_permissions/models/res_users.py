@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
 
-from odoo import _, models
+from odoo import models
 
 
 class ResUsers(models.Model):
@@ -15,9 +15,8 @@ class ResUsers(models.Model):
         )
         return {
             "type": "ir.actions.act_window",
-            "name": _("Effective permissions for %s") % self.name,
+            "name": self.env._("Effective permissions for %s") % self.name,
             "res_model": "res.users.effective.permission",
             "view_mode": "list",
-            "views": [[False, "list"]],
             "domain": [("id", "in", permissions.ids)],
         }

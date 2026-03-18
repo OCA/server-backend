@@ -1,6 +1,5 @@
 # Copyright 2023 Hunki Enterprises BV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
-
 {
     "name": "Effective permissions",
     "summary": "Inspect effective permissions applying to a user",
