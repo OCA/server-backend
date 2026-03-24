@@ -3,11 +3,11 @@
 from types import SimpleNamespace
 from unittest import mock
 
-from odoo import http
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
-from odoo.addons.base_dav.radicale.auth import Auth, _set_request_user, _user_agent_env
+from odoo.addons.base_dav.radicale import auth as dav_auth_mod
+from odoo.addons.base_dav.radicale.auth import Auth
 
 
 @tagged("post_install", "-at_install")
@@ -27,110 +27,123 @@ class TestDavAuth(TransactionCase):
             )
         )
 
-    def setUp(self):
-        super().setUp()
-        self.request_obj = SimpleNamespace(
-            env=self.env,
-            uid=self.env.uid,
+    def _make_request(self, *, api_uid=None, exists=True, login=None):
+        """Build a mocked request object for Auth._login_ext tests."""
+        user_record = mock.Mock()
+        user_record.exists.return_value = exists
+        user_record.login = login or self.user.login
+
+        apikeys_model = mock.Mock()
+        apikeys_model._check_credentials.return_value = api_uid
+
+        users_model = mock.Mock()
+        users_model.sudo.return_value.browse.return_value = user_record
+
+        env = mock.MagicMock()
+        env.__getitem__.side_effect = lambda model_name: {
+            "res.users.apikeys": apikeys_model,
+            "res.users": users_model,
+        }[model_name]
+        env.user.login = login or self.user.login
+
+        request_obj = SimpleNamespace(
+            env=env,
             update_env=mock.Mock(),
         )
-        http._request_stack.push(self.request_obj)
-        self.addCleanup(http._request_stack.pop)
+        return request_obj, apikeys_model, users_model, user_record
 
-    def test_user_agent_env_minimal(self):
-        self.assertEqual(_user_agent_env(SimpleNamespace()), {"interactive": False})
-
-    def test_user_agent_env_full(self):
-        ctx = SimpleNamespace(
-            user_agent="Thunderbird",
-            remote_host="10.0.0.5",
-        )
-        self.assertEqual(
-            _user_agent_env(ctx),
-            {
-                "interactive": False,
-                "HTTP_USER_AGENT": "Thunderbird",
-                "REMOTE_ADDR": "10.0.0.5",
-            },
-        )
-
-    def test_user_agent_env_remote_from_tuple_client(self):
-        ctx = SimpleNamespace(
-            user_agent=None,
-            remote_host=None,
-            remote_addr=None,
-            client=("10.10.10.10", 1234),
-        )
-        self.assertEqual(
-            _user_agent_env(ctx),
-            {
-                "interactive": False,
-                "REMOTE_ADDR": "10.10.10.10",
-            },
-        )
-
-    def test_set_request_user(self):
-        _set_request_user(self.env, self.user.id)
-        self.request_obj.update_env.assert_called_once_with(user=self.user.id)
-
-    def test_login_ext_returns_empty_on_login_exception(self):
+    def test_login_ext_returns_empty_without_login(self):
         auth = object.__new__(Auth)
-        with (
-            mock.patch.object(
-                type(self.env["res.users"]),
-                "_login",
-                side_effect=Exception("boom"),
-            ),
-            mock.patch("odoo.addons.base_dav.radicale.auth._logger") as logger,
-        ):
-            result = auth._login_ext("bad", "bad", SimpleNamespace())
+        request_obj, apikeys_model, _, _ = self._make_request()
+
+        with mock.patch.object(dav_auth_mod, "request", request_obj):
+            result = auth._login_ext("", "secret", SimpleNamespace())
 
         self.assertEqual(result, "")
+        apikeys_model._check_credentials.assert_not_called()
+        request_obj.update_env.assert_not_called()
+
+    def test_login_ext_returns_empty_without_password(self):
+        auth = object.__new__(Auth)
+        request_obj, apikeys_model, _, _ = self._make_request()
+
+        with mock.patch.object(dav_auth_mod, "request", request_obj):
+            result = auth._login_ext(self.user.login, "", SimpleNamespace())
+
+        self.assertEqual(result, "")
+        apikeys_model._check_credentials.assert_not_called()
+        request_obj.update_env.assert_not_called()
+
+    def test_login_ext_returns_empty_when_key_is_invalid(self):
+        auth = object.__new__(Auth)
+        request_obj, apikeys_model, _, _ = self._make_request(api_uid=False)
+
+        with (
+            mock.patch.object(dav_auth_mod, "request", request_obj),
+            mock.patch.object(dav_auth_mod, "_logger") as logger,
+        ):
+            result = auth._login_ext(self.user.login, "bad-key", SimpleNamespace())
+
+        self.assertEqual(result, "")
+        apikeys_model._check_credentials.assert_called_once_with(
+            scope="dav",
+            key="bad-key",
+        )
+        request_obj.update_env.assert_not_called()
         logger.info.assert_called_once()
 
-    def test_login_ext_returns_empty_on_missing_uid(self):
+    def test_login_ext_returns_empty_when_user_not_found(self):
         auth = object.__new__(Auth)
-        with mock.patch.object(
-            type(self.env["res.users"]),
-            "_login",
-            return_value={},
+        request_obj, apikeys_model, users_model, _ = self._make_request(
+            api_uid=self.user.id,
+            exists=False,
+        )
+
+        with (
+            mock.patch.object(dav_auth_mod, "request", request_obj),
+            mock.patch.object(dav_auth_mod, "_logger") as logger,
         ):
-            result = auth._login_ext("bad", "bad", SimpleNamespace())
+            result = auth._login_ext(self.user.login, "secret", SimpleNamespace())
+
         self.assertEqual(result, "")
+        apikeys_model._check_credentials.assert_called_once_with(
+            scope="dav",
+            key="secret",
+        )
+        users_model.sudo.return_value.browse.assert_called_once_with(self.user.id)
+        request_obj.update_env.assert_not_called()
+        logger.info.assert_called_once()
 
-    def test_login_ext_accepts_dict_response(self):
+    def test_login_ext_returns_empty_when_login_does_not_match_user(self):
         auth = object.__new__(Auth)
+        request_obj, apikeys_model, users_model, _ = self._make_request(
+            api_uid=self.user.id,
+            login="another_login",
+        )
+
         with (
-            mock.patch.object(
-                type(self.env["res.users"]),
-                "_login",
-                return_value={"uid": self.user.id},
-            ),
-            mock.patch(
-                "odoo.addons.base_dav.radicale.auth._set_request_user"
-            ) as set_request_user,
+            mock.patch.object(dav_auth_mod, "request", request_obj),
+            mock.patch.object(dav_auth_mod, "_logger") as logger,
         ):
-            result = auth._login_ext(
-                self.user.login,
-                "secret",
-                SimpleNamespace(user_agent="TB", remote_addr="127.0.0.1"),
-            )
+            result = auth._login_ext(self.user.login, "secret", SimpleNamespace())
 
-        self.assertEqual(result, self.user.login)
-        set_request_user.assert_called_once_with(self.env, self.user.id)
+        self.assertEqual(result, "")
+        apikeys_model._check_credentials.assert_called_once_with(
+            scope="dav",
+            key="secret",
+        )
+        users_model.sudo.return_value.browse.assert_called_once_with(self.user.id)
+        request_obj.update_env.assert_not_called()
+        logger.info.assert_called_once()
 
-    def test_login_ext_accepts_int_response(self):
+    def test_login_ext_accepts_valid_api_key(self):
         auth = object.__new__(Auth)
-        with (
-            mock.patch.object(
-                type(self.env["res.users"]),
-                "_login",
-                return_value=self.user.id,
-            ),
-            mock.patch(
-                "odoo.addons.base_dav.radicale.auth._set_request_user"
-            ) as set_request_user,
-        ):
+        request_obj, apikeys_model, users_model, _ = self._make_request(
+            api_uid=self.user.id,
+            login=self.user.login,
+        )
+
+        with mock.patch.object(dav_auth_mod, "request", request_obj):
             result = auth._login_ext(
                 self.user.login,
                 "secret",
@@ -138,4 +151,9 @@ class TestDavAuth(TransactionCase):
             )
 
         self.assertEqual(result, self.user.login)
-        set_request_user.assert_called_once_with(self.env, self.user.id)
+        apikeys_model._check_credentials.assert_called_once_with(
+            scope="dav",
+            key="secret",
+        )
+        users_model.sudo.return_value.browse.assert_called_once_with(self.user.id)
+        request_obj.update_env.assert_called_once_with(user=self.user.id)

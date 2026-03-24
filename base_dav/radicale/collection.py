@@ -20,8 +20,6 @@ _logger = logging.getLogger("radicale")
 def _norm_path(path):
     """Return sanitized Radicale path without leading slash.
 
-    Applies Radicale path sanitization and removes leading slash.
-
     :param path: Raw path string
     :type path: str
 
@@ -33,8 +31,6 @@ def _norm_path(path):
 
 def _abs_href(collection_path, href):
     """Build absolute href for Radicale item.
-
-    Ensures href is prefixed with collection path and leading slash.
 
     :param collection_path: Collection base path
     :type collection_path: str
@@ -162,6 +158,26 @@ class Collection(BaseCollection):
             rec = env["dav.collection"].browse(int(self.path_components[1])).exists()
             self._record = rec or None
 
+    def _get_metadata(self):
+        if not self._record:
+            return {}
+
+        metadata = {
+            "tag": self._record.tag or "",
+            "D:displayname": self._record.display_name or self._record.name or "",
+        }
+
+        if self._record.tag == "VCALENDAR":
+            metadata["C:supported-calendar-component-set"] = "VTODO,VEVENT,VJOURNAL"
+            metadata["ICAL:calendar-color"] = "#48c9f4"
+
+        return metadata
+
+    def _require_record(self):
+        if not self._record:
+            raise ValueError(f"Not a DAV collection: {self.path!r}")
+        return self._record
+
     @property
     def path(self):
         """Return normalized collection path.
@@ -203,34 +219,22 @@ class Collection(BaseCollection):
     def list(self):
         """Return relative hrefs for items or child collections.
 
-        Behavior depends on path type:
-          - collection
-          - principal
-          - root
-
         :return: Iterable of relative hrefs
         :rtype: Iterable[str]
         """
-        env = request.env
-
-        # real DAV collection -> list items
         if self._record:
-            hrefs = self._record.dav_list(self, self.path_components)
-            for h in hrefs:
-                yield _rel_href(self.path, h)
+            for href in self._record.dav_list(self, self.path_components):
+                yield _rel_href(self.path, href)
             return
 
-        # principal -> list collections
         if self.is_principal:
-            login = self.path_components[0]
-            for rec in env["dav.collection"].search([]):
-                yield f"{login}/{rec.id}"
+            for record in request.env["dav.collection"].search([]):
+                yield f"{self.owner}/{record.id}"
             return
 
-        # root -> expose only current user principal
-        current = env.user.login
-        if current:
-            yield current
+        login = request.env.user.login
+        if login:
+            yield login
 
     def get(self, href):
         """Retrieve single DAV item by href.
@@ -243,8 +247,7 @@ class Collection(BaseCollection):
         """
         if not self._record:
             return None
-        abs_href = _abs_href(self.path, href)
-        return self._record.dav_get(self, abs_href)
+        return self._record.dav_get(self, _abs_href(self.path, href))
 
     def upload(self, href, item, **kwargs):
         """Upload or update DAV item.
@@ -259,17 +262,15 @@ class Collection(BaseCollection):
         :return: Tuple of (uploaded_item, previous_item)
         :rtype: Tuple[Optional[Any], Optional[Any]]
         """
-        if not self._record:
-            raise ValueError(f"Not a DAV collection: {self.path!r}")
-
+        del kwargs
+        record = self._require_record()
         old_item = self.get(href)
-
-        # tests may pass vobject directly;
-        # Radicale passes RadicaleItem with .vobject_item
-        vobj = getattr(item, "vobject_item", None) or item
-        abs_href = _abs_href(self.path, href)
-
-        uploaded = self._record.dav_upload(self, abs_href, vobj)
+        vobject_item = getattr(item, "vobject_item", item)
+        uploaded = record.dav_upload(
+            self,
+            _abs_href(self.path, href),
+            vobject_item,
+        )
         return uploaded, old_item
 
     def delete(self, href: str | None = None):
@@ -281,39 +282,20 @@ class Collection(BaseCollection):
         :raises ValueError: If not a DAV collection
         :raises NotImplementedError: If deleting collection root
         """
-        if not self._record:
-            raise ValueError(f"Not a DAV collection: {self.path!r}")
+        record = self._require_record()
         if not href:
             raise NotImplementedError("Deleting collections is not supported")
-        abs_href = _abs_href(self.path, href)
-        self._record.dav_delete(self, abs_href)
+        record.dav_delete(self, _abs_href(self.path, href))
 
-    def get_meta(self, key: str | None = None):
-        """Return collection metadata value.
-
-        :param key: Metadata key, defaults to None
-        :type key: Optional[str], optional
-
-        :return: Metadata value or mapping
-        :rtype: Mapping[str, str] | str | None
-        """
+    def get_meta(self, key=None):
+        metadata = self._get_metadata()
         if key is None:
-            return {}
+            return metadata
 
-        if not self._record:
-            return None
-
-        if key == "tag":
-            return self._record.tag
-        if key == "D:displayname":
-            return self._record.display_name or self._record.name
-        if key == "C:supported-calendar-component-set":
-            return "VTODO,VEVENT,VJOURNAL"
-        if key == "ICAL:calendar-color":
-            # TODO: set in dav.collection
-            return "#48c9f4"
-        self.logger.warning("unsupported metadata %s", key)
-        return None
+        value = metadata.get(key)
+        if value is None and self._record:
+            self.logger.warning(f"Unsupported metadata key {key}")
+        return value
 
     @property
     def last_modified(self):
@@ -324,7 +306,6 @@ class Collection(BaseCollection):
         """
         if not self._record:
             return ""
-        # reuse helper from dav.collection
         return self._record._odoo_to_http_datetime(self._record.create_date) or ""
 
 
@@ -353,43 +334,34 @@ class Storage(BaseStorage):
         :return: Iterator of collections or items
         :rtype: Iterator[Any]
         """
-        path = _norm_path(path)
-        parts = path.split("/", 2) if path else [""]
+        del child_context_manager, user_groups
 
-        # item path: "admin/2/2"
-        if len(parts) == 3 and (parts[1] or "").isdigit():
-            coll = Collection("/".join(parts[:2]))
-            if not getattr(coll, "_record", None):
+        path = _norm_path(path)
+        parts = path.split("/", 2) if path else []
+
+        if len(parts) == 3 and parts[1].isdigit():
+            collection = Collection("/".join(parts[:2]))
+            if not collection._record:
                 return iter(())
-            item = coll.get(parts[2])
+            item = collection.get(parts[2])
             return iter([item]) if item else iter(())
 
-        coll = Collection(path)
-
+        collection = Collection(path)
         if depth == "0":
-            return iter([coll])
+            return iter([collection])
 
-        # depth != 0 -> include direct children
-        children = [coll]
-        if getattr(coll, "_record", None):
-            children.extend(list(coll.get_all()))
+        children = [collection]
+        if collection._record:
+            children.extend(collection.get_all())
         else:
-            for child_path in coll.list():
-                children.append(Collection(child_path))
+            children.extend(Collection(child_path) for child_path in collection.list())
 
         return iter(children)
 
-    def move(self, item: RadicaleItem, to_collection: BaseCollection, to_href):
+    def move(self, item, to_collection, to_href):
         """Move DAV item between collections.
 
         :raises NotImplementedError: MOVE is not supported
-
-        :param item: Radicale item
-        :type item: RadicaleItem
-        :param to_collection: Target collection
-        :type to_collection: BaseCollection
-        :param to_href: Target href
-        :type to_href: str
         """
         raise NotImplementedError("MOVE is not supported by Odoo DAV backend")
 
@@ -397,41 +369,20 @@ class Storage(BaseStorage):
         """Create DAV collection.
 
         :raises NotImplementedError: MKCOL not supported
-
-        :param href: Collection href
-        :type href: str
-        :param items: Optional initial items
-        :type items: Optional[Iterable[Any]]
-        :param props: Optional collection properties
-        :type props: Optional[Mapping[str, Any]]
-
-        :return: Collection instance
-        :rtype: BaseCollection
         """
         raise NotImplementedError("MKCOL is not supported by Odoo DAV backend")
 
     @contextlib.contextmanager
-    def acquire_lock(self, mode, user=None, **kwargs):
+    def acquire_lock(self, mode, user="", *args, **kwargs):
         """Acquire storage lock.
-
-        Locking is delegated to database transactions.
-
-        :param mode: Lock mode
-        :type mode: str
-        :param user: Optional user identifier
-        :type user: Optional[str]
-        :param kwargs: Additional parameters
-        :type kwargs: Any
 
         :yield: None
         """
-        # DB is the lock
+        del mode, user, args, kwargs
         yield
 
     def verify(self):
         """Verify storage backend integrity.
-
-        Always returns True for Odoo backend.
 
         :return: Verification status
         :rtype: bool

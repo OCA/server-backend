@@ -104,17 +104,18 @@ class TestDavRadicaleCollection(TransactionCase):
         self.partner.invalidate_recordset(["email"])
         self.assertEqual(self.partner.email, "updated@example.com")
 
-        self.assertEqual(collection.get_meta(), {})
+        self.assertEqual(
+            collection.get_meta(),
+            {
+                "tag": "VADDRESSBOOK",
+                "D:displayname": self.collection_record.display_name,
+            },
+        )
         self.assertEqual(collection.get_meta("tag"), "VADDRESSBOOK")
         self.assertEqual(
             collection.get_meta("D:displayname"),
             self.collection_record.display_name,
         )
-        self.assertEqual(
-            collection.get_meta("C:supported-calendar-component-set"),
-            "VTODO,VEVENT,VJOURNAL",
-        )
-        self.assertEqual(collection.get_meta("ICAL:calendar-color"), "#48c9f4")
         self.assertTrue(collection.last_modified)
 
         collection.delete(href)

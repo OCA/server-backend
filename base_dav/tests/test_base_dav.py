@@ -149,11 +149,3 @@ class TestBaseDav(TransactionCase):
         self._assert_perm(
             self.owner_login, f"/{self.owner_login}/not-a-number", False, False
         )
-
-    def test_rights_split_helper(self):
-        """Verify DAV path splitting helper."""
-        from ..radicale.rights import _split
-
-        self.assertEqual(_split(None), [])
-        self.assertEqual(_split("/"), [])
-        self.assertEqual(_split("//a///b/"), ["a", "b"])

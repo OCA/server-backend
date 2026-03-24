@@ -118,22 +118,15 @@ class TestCalendar(TransactionCase):
         created_item, _ = collection.upload(new_href, exported)
         self.assertTrue(created_item)
 
-        # created_item.href can differ from requested href (Odoo assigns new id)
         vobj = created_item.vobject_item
-        uid_value = ""
-        if getattr(vobj, "uid", None):
-            uid_value = vobj.uid.value or ""
-        elif getattr(vobj, "vevent", None) and getattr(vobj.vevent, "uid", None):
-            uid_value = vobj.vevent.uid.value or ""
-        elif (
-            getattr(vobj, "vevent_list", None)
-            and vobj.vevent_list
-            and getattr(vobj.vevent_list[0], "uid", None)
-        ):
-            uid_value = vobj.vevent_list[0].uid.value or ""
-        self.assertIn(",", uid_value, "Expected UID in format '<model>,<id>'")
-        _created_model, created_id_str = uid_value.split(",", 1)
-        created_id = int(created_id_str)
+        uid_value = vobj.contents["vevent"][0].uid.value or ""
+
+        self.assertTrue(uid_value, "Expected UID to be present")
+        self.assertTrue(
+            uid_value.isdigit(), "Expected UID to be the record id by default"
+        )
+
+        created_id = int(uid_value)
         new_record = (
             self.env[self.collection.model_id.model].browse(created_id).exists()
         )

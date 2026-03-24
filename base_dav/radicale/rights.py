@@ -7,35 +7,6 @@ from radicale.rights import BaseRights
 from odoo.http import request
 
 
-def load(configuration):
-    """Create Radicale rights backend instance.
-
-    This function is used by Radicale to initialize
-    the rights/authorization plugin.
-
-    :param configuration: Radicale configuration object
-    :type configuration: Any
-
-    :return: Rights backend instance
-    :rtype: Rights
-    """
-    return Rights(configuration)
-
-
-def _split(path):
-    """Split DAV path into clean components.
-
-    Removes leading/trailing slashes and empty segments.
-
-    :param path: Raw DAV path, defaults to None
-    :type path: str | None
-
-    :return: List of path components
-    :rtype: List[str]
-    """
-    return [p for p in (path or "").strip("/").split("/") if p]
-
-
 class Rights(BaseRights):
     def authorization(self, user, path):
         """Determine access rights for DAV resource.
@@ -62,26 +33,26 @@ class Rights(BaseRights):
         if not path or path == "/":
             return "RWrw" if user else ""
 
-        parts = _split(path)
+        parts = [part for part in (path or "").strip("/").split("/") if part]
 
         if len(parts) == 1:
+            return "RWrw" if user and user == parts[0] else ""
+
+        if len(parts) < 2 or not parts[1].isdigit():
+            return ""
+
+        collection = request.env["dav.collection"].sudo().browse(int(parts[1]))
+        if not collection.exists():
+            return ""
+
+        mode = collection.rights
+        is_owner = bool(user) and user == parts[0]
+
+        if mode == "authenticated":
             return "RWrw" if user else ""
-
-        if len(parts) >= 2 and (parts[1] or "").isdigit():
-            collection = request.env["dav.collection"].sudo().browse(int(parts[1]))
-            if not collection.exists():
-                return ""
-
-            mode = collection.rights
-            is_owner = bool(user) and (user == parts[0])
-
-            if mode == "authenticated":
-                return "RWrw" if user else ""
-            if mode == "owner_only":
-                return "RWrw" if is_owner else ""
-            if mode == "owner_write_only":
-                if is_owner:
-                    return "RWrw"
-                return "Rr" if user else ""
+        if mode == "owner_only":
+            return "RWrw" if is_owner else ""
+        if mode == "owner_write_only":
+            return "RWrw" if is_owner else "Rr" if user else ""
 
         return ""

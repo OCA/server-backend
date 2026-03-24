@@ -117,6 +117,18 @@ class DavCollectionFieldMapping(models.Model):
         "result for the output of the value and record as input"
     )
 
+    def _get_safe_eval_context(self, **extra):
+        """Return safe_eval context for custom DAV mapping code."""
+        return {
+            "datetime": SAFE_DATETIME,
+            "dateutil": SAFE_DATEUTIL,
+            "tz": SAFE_TZ,
+            "vobject": SAFE_VOBJECT,
+            "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
+            "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
+            **extra,
+        }
+
     def from_vobject(self, child):
         """Convert vobject child element into Odoo field value.
 
@@ -154,25 +166,14 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Any
         """
         self.ensure_one()
-        context = {
-            "item": child,
-            "result": None,
-            "datetime": SAFE_DATETIME,
-            "dateutil": SAFE_DATEUTIL,
-            "tz": SAFE_TZ,
-            "vobject": SAFE_VOBJECT,
-            "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
-            "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
-        }
+        context = self._get_safe_eval_context(item=child, result=None)
         safe_eval_mod.safe_eval(
             self.import_code or "", context, mode="exec", nocopy=True
         )
-        return context.get("result", None)
+        return context.get("result")
 
     def _from_vobject_simple(self, child):
         """Convert vobject child using automatic type-based mapping.
-
-        Attempts conversion based on field type and attribute name.
 
         :param child: vobject child element
         :type child: Any
@@ -181,20 +182,19 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Any
         """
         self.ensure_one()
-        field_id = self.sudo().field_id
+        field = self.sudo().field_id
         name = (self.name or "").lower()
-        conversion_funcs = [
-            f"_from_vobject_{field_id.ttype}_{name}",
-            f"_from_vobject_{field_id.ttype}",
-        ]
+        method_names = (
+            f"_from_vobject_{field.ttype}_{name}",
+            f"_from_vobject_{field.ttype}",
+        )
 
-        for conversion_func in conversion_funcs:
-            if hasattr(self, conversion_func):
-                value = getattr(self, conversion_func)(child)
-                if value is not None:
-                    return value
+        for method_name in method_names:
+            method = getattr(self, method_name, None)
+            if method:
+                return method(child)
 
-        return child.value
+        return getattr(child, "value", None)
 
     @api.model
     def _from_vobject_datetime(self, item):
@@ -207,7 +207,7 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Optional[str]
         """
         if isinstance(item.value, datetime.datetime):
-            value = item.value.astimezone(dateutil.tz.UTC)
+            value = item.value.astimezone(tz.UTC)
             return value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
         if isinstance(item.value, datetime.date):
             return item.value.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
@@ -224,7 +224,7 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Optional[str]
         """
         if isinstance(item.value, datetime.datetime):
-            value = item.value.astimezone(dateutil.tz.UTC)
+            value = item.value.astimezone(tz.UTC)
             return value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
         if isinstance(item.value, datetime.date):
             return item.value.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
@@ -311,20 +311,11 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Any
         """
         self.ensure_one()
-        context = {
-            "record": record,
-            "result": None,
-            "datetime": SAFE_DATETIME,
-            "dateutil": SAFE_DATEUTIL,
-            "tz": SAFE_TZ,
-            "vobject": SAFE_VOBJECT,
-            "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
-            "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
-        }
+        context = self._get_safe_eval_context(record=record, result=None)
         safe_eval_mod.safe_eval(
             self.export_code or "", context, mode="exec", nocopy=True
         )
-        return context.get("result", None)
+        return context.get("result")
 
     def _to_vobject_simple(self, record):
         """Convert Odoo field value using automatic type-based mapping.
@@ -336,18 +327,19 @@ class DavCollectionFieldMapping(models.Model):
         :rtype: Any
         """
         self.ensure_one()
-        field_id = self.sudo().field_id
-        conversion_funcs = [
-            f"_to_vobject_{field_id.ttype}_{(self.name or '').lower()}",
-            f"_to_vobject_{field_id.ttype}",
-        ]
-        value = record[field_id.name]
-        for conversion_func in conversion_funcs:
-            if hasattr(self, conversion_func):
-                return getattr(self, conversion_func)(value)
-        if value is False:
-            return None
-        return value
+        field = self.sudo().field_id
+        value = record[field.name]
+        method_names = (
+            f"_to_vobject_{field.ttype}_{(self.name or '').lower()}",
+            f"_to_vobject_{field.ttype}",
+        )
+
+        for method_name in method_names:
+            method = getattr(self, method_name, None)
+            if method:
+                return method(value)
+
+        return None if value is False else value
 
     @api.model
     def _to_vobject_datetime(self, value):
@@ -409,5 +401,7 @@ class DavCollectionFieldMapping(models.Model):
         :return: vobject.vcard.Name instance
         :rtype: Any
         """
+        if not value:
+            return None
         # TODO: how are we going to handle compound types like this?
         return vobject.vcard.Name(family=value)

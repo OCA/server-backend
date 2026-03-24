@@ -39,7 +39,7 @@ class TestDavController(TransactionCase):
         http._request_stack.push(req)
         self.addCleanup(http._request_stack.pop)
 
-    def test_handle_dav_request_injects_propfind_body(self):
+    def test_handle_dav_request_preserves_empty_propfind_body(self):
         self._push_request(method="PROPFIND", body=b"")
 
         captured = {}
@@ -68,8 +68,34 @@ class TestDavController(TransactionCase):
         self.assertEqual(captured["CONTENT_TYPE"], "application/xml; charset=utf-8")
         self.assertEqual(captured["REQUEST_METHOD"], "PROPFIND")
         body = captured["wsgi.input"].read()
-        self.assertIn(b"<D:propfind", body)
-        self.assertEqual(captured["CONTENT_LENGTH"], str(len(body)))
+        self.assertEqual(body, b"")
+        self.assertEqual(captured["CONTENT_LENGTH"], "0")
+
+    def test_handle_dav_request_preserves_request_body(self):
+        self._push_request(method="PROPFIND", body=b"<propfind/>")
+
+        captured = {}
+
+        def fake_app(environ, start_response):
+            captured.update(environ)
+            start_response("207 Multi-Status", [("Content-Type", "application/xml")])
+            return _ClosableResult([b"<multistatus/>"])
+
+        with (
+            mock.patch(
+                "odoo.addons.base_dav.controllers.main.radicale_config.load"
+            ) as load_config,
+            mock.patch(
+                "odoo.addons.base_dav.controllers.main.Application",
+                return_value=fake_app,
+            ),
+        ):
+            load_config.return_value = mock.Mock()
+            response = self.controller.handle_dav_request("demo/path")
+
+        self.assertEqual(response.status_code, 207)
+        self.assertEqual(captured["wsgi.input"].read(), b"<propfind/>")
+        self.assertEqual(captured["CONTENT_LENGTH"], str(len(b"<propfind/>")))
 
     def test_handle_dav_request_uses_given_body_and_default_root_path(self):
         body = b"<xml>payload</xml>"

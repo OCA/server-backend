@@ -188,6 +188,24 @@ class DavCollection(models.Model):
         )
         return collection_model.search(domain, limit=1)
 
+    def _get_record_uid_value(self, record):
+        """Return the DAV item identifier for a record.
+
+        Uses ``field_uuid`` when configured, otherwise falls back to ``record.id``.
+        The returned value matches the identifier format expected by
+        :meth:`get_record`.
+        """
+        self.ensure_one()
+
+        field_uuid = self.sudo().field_uuid
+        if not field_uuid:
+            return str(record.id)
+
+        value = record[field_uuid.name]
+        if field_uuid.ttype == "many2one":
+            return str(value.id) if value else ""
+        return str(value)
+
     def from_vobject(self, item):
         """Convert vobject item into Odoo field values.
 
@@ -260,7 +278,7 @@ class DavCollection(models.Model):
             vobj.add(mapping.name).value = value
 
         if "uid" not in vobj.contents:
-            vobj.add("uid").value = f"{record._name},{record.id}"
+            vobj.add("uid").value = self._get_record_uid_value(record)
 
         if (
             "rev" not in vobj.contents
@@ -362,11 +380,10 @@ class DavCollection(models.Model):
             return []
 
         result = []
-        field_uuid = self.sudo().field_uuid
-        field_name = field_uuid.name if field_uuid else "id"
         for record in self.eval_domain_records():
-            uuid = record[field_name] if field_uuid else record.id
-            result.append("/" + "/".join(path_components + [str(uuid)]))
+            result.append(
+                "/" + "/".join(path_components + [self._get_record_uid_value(record)])
+            )
         return result
 
     def dav_delete(
