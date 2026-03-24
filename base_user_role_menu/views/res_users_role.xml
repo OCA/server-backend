@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright (C) 2026 Akretion (<http://www.akretion.com>).
+@author Kévin Roche <kevin.roche@akretion.com>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_res_users_role_form_menu" model="ir.ui.view">
+        <field name="name">res.users.role.form.menu_access</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button
+                    name="action_view_menus"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-bars"
+                >
+                    <field name="menu_count" widget="statinfo" string="Menus" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
