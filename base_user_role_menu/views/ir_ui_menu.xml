@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright (C) 2026 Akretion (<http://www.akretion.com>).
+@author Kévin Roche <kevin.roche@akretion.com>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="menu_role_tree" model="ir.ui.view">
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu" />
+        <field name="arch" type="xml">
+            <field name="complete_name" position="after">
+                <field name="role_ids" widget="many2many_tags" />
+                <field
+                    name="has_no_role"
+                    string="No Role Restriction"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="menu_role_form" model="ir.ui.view">
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Roles with Access">
+                    <field name="role_ids">
+                        <tree>
+                            <field name="name" />
+                            <field name="group_id" />
+                            <field name="menu_count" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_ir_ui_menu_role_search" model="ir.ui.view">
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access_search" />
+        <field name="arch" type="xml">
+                <filter name="inactive" position="after">
+                    <filter
+                    string="Main Menus"
+                    name="main_menus"
+                    domain="[('parent_id', '=', False)]"
+                />
+                    <filter
+                    string="No Role Restriction"
+                    name="no_role"
+                    domain="[('has_no_role', '=', True)]"
+                />
+                    <filter
+                    string="Has Role Restriction"
+                    name="has_role"
+                    domain="[('has_no_role', '=', False), ('groups_id', '!=', False)]"
+                />
+                    <filter
+                    string="No Group at All"
+                    name="no_group"
+                    domain="[('groups_id', '=', False)]"
+                />
+                    <group expand="0" string="Group By">
+                        <filter
+                        string="Parent Menu"
+                        name="group_parent"
+                        context="{'group_by': 'parent_id'}"
+                    />
+                    </group>
+                </filter>
+        </field>
+    </record>
+
+    <record id="action_menu_role_access" model="ir.actions.act_window">
+        <field name="name">Menus &amp; Role Access</field>
+        <field name="res_model">ir.ui.menu</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_main_menus': 1}</field>
+    </record>
+
+    <menuitem
+        id="menu_menu_role_access"
+        name="Menus Role Access"
+        parent="base.menu_security"
+        action="action_menu_role_access"
+        sequence="50"
+    />
+
+
+</odoo>
