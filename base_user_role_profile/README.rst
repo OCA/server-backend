@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =============
 User profiles
 =============
@@ -13,17 +17,17 @@ User profiles
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fserver--backend-lightgray.png?logo=github
-    :target: https://github.com/OCA/server-backend/tree/18.0/base_user_role_profile
+    :target: https://github.com/OCA/server-backend/tree/19.0/base_user_role_profile
     :alt: OCA/server-backend
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/server-backend-18-0/server-backend-18-0-base_user_role_profile
+    :target: https://translation.odoo-community.org/projects/server-backend-19-0/server-backend-19-0-base_user_role_profile
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/server-backend&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -35,26 +39,26 @@ roles are used.
 This allows users to switch their permission groups dynamically. This
 can be useful for example to:
 
-- finer grain control on menu and model permissions (with record rules
-  this becomes very flexible)
-- break down complicated menus into simpler ones
-- easily restrict users accidentally editing or creating records in O2M
-  fields and in general misusing the interface, instead of excessively
-  explaining things to them
+-  finer grain control on menu and model permissions (with record rules
+   this becomes very flexible)
+-  break down complicated menus into simpler ones
+-  easily restrict users accidentally editing or creating records in O2M
+   fields and in general misusing the interface, instead of excessively
+   explaining things to them
 
 When you define a role, you have the possibility to link it to a
 profile. Roles are applied to users in the following way:
 
-- Apply user's roles without profiles in any case
-- Apply user's roles that are linked to the currently selected profile
+-  Apply user's roles without profiles in any case
+-  Apply user's roles that are linked to the currently selected profile
 
 In addition you can:
 
-- Add a 'no profile' profile to the user's choice of profile, to allow
-  him to select a specific profile which enables only the roles without
-  a profile.
-- Restrict the user to change its profile, which can be useful in a
-  security emergency.
+-  Add a 'no profile' profile to the user's choice of profile, to allow
+   him to select a specific profile which enables only the roles without
+   a profile.
+-  Restrict the user to change its profile, which can be useful in a
+   security emergency.
 
 **Table of contents**
 
@@ -75,12 +79,12 @@ already done. The allowed profiles will computes automatically.
 
 In addition you can:
 
-- Check the "Include Default Profile" box to have the default profile as
-  an allowed profile.
-- Change the current profile if needed.
-- Check the "Restrict Profile Switching" to restrict the user to change
-  it's profile, in that case you can still change it from the user's
-  settings form.
+-  Check the "Include Default Profile" box to have the default profile
+   as an allowed profile.
+-  Change the current profile if needed.
+-  Check the "Restrict Profile Switching" to restrict the user to change
+   it's profile, in that case you can still change it from the user's
+   settings form.
 
 Usage
 =====
@@ -96,7 +100,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/server-backend/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_profile%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/server-backend/issues/new?body=module:%20base_user_role_profile%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -111,10 +115,10 @@ Authors
 Contributors
 ------------
 
-- Kevin Khao <kevin.khao@akretion.com>
-- Sébastien Beau <sebastien.beau@akretion.com>
-- Olivier Nibart <olivier.nibart@akretion.com>
-- Florian Mounier <florian.mounier@akretion.com>
+-  Kevin Khao <kevin.khao@akretion.com>
+-  Sébastien Beau <sebastien.beau@akretion.com>
+-  Olivier Nibart <olivier.nibart@akretion.com>
+-  Florian Mounier <florian.mounier@akretion.com>
 
 Maintainers
 -----------
@@ -129,6 +133,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/18.0/base_user_role_profile>`_ project on GitHub.
+This module is part of the `OCA/server-backend <https://github.com/OCA/server-backend/tree/19.0/base_user_role_profile>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
