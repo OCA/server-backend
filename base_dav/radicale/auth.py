@@ -33,4 +33,4 @@ class Auth(BaseAuth):
             return ""
 
         request.update_env(user=uid)
-        return request.env.user.login
+        return user.login

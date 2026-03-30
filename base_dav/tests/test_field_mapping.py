@@ -8,73 +8,44 @@ import vobject
 from dateutil import tz
 
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+
+from .common import BaseDavTestCase
 
 
 @tagged("post_install", "-at_install")
-class TestDavCollectionFieldMapping(TransactionCase):
+class TestDavCollectionFieldMapping(BaseDavTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.partner = cls.env["res.partner"].create(
-            {
-                "name": "John Doe",
-                "email": "john@example.com",
-            }
+        cls.partner = cls.create_partner(
+            name="John Doe",
+            email="john@example.com",
         )
-        cls.collection = cls.env["dav.collection"].create(
-            {
-                "name": "Address Book",
-                "dav_type": "addressbook",
-                "model_id": cls.env.ref("base.model_res_partner").id,
-                "domain": "[]",
-            }
+        fixture = cls.create_partner_addressbook_fixture(
+            partner=cls.partner,
+            name="Address Book",
         )
+        cls.collection = fixture.collection
+        cls.map_name = fixture.mappings["name"]
+        cls.map_email = fixture.mappings["email"]
 
-        cls.map_name = cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection.id,
-                "name": "FN",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "name").id,
-            }
+        cls.map_code = cls.add_mapping(
+            cls.collection,
+            name="X-CUSTOM",
+            field_xmlid="base.field_res_partner__name",
+            import_code="result = (item.value or '').upper()",
+            export_code="result = (record.name or '').lower()",
         )
-        cls.map_email = cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection.id,
-                "name": "EMAIL",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "email").id,
-            }
+        cls.map_binary = cls.add_mapping(
+            cls.collection,
+            name="PHOTO",
+            field_xmlid="base.field_res_partner__image_1920",
         )
-        cls.map_code = cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection.id,
-                "name": "X-CUSTOM",
-                "mapping_type": "code",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "name").id,
-                "import_code": "result = (item.value or '').upper()",
-                "export_code": "result = (record.name or '').lower()",
-            }
-        )
-        cls.map_binary = cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection.id,
-                "name": "PHOTO",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]
-                ._get("res.partner", "image_1920")
-                .id,
-            }
-        )
-        cls.map_n = cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection.id,
-                "name": "N",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "name").id,
-            }
+        cls.map_n = cls.add_mapping(
+            cls.collection,
+            name="N",
+            field_xmlid="base.field_res_partner__name",
         )
 
     def test_from_vobject_simple_and_code(self):
@@ -95,7 +66,7 @@ class TestDavCollectionFieldMapping(TransactionCase):
         self.assertEqual(self.map_code.to_vobject(self.partner), "john doe")
 
     def test_to_vobject_false_returns_none(self):
-        partner = self.env["res.partner"].create({"name": "No Email"})
+        partner = self.create_partner(name="No Email", email=False)
         self.assertIsNone(self.map_email.to_vobject(partner))
 
     def test_datetime_helpers(self):
@@ -192,10 +163,9 @@ class TestDavCollectionFieldMapping(TransactionCase):
         child = SimpleNamespace(value="Some note")
         self.assertEqual(mapping.from_vobject(child), "Some note")
 
-        partner = self.env["res.partner"].create(
-            {
-                "name": "Bool Test",
-                "comment": False,
-            }
+        partner = self.create_partner(
+            name="Bool Test",
+            email=False,
+            comment=False,
         )
         self.assertIsNone(mapping.to_vobject(partner))

@@ -3,18 +3,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
+import binascii
 import contextlib
-import logging
-from collections.abc import Callable
-from contextlib import AbstractContextManager
 
 from radicale import pathutils
 from radicale.item import Item as RadicaleItem
 from radicale.storage import BaseCollection, BaseStorage
 
 from odoo.http import request
-
-_logger = logging.getLogger("radicale")
 
 
 def _norm_path(path):
@@ -29,6 +25,11 @@ def _norm_path(path):
     return pathutils.strip_path(pathutils.sanitize_path(path or ""))
 
 
+def _path_prefix(collection_path):
+    prefix = _norm_path(collection_path)
+    return f"{prefix}/" if prefix else ""
+
+
 def _abs_href(collection_path, href):
     """Build absolute href for Radicale item.
 
@@ -40,14 +41,11 @@ def _abs_href(collection_path, href):
     :return: Absolute href
     :rtype: str
     """
-    h = pathutils.strip_path(pathutils.sanitize_path(href or ""))
-    prefix = _norm_path(collection_path)
-    if prefix:
-        pref = f"{prefix}/"
-        if h.startswith(pref):
-            return f"/{h}"
-        return f"/{pref}{h}"
-    return f"/{h}"
+    href = _norm_path(href)
+    prefix = _path_prefix(collection_path)
+    if prefix and not href.startswith(prefix):
+        href = f"{prefix}{href}"
+    return f"/{href}"
 
 
 def _rel_href(collection_path, href):
@@ -63,15 +61,11 @@ def _rel_href(collection_path, href):
     :return: Relative href
     :rtype: str
     """
-    if not href:
-        return href
-    h = pathutils.strip_path(pathutils.sanitize_path(href))
-    prefix = _norm_path(collection_path)
-    if prefix:
-        pref = f"{prefix}/"
-        if h.startswith(pref):
-            return h[len(pref) :]
-    return h
+    href = _norm_path(href)
+    prefix = _path_prefix(collection_path)
+    if prefix and href.startswith(prefix):
+        return href[len(prefix) :]
+    return href
 
 
 class Item(RadicaleItem):
@@ -115,7 +109,7 @@ class FileItem(RadicaleItem):
         if datas:
             try:
                 raw = base64.b64decode(datas)
-            except Exception:
+            except (binascii.Error, ValueError, TypeError):
                 raw = b""
         text = raw.decode("utf-8", errors="ignore")
 
@@ -148,9 +142,8 @@ class Collection(BaseCollection):
         :param path: Radicale collection path
         :type path: str
         """
-        self.logger = _logger
         self._path = _norm_path(path)
-        self.path_components = self._path.split("/", 2) if self._path else [""]
+        self.path_components = tuple(self._path.split("/", 2)) if self._path else ()
 
         env = request.env
         self._record = None
@@ -158,18 +151,34 @@ class Collection(BaseCollection):
             rec = env["dav.collection"].browse(int(self.path_components[1])).exists()
             self._record = rec or None
 
+    def set_meta(self, props):
+        record = self._require_record()
+        vals = {}
+
+        displayname = props.get("D:displayname")
+        if displayname is not None:
+            vals["name"] = displayname
+
+        if record.tag == "VCALENDAR":
+            color = props.get("ICAL:calendar-color")
+            if color is not None:
+                vals["calendar_color"] = color
+
+        if vals:
+            record.write(vals)
+
     def _get_metadata(self):
         if not self._record:
             return {}
 
         metadata = {
-            "tag": self._record.tag or "",
-            "D:displayname": self._record.display_name or self._record.name or "",
+            "tag": self._record.tag,
+            "D:displayname": self._record.display_name,
         }
 
         if self._record.tag == "VCALENDAR":
-            metadata["C:supported-calendar-component-set"] = "VTODO,VEVENT,VJOURNAL"
-            metadata["ICAL:calendar-color"] = "#48c9f4"
+            metadata["C:supported-calendar-component-set"] = "VEVENT"
+            metadata["ICAL:calendar-color"] = self._record.calendar_color
 
         return metadata
 
@@ -190,19 +199,13 @@ class Collection(BaseCollection):
     def get_multi(self, hrefs):
         """Retrieve multiple items by href.
 
-        Skips duplicate hrefs.
-
         :param hrefs: Iterable of href strings
         :type hrefs: Iterable[str]
 
         :return: Iterator of (href, item)
         :rtype: Iterator[Tuple[str, Optional[Any]]]
         """
-        seen: set[str] = set()
         for href in hrefs:
-            if href in seen:
-                continue
-            seen.add(href)
             yield href, self.get(href)
 
     def get_all(self):
@@ -289,13 +292,7 @@ class Collection(BaseCollection):
 
     def get_meta(self, key=None):
         metadata = self._get_metadata()
-        if key is None:
-            return metadata
-
-        value = metadata.get(key)
-        if value is None and self._record:
-            self.logger.warning(f"Unsupported metadata key {key}")
-        return value
+        return metadata if key is None else metadata.get(key)
 
     @property
     def last_modified(self):
@@ -306,7 +303,8 @@ class Collection(BaseCollection):
         """
         if not self._record:
             return ""
-        return self._record._odoo_to_http_datetime(self._record.create_date) or ""
+        dt_value = self._record.write_date or self._record.create_date
+        return self._record._odoo_to_http_datetime(dt_value) or ""
 
 
 class Storage(BaseStorage):
@@ -314,9 +312,8 @@ class Storage(BaseStorage):
         self,
         path,
         depth="0",
-        child_context_manager: Callable[[str, str | None], AbstractContextManager[None]]
-        | None = None,
-        user_groups: set[str] | None = None,
+        child_context_manager=None,
+        user_groups=None,
     ):
         """Discover collections or items for given path.
 

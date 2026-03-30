@@ -6,75 +6,11 @@ import base64
 import binascii
 import datetime
 
-import dateutil
 import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
 from odoo.tools import safe_eval as safe_eval_mod
-
-
-def _safe_module(name, fallback_module, attributes_tree):
-    """Return safe_eval-wrapped module or fallback module.
-
-    If a module with the given name is already pre-wrapped inside
-    ``safe_eval``, it is returned. Otherwise, the fallback module
-    is wrapped using the provided attribute tree.
-
-    :param name: Module name to look up inside safe_eval
-    :type name: str
-    :param fallback_module: Python module used if not prewrapped
-    :type fallback_module: Any
-    :param attributes_tree: Allowed attributes structure
-    :type attributes_tree: Dict[str, Any]
-
-    :return: Safe wrapped module proxy
-    :rtype: Any
-    """
-    prewrapped = getattr(safe_eval_mod, name, None)
-    if prewrapped is not None:
-        return prewrapped
-    return safe_eval_mod.wrap_module(fallback_module, attributes_tree)
-
-
-SAFE_DATETIME = _safe_module(
-    "datetime",
-    datetime,
-    {
-        "date": {},
-        "datetime": {},
-        "time": {},
-        "timedelta": {},
-    },
-)
-
-SAFE_DATEUTIL = _safe_module(
-    "dateutil",
-    dateutil,
-    {
-        "tz": {},
-    },
-)
-
-SAFE_TZ = _safe_module(
-    "tz",
-    tz,
-    {
-        "UTC": {},
-        "gettz": {},
-    },
-)
-
-SAFE_VOBJECT = _safe_module(
-    "vobject",
-    vobject,
-    {
-        "vCard": {},
-        "iCalendar": {},
-        "vcard": {"Name": {}},
-        "base": {},
-    },
-)
 
 
 class DavCollectionFieldMapping(models.Model):
@@ -120,10 +56,17 @@ class DavCollectionFieldMapping(models.Model):
     def _get_safe_eval_context(self, **extra):
         """Return safe_eval context for custom DAV mapping code."""
         return {
-            "datetime": SAFE_DATETIME,
-            "dateutil": SAFE_DATEUTIL,
-            "tz": SAFE_TZ,
-            "vobject": SAFE_VOBJECT,
+            "datetime": safe_eval_mod.datetime,
+            "dateutil": safe_eval_mod.dateutil,
+            "vobject": safe_eval_mod.wrap_module(
+                vobject,
+                {
+                    "vCard": {},
+                    "iCalendar": {},
+                    "vcard": {"Name": {}},
+                    "base": {},
+                },
+            ),
             "DEFAULT_SERVER_DATE_FORMAT": tools.DEFAULT_SERVER_DATE_FORMAT,
             "DEFAULT_SERVER_DATETIME_FORMAT": tools.DEFAULT_SERVER_DATETIME_FORMAT,
             **extra,
@@ -156,7 +99,6 @@ class DavCollectionFieldMapping(models.Model):
           - result
           - datetime
           - dateutil
-          - tz
           - vobject
 
         :param child: vobject child element

@@ -21,10 +21,15 @@
                 </group>
                 <group string="Access">
                     <field name="model_id" />
-                    <!-- TODO: use widget="domain" when we can set the model dynamically /-->
-                    <field name="domain" />
+                    <field name="model_name" invisible="1" />
+                    <field
+                        name="domain"
+                        widget="domain"
+                        options="{'model': 'model_name'}"
+                    />
                     <field name="field_uuid" domain="[('model_id', '=', model_id)]" />
                     <field name="rights" />
+                    <field name="calendar_color" invisible="dav_type != 'calendar'" />
                 </group>
                 <group string="Additional field mapping">
                     <field name="field_mapping_ids" nolabel="1" />

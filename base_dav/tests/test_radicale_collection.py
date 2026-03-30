@@ -3,9 +3,7 @@
 from types import SimpleNamespace
 from unittest import mock
 
-from odoo import http
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
 
 from odoo.addons.base_dav.radicale.collection import (
     Collection,
@@ -15,49 +13,28 @@ from odoo.addons.base_dav.radicale.collection import (
     _rel_href,
 )
 
+from .common import BaseDavTestCase
+
 
 @tagged("post_install", "-at_install")
-class TestDavRadicaleCollection(TransactionCase):
+class TestDavRadicaleCollection(BaseDavTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.partner = cls.env["res.partner"].create(
-            {
-                "name": "DAV Partner",
-                "email": "dav@example.com",
-            }
+        fixture = cls.create_partner_addressbook_fixture(
+            partner=cls.create_partner(
+                name="DAV Partner",
+                email="dav@example.com",
+            ),
+            name="Contacts",
         )
-        cls.collection_record = cls.env["dav.collection"].create(
-            {
-                "name": "Contacts",
-                "dav_type": "addressbook",
-                "model_id": cls.env.ref("base.model_res_partner").id,
-                "domain": f"[('id', '=', {cls.partner.id})]",
-            }
-        )
-        cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection_record.id,
-                "name": "FN",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "name").id,
-            }
-        )
-        cls.env["dav.collection.field_mapping"].create(
-            {
-                "collection_id": cls.collection_record.id,
-                "name": "EMAIL",
-                "mapping_type": "simple",
-                "field_id": cls.env["ir.model.fields"]._get("res.partner", "email").id,
-            }
-        )
+        cls.partner = fixture.partner
+        cls.collection_record = fixture.collection
 
     def setUp(self):
         super().setUp()
-        self.request_obj = SimpleNamespace(env=self.env, uid=self.env.uid)
-        http._request_stack.push(self.request_obj)
-        self.addCleanup(http._request_stack.pop)
+        self.push_request_context()
 
     def test_path_helpers(self):
         self.assertEqual(_norm_path("/demo//x/"), "demo/x")
@@ -75,7 +52,7 @@ class TestDavRadicaleCollection(TransactionCase):
         self.assertIn(f"{self.env.user.login}/{self.collection_record.id}", children)
 
     def test_collection_list_get_and_get_multi(self):
-        collection = Collection(f"{self.env.user.login}/{self.collection_record.id}")
+        collection = self.make_collection(self.collection_record)
         href = str(self.partner.id)
 
         listed = list(collection.list())
@@ -86,12 +63,14 @@ class TestDavRadicaleCollection(TransactionCase):
         self.assertEqual(item.href, href)
 
         multi = list(collection.get_multi([href, href]))
-        self.assertEqual(len(multi), 1)
+        self.assertEqual(len(multi), 2)
         self.assertEqual(multi[0][0], href)
+        self.assertEqual(multi[1][0], href)
         self.assertTrue(multi[0][1])
+        self.assertTrue(multi[1][1])
 
     def test_collection_upload_delete_meta_and_last_modified(self):
-        collection = Collection(f"{self.env.user.login}/{self.collection_record.id}")
+        collection = self.make_collection(self.collection_record)
         href = str(self.partner.id)
 
         old_item = collection.get(href)
@@ -128,9 +107,7 @@ class TestDavRadicaleCollection(TransactionCase):
         with self.assertRaises(ValueError):
             not_collection.delete("1")
 
-        real_collection = Collection(
-            f"{self.env.user.login}/{self.collection_record.id}"
-        )
+        real_collection = self.make_collection(self.collection_record)
         with self.assertRaises(NotImplementedError):
             real_collection.delete()
 
@@ -139,9 +116,9 @@ class TestDavRadicaleCollection(TransactionCase):
         collection_path = f"{self.env.user.login}/{self.collection_record.id}"
         item_path = f"{collection_path}/{self.partner.id}"
 
-        zero = list(storage.discover(collection_path, depth="0"))
-        self.assertEqual(len(zero), 1)
-        self.assertIsInstance(zero[0], Collection)
+        zero_depth = list(storage.discover(collection_path, depth="0"))
+        self.assertEqual(len(zero_depth), 1)
+        self.assertIsInstance(zero_depth[0], Collection)
 
         deep = list(storage.discover(collection_path, depth="1"))
         self.assertTrue(deep)
@@ -151,7 +128,10 @@ class TestDavRadicaleCollection(TransactionCase):
         self.assertEqual(len(item), 1)
         self.assertTrue(item[0])
 
-        self.assertEqual(list(storage.discover(f"{self.env.user.login}/999999/1")), [])
+        self.assertEqual(
+            list(storage.discover(f"{self.env.user.login}/999999/1")),
+            [],
+        )
 
         with self.assertRaises(NotImplementedError):
             storage.move(mock.Mock(), mock.Mock(), "x")
@@ -165,7 +145,7 @@ class TestDavRadicaleCollection(TransactionCase):
 
     def test_collection_get_all_skips_missing_items(self):
         """Verify get_all skips empty items returned by get()."""
-        collection = Collection(f"{self.env.user.login}/{self.collection_record.id}")
+        collection = self.make_collection(self.collection_record)
 
         with (
             mock.patch.object(
@@ -196,7 +176,7 @@ class TestDavRadicaleCollection(TransactionCase):
         from ..radicale.collection import FileItem
 
         attachment = SimpleNamespace(datas="%%%")
-        collection = Collection(f"{self.env.user.login}/{self.collection_record.id}")
+        collection = self.make_collection(self.collection_record)
 
         item = FileItem(
             collection=collection,

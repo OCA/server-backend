@@ -54,6 +54,10 @@ class DavCollection(models.Model):
         default="calendar",
     )
     tag = fields.Char(compute="_compute_tag")
+    model_name = fields.Char(
+        string="Model Technical Name",
+        related="model_id.model",
+    )
     model_id = fields.Many2one(
         "ir.model",
         required=True,
@@ -71,6 +75,7 @@ class DavCollection(models.Model):
         string="Field mappings",
     )
     url = fields.Char(compute="_compute_url")
+    calendar_color = fields.Char(default="#48c9f4")
 
     @api.depends("dav_type")
     def _compute_tag(self):
@@ -101,13 +106,9 @@ class DavCollection(models.Model):
         base_url = (
             self.env["ir.config_parameter"].sudo().get_param("web.base.url") or ""
         ).rstrip("/")
-        login = self.env.user.login or ""
+        login = self.env.user.login
         for rec in self:
-            rec.url = (
-                f"{base_url}{PREFIX}/{login}/{rec.id}"
-                if base_url
-                else f"{PREFIX}/{login}/{rec.id}"
-            )
+            rec.url = f"{base_url}{PREFIX}/{login}/{rec.id}"
 
     @api.constrains("domain")
     def _check_domain(self):
@@ -124,7 +125,7 @@ class DavCollection(models.Model):
     def _eval_context(self):
         """Return safe evaluation context for domain expressions.
 
-        :return: Dictionary containing allowed evaluation variables
+        :return: Dictionary containing available evaluation variables
         :rtype: Dict[str, Any]
         """
         return {
@@ -139,7 +140,7 @@ class DavCollection(models.Model):
         :rtype: List[Any]
         """
         self.ensure_one()
-        return list(safe_eval(self.domain or "[]", self._eval_context()))
+        return safe_eval(self.domain or "[]", self._eval_context())
 
     def eval_domain_records(self):
         """Search records matching the evaluated domain.
@@ -321,7 +322,11 @@ class DavCollection(models.Model):
         :return: List of path segments
         :rtype: List[str]
         """
-        return list(filter(None, posixpath.normpath(path or "").strip("/").split("/")))
+        return [
+            part
+            for part in posixpath.normpath(f"/{path or ''}").strip("/").split("/")
+            if part
+        ]
 
     def dav_list(
         self,
@@ -361,7 +366,7 @@ class DavCollection(models.Model):
                 )
                 return [
                     "/"
-                    + "/".join(path_components + [quote_plus(attachment.name or "")])
+                    + "/".join((*path_components, quote_plus(attachment.name or "")))
                     for attachment in self.env["ir.attachment"].search(
                         [
                             ("type", "=", "binary"),
@@ -372,7 +377,7 @@ class DavCollection(models.Model):
                 ]
             elif len(path_components) == 2:
                 return [
-                    "/" + "/".join(path_components + [quote_plus(record.display_name)])
+                    "/" + "/".join((*path_components, quote_plus(record.display_name)))
                     for record in self.eval_domain_records()
                 ]
 
@@ -382,7 +387,7 @@ class DavCollection(models.Model):
         result = []
         for record in self.eval_domain_records():
             result.append(
-                "/" + "/".join(path_components + [self._get_record_uid_value(record)])
+                "/" + "/".join((*path_components, self._get_record_uid_value(record)))
             )
         return result
 

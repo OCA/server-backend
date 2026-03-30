@@ -66,9 +66,7 @@ class Main(http.Controller):
 
         raw_body = request.httprequest.get_data(cache=False) or b""
         environ["wsgi.input"] = io.BytesIO(raw_body)
-        environ["CONTENT_LENGTH"] = str(len(raw_body))
 
-        environ.setdefault("CONTENT_TYPE", "application/xml; charset=utf-8")
         environ["SCRIPT_NAME"] = PREFIX
         environ["HTTP_X_SCRIPT_NAME"] = PREFIX
         environ["PATH_INFO"] = "/" + (davpath or "")
@@ -89,18 +87,9 @@ class Main(http.Controller):
             status_headers["headers"] = headers
 
         result_iter = app(environ, start_response)
-        try:
-            response_body = b"".join(result_iter) if result_iter else b""
-        finally:
-            if hasattr(result_iter, "close"):
-                result_iter.close()
-
-        headers = status_headers["headers"]
-        if isinstance(headers, dict):
-            headers = list(headers.items())
 
         return http.Response(
-            response=response_body,
+            response=result_iter,
             status=status_headers["status"],
-            headers=headers,
+            headers=status_headers["headers"],
         )

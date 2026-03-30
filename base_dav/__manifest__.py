@@ -9,6 +9,7 @@
     "category": "Extra Tools",
     "summary": "Access Odoo data as calendar or address book",
     "website": "https://github.com/OCA/server-backend",
+    "maintainers": ["hbrunn"],
     "depends": [
         "base",
     ],
