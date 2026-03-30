@@ -21,7 +21,10 @@ class ResUsersRole(models.Model):
         string="Associated group",
     )
     line_ids = fields.One2many(
-        comodel_name="res.users.role.line", inverse_name="role_id", string="Role lines"
+        comodel_name="res.users.role.line",
+        inverse_name="role_id",
+        string="Role lines",
+        domain=[("user_id.active", "=", True)],
     )
     user_ids = fields.One2many(
         comodel_name="res.users", string="Users list", compute="_compute_user_ids"
@@ -134,7 +137,6 @@ class ResUsersRoleLine(models.Model):
     _name = "res.users.role.line"
     _description = "Users associated to a role"
 
-    active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
         comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
     )
