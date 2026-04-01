@@ -10,7 +10,7 @@ class IrActionsServer(models.Model):
     _inherit = "ir.actions.server"
 
     state = fields.Selection(
-        selection_add=[("sort", "Sort")], ondelete={"sort": "set default"}
+        selection_add=[("sort", "Sort")], ondelete={"sort": "cascade"}
     )
 
     sort_line_ids = fields.One2many(
@@ -34,16 +34,17 @@ class IrActionsServer(models.Model):
         if len(self.sort_line_ids) == 0:
             raise UserError(
                 self.env._(
-                    "The Action Server %s is not correctly set :\nNo lines defined"
+                    "The Action Server %(name)s is not correctly set:\n"
+                    "No lines defined",
+                    name=self.name,
                 )
-                % (self.name)
             )
 
         if eval_context is None:
             raise UserError(
                 self.env._(
                     "You can not run this Action Server that way.\n"
-                    " Please use contextual 'Action' menu."
+                    "Please use contextual 'Action' menu."
                 )
             )
 
