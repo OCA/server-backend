@@ -34,7 +34,7 @@ class IrActionsServer(models.Model):
         if len(self.sort_line_ids) == 0:
             raise UserError(
                 self.env._(
-                    "The Action Server %s is not correctly set :\n" "No lines defined"
+                    "The Action Server %s is not correctly set :\nNo lines defined"
                 )
                 % (self.name)
             )

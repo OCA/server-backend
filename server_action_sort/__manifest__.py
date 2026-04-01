@@ -5,7 +5,7 @@
 {
     "name": "Server Actions - Mass Sort Lines",
     "version": "18.0.1.0.0",
-    "author": "GRAP, " "Odoo Community Association (OCA)",
+    "author": "GRAP, Odoo Community Association (OCA)",
     "summary": "Sort any lines of any models by any criterias",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
