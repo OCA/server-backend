@@ -3,6 +3,7 @@
 
 import io
 import sys
+from functools import lru_cache
 
 import werkzeug
 from radicale import config as radicale_config
@@ -15,16 +16,23 @@ from odoo.http import request
 PREFIX = "/.dav"
 
 
-class Main(http.Controller):
-    def _get_radicale_config(self):
-        """Return Radicale plugin configuration for DAV requests."""
-        return {
+@lru_cache(maxsize=1)
+def _get_radicale_app():
+    """Build and cache a Radicale app per worker process."""
+    configuration = radicale_config.load()
+    configuration.update(
+        {
             "auth": {"type": "odoo.addons.base_dav.radicale.auth"},
             "storage": {"type": "odoo.addons.base_dav.radicale.collection"},
             "rights": {"type": "odoo.addons.base_dav.radicale.rights"},
             "web": {"type": "none"},
-        }
+        },
+        "odoo",
+    )
+    return Application(configuration)
 
+
+class Main(http.Controller):
     @http.route(
         ["/.well-known/carddav", "/.well-known/caldav", "/.well-known/webdav"],
         type="http",
@@ -57,9 +65,8 @@ class Main(http.Controller):
         :return: Response produced by Radicale.
         :rtype: odoo.http.Response
         """
-        configuration = radicale_config.load()
-        configuration.update(self._get_radicale_config(), "odoo")
-        app = Application(configuration)
+        del kwargs
+        app = _get_radicale_app()
 
         environ = dict(request.httprequest.environ)
         environ.setdefault("wsgi.errors", sys.stderr)

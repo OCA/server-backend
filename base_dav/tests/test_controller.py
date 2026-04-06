@@ -81,7 +81,7 @@ class TestDavController(BaseDavTestCase):
                 "odoo.addons.base_dav.controllers.main.radicale_config.load"
             ) as load_config,
             mock.patch(
-                "odoo.addons.base_dav.controllers.main.Application",
+                "odoo.addons.base_dav.controllers.main._get_radicale_app",
                 return_value=fake_app,
             ),
         ):
@@ -114,7 +114,7 @@ class TestDavController(BaseDavTestCase):
                 "odoo.addons.base_dav.controllers.main.radicale_config.load"
             ) as load_config,
             mock.patch(
-                "odoo.addons.base_dav.controllers.main.Application",
+                "odoo.addons.base_dav.controllers.main._get_radicale_app",
                 return_value=fake_app,
             ),
         ):
@@ -146,7 +146,7 @@ class TestDavController(BaseDavTestCase):
                 "odoo.addons.base_dav.controllers.main.radicale_config.load"
             ) as load_config,
             mock.patch(
-                "odoo.addons.base_dav.controllers.main.Application",
+                "odoo.addons.base_dav.controllers.main._get_radicale_app",
                 return_value=fake_app,
             ),
         ):
