@@ -58,7 +58,7 @@ class TestUserRole(TransactionCase):
         # Setup for multi-company testing
         cls.multicompany_user_1 = cls.user_model.create(
             {
-                "name": "User 2",
+                "name": "multicompany_user_1",
                 "company_id": cls.company1.id,
                 "company_ids": [fields.Command.set([cls.company1.id, cls.company2.id])],
                 "group_ids": [
@@ -69,7 +69,7 @@ class TestUserRole(TransactionCase):
         )
         cls.multicompany_user_2 = cls.user_model.create(
             {
-                "name": "User 2",
+                "name": "multicompany_user_2",
                 "company_id": cls.company2.id,
                 "company_ids": [fields.Command.set([cls.company2.id])],
                 "group_ids": [fields.Command.set(cls.env.ref("base.group_user").ids)],
