@@ -477,5 +477,10 @@ msgstr ""
 msgid "or"
 msgstr ""
 
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "x"
+msgstr ""
+
 #~ msgid "Last Modified on"
 #~ msgstr "Modificada por última vez"
