@@ -60,6 +60,13 @@ class ResUsers(models.Model):
     def _get_enabled_roles(self):
         return self.role_line_ids.filtered(lambda rec: rec.is_enabled)
 
+    @api.model
+    def _get_self_writable_groups(self):
+        group = self.env.ref(
+            "mail.group_mail_notification_type_inbox", raise_if_not_found=False
+        )
+        return group or self.env["res.groups"]
+
     def set_groups_from_roles(self, force=False):
         """Set (replace) the groups following the roles defined on users.
         If no role is defined on the user, its groups are let untouched unless
@@ -71,6 +78,7 @@ class ResUsers(models.Model):
         for role in self.mapped("role_line_ids.role_id"):
             # v19: use transitive implied groups provided by ORM
             role_groups[role] = list(set(role.all_implied_ids.ids))
+        self_writable_group_ids = self._get_self_writable_groups().ids
         for user in self:
             if not user.role_line_ids and not force:
                 continue
@@ -91,8 +99,9 @@ class ResUsers(models.Model):
                 )
                 if other_admins == 0:
                     group_ids.append(admin_group.id)
-            groups_to_add = list(set(group_ids) - set(user.group_ids.ids))
-            groups_to_remove = list(set(user.group_ids.ids) - set(group_ids))
+            user_group_ids = set(user.group_ids.ids).difference(self_writable_group_ids)
+            groups_to_add = list(set(group_ids) - user_group_ids)
+            groups_to_remove = list(user_group_ids - set(group_ids))
             to_add = [fields.Command.link(gr) for gr in groups_to_add]
             to_remove = [fields.Command.unlink(gr) for gr in groups_to_remove]
             groups = to_remove + to_add
