@@ -5,9 +5,9 @@
     "name": "Base User Role History",
     "summary": """
         This module allows to track the changes on users roles.""",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "license": "AGPL-3",
-    "author": "ACSONE SA/NV, " "Odoo Community Association (OCA)",
+    "author": "ACSONE SA/NV, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/server-backend",
     "depends": [
         # Odoo
