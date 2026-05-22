@@ -3,7 +3,6 @@
     <record id="mail_activity_role_expire" model="mail.activity.type">
         <field name="name">User Role Expires</field>
         <field name="icon">fa-clock-o</field>
-        <field name="keep_done">True</field>
         <field name="res_model">res.partner</field>
         <field name="default_note" type="html">
             <div>

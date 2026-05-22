@@ -5,7 +5,7 @@
 {
     "name": "User roles activities",
     "summary": "Create activities to remind about user role expirations",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Tools",
     "author": "glueckkanja AG, Odoo Community Association (OCA)",
     "license": "LGPL-3",
