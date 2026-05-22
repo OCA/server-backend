@@ -285,3 +285,11 @@ class TestActivityUpdateRoleReminder(TransactionCase):
         finally:
             role_line.unlink()
             standalone_user.partner_id.activity_search([ACTIVITY_XMLID]).unlink()
+
+    @freeze_time("2025-01-01")
+    def test_cron_role_reminder_creates_activity(self):
+        """Cron path uses .search() instead of filtered_domain and creates reminder."""
+        self._cleanup_activities()
+        self.env["res.users.role.line"].cron_role_reminder()
+        activities = self.partner.activity_search([ACTIVITY_XMLID])
+        self.assertTrue(activities)

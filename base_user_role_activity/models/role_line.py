@@ -42,15 +42,13 @@ class ResUsersRoleLine(models.Model):
             .sudo()
             .get_param("base_user_role_activity.reminder_days", 30)
         )
+        today = fields.Date.today()
         domain = [
-            ("is_enabled", "=", True),
-            (
-                "date_to",
-                "<=",
-                fields.Date.today() + datetime.timedelta(days=reminder_days),
-            ),
+            ("date_to", ">=", today),
+            ("date_to", "<=", today + datetime.timedelta(days=reminder_days)),
             "|",
             ("date_from", "=", False),
             ("date_from", "<", fields.Date.today()),  # ignore short term roles
         ]
+
         return domain
