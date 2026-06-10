@@ -3,6 +3,7 @@
 import base64
 import logging
 import string
+from collections import namedtuple
 from queue import Queue
 from threading import Event, Thread
 
@@ -17,6 +18,7 @@ from odoo.tools import ormcache
 _logger = logging.getLogger(__name__)
 
 LETTERS = {ord(d): str(i) for i, d in enumerate(string.digits + string.ascii_uppercase)}
+BackgroundFetch = namedtuple("BackgroundFetch", ["queue", "killswitch", "thread"])
 
 
 class BaseExternalModelImporter:
@@ -343,26 +345,31 @@ class BaseExternalDbsource(models.Model):
             target=self.background_server_cursor,
             args=(table, fields, where, killswitch, queue, size),
         )
-        _logger.info("Strating fetch thread...")
+        _logger.info("Starting fetch thread...")
         fetch_thread.start()
-        return queue, killswitch, fetch_thread
+        return BackgroundFetch(queue, killswitch, fetch_thread)
 
-    def queue_iterator(self, queue, killsiwtch):
+    def queue_iterator(self, queue):
+        while True:
+            row = queue.get()
+            if row is None:
+                yield None
+                break
+            if "_fetch_error" in row:
+                raise row["_fetch_error"]
+            yield row
+
+    def background_fetch_iterator(self, fecht_data: BackgroundFetch):
+        queue, killswitch, fetch_thread = fecht_data
         try:
-            while True:
-                row = queue.get()
-                if row is None:
-                    yield None
-                    break
-                if "_fetch_error" in row:
-                    raise row["_fetch_error"]
-                yield row
+            yield from self.queue_iterator(queue)
         except Exception as e:
-            killsiwtch.set()
+            killswitch.set()
             _logger.critical(f"Error on process thread: {e}")
             raise e
         finally:
-            killsiwtch.set()
+            killswitch.set()
+            fetch_thread.join()
 
 
 class DbSourceFieldsUpdate(models.Model):
