@@ -1,3 +1,4 @@
+#Copy Right 2026 CIT Services
 {
     "name": "Base User Role Extended",
     "version": "18.0.1.0.0",
