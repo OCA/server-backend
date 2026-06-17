@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_res_users_role_form_inherit" model="ir.ui.view">
+        <field name="name">res.role.form.menu.inherit</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Menu Items" id="menu_ids">
+                    <field
+                        name="menu_ids"
+                        context="{'ir.ui.menu.full_list': True}"
+                    >
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
