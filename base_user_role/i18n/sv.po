@@ -9,26 +9,26 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 02:07+0000\n"
-"PO-Revision-Date: 2024-06-12 11:45+0000\n"
-"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
+"PO-Revision-Date: 2026-06-18 11:21+0000\n"
+"Last-Translator: Laura V <laura.valls@forgeflow.com>\n"
 "Language-Team: Swedish (https://www.transifex.com/oca/teams/23907/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
 msgid "# User Roles"
-msgstr ""
+msgstr "# Användarroller"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_users_count
 msgid "# Users"
-msgstr ""
+msgstr "# Användare"
 
 #. module: base_user_role
 #. odoo-python
@@ -40,11 +40,14 @@ msgstr "%s (kopia)"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<em>Any configuration changes made here will not be persistent.</em>"
 msgstr ""
+"<em>Eventuella konfigurationsändringar som görs här kommer inte att vara "
+"permanenta.</em>"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
 msgstr ""
+"<strong>Den här användarens åtkomsträttigheter hanteras av roller.</strong>"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__disjoint_ids
@@ -52,11 +55,14 @@ msgid ""
 "A user may not belong to this group and one of those.  For instance, users "
 "may not be portal users and internal users."
 msgstr ""
+"En användare får inte tillhöra den här gruppen och en av de angivna. Till "
+"exempel kan användare inte vara portalanvändare och interna användare "
+"samtidigt."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
 msgid "API Keys maximum duration days"
-msgstr ""
+msgstr "Maximal varaktighet för API-nycklar (dagar)"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
@@ -97,7 +103,7 @@ msgstr "Associerad grupp"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_privilege_id
 msgid "Associated privilege"
-msgstr ""
+msgstr "Associerat privilegium"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
@@ -155,12 +161,12 @@ msgstr "Skapad den"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__is_default
 msgid "Default on new users"
-msgstr ""
+msgstr "Standard för nya användare"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
@@ -168,11 +174,13 @@ msgid ""
 "Determines the maximum duration of an api key created by a user belonging to "
 "this group."
 msgstr ""
+"Bestämmer den maximala varaktigheten för en API-nyckel skapad av en "
+"användare som tillhör den här gruppen."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__disjoint_ids
 msgid "Disjoint Groups"
-msgstr ""
+msgstr "Åtskilda grupper"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__display_name
@@ -234,12 +242,12 @@ msgstr "ID"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Implied Groups"
-msgstr ""
+msgstr "Implicerade grupper"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_by_ids
 msgid "Implying Groups"
-msgstr ""
+msgstr "Implicerande grupper"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
@@ -287,7 +295,7 @@ msgstr "Namn"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_users_count
 msgid "Number of users having this group (implicitly or explicitly)"
-msgstr ""
+msgstr "Antal användare som har denna grupp (implicit eller explicit)"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
@@ -304,12 +312,12 @@ msgstr "Föräldrar"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__privilege_id
 msgid "Privilege"
-msgstr ""
+msgstr "Privilegium"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__group_privilege_id
 msgid "Privilege assigned to the associated group."
-msgstr ""
+msgstr "Privilegium tilldelat den associerade gruppen."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
@@ -355,7 +363,7 @@ msgstr "Antal regler"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvens"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
@@ -365,17 +373,17 @@ msgstr "Aktiegrupp"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__show_alert
 msgid "Show Alert"
-msgstr ""
+msgstr "Visa varning"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_group_hierarchy
 msgid "Technical field for default group setting"
-msgstr ""
+msgstr "Tekniskt fält för standardgruppinställning"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_implied_ids
 msgid "The group itself with all its implied groups."
-msgstr ""
+msgstr "Gruppen själv med alla dess implicerade grupper."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
@@ -385,12 +393,12 @@ msgstr "Till"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_ids
 msgid "Transitively Implied Groups"
-msgstr ""
+msgstr "Transitivt implicerade grupper"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_by_ids
 msgid "Transitively Implying Groups"
-msgstr ""
+msgstr "Transitivt implicerande grupper"
 
 #. module: base_user_role
 #: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
@@ -407,7 +415,7 @@ msgstr "Användare"
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role
 msgid "User Role"
-msgstr ""
+msgstr "Användarroll"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
@@ -418,7 +426,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "User Roles"
-msgstr ""
+msgstr "Användarroller"
 
 #. module: base_user_role
 #: model:ir.module.category,name:base_user_role.ir_module_category_role
@@ -428,7 +436,7 @@ msgstr "Användarroller"
 #. module: base_user_role
 #: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
 msgid "User roles can be assigned to a user only once at a time"
-msgstr ""
+msgstr "Användarroller kan bara tilldelas en användare en gång åt gången"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
@@ -438,7 +446,7 @@ msgstr "Användare"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_user_ids
 msgid "Users and implied users"
-msgstr ""
+msgstr "Användare och implicerade användare"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role_line
@@ -448,12 +456,12 @@ msgstr "Användare som är kopplade till en roll"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__user_ids
 msgid "Users explicitly in this group"
-msgstr ""
+msgstr "Användare explicit i denna grupp"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_by_ids
 msgid "Users in those groups are implicitly part of this group."
-msgstr ""
+msgstr "Användare i dessa grupper är implicit en del av den här gruppen."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_user_ids
@@ -463,7 +471,7 @@ msgstr "Lista över användare"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_ids
 msgid "Users of this group are also implicitly part of those groups"
-msgstr ""
+msgstr "Användare av denna grupp är också implicit en del av dessa grupper"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
@@ -475,6 +483,8 @@ msgstr "Vyer"
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__is_default
 msgid "When enabled, this role is assigned to newly created users by default."
 msgstr ""
+"När detta är aktiverat tilldelas denna roll som standard till nyligen "
+"skapade användare."
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
@@ -484,7 +494,7 @@ msgstr "eller"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #~ msgid "Application"
 #~ msgstr "Tillämpning"
