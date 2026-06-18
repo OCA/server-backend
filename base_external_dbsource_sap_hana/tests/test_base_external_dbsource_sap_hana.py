@@ -10,7 +10,7 @@ ADAPTER = "odoo.addons.base_external_dbsource_sap_hana.models.base_external_dbso
 
 class TestBaseExternalDbsource(common.TransactionCase):
     def setUp(self):
-        super(TestBaseExternalDbsource, self).setUp()
+        super().setUp()
         self.dbsource = self.env.ref("base_external_dbsource_sap_hana.demo_sap_hana")
 
     def _test_adapter_method(
