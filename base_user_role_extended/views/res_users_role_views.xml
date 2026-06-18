@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_users_role_form_inherit_model_access" model="ir.ui.view">
+        <field name="name">res.users.role.form.inherit.model.access</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="page_model_access" string="Model Access">
+                    <field name="role_model_access_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="model_id" />
+                            <field name="perm_read" />
+                            <field name="perm_write" />
+                            <field name="perm_create" />
+                            <field name="perm_unlink" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
