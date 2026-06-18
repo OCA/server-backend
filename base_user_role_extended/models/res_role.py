@@ -1,7 +1,7 @@
 # Copyright 2026 CIT Services
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class ResRole(models.Model):
@@ -19,11 +19,11 @@ class ResRole(models.Model):
     def _init_restore_role_groups(self):
         """Re-add the role's group to any menu that is missing it."""
         roles = self.with_context(
-            dict(self.env.context, role_policy_init=True, active_test=False)
+            **dict(self.env.context, role_policy_init=True, active_test=False)
         ).search([])
         for role in roles:
             menus_missing_group = role.menu_ids.filtered(
-                lambda m: role.group_id not in m.groups_id
+                lambda m, r=role: r.group_id not in m.groups_id
             )
             for menu in menus_missing_group:
                 menu.write({"groups_id": [(4, role.group_id.id)]})
@@ -35,19 +35,19 @@ class ResRole(models.Model):
         After creation, sync the role group to any assigned menu items
         and ensure the role group is marked as a role.
         """
-        self = self.with_context(dict(self.env.context, role_policy_init=True))
+        self = self.with_context(**dict(self.env.context, role_policy_init=True))
         # Ensure the group created by _inherits has role=True
         for vals in vals_list:
             vals["role"] = True
-            
+
         new_roles = super().create(vals_list)
-        for role, vals in zip(new_roles, vals_list):
+        for role, vals in zip(new_roles, vals_list, strict=False):
             if vals.get("menu_ids"):
                 role.menu_ids.write({"groups_id": [(4, role.group_id.id)]})
         return new_roles
 
     def write(self, vals):
-        self = self.with_context(dict(self.env.context, role_policy_init=True))
+        self = self.with_context(**dict(self.env.context, role_policy_init=True))
         # Collect menu group updates before writing so we can diff old vs new
         updates = []
         for role in self:
@@ -73,7 +73,7 @@ class ResRole(models.Model):
                             updates.append((model, removal_ids, [(3, role_gid)]))
                     else:
                         raise NotImplementedError(
-                            "Unsupported x2many command %s for menu_ids" % entry[0]
+                            f"Unsupported x2many command {entry[0]} for menu_ids"
                         )
         res = super().write(vals)
         for model_name, model_ids, command in updates:

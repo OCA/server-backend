@@ -40,7 +40,7 @@ class BaseModel(models.AbstractModel):
         """
         user = self.env.user
         if (
-            user.exclude_from_role_policy
+            user.bypass_role_policy
             or user == self.env.ref("base.public_user")
             or config.get("test_enable")
         ):

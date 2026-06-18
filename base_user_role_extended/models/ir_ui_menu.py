@@ -23,13 +23,13 @@ class IrUiMenu(models.Model):
         """
         Hide all menus without the role_group(s) of the user.
         """
-        if self.env.user.exclude_from_role_policy or config.get("test_enable"):
+        if self.env.user.bypass_role_policy or config.get("test_enable"):
             return self._visible_menu_ids_user_admin(debug=debug)
 
         visible_ids = super()._visible_menu_ids(debug=debug)
         # role_line_ids.role_id gives the actual res.users.role records
         user_roles = self.env.user.role_line_ids.filtered(
-            lambda l: l.is_enabled
+            lambda lines: lines.is_enabled
         ).mapped("role_id")
         user_groups = user_roles.mapped("group_id")
         for group_ref in self._role_policy_untouchable_groups():
@@ -66,7 +66,7 @@ class IrUiMenu(models.Model):
         """
         # retrieve all menus, and determine which ones are visible
         context = {"ir.ui.menu.full_list": True}
-        menus = self.with_context(context).search([])
+        menus = self.with_context(**context).search([])
 
         groups = self.env.user.groups_id
         if not debug:

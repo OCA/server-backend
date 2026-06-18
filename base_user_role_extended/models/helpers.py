@@ -9,7 +9,7 @@ def filter_odoo_x2many_commands(commands, keep_ids):
     result = []
     if not commands:
         return result
-        
+
     # If a single command was passed somehow (e.g., False was already handled above),
     # ensure it is a list of commands. Odoo sometimes passes [(6, 0, ids)]
     if not isinstance(commands, list) and not isinstance(commands, tuple):
