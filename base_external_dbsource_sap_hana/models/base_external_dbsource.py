@@ -4,17 +4,18 @@
 
 import sqlalchemy
 
-from odoo import models
-
-from odoo.addons.base_external_dbsource.models import base_external_dbsource
-
-base_external_dbsource.BaseExternalDbsource.CONNECTORS.append(("sap_hana", "SAP-Hana"))
+from odoo import fields, models
 
 
 class BaseExternalDbsource(models.Model):
     """It provides logic for connection to a SAP Hana data source."""
 
     _inherit = "base.external.dbsource"
+
+    connector = fields.Selection(
+        selection_add=[("sap_hana", "SAP-Hana")],
+        ondelete={"sap_hana": "cascade"},
+    )
 
     def connection_close_sap_hana(self, connection):
         return connection.close()

@@ -3,15 +3,16 @@
 
 from unittest import mock
 
-from odoo.tests import common
+from odoo.addons.base.tests.common import BaseCommon
 
-ADAPTER = "odoo.addons.base_external_dbsource_sap_hana.models.base_external_dbsource.SAPhanaDB"
+ADAPTER = "odoo.addons.base_external_dbsource_sap_hana.models.base_external_dbsource.SAPhanaDB"  # noqa: E501
 
 
-class TestBaseExternalDbsource(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.dbsource = self.env.ref("base_external_dbsource_sap_hana.demo_sap_hana")
+class TestBaseExternalDbsource(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.dbsource = cls.env.ref("base_external_dbsource_sap_hana.demo_sap_hana")
 
     def _test_adapter_method(
         self,
@@ -26,7 +27,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
             args = []
         if kwargs is None:
             kwargs = {}
-        adapter = "%s_sap_hana" % method_name
+        adapter = f"{method_name}_sap_hana"
         with mock.patch.object(type(self.dbsource), adapter, create=create) as adapter:
             if side_effect is not None:
                 adapter.side_effect = side_effect
