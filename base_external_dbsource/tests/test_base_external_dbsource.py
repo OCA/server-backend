@@ -1,7 +1,9 @@
 # Copyright 2016 LasLabs Inc.
 
+from contextlib import contextmanager
 from unittest import mock
 
+from odoo.exceptions import ValidationError
 from odoo.sql_db import connection_info_for
 from odoo.tests import common
 
@@ -106,7 +108,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        self.dbsource.change_table("table")
         res, adapter = self._test_adapter_method(
             "remote_browse", create=True, args=args, kwargs=kwargs
         )
@@ -117,7 +119,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
                 "remote_browse", create=True, args=args, kwargs=kwargs
@@ -127,7 +129,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = {"val": "Value"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        self.dbsource.change_table("table")
         res, adapter = self._test_adapter_method(
             "remote_create", create=True, args=args, kwargs=kwargs
         )
@@ -138,7 +140,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
                 "remote_create", create=True, args=args, kwargs=kwargs
@@ -148,7 +150,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        self.dbsource.change_table("table")
         res, adapter = self._test_adapter_method(
             "remote_delete", create=True, args=args, kwargs=kwargs
         )
@@ -159,7 +161,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
                 "remote_delete", create=True, args=args, kwargs=kwargs
@@ -169,7 +171,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = {"search": "query"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        self.dbsource.change_table("table")
         res, adapter = self._test_adapter_method(
             "remote_search", create=True, args=args, kwargs=kwargs
         )
@@ -180,7 +182,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
                 "remote_search", create=True, args=args, kwargs=kwargs
@@ -190,7 +192,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter method with proper args"""
         args = [1], {"vals": "Value"}, "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = "table"
+        self.dbsource.change_table("table")
         res, adapter = self._test_adapter_method(
             "remote_update", create=True, args=args, kwargs=kwargs
         )
@@ -201,7 +203,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should raise AssertionError if a table not selected"""
         args = [1], "args"
         kwargs = {"kwargs": True}
-        type(self.dbsource).current_table = False
+        self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
             res, adapter = self._test_adapter_method(
                 "remote_update", create=True, args=args, kwargs=kwargs
@@ -256,3 +258,60 @@ class TestBaseExternalDbsource(common.TransactionCase):
         mock_connection = mock.Mock()
         self.dbsource.connection_close_postgresql(mock_connection)
         mock_connection.close.assert_called_once()
+
+    def test_change_table(self):
+        """It should set the current table used for remote CRUD operations"""
+        self.dbsource.change_table("res_partner")
+        self.assertEqual(self.dbsource.current_table, "res_partner")
+
+    def test_connection_test_success(self):
+        """It should raise a success ValidationError when the connection opens"""
+
+        @contextmanager
+        def _connection_open_ok(self):
+            yield mock.Mock()
+
+        with mock.patch.object(
+            type(self.dbsource), "connection_open", _connection_open_ok
+        ):
+            with self.assertRaises(ValidationError) as ctx:
+                self.dbsource.connection_test()
+        self.assertIn("Connection test succeeded", str(ctx.exception))
+
+    def test_connection_test_failure(self):
+        """It should raise a failure ValidationError when the connection fails"""
+
+        @contextmanager
+        def _connection_open_fail(self):
+            raise ConnectionError("connection refused")
+
+        with mock.patch.object(
+            type(self.dbsource), "connection_open", _connection_open_fail
+        ):
+            with self.assertRaises(ValidationError) as ctx:
+                self.dbsource.connection_test()
+        self.assertIn("Connection test failed", str(ctx.exception))
+        self.assertIn("connection refused", str(ctx.exception))
+
+    def test_get_adapter_method_not_implemented(self):
+        """It should raise NotImplementedError for unknown adapter methods"""
+        with self.assertRaises(NotImplementedError) as ctx:
+            self.dbsource._get_adapter_method("nonexistent")
+        self.assertIn("nonexistent_postgresql", str(ctx.exception))
+
+    def test_connection_open_context_manager(self):
+        """It should close the connection when leaving the context manager"""
+        mock_connection = mock.Mock()
+        with (
+            mock.patch.object(
+                type(self.dbsource),
+                "connection_open_postgresql",
+                return_value=mock_connection,
+            ),
+            mock.patch.object(
+                type(self.dbsource), "connection_close_postgresql"
+            ) as close_mock,
+        ):
+            with self.dbsource.connection_open():
+                pass
+            close_mock.assert_called_once_with(mock_connection)

@@ -7,7 +7,7 @@ from contextlib import contextmanager
 
 import psycopg2
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -73,8 +73,17 @@ class BaseExternalDbsource(models.Model):
         help="If a connector is missing from the list, check the server "
         "log to confirm that the required components were detected.",
     )
+    _current_table_by_id = {}
 
-    current_table = None
+    def change_table(self, name):
+        """Change the table that is used for CRUD operations"""
+        self.ensure_one()
+        self._current_table_by_id[self.id] = name
+
+    @property
+    def current_table(self):
+        self.ensure_one()
+        return self._current_table_by_id.get(self.id)
 
     @api.depends("conn_string", "password")
     def _compute_conn_string_full(self):
@@ -92,10 +101,6 @@ class BaseExternalDbsource(models.Model):
                 record.conn_string_full = record.conn_string
 
     # Interface
-
-    def change_table(self, name):
-        """Change the table that is used for CRUD operations"""
-        self.current_table = name
 
     def connection_close(self, connection):
         """It closes the connection to the data source.
@@ -180,7 +185,7 @@ class BaseExternalDbsource(models.Model):
             raise ValidationError(
                 self.env._(
                     "Connection test failed:\nHere is what we got instead:\n%(error)s",
-                    error=tools.ustr(e),
+                    error=str(e),
                 )
             ) from e
         raise ValidationError(
@@ -336,6 +341,6 @@ class BaseExternalDbsource(models.Model):
                     '"%(method)s" method not found, check that all assets are installed'
                     "for the %(connector)s connector type.",
                     method=method,
-                    conector=self.connector,
+                    connector=self.connector,
                 )
             ) from AttributeError
