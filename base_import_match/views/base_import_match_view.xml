@@ -55,7 +55,7 @@
                 <field name="model_id" />
                 <field name="field_ids" />
                 <separator />
-                <group expand="0" string="Group By">
+                <group>
                     <filter
                         string="Model"
                         context="{'group_by': 'model_id'}"

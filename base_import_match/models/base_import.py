@@ -1,5 +1,6 @@
 # Copyright 2016 Grupo ESOC Ingeniería de Servicios, S.L.U. - Jairo Llopis
 # Copyright 2016 Tecnativa - Vicent Cubells
+# Copyright 2026 Quartile (https://www.quartile.co)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 
@@ -92,7 +93,17 @@ class BaseImportMatch(models.Model):
                     if imported_row[field.name] != field.imported_value:
                         combination_valid = False
                         break
-                domain.append((field.name, "=", converted_row[field.name]))
+                value = converted_row[field.name]
+                # Converted many2one values come back as string ids, which would
+                # never match an integer id in the domain (e.g. parent_id="32").
+                model_field = model._fields.get(field.name)
+                if (
+                    model_field
+                    and model_field.type == "many2one"
+                    and isinstance(value, str)
+                ):
+                    value = int(value) if value else False
+                domain.append((field.name, "=", value))
             if not combination_valid:
                 continue
             match = model.search(domain)
@@ -125,10 +136,14 @@ class BaseImportMatch(models.Model):
             Indicates if we should patch its load method.
         """
         result = self
+        # Relational columns are imported as "field/subfield" (e.g.
+        # "parent_id/id"); compare against the field root so rules on those
+        # fields are still recognized as usable.
+        field_roots = {(f or "").split("/")[0] for f in fields}
         available = self.search([("model_name", "=", model_name)])
         # Use only criteria with all required fields to match
         for record in available:
-            if all(f.name in fields for f in record.field_ids):
+            if all(f.name in field_roots for f in record.field_ids):
                 result |= record
         return result.ids
 

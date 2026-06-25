@@ -29,7 +29,8 @@ class Base(models.AbstractModel):
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
-                self._extract_records(import_fields, data)
+                self._extract_records(import_fields, data),
+                savepoint=self.env.cr.savepoint(),
             )
             # Mock Odoo to believe the user is importing the ID field
             if "id" not in fields:
