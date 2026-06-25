@@ -172,6 +172,102 @@ class ImportCase(TransactionCase):
         child.env.cache.invalidate()
         self.assertEqual(child.email, "child.changed@example.com")
 
+    def test_match_only_from_ui(self):
+        """Match by email via UI selection, update function, don't write email."""
+        partner = self.Partner.create(
+            {"name": "Match Partner", "email": "match@example.com"}
+        )
+        record = self._base_import_record(
+            "res.partner", data="match@example.com,New Function\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        record.execute_import(["email", "function"], [], options)
+        partner.env.cache.invalidate()
+        self.assertEqual(partner.function, "New Function")
+        self.assertEqual(partner.email, "match@example.com")
+
+    def test_match_only_no_match_blocks(self):
+        """When match-only field doesn't find a record, block the import."""
+        record = self._base_import_record(
+            "res.partner", data="nonexistent@example.com,New Partner\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        count_before = self.Partner.search_count([])
+        result = record.execute_import(["email", "name"], [], options)
+        count_after = self.Partner.search_count([])
+        self.assertEqual(count_after, count_before)
+        self.assertFalse(result["ids"])
+        self.assertTrue(result["messages"])
+        self.assertIn("No matching record found", result["messages"][0]["message"])
+
+    def test_match_only_multiple_match_blocks(self):
+        """When match-only field finds multiple records, block the import."""
+        self.Partner.create({"name": "Dup 1", "email": "dup@example.com"})
+        self.Partner.create({"name": "Dup 2", "email": "dup@example.com"})
+        record = self._base_import_record(
+            "res.partner", data="dup@example.com,Updated Name\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        result = record.execute_import(["email", "name"], [], options)
+        self.assertFalse(result["ids"])
+        self.assertTrue(result["messages"])
+        self.assertIn(
+            "Multiple matching records found", result["messages"][0]["message"]
+        )
+
+    def test_match_only_empty_value_used_as_criteria(self):
+        """Empty imported value is still used as a match criterion."""
+        self.Partner.create(
+            {"name": "Test", "email": "test@example.com", "vat": "BE123"}
+        )
+        record = self._base_import_record(
+            "res.partner", data="test@example.com,,New Function\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email", "vat"])
+        result = record.execute_import(["email", "vat", "function"], [], options)
+        # email matches but vat doesn't (empty vs "BE123"), so import is blocked
+        self.assertFalse(result["ids"])
+        self.assertTrue(result["messages"])
+
+    def test_match_only_partial_match_blocks_all(self):
+        """One row matches, one doesn't: entire import blocked."""
+        partner = self.Partner.create(
+            {"name": "Existing", "email": "exists@example.com"}
+        )
+        original_name = partner.name
+        record = self._base_import_record(
+            "res.partner",
+            data="exists@example.com,Updated\nnope@example.com,New\n",
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        count_before = self.Partner.search_count([])
+        result = record.execute_import(["email", "name"], [], options)
+        count_after = self.Partner.search_count([])
+        # Entire import blocked — no new record, existing not updated
+        self.assertFalse(result["ids"])
+        self.assertTrue(result["messages"])
+        self.assertEqual(count_after, count_before)
+        self.assertEqual(partner.name, original_name)
+
+    def test_match_only_empty_skips_rules(self):
+        """Empty match-only list from UI skips matching even if rules exist."""
+        partner = self.Partner.create(
+            {"name": "VAT Partner", "vat": "BE0411905847", "is_company": True}
+        )
+        original_name = partner.name
+        record = self._base_import_record(
+            "res.partner", data="Changed Name,BE0411905847,True\n"
+        )
+        # Empty list = user unchecked everything in UI -> no matching
+        options = dict(OPTIONS, import_match_only_fields=[])
+        count_before = self.Partner.search_count([])
+        record.execute_import(["name", "vat", "is_company"], [], options)
+        count_after = self.Partner.search_count([])
+        partner.env.cache.invalidate()
+        # Should create a new record, not update the existing one
+        self.assertEqual(count_after, count_before + 1)
+        self.assertEqual(partner.name, original_name)
+
     def test_res_users_login(self):
         """Match a user by login (shipped rule) and update its name."""
         user = self.env["res.users"].create(

@@ -4,7 +4,7 @@
 {
     "name": "Base Import Match",
     "summary": "Try to avoid duplicates before importing",
-    "version": "19.0.1.0.0",
+    "version": "19.0.2.0.0",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -18,4 +18,10 @@
         "views/base_import_match_view.xml",
     ],
     "demo": ["demo/base_import_match.xml"],
+    "assets": {
+        "web.assets_backend": [
+            "base_import_match/static/src/**/*.js",
+            "base_import_match/static/src/**/*.xml",
+        ],
+    },
 }
