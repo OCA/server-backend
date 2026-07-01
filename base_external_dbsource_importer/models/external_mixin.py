@@ -30,6 +30,45 @@ class DbsourceExternalMixin(models.AbstractModel):
         domain = [(field_key, "=", key_value)]
         return self.with_context(active_test=False).search(domain)
 
+    @api.model
+    def update_external_key_and_mappings(self, key_changes: dict[int, str], key_name):
+        MappedModel = self.env[self.env.context["mapped_model"]]
+        if not key_changes:
+            return
+        for odoo_id, new_key in key_changes.items():
+            self.browse(odoo_id).write({key_name: new_key})
+            for record in MappedModel.search(
+                [
+                    ("record_model", "=", self._name),
+                    ("record_id", "=", odoo_id),
+                ]
+            ):
+                record.mapped_key = new_key
+
+    @api.model
+    def ensure_external_mappings(
+        self, mappings: tuple[str, str, str], external_table=False, company_id=False
+    ):
+        MappedModel = self.env[self.env.context["mapped_model"]]
+        if not mappings:
+            return
+        for external, mapped, name in mappings:
+            MappedModel.ensure_mapping(
+                {
+                    "external_key": external,
+                    "mapped_key": mapped,
+                    "record_model": self._name,
+                    "external_name": name,
+                    "external_table": external_table,
+                    "company_id": company_id,
+                }
+            )
+
+    @api.model
+    def key_is_mapped(self, key):
+        MappedModel = self.env[self.env.context["mapped_model"]]
+        MappedModel.is_mapped(self._name, key)
+
     def create_bypassed(self, vals_list):  # noqa: C901
         # From v12 create method
         bad_names = {"id", "parent_path"}

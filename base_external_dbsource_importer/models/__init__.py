@@ -2,4 +2,4 @@
 
 from . import base_external_dbsource
 from . import external_mixin
-from . import mapped_mixin
+from . import base_external_record_mapped

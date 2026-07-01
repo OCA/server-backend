@@ -361,6 +361,7 @@ class BaseExternalDbsource(models.Model):
 
     def background_fetch_iterator(self, fecht_data: BackgroundFetch):
         queue, killswitch, fetch_thread = fecht_data
+        _logger.info("Waiting for fetch thread to answer...")
         try:
             yield from self.queue_iterator(queue)
         except Exception as e:

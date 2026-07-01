@@ -2,14 +2,15 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class DbsourceExternalMixin(models.AbstractModel):
+class ExternalRecordMapped(models.AbstractModel):
     """Provides utilities for mapping multiple external records to a single one"""
 
-    _name = "dbsource.mapped.mixin"
+    _name = "base.external.record.mapped"
     _description = "Mixin for mapping models"
 
     _rec_names_search = ["external_name", "external_key"]
     _check_company_auto = True
+    _external_key_name = False
 
     external_name = fields.Char()
     external_key = fields.Char(index="btree_not_null", required=True)
@@ -73,20 +74,35 @@ class DbsourceExternalMixin(models.AbstractModel):
             target = (
                 self.env[record.record_model]
                 .with_context(active_test=False)
-                .search([("openbravo_key", "=", record.mapped_key)])
+                .search([(self._external_key_name, "=", record.mapped_key)])
             )
             if len(target) != 1:
                 record.record_id = record.record_id
                 continue
             record.record_id = target.id
 
+    @api.model
     def ensure_mapping(self, vals):
         existing = self.search(
             [
                 ("external_key", "=", vals["external_key"]),
                 ("record_model", "=", vals["record_model"]),
+                ("company_id", "=", vals.get("company_id")),
             ]
         )
         if existing:
+            existing.mapped_key = vals["mapped_key"]
             return existing
         return self.create(vals)
+
+    @api.model
+    def is_mapped(self, model, key):
+        return bool(
+            self.search_count(
+                [
+                    ("record_model", "=", model),
+                    ("external_key", "=", key),
+                ],
+                limit=1,
+            )
+        )
