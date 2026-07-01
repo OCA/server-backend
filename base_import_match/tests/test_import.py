@@ -186,6 +186,28 @@ class ImportCase(TransactionCase):
         self.assertEqual(partner.function, "New Function")
         self.assertEqual(partner.email, "match@example.com")
 
+    def test_match_only_name_reporting(self):
+        """A match-only column before ``name`` must not corrupt result['name'].
+
+        Core reports imported record names by indexing the original columns it
+        passed to ``load()``; dropping the match-only column in place would shift
+        that index and surface the match value (email) instead of the name.
+        """
+        partner = self.Partner.create(
+            {"name": "Report Original", "email": "report@example.com"}
+        )
+        record = self._base_import_record(
+            "res.partner", data="report@example.com,Report Changed\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        result = record.execute_import(["email", "name"], [], options)
+        partner.env.cache.invalidate()
+        # The DB write targets the right column...
+        self.assertEqual(partner.name, "Report Changed")
+        # ...and the reported name is the name column, not the match-only email.
+        self.assertEqual(result["name"][0], "Report Changed")
+        self.assertNotIn("report@example.com", result["name"])
+
     def test_match_only_no_match_blocks(self):
         """When match-only field doesn't find a record, block the import."""
         record = self._base_import_record(

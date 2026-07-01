@@ -9,8 +9,30 @@ from odoo import api, fields, models, tools
 _logger = logging.getLogger(__name__)
 
 
+class BaseImportMatchCacheMixin(models.AbstractModel):
+    _name = "base_import.match.cache.mixin"
+    _description = "Invalidate the _usable_rules cache on rule changes"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        self.env.registry.clear_cache()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        self.env.registry.clear_cache()
+        return res
+
+    def unlink(self):
+        res = super().unlink()
+        self.env.registry.clear_cache()
+        return res
+
+
 class BaseImportMatch(models.Model):
     _name = "base_import.match"
+    _inherit = "base_import.match.cache.mixin"
     _description = "Deduplicate settings prior to CSV imports."
     _order = "sequence, name"
 
@@ -150,6 +172,7 @@ class BaseImportMatch(models.Model):
 
 class BaseImportMatchField(models.Model):
     _name = "base_import.match.field"
+    _inherit = "base_import.match.cache.mixin"
     _description = "Field import match definition"
 
     name = fields.Char(related="field_id.name")

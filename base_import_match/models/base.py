@@ -70,13 +70,16 @@ class Base(models.AbstractModel):
             self.env["base_import.match"]._usable_rules(self._name, fields)
         )
         if match_only_fields or has_rules:
+            # Work on local copies so we don't mutate the caller's lists
+            # (core reuses them after load() to report imported record names).
+            fields = list(fields)
+            data = [list(row) for row in data]
             newdata = list()
             match_errors = []
             # Change .id (dbid) by id (xmlid)
             if ".id" in fields:
                 column = fields.index(".id")
                 fields[column] = "id"
-                # data[0][column] = "id"
                 for values in data:
                     dbid = int(values[column])
                     values[column] = self.browse(dbid).get_external_id().get(dbid)
