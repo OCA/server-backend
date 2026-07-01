@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-18 02:29+0000\n"
-"PO-Revision-Date: 2017-02-18 02:29+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"PO-Revision-Date: 2026-07-01 14:46+0000\n"
+"Last-Translator: Laura V <laura.valls@forgeflow.com>\n"
 "Language-Team: Danish (https://www.transifex.com/oca/teams/23907/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__conn_string
@@ -35,6 +36,19 @@ msgid ""
 "    - Elasticsearch: https://user:%s@localhost:9200\n"
 "    "
 msgstr ""
+"\n"
+"    Eksempler på forbindelsesstrenge:\n"
+"    - Microsoft SQL Server:\n"
+"      mssql+pymssql://brugernavn:%s@server:port/dbnavn?charset=utf8\n"
+"    - MySQL: mysql://bruger:%s@server:port/dbnavn\n"
+"    - ODBC: DRIVER={FreeTDS};SERVER=server.adresse;Database=mindb;UID=sa\n"
+"    - ORACLE: brugernavn/%s@//server.adresse:port/instans\n"
+"    - PostgreSQL:\n"
+"        dbname='template1' user='dbuser' host='localhost' "
+"port='5432'         password=%s\n"
+"    - SQLite: sqlite:///test.db\n"
+"    - Elasticsearch: https://bruger:%s@localhost:9200\n"
+"    "
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -44,41 +58,43 @@ msgid ""
 "\"%(method)s\" method not found, check that all assets are installedfor the "
 "%(connector)s connector type."
 msgstr ""
+"\"%(method)s\"-metoden blev ikke fundet. Kontroller, at alle aktiver er "
+"installeret til connector-typen %(connector)s."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Ca Certs"
-msgstr ""
+msgstr "CA-certifikater"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_cert
 msgid "Client Cert"
-msgstr ""
+msgstr "Klientcertifikat"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__client_key
 msgid "Client Key"
-msgstr ""
+msgstr "Klientnøgle"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__company_id
 msgid "Company"
-msgstr ""
+msgstr "Virksomhed"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string_full
 msgid "Conn String Full"
-msgstr ""
+msgstr "Fuld forbindelsesstreng"
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Connection String"
-msgstr ""
+msgstr "Forbindelsesstreng"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__conn_string
 msgid "Connection string"
-msgstr ""
+msgstr "Forbindelsesstreng"
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -89,6 +105,9 @@ msgid ""
 "Here is what we got instead:\n"
 "%s"
 msgstr ""
+"Forbindelsestest mislykkedes:\n"
+"Her er hvad vi fik i stedet:\n"
+"%s"
 
 #. module: base_external_dbsource
 #. odoo-python
@@ -98,11 +117,13 @@ msgid ""
 "Connection test succeeded:\n"
 "Everything seems properly set up!"
 msgstr ""
+"Forbindelsestest lykkedes:\n"
+"Alt ser ud til at være korrekt konfigureret!"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__connector
 msgid "Connector"
-msgstr ""
+msgstr "Connector"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__create_uid
@@ -117,12 +138,12 @@ msgstr "Oprettet den"
 #. module: base_external_dbsource
 #: model:ir.ui.menu,name:base_external_dbsource.menu_dbsource
 msgid "Database Sources"
-msgstr ""
+msgstr "Databasekilder"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__name
 msgid "Datasource name"
-msgstr ""
+msgstr "Datakildenavn"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__display_name
@@ -132,13 +153,13 @@ msgstr "Vist navn"
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "External DB Source"
-msgstr ""
+msgstr "Ekstern DB-kilde"
 
 #. module: base_external_dbsource
 #: model:ir.actions.act_window,name:base_external_dbsource.action_dbsource
 #: model:ir.model,name:base_external_dbsource.model_base_external_dbsource
 msgid "External Database Sources"
-msgstr ""
+msgstr "Eksterne databasekilder"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__id
@@ -151,6 +172,8 @@ msgid ""
 "If a connector is missing from the list, check the server log to confirm "
 "that the required components were detected."
 msgstr ""
+"Hvis en connector mangler på listen, skal du kontrollere serverloggen for at "
+"bekræfte, at de nødvendige komponenter blev registreret."
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__write_uid
@@ -165,34 +188,34 @@ msgstr "Sidst opdateret den"
 #. module: base_external_dbsource
 #: model:ir.model.fields,field_description:base_external_dbsource.field_base_external_dbsource__password
 msgid "Password"
-msgstr ""
+msgstr "Adgangskode"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields,help:base_external_dbsource.field_base_external_dbsource__ca_certs
 msgid "Path to CA Certs file on server."
-msgstr ""
+msgstr "Sti til CA-certifikatfilen på serveren."
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Please check the tooltip for connection string examples"
-msgstr ""
+msgstr "Se venligst værktøjstippet for eksempler på forbindelsesstrenge"
 
 #. module: base_external_dbsource
 #: model:ir.model.fields.selection,name:base_external_dbsource.selection__base_external_dbsource__connector__postgresql
 msgid "PostgreSQL"
-msgstr ""
+msgstr "PostgreSQL"
 
 #. module: base_external_dbsource
 #: model_terms:ir.ui.view,arch_db:base_external_dbsource.view_dbsource_form
 msgid "Test Connection"
-msgstr ""
+msgstr "Test forbindelse"
 
 #. module: base_external_dbsource
 #. odoo-python
 #: code:addons/base_external_dbsource/models/base_external_dbsource.py:0
 #, python-format
 msgid "query is a required argument"
-msgstr ""
+msgstr "forespørgsel er et påkrævet argument"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Sidst ændret den"
