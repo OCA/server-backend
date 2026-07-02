@@ -25,7 +25,10 @@ class ResUsersRole(models.Model):
         comodel_name="res.users.role.line", inverse_name="role_id", string="Role lines"
     )
     role_user_ids = fields.One2many(
-        comodel_name="res.users", string="Users list", compute="_compute_role_user_ids"
+        comodel_name="res.users",
+        string="Users list",
+        compute="_compute_role_user_ids",
+        search="_search_role_user_ids",
     )
     rule_ids = fields.Many2many(
         comodel_name="ir.rule",
@@ -56,6 +59,9 @@ class ResUsersRole(models.Model):
     def _compute_role_user_ids(self):
         for role in self.sudo() if self._bypass_rules() else self:
             role.role_user_ids = role.line_ids.mapped("user_id")
+
+    def _search_role_user_ids(self, operator, value):
+        return [("line_ids.user_id", operator, value)]
 
     @api.depends("implied_ids", "implied_ids.model_access")
     def _compute_model_access_ids(self):
