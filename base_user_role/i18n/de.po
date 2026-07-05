@@ -10,41 +10,45 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-10 00:47+0000\n"
-"PO-Revision-Date: 2017-05-10 00:47+0000\n"
-"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
+"PO-Revision-Date: 2026-07-05 12:46+0000\n"
+"Last-Translator: intero-chd <c.dominiak@intero-technologies.de>\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_count
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_count
 msgid "# User Roles"
-msgstr ""
+msgstr "# Benutzerrollen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_users_count
 msgid "# Users"
-msgstr ""
+msgstr "# Benutzer"
 
 #. module: base_user_role
 #. odoo-python
 #: code:addons/base_user_role/models/role.py:0
 msgid "%s (copy)"
-msgstr ""
+msgstr "%s (copy)"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<em>Any configuration changes made here will not be persistent.</em>"
 msgstr ""
+"<em>Hier vorgenommene Konfigurationsänderungen werden nicht gespeichert.</em>"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
 msgstr ""
+"<strong>Die Zugriffsrechte dieses Benutzers werden über Rollen verwaltet.</"
+"strong>"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__disjoint_ids
@@ -52,21 +56,24 @@ msgid ""
 "A user may not belong to this group and one of those.  For instance, users "
 "may not be portal users and internal users."
 msgstr ""
+"Ein Benutzer darf nicht gleichzeitig dieser Gruppe und einer der anderen "
+"Gruppen angehören.  Beispielsweise darf ein Nutzer nicht gleichzeitig "
+"Portalbenutzer und interner Benutzer sein."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__api_key_duration
 msgid "API Keys maximum duration days"
-msgstr ""
+msgstr "Maximale Gültigkeitsdauer von API-Schlüsseln in Tagen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
 msgid "Access Controls"
-msgstr "Zugriffskontrolle"
+msgstr "Zugriffskontrollen"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_groups
 msgid "Access Groups"
-msgstr ""
+msgstr "Zugriffsgruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__menu_access
@@ -77,17 +84,17 @@ msgstr "Menüzugriff"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_ids
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Access Rights"
-msgstr ""
+msgstr "Zugriffsrechte"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__active
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
 msgid "Assign to user"
-msgstr ""
+msgstr "Benutzer zuweisen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_id
@@ -97,17 +104,17 @@ msgstr "Zugewiesene Gruppe"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__group_privilege_id
 msgid "Associated privilege"
-msgstr ""
+msgstr "Zugewiesenes Recht"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__comment
@@ -118,23 +125,23 @@ msgstr "Bemerkung"
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_wizard_groups_into_role
 msgid "Create Role"
-msgstr ""
+msgstr "Rolle anlegen"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.create_from_user_wizard_action
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "Create role from user"
-msgstr ""
+msgstr "Rolle aus Benutzer erstellen"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_wizard_create_role_from_user
 msgid "Create role from user wizard"
-msgstr ""
+msgstr "Rolle mit Assistent aus einem Benutzer erstellen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
@@ -155,12 +162,12 @@ msgstr "Erstellt am"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_search
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__is_default
 msgid "Default on new users"
-msgstr ""
+msgstr "Standardeinstellung für neue Benutzer"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__api_key_duration
@@ -168,11 +175,13 @@ msgid ""
 "Determines the maximum duration of an api key created by a user belonging to "
 "this group."
 msgstr ""
+"Legt die maximale Gültigkeitsdauer eines API-Schlüssels fest, der von einem "
+"Benutzer dieser Gruppe erstellt wurde."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__disjoint_ids
 msgid "Disjoint Groups"
-msgstr ""
+msgstr "Getrennte Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__display_name
@@ -197,27 +206,31 @@ msgstr "Ab"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__full_name
 msgid "Group Name"
-msgstr ""
+msgstr "Gruppenname"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__share
 msgid "Group created to set access rights for sharing data with some users."
 msgstr ""
+"Gruppe, die erstellt wurde, um Zugriffsrechte für den Datenaustausch mit "
+"bestimmten Benutzern festzulegen."
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_wizard_groups_into_role
 msgid "Group groups into a role"
-msgstr ""
+msgstr "Fassen Sie Gruppen in einer Rolle zusammen"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_wizard_groups_into_role__name
 msgid "Group groups into a role and specify a name for this role"
 msgstr ""
+"Fassen Sie Gruppen in einer Rolle zusammen und legen Sie einen Namen für "
+"diese Rolle fest"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Groups"
-msgstr ""
+msgstr "Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__id
@@ -232,17 +245,17 @@ msgstr "ID"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_ids
 msgid "Implied Groups"
-msgstr ""
+msgstr "Implizierte Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__implied_by_ids
 msgid "Implying Groups"
-msgstr ""
+msgstr "Gruppen implizieren"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Internal Notes"
-msgstr ""
+msgstr "Interne Notizen"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__parent_ids
@@ -251,6 +264,8 @@ msgid ""
 "Inverse relation for the Inherits field. The groups from which this group is "
 "inheriting"
 msgstr ""
+"Umgekehrte Beziehung für das Feld „Erbt von“. Die Gruppen, von denen diese "
+"Gruppe Erbeigenschaften übernimmt"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
@@ -258,7 +273,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_uid
 msgid "Last Updated by"
-msgstr "Zuletzt geändert durch"
+msgstr "Zuletzt geändert von"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
@@ -271,7 +286,7 @@ msgstr "Zuletzt geändert am"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access_count
 msgid "Model Access Count"
-msgstr ""
+msgstr "Anzahl Zugriffsrechte"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
@@ -284,59 +299,60 @@ msgstr "Name"
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_users_count
 msgid "Number of users having this group (implicitly or explicitly)"
 msgstr ""
+"Anzahl der Benutzer, die dieser Gruppe angehören (implizit oder explizit)"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__trans_parent_ids
 msgid "Parent Groups"
-msgstr ""
+msgstr "Übergeordnete Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__parent_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__parent_ids
 msgid "Parents"
-msgstr ""
+msgstr "Übergeordnete"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__privilege_id
 msgid "Privilege"
-msgstr ""
+msgstr "Berechtigung"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__group_privilege_id
 msgid "Privilege assigned to the associated group."
-msgstr ""
+msgstr "Der zugehörigen Gruppe zugewiesene Berechtigung."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_ids
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Record Rules"
-msgstr ""
+msgstr "Datensatzregeln"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_id
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_id
 msgid "Relation for the groups that represents a role"
-msgstr ""
+msgstr "Beziehung zwischen den Gruppen, die eine Rolle repräsentieren"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__role_id
 msgid "Role"
-msgstr ""
+msgstr "Rolle"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__role_line_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__line_ids
 msgid "Role lines"
-msgstr ""
+msgstr "Rollenzeilen"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
 msgid "Roles in which the group is involved"
-msgstr ""
+msgstr "Rollen, in denen die Gruppe enthalten ist"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rule_groups
@@ -346,32 +362,32 @@ msgstr "Regeln"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__rules_count
 msgid "Rules Count"
-msgstr ""
+msgstr "Anzahl Regeln"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenz"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__share
 msgid "Share Group"
-msgstr ""
+msgstr "Gruppe teilen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__show_alert
 msgid "Show Alert"
-msgstr ""
+msgstr "Warnmeldung anzeigen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__view_group_hierarchy
 msgid "Technical field for default group setting"
-msgstr ""
+msgstr "Technisches Feld für die Standardgruppeneinstellung"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_implied_ids
 msgid "The group itself with all its implied groups."
-msgstr ""
+msgstr "Die Gruppe selbst mit all ihren Untergruppen."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
@@ -381,17 +397,17 @@ msgstr "Bis"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_ids
 msgid "Transitively Implied Groups"
-msgstr ""
+msgstr "Transitiv implizierte Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_implied_by_ids
 msgid "Transitively Implying Groups"
-msgstr ""
+msgstr "Transitiv implizierende Gruppen"
 
 #. module: base_user_role
 #: model:ir.actions.server,name:base_user_role.cron_update_users_ir_actions_server
 msgid "Update user roles"
-msgstr ""
+msgstr "Benutzerrollen aktualisieren"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users
@@ -403,7 +419,7 @@ msgstr "Benutzer"
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role
 msgid "User Role"
-msgstr ""
+msgstr "Benutzerrolle"
 
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
@@ -414,17 +430,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "User Roles"
-msgstr ""
+msgstr "Benutzerrollen"
 
 #. module: base_user_role
 #: model:ir.module.category,name:base_user_role.ir_module_category_role
 msgid "User roles"
-msgstr ""
+msgstr "Benutzerrollen"
 
 #. module: base_user_role
 #: model:ir.model.constraint,message:base_user_role.constraint_res_users_role_line_user_role_uniq
 msgid "User roles can be assigned to a user only once at a time"
-msgstr ""
+msgstr "Einem Benutzer können jeweils nur eine Benutzerrolle zugewiesen werden"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
@@ -434,33 +450,33 @@ msgstr "Benutzer"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__all_user_ids
 msgid "Users and implied users"
-msgstr ""
+msgstr "Benutzer und implizite Benutzer"
 
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_res_users_role_line
 msgid "Users associated to a role"
-msgstr ""
+msgstr "Einer Rolle zugeordnete Benutzer"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__user_ids
 msgid "Users explicitly in this group"
-msgstr ""
+msgstr "Benutzer, die ausdrücklich dieser Gruppe angehören"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_by_ids
 msgid "Users in those groups are implicitly part of this group."
 msgstr ""
+"Benutzer in diesen Gruppen gehören automatisch zu dieser weiteren Gruppe."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_user_ids
-#, fuzzy
 msgid "Users list"
-msgstr "Benutzer"
+msgstr "Benutzerliste"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__implied_ids
 msgid "Users of this group are also implicitly part of those groups"
-msgstr ""
+msgstr "Benutzer dieser Gruppe gehören implizit auch zu diesen weiteren Gruppen"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__view_access
@@ -472,16 +488,18 @@ msgstr "Ansichten"
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__is_default
 msgid "When enabled, this role is assigned to newly created users by default."
 msgstr ""
+"Wenn diese Rolle aktiviert ist, wird sie standardmäßig neu angelegten "
+"Benutzern zugewiesen."
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #~ msgid "Application"
 #~ msgstr "Anwendung"
