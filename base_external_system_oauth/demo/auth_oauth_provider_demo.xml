@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2024 Therp BV.
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+
+    <!-- Full url will be auth_endpoint/tenant_id/validation_endpoint. -->
+    <record id="oauth_provider_demo" model="auth.oauth.provider">
+        <field name="name">Demo oauth providerI</field>
+        <field name="auth_endpoint">https://api.example.com/oauth2/api/v1/token</field>
+        <field name="validation_endpoint">x</field>
+        <field name="provider_type">demo</field>
+        <field name="client_id">api_example_com</field>
+        <field name="client_secret">Set client secret to value from provider</field>
+        <field name="css_class">zocial</field>
+        <field name="body">Log in to oauth token provider</field>
+        <field name="enabled" eval="False" />
+    </record>
+
+</odoo>

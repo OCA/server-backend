@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2024 Therp BV.
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+
+    <!-- Full url will be auth_endpoint/tenant_id/validation_endpoint. -->
+    <record id="oauth_client_assertion_demo" model="auth.oauth.provider">
+        <field name="name">Demo oauth MS Client Assertion</field>
+        <field name="auth_endpoint">https://login.microsoftonline.com/</field>
+        <field name="provider_type">microsoft_client_assertion</field>
+        <field name="client_id">your_client_id came from
+            https://learn.microsoft.com/entra/identity-platform/quickstart-register-app</field>
+        <field name="tenant_id">some long string of characters</field>
+        <field name="scope">https://graph.microsoft.com/.default</field>
+        <field name="validation_endpoint">x</field>  <!-- Useless but required. -->
+        <field name="css_class">zocial</field>
+        <field name="body">Log in to oauth token provider</field>
+        <field name="enabled" eval="False" />
+    </record>
+
+</odoo>
