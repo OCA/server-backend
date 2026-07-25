@@ -334,6 +334,11 @@ msgid "Role lines"
 msgstr ""
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__user_role_ids
+msgid "Roles"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__role_ids
 msgid "Roles in which the group is involved"
@@ -409,7 +414,6 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
 #: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
 #: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
