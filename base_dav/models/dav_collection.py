@@ -151,10 +151,7 @@ class DavCollection(models.Model):
         if "uid" not in vobj.contents:
             vobj.add("uid").value = f"{record._name},{record.id}"
         if "rev" not in vobj.contents and "write_date" in record._fields:
-            vobj.add("rev").value = (
-                record.write_date.replace(":", "").replace(" ", "T").replace(".", "")
-                + "Z"
-            )
+            vobj.add("rev").value = record.write_date.strftime("%Y%m%dT%H%M%SZ")
         return result
 
     @api.model

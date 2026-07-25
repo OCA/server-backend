@@ -12,6 +12,7 @@
     "development_status": "Beta",
     "depends": [
         "base",
+        "calendar",
     ],
     "demo": [
         "demo/dav_collection.xml",

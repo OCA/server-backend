@@ -90,7 +90,6 @@ class Collection(RadicaleBaseCollection):
 
     def __init__(self, path, parent=None, principal=None, folder=None):
         self.path_components = self._split_path(path)
-        self.path = "/".join(self.path_components) or "/"
         self._collection = None
         if len(self.path_components) >= 2 and str(self.path_components[1]).isdigit():
             try:
@@ -99,6 +98,10 @@ class Collection(RadicaleBaseCollection):
                 )
             except Exception:
                 _logger.debug("Could not resolve dav.collection", exc_info=True)
+
+    @property
+    def path(self):
+        return "/".join(self.path_components) or "/"
 
     @property
     def collection(self):

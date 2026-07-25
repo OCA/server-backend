@@ -58,7 +58,7 @@ class TestDavCollection(TransactionCase):
         self.assertIn(self.partner, self.collection.eval())
 
     def test_check_domain_invalid(self):
-        with self.assertRaises((ValueError, SyntaxError)):
+        with self.assertRaises(SyntaxError):
             self.collection.domain = "not a domain"
             self.collection.flush_recordset()
 
