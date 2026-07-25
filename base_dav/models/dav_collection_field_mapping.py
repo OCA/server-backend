@@ -35,6 +35,7 @@ class DavCollectionFieldMapping(models.Model):
     field_id = fields.Many2one(
         "ir.model.fields",
         required=True,
+        ondelete="cascade",
         help="Field of the model the values are mapped to",
     )
     model_id = fields.Many2one(
