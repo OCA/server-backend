@@ -191,7 +191,9 @@ class TestDavAuth(TransactionCase):
         fake_request.env = self.env
         fake_request.env.cr.dbname = self.env.cr.dbname
         users_model = type(self.env["res.users"])
-        with mock.patch.object(radicale.auth, "request", fake_request), mock.patch.object(
+        with mock.patch.object(
+            radicale.auth, "request", fake_request
+        ), mock.patch.object(
             users_model, "_login", return_value=self.user.id
         ) as login_mock:
             auth = self._make_auth()
@@ -207,9 +209,9 @@ class TestDavAuth(TransactionCase):
         fake_request.env = self.env
         fake_request.env.cr.dbname = self.env.cr.dbname
         users_model = type(self.env["res.users"])
-        with mock.patch.object(radicale.auth, "request", fake_request), mock.patch.object(
-            users_model, "_login", side_effect=AccessDenied()
-        ):
+        with mock.patch.object(
+            radicale.auth, "request", fake_request
+        ), mock.patch.object(users_model, "_login", side_effect=AccessDenied()):
             auth = self._make_auth()
             result = auth._login(self.user.login, "wrong password")
         self.assertEqual(result, "")
