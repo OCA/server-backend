@@ -44,6 +44,7 @@ class DavCollection(models.Model):
         "ir.model",
         string="Model",
         required=True,
+        ondelete="cascade",
         domain=[("transient", "=", False)],
     )
     domain = fields.Char(
