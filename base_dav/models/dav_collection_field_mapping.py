@@ -9,6 +9,7 @@ import vobject
 from dateutil import tz
 
 from odoo import api, fields, models, tools
+from odoo.tools.safe_eval import safe_eval
 
 
 class DavCollectionFieldMapping(models.Model):
@@ -68,7 +69,7 @@ class DavCollectionFieldMapping(models.Model):
             "tz": tz,
             "vobject": vobject,
         }
-        tools.safe_eval(self.import_code, context, mode="exec", nocopy=True)
+        safe_eval(self.import_code, context, mode="exec", nocopy=True)
         return context.get("result", {})
 
     def _from_vobject_simple(self, child):
@@ -135,7 +136,7 @@ class DavCollectionFieldMapping(models.Model):
             "tz": tz,
             "vobject": vobject,
         }
-        tools.safe_eval(self.export_code, context, mode="exec", nocopy=True)
+        safe_eval(self.export_code, context, mode="exec", nocopy=True)
         return context.get("result", None)
 
     def _to_vobject_simple(self, record):

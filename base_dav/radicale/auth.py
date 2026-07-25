@@ -21,7 +21,7 @@ class Auth(BaseAuth):
             return ""
         try:
             env = request.env
-            uid = env["res.users"]._login(env.cr.dbname, login, password)
+            uid = env["res.users"]._login(env.cr.dbname, login, password, {})
             if uid:
                 request.update_env(user=uid)
                 return login

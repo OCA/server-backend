@@ -9,7 +9,8 @@ from urllib.parse import quote_plus
 
 import vobject
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
+from odoo.tools.safe_eval import safe_eval
 
 from ..controllers.main import PREFIX
 from ..radicale.collection import Collection, FileItem, Item
@@ -85,7 +86,7 @@ class DavCollection(models.Model):
 
     def _eval_domain(self):
         self.ensure_one()
-        return list(tools.safe_eval(self.domain, self._eval_context()))
+        return list(safe_eval(self.domain, self._eval_context()))
 
     def eval(self):
         if not self:
