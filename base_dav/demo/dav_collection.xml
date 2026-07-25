@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="collection_addressbook" model="dav.collection">
+        <field name="name">Addressbook</field>
+        <field name="dav_type">addressbook</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="domain">[]</field>
+    </record>
+    <record id="field_mapping_addressbook_n" model="dav.collection.field_mapping">
+        <field name="name">N</field>
+        <field name="field_id" ref="base.field_res_partner__name" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_fn" model="dav.collection.field_mapping">
+        <field name="name">FN</field>
+        <field name="field_id" ref="base.field_res_partner__display_name" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_photo" model="dav.collection.field_mapping">
+        <field name="name">photo</field>
+        <field name="field_id" ref="base.field_res_partner__image_1920" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_email" model="dav.collection.field_mapping">
+        <field name="name">email</field>
+        <field name="field_id" ref="base.field_res_partner__email" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_tel" model="dav.collection.field_mapping">
+        <field name="name">tel</field>
+        <field name="field_id" ref="base.field_res_partner__phone" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_mobile" model="dav.collection.field_mapping">
+        <field name="name">mobile</field>
+        <field name="field_id" ref="base.field_res_partner__mobile" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_org" model="dav.collection.field_mapping">
+        <field name="name">ORG</field>
+        <field name="field_id" ref="base.field_res_partner__commercial_company_name" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_title" model="dav.collection.field_mapping">
+        <field name="name">TITLE</field>
+        <field name="field_id" ref="base.field_res_partner__function" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_url" model="dav.collection.field_mapping">
+        <field name="name">URL</field>
+        <field name="field_id" ref="base.field_res_partner__website" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+    <record id="field_mapping_addressbook_street" model="dav.collection.field_mapping">
+        <field name="name">ADR</field>
+        <field name="field_id" ref="base.field_res_partner__street" />
+        <field name="collection_id" ref="collection_addressbook" />
+    </record>
+
+    <record id="collection_calendar" model="dav.collection">
+        <field name="name">Calendar</field>
+        <field name="dav_type">calendar</field>
+        <field name="model_id" ref="calendar.model_calendar_event" />
+        <field name="domain">[('user_id', '=', user.id)]</field>
+    </record>
+    <record id="field_mapping_calendar_summary" model="dav.collection.field_mapping">
+        <field name="name">SUMMARY</field>
+        <field name="field_id" ref="calendar.field_calendar_event__name" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+    <record
+        id="field_mapping_calendar_description"
+        model="dav.collection.field_mapping"
+    >
+        <field name="name">DESCRIPTION</field>
+        <field name="field_id" ref="calendar.field_calendar_event__description" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+    <record id="field_mapping_calendar_dtstart" model="dav.collection.field_mapping">
+        <field name="name">DTSTART</field>
+        <field name="field_id" ref="calendar.field_calendar_event__start" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+    <record id="field_mapping_calendar_dtend" model="dav.collection.field_mapping">
+        <field name="name">DTEND</field>
+        <field name="field_id" ref="calendar.field_calendar_event__stop" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+    <record id="field_mapping_calendar_location" model="dav.collection.field_mapping">
+        <field name="name">LOCATION</field>
+        <field name="field_id" ref="calendar.field_calendar_event__location" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+    <record id="field_mapping_calendar_uid" model="dav.collection.field_mapping">
+        <field name="name">UID</field>
+        <field name="field_id" ref="calendar.field_calendar_event__uid" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+</odoo>
