@@ -91,9 +91,4 @@
         <field name="field_id" ref="calendar.field_calendar_event__location" />
         <field name="collection_id" ref="collection_calendar" />
     </record>
-    <record id="field_mapping_calendar_uid" model="dav.collection.field_mapping">
-        <field name="name">UID</field>
-        <field name="field_id" ref="calendar.field_calendar_event__uid" />
-        <field name="collection_id" ref="collection_calendar" />
-    </record>
 </odoo>

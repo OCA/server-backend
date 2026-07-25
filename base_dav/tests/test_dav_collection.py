@@ -6,6 +6,7 @@ from unittest import mock
 
 import vobject
 
+from odoo.exceptions import AccessDenied
 from odoo.tests.common import TransactionCase
 
 from .. import radicale
@@ -189,17 +190,26 @@ class TestDavAuth(TransactionCase):
         fake_request = mock.Mock()
         fake_request.env = self.env
         fake_request.env.cr.dbname = self.env.cr.dbname
-        with mock.patch.object(radicale.auth, "request", fake_request):
+        users_model = type(self.env["res.users"])
+        with mock.patch.object(radicale.auth, "request", fake_request), mock.patch.object(
+            users_model, "_login", return_value=self.user.id
+        ) as login_mock:
             auth = self._make_auth()
             result = auth._login(self.user.login, self.password)
+        login_mock.assert_called_once_with(
+            self.env.cr.dbname, self.user.login, self.password, {}
+        )
         self.assertEqual(result, self.user.login)
-        fake_request.update_env.assert_called_once()
+        fake_request.update_env.assert_called_once_with(user=self.user.id)
 
     def test_login_wrong_password(self):
         fake_request = mock.Mock()
         fake_request.env = self.env
         fake_request.env.cr.dbname = self.env.cr.dbname
-        with mock.patch.object(radicale.auth, "request", fake_request):
+        users_model = type(self.env["res.users"])
+        with mock.patch.object(radicale.auth, "request", fake_request), mock.patch.object(
+            users_model, "_login", side_effect=AccessDenied()
+        ):
             auth = self._make_auth()
             result = auth._login(self.user.login, "wrong password")
         self.assertEqual(result, "")

@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import os
-import time
 from operator import itemgetter
 from urllib.parse import quote_plus
 
@@ -156,10 +155,7 @@ class DavCollection(models.Model):
 
     @api.model
     def _odoo_to_http_datetime(self, value):
-        return time.strftime(
-            "%a, %d %b %Y %H:%M:%S GMT",
-            time.strptime(value, "%Y-%m-%d %H:%M:%S"),
-        )
+        return value.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     @api.model
     def _split_path(self, path):
