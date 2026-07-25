@@ -1,7 +1,10 @@
 # Copyright 2024 Odoo Community Association (OCA)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import base64
 from unittest import mock
+
+import vobject
 
 from odoo.tests.common import TransactionCase
 
@@ -74,6 +77,91 @@ class TestDavCollection(TransactionCase):
             None, "/admin/%d/%d" % (self.collection.id, self.partner.id)
         )
         self.assertIsNotNone(item)
+
+    def test_from_vobject_vtodo_and_vjournal(self):
+        calendar_model = self.env["ir.model"]._get("calendar.event")
+        calendar_collection = self.env["dav.collection"].create(
+            {
+                "name": "Test Calendar Tasks",
+                "dav_type": "calendar",
+                "model_id": calendar_model.id,
+                "domain": "[]",
+            }
+        )
+        name_field = self.env["ir.model.fields"]._get("calendar.event", "name")
+        self.env["dav.collection.field_mapping"].create(
+            {
+                "collection_id": calendar_collection.id,
+                "name": "SUMMARY",
+                "field_id": name_field.id,
+            }
+        )
+
+        vtodo_ical = vobject.iCalendar()
+        vtodo_ical.add("vtodo").add("summary").value = "Test Task"
+        values = calendar_collection.from_vobject(vtodo_ical)
+        self.assertEqual(values.get("name"), "Test Task")
+
+        vjournal_ical = vobject.iCalendar()
+        vjournal_ical.add("vjournal").add("summary").value = "Test Journal"
+        values = calendar_collection.from_vobject(vjournal_ical)
+        self.assertEqual(values.get("name"), "Test Journal")
+
+        empty_ical = vobject.iCalendar()
+        self.assertIsNone(calendar_collection.from_vobject(empty_ical))
+
+    def test_dav_upload_unsupported_item_raises(self):
+        calendar_model = self.env["ir.model"]._get("calendar.event")
+        calendar_collection = self.env["dav.collection"].create(
+            {
+                "name": "Test Calendar Invalid",
+                "dav_type": "calendar",
+                "model_id": calendar_model.id,
+                "domain": "[]",
+            }
+        )
+        empty_ical = vobject.iCalendar()
+        with self.assertRaises(ValueError):
+            calendar_collection.dav_upload(
+                None, "/admin/%d/x" % calendar_collection.id, empty_ical
+            )
+
+    def test_files_collection(self):
+        files_collection = self.env["dav.collection"].create(
+            {
+                "name": "Test Files",
+                "dav_type": "files",
+                "model_id": self.partner_model.id,
+                "domain": "[]",
+            }
+        )
+        attachment = self.env["ir.attachment"].create(
+            {
+                "name": "test.txt",
+                "type": "binary",
+                "datas": base64.b64encode(b"hello"),
+                "res_model": "res.partner",
+                "res_id": self.partner.id,
+            }
+        )
+
+        sub_collection = files_collection.dav_get(
+            None, "/admin/%d/%s" % (files_collection.id, self.partner.name)
+        )
+        self.assertIsNotNone(sub_collection)
+
+        file_item = files_collection.dav_get(
+            None,
+            "/admin/%d/%s/%s"
+            % (files_collection.id, self.partner.name, attachment.name),
+        )
+        self.assertIsNotNone(file_item)
+
+        files_collection.dav_delete(
+            None,
+            ["admin", str(files_collection.id), self.partner.name, attachment.name],
+        )
+        self.assertFalse(attachment.exists())
 
 
 class TestDavAuth(TransactionCase):

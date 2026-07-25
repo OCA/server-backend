@@ -107,9 +107,14 @@ class DavCollection(models.Model):
         if self.dav_type == "calendar":
             if item.name != "VCALENDAR":
                 return None
-            if not hasattr(item, "vevent"):
+            component = None
+            for component_name in ("vevent", "vtodo", "vjournal"):
+                if hasattr(item, component_name):
+                    component = getattr(item, component_name)
+                    break
+            if component is None:
                 return None
-            item = item.vevent
+            item = component
         elif self.dav_type == "addressbook" and item.name != "VCARD":
             return None
 
@@ -209,7 +214,27 @@ class DavCollection(models.Model):
         self.ensure_one()
 
         if self.dav_type == "files":
-            pass
+            if len(components) != 4:
+                return
+            collection_model = self.env[self.model_id.model]
+            record = collection_model.browse(
+                map(
+                    itemgetter(0),
+                    collection_model.name_search(
+                        components[2],
+                        operator="=",
+                        limit=1,
+                    ),
+                )
+            )
+            self.env["ir.attachment"].search(
+                [
+                    ("type", "=", "binary"),
+                    ("res_model", "=", record._name),
+                    ("res_id", "=", record.id),
+                    ("name", "=", components[3]),
+                ]
+            ).unlink()
         else:
             self.get_record(components).unlink()
 
@@ -222,6 +247,8 @@ class DavCollection(models.Model):
             return None
 
         data = self.from_vobject(item)
+        if data is None:
+            raise ValueError("Unsupported or invalid DAV item for this collection")
         record = self.get_record(components)
 
         if not record:
@@ -248,9 +275,7 @@ class DavCollection(models.Model):
         collection_model = self.env[self.model_id.model]
         if self.dav_type == "files":
             if len(components) == 3:
-                result = Collection(href)
-                result.logger = self.logger
-                return result
+                return Collection(href)
             if len(components) == 4:
                 record = collection_model.browse(
                     map(
