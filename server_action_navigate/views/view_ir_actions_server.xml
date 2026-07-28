@@ -9,7 +9,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">ir.actions.server</field>
         <field name="inherit_id" ref="base.view_server_action_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='child_ids']" position="after">
+            <notebook position="before">
                 <field
                     name="navigate_line_ids"
                     nolabel="1"
@@ -36,7 +36,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         invisible="navigate_line_ids in []"
                     />
                 </group>
-            </xpath>
+            </notebook>
         </field>
     </record>
 </odoo>

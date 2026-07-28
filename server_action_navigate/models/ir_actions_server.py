@@ -2,7 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -10,7 +10,8 @@ class IrActionsServer(models.Model):
     _inherit = "ir.actions.server"
 
     state = fields.Selection(
-        selection_add=[("navigate", "Navigate")], ondelete={"navigate": "set default"}
+        selection_add=[("navigate", "Navigate")],
+        ondelete={"navigate": "cascade"},
     )
 
     navigate_line_ids = fields.One2many(
@@ -59,8 +60,10 @@ class IrActionsServer(models.Model):
         lines = self.navigate_line_ids
         if not lines:
             raise UserError(
-                _("The Action Server %s is not correctly set\n : No fields defined")
-                % (self.name)
+                self.env._(
+                    "The Action Server %s is not correctly set\n : No fields defined",
+                    self.name,
+                )
             )
         mapped_field_value = ".".join(lines.mapped("field_id.name"))
 

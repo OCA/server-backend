@@ -2,6 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 from odoo.tools.safe_eval import safe_eval
 
@@ -12,11 +13,31 @@ class TestModule(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.action_server = cls.env.ref(
-            "server_action_navigate.navigate_partner_2_tags"
+        cls.action_server = cls.env["ir.actions.server"].create(
+            {
+                "name": "Navigate Partner 2 Tags",
+                "model_id": cls.env.ref("base.model_res_users").id,
+                "state": "navigate",
+                "navigate_line_ids": [
+                    Command.create(
+                        {
+                            "field_id": cls.env.ref(
+                                "base.field_res_users__partner_id"
+                            ).id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "field_id": cls.env.ref(
+                                "base.field_res_partner__category_id"
+                            ).id,
+                        }
+                    ),
+                ],
+            }
         )
-        cls.navigate_line_1 = cls.env.ref("server_action_navigate.navigate_line_1")
-        cls.navigate_line_2 = cls.env.ref("server_action_navigate.navigate_line_2")
+        cls.navigate_line_1 = cls.action_server.navigate_line_ids[0]
+        cls.navigate_line_2 = cls.action_server.navigate_line_ids[1]
         cls.users = cls.env["res.users"].search([])
 
     def test_action_result(self):
