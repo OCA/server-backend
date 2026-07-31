@@ -53,7 +53,7 @@ class AuthOAuthProvider(models.Model):
         }
         basic = HTTPBasicAuth(self.client_id, self.client_secret)
         response = requests.post(
-            url=self.auth_endpoint, params=login_params, auth=basic, timeout=16
+            url=self.auth_endpoint, data=login_params, auth=basic, timeout=16
         )
         self._check_response(response)
         return response.json()["access_token"]
