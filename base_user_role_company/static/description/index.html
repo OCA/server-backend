@@ -381,11 +381,18 @@ Company A and Company B, then the “Sales Manager” role won’t be enabled.</
 <ul class="simple">
 <li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
 <li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-3">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-4">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-5">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-6">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-7">Maintainers</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-3">Known issues / Roadmap</a><ul>
+<li><a class="reference internal" href="#steps-to-reproduce-example-from-the-ui" id="toc-entry-4">Steps to reproduce / example from the UI</a></li>
+<li><a class="reference internal" href="#steps-to-reproduce-with-the-api" id="toc-entry-5">Steps to reproduce with the API</a></li>
+<li><a class="reference internal" href="#root-cause" id="toc-entry-6">Root cause</a></li>
+<li><a class="reference internal" href="#possible-fixes-draft-to-be-discussed" id="toc-entry-7">Possible fixes (draft / to be discussed)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-8">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-9">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-10">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-11">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-12">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -425,8 +432,89 @@ active, “SALES PERSON” will be active.</li>
 </li>
 </ul>
 </div>
+<div class="section" id="known-issues-roadmap">
+<h1><a class="toc-backref" href="#toc-entry-3">Known issues / Roadmap</a></h1>
+<p>Since Odoo CE has allowed the browsing with several companies in the
+same session (st at least since v16.0), this module adds a security
+vulnerability. This breach allows a user to escalate its permissions
+between itsallowed companies, especially when browsing on different web
+browser tabs or by API calls.</p>
+<div class="section" id="steps-to-reproduce-example-from-the-ui">
+<h2><a class="toc-backref" href="#toc-entry-4">Steps to reproduce / example from the UI</a></h2>
+<p>With UI:</p>
+<ol class="arabic simple">
+<li>Open 1st browser tab on Company A.</li>
+<li>Open a 2nd browser tab and switch to Company B. Let’s say the user’s
+permissions are higher in the lattest Company B than the A.</li>
+<li>Just go back to the 1st tab. You are browsing the Company A with
+permissions given in company B.</li>
+</ol>
+<p>Example in <tt class="docutils literal">hr_expense</tt>. Trying to approve one’s own expense report:</p>
+<ul class="simple">
+<li>In Company A: I am only a Team Validator. I cannot validate my own
+expense.</li>
+<li>In Company B: I am a an Expense Administrator. I can validate all
+expenses.</li>
+<li>Therefore, on step 3 (going back to my expense report, created on
+Company A, now browsing with my permissions on Company B): I can
+validate my own expense, while my permissions on Company A do not
+allow it.</li>
+</ul>
+<p>The security risk is quite limited from the UI because:</p>
+<ul class="simple">
+<li>it is only active until the user refresh the 1st tab;</li>
+<li>except a few example like this one in <tt class="docutils literal">hr_expense</tt>, the usually only
+displays the models and actions adapted to the user permissions</li>
+</ul>
+</div>
+<div class="section" id="steps-to-reproduce-with-the-api">
+<h2><a class="toc-backref" href="#toc-entry-5">Steps to reproduce with the API</a></h2>
+<p>The true breach happens with the API (like RPC calls). The steps can be
+repeatedin a <tt class="docutils literal">odoo shell</tt> session or by API calls. Disclaimer: this §
+and next ones were IA-assisted and human-verified.</p>
+<ul class="simple">
+<li>Authenticate with a user allowed on Company A and B. Roles example:<ul>
+<li><em>Account/Billing</em> on Company A</li>
+<li><em>Account/Accountant</em> on Company B</li>
+</ul>
+</li>
+<li>Call <tt class="docutils literal">get_session_info</tt> with a <tt class="docutils literal">cids</tt> cookie on Company B</li>
+<li>Call a method you should not be allowed on Company A, but on a record
+you are allowed to view on Company A.<ul>
+<li>Example: <tt class="docutils literal">account_move.button_draft</tt>, which is not displayed in
+the UI on Company A because <em>Billing</em> role does not display it</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="root-cause">
+<h2><a class="toc-backref" href="#toc-entry-6">Root cause</a></h2>
+<p>In the depending module <tt class="docutils literal">base_user_role</tt>, the method
+<tt class="docutils literal">res_users.set_groups_from_roles()</tt> updates the <tt class="docutils literal">res.groups</tt> of a
+user according to its roles. Therefore, it <strong>writes the changes in the
+database, making them global to all user-browsing tabs</strong>.</p>
+<p>With the module <tt class="docutils literal">base_user_role_company</tt>, the same method is called
+from <tt class="docutils literal">session_info</tt>, itself only called from <tt class="docutils literal">authenticate</tt> so
+<strong>when the whole web page is refreshed</strong>. Therefore, the
+<tt class="docutils literal">res_users.groups_id</tt> written in the database depends on the last
+<tt class="docutils literal">company_ids</tt> found in web browser cookie <tt class="docutils literal">cids</tt> on the last refresh
+of a browser tab.</p>
+</div>
+<div class="section" id="possible-fixes-draft-to-be-discussed">
+<h2><a class="toc-backref" href="#toc-entry-7">Possible fixes (draft / to be discussed)</a></h2>
+<p>First ideas of options to be brainstormed:</p>
+<ol class="arabic simple">
+<li>Call again <tt class="docutils literal">set_groups_from_roles()</tt> before trying to use this
+exploit. But when? And what impact on performances?</li>
+<li>Hide and block multi-companies browsing at the same time, in the UI
+and in the ORM. Example: in the UI,hide the checkboxes next to
+company-choosing widgetin the UI. In the ORM, allow only 1 company in
+<tt class="docutils literal">cids</tt> cookie.</li>
+</ol>
+</div>
+</div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-8">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/server-backend/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -434,15 +522,15 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-4">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-9">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-5">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-10">Authors</a></h2>
 <ul class="simple">
 <li>Open Source Integrators</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-6">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-11">Contributors</a></h2>
 <p><a class="reference external" href="http://opensourceintegrators.com">Open Source Integrators</a></p>
 <blockquote>
 <ul class="simple">
@@ -465,7 +553,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </blockquote>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-7">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-12">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org">
 <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
