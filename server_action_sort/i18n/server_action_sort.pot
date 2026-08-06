@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* server_action_sort
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__action_id
+msgid "Action"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.actions.server,name:server_action_sort.sort_action_server_lines
+msgid "Action Server Sort Lines"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__field_id
+msgid "Field"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__field_name
+msgid "Field Name"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_field_id
+msgid "Field to Sort"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__sort_field_id_model
+#: model:ir.model.fields,help:server_action_sort.field_ir_cron__sort_field_id_model
+msgid "For relationship fields, the technical name of the target model"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__id
+msgid "ID"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__desc
+msgid "Inverse Order"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_field_id_model
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_field_id_model
+msgid "Model of the Field to Sort"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server_sort_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model,name:server_action_sort.model_ir_actions_server
+msgid "Server Action"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model,name:server_action_sort.model_ir_actions_server_sort_line
+msgid "Server Actions Sort Lines"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields.selection,name:server_action_sort.selection__ir_actions_server__state__sort
+msgid "Sort"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__sort_line_ids
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__sort_line_ids
+msgid "Sorting Criterias"
+msgstr ""
+
+#. module: server_action_sort
+#. odoo-python
+#: code:addons/server_action_sort/models/ir_actions_server.py:0
+msgid ""
+"The Action Server %s is not correctly set :\n"
+"No lines defined"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_actions_server__state
+#: model:ir.model.fields,field_description:server_action_sort.field_ir_cron__state
+msgid "Type"
+msgstr ""
+
+#. module: server_action_sort
+#: model:ir.model.fields,help:server_action_sort.field_ir_actions_server__state
+#: model:ir.model.fields,help:server_action_sort.field_ir_cron__state
+msgid ""
+"Type of server action. The following values are available:\n"
+"- 'Update a Record': update the values of a record\n"
+"- 'Create Activity': create an activity (Discuss)\n"
+"- 'Send Email': post a message, a note or send an email (Discuss)\n"
+"- 'Send SMS': send SMS, log them on documents (SMS)- 'Add/Remove Followers': add or remove followers to a record (Discuss)\n"
+"- 'Create Record': create a new record with new values\n"
+"- 'Execute Code': a block of Python code that will be executed\n"
+"- 'Send Webhook Notification': send a POST request to an external system, also known as a Webhook\n"
+"- 'Execute Existing Actions': define an action that triggers several other server actions\n"
+msgstr ""
+
+#. module: server_action_sort
+#. odoo-python
+#: code:addons/server_action_sort/models/ir_actions_server.py:0
+msgid ""
+"You can not run this Action Server that way.\n"
+" Please use contextual 'Action' menu."
+msgstr ""
