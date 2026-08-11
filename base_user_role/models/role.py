@@ -13,7 +13,9 @@ class ResUsersRole(models.Model):
     _name = "res.users.role"
     _inherits = {"res.groups": "group_id"}
     _description = "User Role"
+    _order = "sequence,id"
 
+    sequence = fields.Integer(default=10)
     group_id = fields.Many2one(
         comodel_name="res.groups",
         required=True,
@@ -144,7 +146,9 @@ class ResUsersRole(models.Model):
 class ResUsersRoleLine(models.Model):
     _name = "res.users.role.line"
     _description = "Users associated to a role"
+    _order = "sequence,id"
 
+    sequence = fields.Integer(related="role_id.sequence")
     active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
         comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
