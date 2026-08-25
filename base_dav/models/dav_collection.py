@@ -2,9 +2,10 @@
 # Copyright 2019-2020 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import base64
 import os
 from operator import itemgetter
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, unquote
 
 import vobject
 
@@ -67,11 +68,11 @@ class DavCollection(models.Model):
             elif this.dav_type == "addressbook":
                 this.tag = "VADDRESSBOOK"
 
-    @api.depends("name")
+    @api.depends("name", "dav_type")
     def _compute_url(self):
         base_url = self.env["ir.config_parameter"].get_param("web.base.url")
         for this in self:
-            this.url = f"{base_url}{PREFIX}/{self.env.user.login}/{this.id}"
+            this.url = f"{base_url}{PREFIX}/{this.env.user.login}/{this.id}"
 
     @api.constrains("domain")
     def _check_domain(self):
@@ -165,6 +166,7 @@ class DavCollection(models.Model):
         self.ensure_one()
 
         if self.dav_type == "files":
+            # Record-based files: 3-component path = collection/record, 4-component = collection/record/file
             if len(path_components) == 3:
                 collection_model = self.env[self.model_id.model]
                 record = collection_model.browse(
@@ -237,10 +239,55 @@ class DavCollection(models.Model):
         self.ensure_one()
 
         components = self._split_path(href)
-        collection_model = self.env[self.model_id.model]
         if self.dav_type == "files":
-            return None
+            if len(components) < 4:
+                return None
+            filename = unquote(components[-1])
 
+            # Extract raw content from the uploaded item
+            if hasattr(item, "content") and item.content:
+                content = item.content
+            elif hasattr(item, "serialize"):
+                content = item.serialize()
+            else:
+                content = bytes(item) if item else b""
+
+            if isinstance(content, str):
+                content = content.encode("utf-8")
+
+            collection_model = self.env[self.model_id.model]
+            record = collection_model.browse(
+                map(
+                    itemgetter(0),
+                    collection_model.name_search(
+                        components[2],
+                        operator="=",
+                        limit=1,
+                    ),
+                )
+            )
+
+            attachment = self.env["ir.attachment"].create(
+                {
+                    "name": filename,
+                    "datas": base64.b64encode(content).decode("ascii"),
+                    "type": "binary",
+                    "res_model": record._name,
+                    "res_id": record.id,
+                }
+            )
+
+            return self.env["radicale.collection"].FileItem(
+                collection,
+                item=attachment,
+                href=href,
+                last_modified=self._odoo_to_http_datetime(
+                    attachment.write_date or attachment.create_date
+                ),
+            )
+
+        # Calendar/addressbook handling
+        collection_model = self.env[self.model_id.model]
         data = self.from_vobject(item)
         if data is None:
             raise ValueError("Unsupported or invalid DAV item for this collection")

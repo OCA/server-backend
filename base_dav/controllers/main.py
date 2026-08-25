@@ -28,28 +28,13 @@ class Main(http.Controller):
     def handle_well_known_request(self):
         return werkzeug.utils.redirect(PREFIX, 301)
 
-    @http.route(
-        [
-            PREFIX,
-            PREFIX + "/<path:davpath>",
-        ],
-        type="http",
-        auth="none",
-        csrf=False,
-        methods=[
-            "GET",
-            "POST",
-            "PROPFIND",
-            "PROPPATCH",
-            "PUT",
-            "DELETE",
-            "MKCALENDAR",
-            "REPORT",
-            "OPTIONS",
-            "PATCH",
-        ],
-    )
-    def handle_dav_request(self, davpath=None):
+    # NOTE: the `/.dav` route itself is intentionally NOT registered here.
+    # Calendar/addressbook support via Radicale is broken on Radicale 3.x
+    # (the original bootstrap code references INITIAL_CONFIG, which no longer
+    # exists), and the only production use case is scanner file uploads.
+    # Bureaucracy registers its own `/.dav` controller (webdav_files_controller)
+    # that handles dav_type == 'files' collections. If you need CalDAV/CardDAV,
+    # restore the @http.route decorator below and fix the Radicale bootstrap.
         if radicale is None:
             return http.Response(
                 "Radicale is not installed. "

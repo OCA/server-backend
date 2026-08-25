@@ -233,8 +233,10 @@ class Storage(RadicaleBaseStorage):
                 and depth
             ):
                 for href in collection.list():
-                    yield collection.get(href)
-                    return
+                    item = collection.get(href)
+                    if item:
+                        yield item
+                return
             col = collection.get(path)
             if col:
                 yield col
