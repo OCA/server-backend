@@ -8,7 +8,7 @@ class Http(models.AbstractModel):
 
     def session_info(self):  # pragma: no cover
         result = super().session_info()
-        user = request.env.user
+        user = self.env.user
         allowed_profiles = (
             []
             if user.restrict_profile_switching
