@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import datetime
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import AccessError
 from odoo.fields import Command
 from odoo.tests import tagged
@@ -212,6 +212,38 @@ class TestUserRole(TestUserRoleCommon):
         )
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
         self.assertEqual(user.role_ids, roles)
+
+    def test_group_multi_company_write_link(self):
+        group = self.env.ref("base.group_multi_company")
+        self.assertNotIn(
+            group,
+            self.multicompany_user_2.groups_id,
+            "should not have base.group_multi_company",
+        )
+        self.multicompany_user_2.write(
+            {"company_ids": [Command.link(self.company1.id)]}
+        )
+        self.assertIn(
+            group,
+            self.multicompany_user_2.groups_id,
+            "should have base.group_multi_company",
+        )
+
+    def test_group_multi_company_write_unlink(self):
+        group = self.env.ref("base.group_multi_company")
+        self.assertIn(
+            group,
+            self.multicompany_user_1.groups_id,
+            "should have base.group_multi_company",
+        )
+        self.multicompany_user_1.write(
+            {"company_ids": [Command.unlink(self.company2.id)]}
+        )
+        self.assertNotIn(
+            group,
+            self.multicompany_user_1.groups_id,
+            "should not have base.group_multi_company",
+        )
 
     def test_role_multicompany(self):
         """Test AccessError when admin-like user accesses a role"""
