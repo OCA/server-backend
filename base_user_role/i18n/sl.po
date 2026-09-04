@@ -40,7 +40,8 @@ msgstr "%s (kopija)"
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<em>Any configuration changes made here will not be persistent.</em>"
-msgstr "<em>Vse spremembe konfiguracije, opravljene tukaj, ne bodo trajne.</em>"
+msgstr ""
+"<em>Vse spremembe konfiguracije, opravljene tukaj, ne bodo trajne.</em>"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
@@ -292,7 +293,8 @@ msgstr "Naziv"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__all_users_count
 msgid "Number of users having this group (implicitly or explicitly)"
-msgstr "Število uporabnikov, ki pripadajo tej skupini (posredno ali neposredno)"
+msgstr ""
+"Število uporabnikov, ki pripadajo tej skupini (posredno ali neposredno)"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__trans_parent_ids
@@ -340,6 +342,11 @@ msgstr "Vloga"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__line_ids
 msgid "Role lines"
 msgstr "Postavke vlog"
+
+#. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_res_users__user_role_ids
+msgid "Roles"
+msgstr "Vloge"
 
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_groups__role_ids
@@ -417,7 +424,6 @@ msgstr "Uporabniška vloga"
 #. module: base_user_role
 #: model:ir.actions.act_window,name:base_user_role.action_res_users_role_tree
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_ids
-#: model:ir.model.fields,field_description:base_user_role.field_res_users__role_ids
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_ids
 #: model:ir.ui.menu,name:base_user_role.menu_action_res_users_role_tree
 #: model_terms:ir.ui.view,arch_db:base_user_role.res_groups_view_form
@@ -513,9 +519,6 @@ msgstr "x"
 
 #~ msgid "Users of this group automatically inherit those groups"
 #~ msgstr "Uporabniki v tej skupini samodejno podedujejo te skupine"
-
-#~ msgid "Roles"
-#~ msgstr "Vloge"
 
 #~ msgid "User role"
 #~ msgstr "Uporabniška vloga"
