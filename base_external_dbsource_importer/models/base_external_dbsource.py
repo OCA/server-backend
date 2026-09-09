@@ -55,6 +55,7 @@ class BaseExternalModelImporter:
         odoo_key="",
         load_all_odoo_records=False,
         origin=False,
+        company=False,
     ):
         if not origin:
             fds_records = self._get_external_records(
@@ -64,13 +65,15 @@ class BaseExternalModelImporter:
             fds_records = self._get_external_records_from_file()
         odoo_key = odoo_key or self._external_key
         records, records_dic = self.load_odoo_records(
-            model_name, odoo_key, load_all_odoo_records
+            model_name, odoo_key, load_all_odoo_records, company
         )
         return fds_records, records, records_dic
 
-    def load_odoo_records(self, model_name, odoo_key=None, load_all=False):
+    def load_odoo_records(
+        self, model_name, odoo_key=None, load_all=False, company=False
+    ):
         return self.dbsource.load_odoo_records(
-            model_name, odoo_key or self._external_key, load_all
+            model_name, odoo_key or self._external_key, load_all, company
         )
 
     def upsert(
@@ -192,13 +195,15 @@ class BaseExternalDbsource(models.Model):
         ).mapped("field_ids.name")
 
     @api.model
-    def load_odoo_records(self, model_name, odoo_key, load_all=False):
+    def load_odoo_records(self, model_name, odoo_key, load_all=False, company=False):
         Model = self.env[model_name].with_context(
             active_test=False, prefetch_fields=False
         )
         domain = []
+        if company:
+            domain.append(("company_id", "=", company.id))
         if not load_all:
-            domain = [(odoo_key, "!=", False)]
+            domain.append((odoo_key, "!=", False))
         records = Model.search(domain)
         records_dic = {
             rec[odoo_key]: rec["id"]
