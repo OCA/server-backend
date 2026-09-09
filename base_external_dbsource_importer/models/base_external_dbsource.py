@@ -15,6 +15,8 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import ormcache
 
+from odoo.addons.base_vat.models.res_partner import _eu_country_vat_inverse
+
 _logger = logging.getLogger(__name__)
 
 LETTERS = {ord(d): str(i) for i, d in enumerate(string.digits + string.ascii_uppercase)}
@@ -270,7 +272,10 @@ class BaseExternalDbsource(models.Model):
         if not country_code:
             country_code = "ES"
         full_vat = f"{country_code.upper()}{vat}"
-        if ResPartner.simple_vat_check(country_code.lower(), vat):
+        country_code_vat = _eu_country_vat_inverse.get(
+            country_code.upper(), country_code
+        ).lower()
+        if ResPartner.simple_vat_check(country_code_vat, vat):
             country_id = self.get_country(country_code)
             full_vat = ResPartner._fix_vat_number(full_vat, country_id)
             vals["vat"] = full_vat
