@@ -122,6 +122,7 @@ class BaseExternalModelImporter:
         field_key=False,
         mapped_model=False,
         return_field="id",
+        raise_if_singleton=True,
     ):
         return self.dbsource.get_m2_odoo_id(
             model_name,
@@ -129,6 +130,7 @@ class BaseExternalModelImporter:
             field_key or self._external_key,
             mapped_model or self._mapped_model,
             return_field,
+            raise_if_singleton=raise_if_singleton,
         )
 
     def with_context(self, *args, **kwargs):
@@ -181,12 +183,15 @@ class BaseExternalDbsource(models.Model):
         field_key="fds_key",
         mapped_model=False,
         return_field="id",
+        raise_if_singleton=True,
     ):
         if not key_value:
             return False
         record = self.env[model_name].search_external(
             key_value, field_key, mapped_model
         )
+        if not raise_if_singleton and len(record) > 1:
+            return False
         return record.id if return_field == "id" else record[return_field].id
 
     def _number_iban(self, iban):
