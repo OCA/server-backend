@@ -164,7 +164,14 @@ class BaseExternalDbsource(models.Model):
         self.env.registry.clear_all_caches()
 
     @api.model
-    @ormcache("model_name", "key_value", "field_key", "mapped_model", "return_field")
+    @ormcache(
+        "self.company_id",
+        "model_name",
+        "key_value",
+        "field_key",
+        "mapped_model",
+        "return_field",
+    )
     def get_m2_odoo_id(
         self,
         model_name,
