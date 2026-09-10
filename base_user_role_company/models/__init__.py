@@ -3,4 +3,4 @@
 
 from . import role
 from . import user
-from . import ir_http
+from . import ir_model_access
