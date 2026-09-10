@@ -18,23 +18,28 @@ class ResUsers(models.Model):
         return auth_info
 
     def _get_enabled_roles(self, *args, **kwargs):
+        """Return the roles company-aware. If several companies are active, only return
+        the INTERSECTION of the roles possible in these companies. This prevents
+        extending a role initially given in a Company A to a company B when a user
+        is browsing with the 2 companies active.
+        """
         res = super()._get_enabled_roles(*args, **kwargs)
-        if self.role_line_ids:
-            active_roles = self.env["res.users.role.line"]
-            if self.env.context.get("active_company_ids"):
-                company_ids = self.env.context.get("active_company_ids")
-            else:
-                company_ids = self.company_id.ids
-            for role_line in res:
-                if not role_line.company_id:
-                    active_roles |= role_line
-                elif role_line.company_id.id in company_ids:
-                    role_line_companies = self.role_line_ids.filtered(
-                        lambda x, rl=role_line: (
-                            x.role_id == rl.role_id and x.company_id.id in company_ids
-                        )
-                    )
-                    if len(role_line_companies) == len(company_ids):
-                        active_roles |= role_line
-            return active_roles
-        return res
+        if not self.role_line_ids:
+            return res
+
+        if self.env.context.get("active_company_ids"):
+            company_ids = set(self.env.context.get("active_company_ids"))
+        else:
+            company_ids = set(self.company_id.ids)
+
+        company_roles_lines = res.filtered("company_id")
+        global_roles_lines = res - company_roles_lines
+        company_roles_lines_intersect = company_roles_lines.browse()
+        for role_lines in company_roles_lines.grouped("role_id").values():
+            role_line_companies = self.role_line_ids.filtered(
+                lambda x, rl=role_lines: x.role_id == rl.role_id
+            )
+            if company_ids <= set(role_line_companies.mapped("company_id").ids):
+                company_roles_lines_intersect |= role_lines
+
+        return global_roles_lines | company_roles_lines_intersect
