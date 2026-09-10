@@ -8,35 +8,29 @@ from odoo.exceptions import ValidationError
 class ResUsersRoleLine(models.Model):
     _inherit = "res.users.role.line"
 
-    allowed_company_ids = fields.Many2many(related="user_id.company_ids")
-    company_id = fields.Many2one(
-        "res.company",
-        "Company",
+    allowed_company_ids = fields.Many2many(
+        comodel_name="res.company",
+        string="Allowed Companies",
+        related="user_id.company_ids",
+    )
+    company_ids = fields.Many2many(
+        comodel_name="res.company",
+        string="Companies",
         domain="[('id', 'in', allowed_company_ids)]",
-        help="If set, this role only applies when this is the main company selected."
-        " Otherwise it applies to all companies.",
+        help="If set, this role only applies when the main company selected is"
+        " one of these. Otherwise it applies to all companies.",
     )
 
-    @api.constrains("user_id", "company_id")
+    @api.constrains("user_id", "company_ids")
     def _check_company(self):
         for record in self:
-            if (
-                record.company_id
-                and record.company_id != record.user_id.company_id
-                and record.company_id not in record.user_id.company_ids
-            ):
+            allowed_companies = record.user_id.company_ids | record.user_id.company_id
+            invalid_companies = record.company_ids - allowed_companies
+            if invalid_companies:
                 raise ValidationError(
                     self.env._(
-                        'User "%(user)s" does not have access to the company '
-                        '"%(company)s"',
+                        'User "%(user)s" does not have access to: %(companies)s',
                         user=record.user_id.name,
-                        company=record.company_id.name,
+                        companies=", ".join(invalid_companies.mapped("name")),
                     )
                 )
-
-    # Override parent unique constraint to allow the same role multiple times
-    # for a user, provided company_id differs.
-    _user_role_uniq = models.Constraint(
-        "UNIQUE (user_id, role_id, company_id)",
-        "Roles can be assigned to a user only once at a time",
-    )

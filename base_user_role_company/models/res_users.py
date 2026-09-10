@@ -24,8 +24,8 @@ class ResUsers(models.Model):
         form"""
         res = super()._get_enabled_roles()
         return res.filtered(
-            lambda role_line: not role_line.company_id
-            or self.company_id == role_line.company_id
+            lambda role_line: not role_line.company_ids
+            or self.company_id in role_line.company_ids
         )
 
     def _get_company_aware_roles(self, *args, **kwargs):
@@ -37,11 +37,11 @@ class ResUsers(models.Model):
         if not self.role_line_ids:
             return self.env["res.users.role.line"]
 
-        company_roles_lines = self.role_line_ids.filtered("company_id")
+        company_roles_lines = self.role_line_ids.filtered("company_ids")
         global_roles_lines = self.role_line_ids - company_roles_lines
         company_roles_lines_intersect = company_roles_lines.browse()
         for role_lines in company_roles_lines.grouped("role_id").values():
-            if set(self.env.companies.ids) <= set(role_lines.company_id.ids):
+            if set(self.env.companies.ids) <= set(role_lines.company_ids.ids):
                 company_roles_lines_intersect |= role_lines
 
         return global_roles_lines | company_roles_lines_intersect
@@ -54,7 +54,7 @@ class ResUsers(models.Model):
         self.ensure_one()
         return self.all_group_ids._ids
 
-    @api.depends("group_ids.all_implied_ids", "role_line_ids.company_id")
+    @api.depends("group_ids.all_implied_ids", "role_line_ids.company_ids")
     @api.depends_context("allowed_company_ids")
     def _compute_all_group_ids(self):
         """Override: compute users groups implited by company-aware roles"""

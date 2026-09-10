@@ -51,8 +51,9 @@ Configuration
 
 Roles are set on the User form.
 
-The "Company" additional column allows to set a Role as only valid for
-specific companies.
+The "Companies" additional column allows to set a Role as only valid for
+one or several specific companies (select several companies on the same
+line instead of adding one line per company).
 
 There is also a "Active Role" techincal field, only visible in developer
 mode. It shows what roles are active, after applying the company
@@ -107,19 +108,23 @@ Authors
 Contributors
 ------------
 
-`Open Source Integrators <http://opensourceintegrators.com>`__
+`Open Source Integrators <https://opensourceintegrators.com>`__
 
    - Daniel Reis <dreis@opensourceintegrators.com>
    - Chandresh Thakkar <cthakkr@opensourceintegrators.com>
    - Urvisha Desai <udesai@opensourceintegrators.com>
 
-`WeSolved <http://wesolved.com>`__
+`WeSolved <https://wesolved.com>`__
 
    - Robin Conjour <rconjour@wesolved.com>
 
-`Dynapps <http://dynapps.eu>`__
+`Dynapps <https://dynapps.eu>`__
 
    - Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
+
+`Akretion <https://akretion.com>`__
+
+   - Arnaud Layec <arnaud.layec@akretion.com>
 
 Maintainers
 -----------

@@ -35,7 +35,7 @@ class TestUserRoleCompany(TransactionCase):
                     Command.create(
                         {
                             "role_id": cls.role_settings.id,
-                            "company_id": cls.company1.id,
+                            "company_ids": cls.company1.ids,
                         }
                     ),
                 ],
@@ -123,7 +123,7 @@ class TestUserRoleCompany(TransactionCase):
                 Command.create(
                     {
                         "role_id": self.role_settings.id,
-                        "company_id": self.company2.id,
+                        "company_ids": self.company2.ids,
                     }
                 ),
             ],
