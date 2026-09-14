@@ -4,7 +4,7 @@
 {
     "name": "Effective permissions",
     "summary": "Inspect effective permissions applying to a user",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Alpha",
     "category": "Technical",
     "website": "https://github.com/OCA/server-backend",
