@@ -98,6 +98,11 @@ class ResUsers(models.Model):
             for role_line in user._get_enabled_roles():
                 role = role_line.role_id
                 group_ids.update(role_groups[role])
+            # Self-writable groups are the user's own to set: excluding them
+            # from the user's side only keeps the sync from taking them away,
+            # while a role implying one would still hand it back on every
+            # write, silently overriding the user's choice.
+            group_ids.difference_update(self_writable_group_ids)
             groups_to_add = group_ids - user_group_ids
             groups_to_remove = user_group_ids - group_ids
             to_add = [(4, gr) for gr in groups_to_add]
