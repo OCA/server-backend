@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class ResUsersEffectivePermission(models.TransientModel):
+class ResUsersEffectivePermission(models.TransientModel):  # pylint: disable=C8113
     _name = "res.users.effective.permission"
     _order = "model_human_name"
     _description = "Effective permissions"
@@ -39,7 +39,7 @@ class ResUsersEffectivePermission(models.TransientModel):
                 allowed_company_ids=user.company_id.ids,
             )
         )
-        for model_record in self.env["ir.model"].search([]):
+        for model_record in self.env["ir.model"].search([]):  # pylint: disable=W8163
             if model_record.model not in self.env:
                 continue
             model = (

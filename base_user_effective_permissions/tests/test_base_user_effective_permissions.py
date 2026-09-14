@@ -2,13 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
 
 
-class EffectivePermissionsCase(TransactionCase):
+class EffectivePermissionsCase(TransactionCaseWithUserDemo):
     def test_effective_permissions(self):
         """Test effective permissions of base.user_demo"""
-        action = self.env.ref("base.user_demo").action_show_effective_permissions()
+        action = self.user_demo.action_show_effective_permissions()
         permissions = self.env["res.users.effective.permission"].search(
             action["domain"]
         )
