@@ -87,6 +87,17 @@ msgid "Active"
 msgstr "Aktif"
 
 #. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_add_multiple_users_wizard
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Add Multiple Users"
+msgstr ""
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_add_users_wizard
+msgid "Add Users"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
 msgid "Assign to user"
 msgstr "Kullanıcıya ata"
@@ -103,6 +114,7 @@ msgstr ""
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_add_users_wizard
 msgid "Cancel"
 msgstr "İptal"
 
@@ -141,6 +153,7 @@ msgstr "Kullanıcıdan bir rol oluşturma sihirbazı"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_uid
 msgid "Created by"
@@ -149,6 +162,7 @@ msgstr "Oluşturan"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
@@ -183,6 +197,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__display_name
 msgid "Display Name"
@@ -195,6 +210,7 @@ msgstr "Etkinleştirilmiş"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_from
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__date_from
 msgid "From"
 msgstr "Başlangıç"
 
@@ -230,6 +246,7 @@ msgstr "Gruplar"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__id
 msgid "ID"
@@ -261,6 +278,7 @@ msgstr "Devralma alanı için ters ilişki. Bu grubun devraldığı gruplar"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_uid
 msgid "Last Updated by"
@@ -269,6 +287,7 @@ msgstr "Son güncelleyen"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_date
 msgid "Last Updated on"
@@ -281,6 +300,7 @@ msgstr "Model Erişim Sayısı"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__name
 msgid "Name"
@@ -329,6 +349,7 @@ msgstr "Bir rolü temsil eden gruplar için ilişki"
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__role_id
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__role_id
 msgid "Role"
 msgstr "Rol"
 
@@ -361,6 +382,7 @@ msgstr "Kuralların Sayısı"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__sequence
 msgid "Sequence"
 msgstr ""
 
@@ -386,6 +408,7 @@ msgstr ""
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__date_to
 msgid "To"
 msgstr "Karşı"
 
@@ -438,6 +461,7 @@ msgstr ""
 "Kullanıcı rolleri bir kullanıcıya aynı anda yalnızca bir kez atanabilir"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__user_ids
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -481,6 +505,11 @@ msgstr "Görünümler"
 #. module: base_user_role
 #: model:ir.model.fields,help:base_user_role.field_res_users_role__is_default
 msgid "When enabled, this role is assigned to newly created users by default."
+msgstr ""
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_role_add_users_wizard
+msgid "Wizard to add multiple users to a role"
 msgstr ""
 
 #. module: base_user_role
