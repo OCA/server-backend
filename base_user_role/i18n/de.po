@@ -92,6 +92,17 @@ msgid "Active"
 msgstr "Aktiv"
 
 #. module: base_user_role
+#: model:ir.actions.act_window,name:base_user_role.action_add_multiple_users_wizard
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
+msgid "Add Multiple Users"
+msgstr ""
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_add_users_wizard
+msgid "Add Users"
+msgstr ""
+
+#. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
 msgid "Assign to user"
 msgstr "Benutzer zuweisen"
@@ -108,6 +119,7 @@ msgstr "Zugewiesenes Recht"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.group_groups_into_role_wiz_view
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_add_users_wizard
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -146,6 +158,7 @@ msgstr "Rolle mit Assistent aus einem Benutzer erstellen"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_uid
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_uid
 msgid "Created by"
@@ -154,6 +167,7 @@ msgstr "Erstellt von"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__create_date
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__create_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__create_date
 msgid "Created on"
@@ -188,6 +202,7 @@ msgstr "Getrennte Gruppen"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__display_name
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__display_name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__display_name
 msgid "Display Name"
@@ -200,6 +215,7 @@ msgstr "Aktiviert"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_from
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__date_from
 msgid "From"
 msgstr "Ab"
 
@@ -237,6 +253,7 @@ msgstr "Gruppen"
 #: model:ir.model.fields,field_description:base_user_role.field_res_users__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__id
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__id
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__id
 msgid "ID"
@@ -270,6 +287,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_uid
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_uid
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_uid
 msgid "Last Updated by"
@@ -278,6 +296,7 @@ msgstr "Zuletzt geändert von"
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__write_date
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__write_date
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__write_date
 msgid "Last Updated on"
@@ -290,6 +309,7 @@ msgstr "Anzahl Zugriffsrechte"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__name
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__name
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_groups_into_role__name
 msgid "Name"
@@ -339,6 +359,7 @@ msgstr "Beziehung zwischen den Gruppen, die eine Rolle repräsentieren"
 #: model:ir.model.fields,field_description:base_user_role.field_res_groups__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__role_id
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__role_id
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__role_id
 msgid "Role"
 msgstr "Rolle"
 
@@ -371,6 +392,7 @@ msgstr "Anzahl Regeln"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__sequence
+#: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__sequence
 msgid "Sequence"
 msgstr "Sequenz"
 
@@ -396,6 +418,7 @@ msgstr "Die Gruppe selbst mit all ihren Untergruppen."
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role_line__date_to
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__date_to
 msgid "To"
 msgstr "Bis"
 
@@ -447,6 +470,7 @@ msgid "User roles can be assigned to a user only once at a time"
 msgstr "Einem Benutzer können jeweils nur eine Benutzerrolle zugewiesen werden"
 
 #. module: base_user_role
+#: model:ir.model.fields,field_description:base_user_role.field_role_add_users_wizard__user_ids
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Users"
 msgstr "Benutzer"
@@ -495,6 +519,11 @@ msgid "When enabled, this role is assigned to newly created users by default."
 msgstr ""
 "Wenn diese Rolle aktiviert ist, wird sie standardmäßig neu angelegten "
 "Benutzern zugewiesen."
+
+#. module: base_user_role
+#: model:ir.model,name:base_user_role.model_role_add_users_wizard
+msgid "Wizard to add multiple users to a role"
+msgstr ""
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
