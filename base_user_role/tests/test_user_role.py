@@ -274,3 +274,35 @@ class TestUserRole(TransactionCase):
         self.assertEqual(new_role.name, "Test Role")
         # Check that the role has the correct groups (even if the order is not equal)
         self.assertEqual(set(new_role.implied_ids.ids), set(user_group_ids))
+
+    def test_role_default_user(self):
+        """
+        Test that portal user has the right role and groups based on the portal
+        template.
+        """
+        self.default_user.write(
+            {
+                "role_line_ids": [
+                    (0, 0, {"role_id": self.role1_id.id}),
+                    (0, 0, {"role_id": self.role2_id.id}),
+                ]
+            }
+        )
+
+        portal_template = self.env.ref("base.template_portal_user_id")
+        portal_group = self.env.ref("base.group_portal")
+        vals = {
+            "name": "Portal Role",
+            "implied_ids": [(6, 0, [portal_group.id])],
+        }
+        portal_role = self.role_model.create(vals)
+        portal_template.write({"role_line_ids": [(0, 0, {"role_id": portal_role.id})]})
+        portal_user = portal_template.copy(
+            {
+                "name": "New portal user",
+                "active": True,
+            }
+        )
+        portal_user = portal_user.with_context(active_test=False)
+        self.assertNotIn(self.group_user_id, set(portal_user.groups_id))
+        self.assertIn(portal_role.group_id, set(portal_user.groups_id))

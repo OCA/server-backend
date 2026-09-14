@@ -64,7 +64,7 @@
         <field name="inherit_id" ref="base.view_users_tree" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
-                <field name="role_ids" widget="many2many_tags" />
+                <field name="role_ids" widget="many2many_tags" optional="hide" />
             </field>
         </field>
     </record>

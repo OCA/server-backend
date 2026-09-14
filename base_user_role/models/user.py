@@ -34,15 +34,21 @@ class ResUsers(models.Model):
         default_user = self.env.ref("base.default_user", raise_if_not_found=False)
         default_values = []
         if default_user:
-            for role_line in default_user.with_context(active_test=False).role_line_ids:
-                default_values.append(
-                    {
-                        "role_id": role_line.role_id.id,
-                        "date_from": role_line.date_from,
-                        "date_to": role_line.date_to,
-                        "is_enabled": role_line.is_enabled,
-                    }
-                )
+            default_values = default_user._get_role_lines_vals_from_user()
+        return default_values
+
+    def _get_role_lines_vals_from_user(self):
+        self.ensure_one()
+        default_values = []
+        for role_line in self.with_context(active_test=False).role_line_ids:
+            default_values.append(
+                {
+                    "role_id": role_line.role_id.id,
+                    "date_from": role_line.date_from,
+                    "date_to": role_line.date_to,
+                    "is_enabled": role_line.is_enabled,
+                }
+            )
         return default_values
 
     @api.depends("role_line_ids.role_id")
@@ -97,3 +103,15 @@ class ResUsers(models.Model):
                 vals = {"groups_id": groups}
                 super(ResUsers, user).write(vals)
         return True
+
+    def copy(self, default=None):
+        self.ensure_one()
+        portal_user = self.env.ref(
+            "base.template_portal_user_id", raise_if_not_found=False
+        )
+        if portal_user and self == portal_user:
+            default["role_line_ids"] = [
+                (0, 0, role_vals)
+                for role_vals in portal_user._get_role_lines_vals_from_user()
+            ]
+        return super().copy(default=default)
