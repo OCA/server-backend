@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_record_trace_user,record.trace.user,model_record_trace,base.group_user,1,0,1,0
+access_record_trace_manager,record.trace.manager,model_record_trace,base.group_system,1,1,1,1

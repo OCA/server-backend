@@ -1,0 +1,6 @@
+<odoo>
+    <record id="record_trace_retention_days" model="ir.config_parameter">
+        <field name="key">record_trace_retention_days</field>
+        <field name="value">100</field>
+    </record>
+</odoo>
