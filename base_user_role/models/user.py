@@ -89,6 +89,11 @@ class ResUsers(models.Model):
             for role_line in user._get_enabled_roles():
                 role = role_line.role_id
                 group_ids.update(role_groups[role])
+            # Self-writable groups are the user's own to set: excluding them
+            # from the user's side only keeps the sync from taking them away,
+            # while a role implying one would still hand it back on every
+            # write, silently overriding the user's choice.
+            group_ids.difference_update(self_writable_group_ids)
             # Preserve admin only if dropping it would leave zero administrators
             admin_group = self.env.ref("base.group_system", raise_if_not_found=False)
             if (
