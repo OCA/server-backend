@@ -1,12 +1,11 @@
 <odoo>
     <record id="view_ir_model_tree_record_trace" model="ir.ui.view">
         <field name="model">ir.model</field>
-        <field name="inherit_id" ref="base.view_model_tree"/>
+        <field name="inherit_id" ref="base.view_model_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="track_deletions" optional="show"/>
+                <field name="track_deletions" optional="show" />
             </xpath>
         </field>
     </record>
-
 </odoo>

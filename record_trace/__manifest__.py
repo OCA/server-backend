@@ -1,10 +1,11 @@
 {
     "name": "Record Trace",
-    "summary": "Log record deletions (model, id, name, user, date) for kpiten parquet sync",
+    "summary": "Log record deletions (model, id, name, user, date)",
     "version": "18.0.1.0.0",
     "category": "Tools",
-    "author": "Akretion",
+    "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
+    "maintainers": ["bealdav"],
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",

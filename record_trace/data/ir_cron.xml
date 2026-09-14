@@ -1,7 +1,7 @@
 <odoo>
     <record id="cron_record_trace_purge" model="ir.cron">
         <field name="name">Record trace purge</field>
-        <field name="model_id" ref="model_record_trace"/>
+        <field name="model_id" ref="model_record_trace" />
         <field name="state">code</field>
         <field name="code">model._cron_purge()</field>
         <field name="interval_number">1</field>
