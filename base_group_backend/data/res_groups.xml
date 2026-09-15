@@ -1,7 +1,6 @@
 <odoo>
     <record model="res.groups" id="base_group_backend">
         <field name="name">Backend user</field>
-        <field name="category_id" ref="base.module_category_user_type" />
         <field name="comment">
             This group is used to gives user backend access.
 
@@ -18,7 +17,6 @@
 
     <record model="res.groups" id="group_backend_ui_users">
         <field name="name">Backend UI user</field>
-        <field name="category_id" ref="base.module_category_user_type" />
         <field name="comment">
             This group is used to gives user basic ui access.
         </field>
@@ -27,7 +25,6 @@
             eval="[
                 (6, 0,[
                     ref('base.ir_default_user_rule'),
-                    ref('base.ir_filters_delete_own_rule'),
                     ref('base.ir_filters_employee_rule'),
                     ref('base.res_company_rule_employee'),
                     ref('mail.ir_rule_mail_notifications_group_user'),
