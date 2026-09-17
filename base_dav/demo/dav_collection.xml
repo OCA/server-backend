@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dav_collection_tree" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="arch" type="xml">
+             <tree>
+                 <field name="name" />
+                 <field name="dav_type" />
+                 <field name="url" widget="url" optional="hide" />
+                 <field name="model_id" />
+                 <field name="domain" />
+             </tree>
+        </field>
+    </record>
+
+    <record id="view_dav_collection_form" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="dav_type" />
+                        <field name="url" widget="url" />
+                        <field name="model_id" />
+                        <field name="domain" />
+                        <field name="tag" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="dav_collection_user_form" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="groups">base.group_user</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="dav_type" />
+                        <field name="url" widget="url" />
+                        <field name="model_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="dav_collection_user_tree" model="ir.ui.view">
+        <field name="model">dav.collection</field>
+        <field name="groups">base.group_user</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="dav_type" />
+                <field name="url" widget="url" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_dav_collection_field_mapping_form" model="ir.ui.view">
+        <field name="model">dav.collection.field_mapping</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="collection_id" />
+                        <field name="field_id" />
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dav_collection_field_mapping_tree" model="ir.ui.view">
+        <field name="model">dav.collection.field_mapping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="collection_id" />
+                <field name="field_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="collection_calendar" model="dav.collection">
+        <field name="name">Calendar</field>
+        <field name="dav_type">calendar</field>
+        <field name="model_id" ref="calendar.model_calendar_event" />
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="field_mapping_calendar_summary" model="dav.collection.field_mapping">
+        <field name="name">Summary</field>
+        <field name="field_id" ref="calendar.field_calendar_event__name" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_description" model="dav.collection.field_mapping">
+        <field name="name">Description</field>
+        <field name="field_id" ref="calendar.field_calendar_event__description" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_start" model="dav.collection.field_mapping">
+        <field name="name">Start</field>
+        <field name="field_id" ref="calendar.field_calendar_event__start_date" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_stop" model="dav.collection.field_mapping">
+        <field name="name">End</field>
+        <field name="field_id" ref="calendar.field_calendar_event__stop_date" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_location" model="dav.collection.field_mapping">
+        <field name="name">Location</field>
+        <field name="field_id" ref="calendar.field_calendar_event__location" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_uid" model="dav.collection.field_mapping">
+        <field name="name">UID</field>
+        <field name="field_id" ref="calendar.field_calendar_event__uid" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+</odoo>
