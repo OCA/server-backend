@@ -20,7 +20,7 @@ class DbsourceExternalMixin(models.AbstractModel):
         Mapped model is an model to mapp external records to only one
         """
         mapped_model = self.env.context.get("mapped_model", mapped_model)
-        if mapped_model:
+        if mapped_model and "external_key" in self.env[mapped_model]._fields:
             domain = [("external_key", "=", key_value)]
             if "record_model" in self.env[mapped_model]._fields:
                 domain.append(("record_model", "=", self._name))
