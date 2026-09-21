@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-04-08 12:45+0000\n"
+"PO-Revision-Date: 2026-09-21 21:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -63,6 +63,9 @@ msgid ""
 "allowed profiles. This allows the user to select a profile that activates "
 "only the roles not associated with any specific profile."
 msgstr ""
+"Se abilitato, il profilo predefinito ('nessun profilo') verrà aggiunto ai "
+"profili consentiti dell'utente. Ciò consente all'utente di selezionare un "
+"profilo che attiva solo i ruoli non associati ad alcun profilo specifico."
 
 #. module: base_user_role_profile
 #: model:ir.model.fields,help:base_user_role_profile.field_res_users__restrict_profile_switching
@@ -70,11 +73,14 @@ msgid ""
 "If enabled, the user will be prevented from changing their profile. This "
 "acts as a security measure to lock users into their current profile."
 msgstr ""
+"Se abilitato, all'utente verrà impedito di modificare il proprio profilo. "
+"Questo funge da misura di sicurezza per bloccare gli utenti nel loro profilo "
+"corrente."
 
 #. module: base_user_role_profile
 #: model:ir.model.fields,field_description:base_user_role_profile.field_res_users__include_default_profile
 msgid "Include Default Profile"
-msgstr ""
+msgstr "Includi profilo predefinito"
 
 #. module: base_user_role_profile
 #: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__write_uid
@@ -100,7 +106,7 @@ msgstr "Profilo"
 #. module: base_user_role_profile
 #: model:ir.model.fields,field_description:base_user_role_profile.field_res_users__restrict_profile_switching
 msgid "Restrict Profile Switching"
-msgstr ""
+msgstr "Limita scambio di profilo"
 
 #. module: base_user_role_profile
 #: model:ir.model,name:base_user_role_profile.model_res_users_profile
@@ -115,18 +121,18 @@ msgstr "Ruoli"
 #. module: base_user_role_profile
 #: model:ir.model.fields,field_description:base_user_role_profile.field_res_users_profile__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenza"
 
 #. module: base_user_role_profile
 #. odoo-javascript
 #: code:addons/base_user_role_profile/static/src/components/switch_profile_menu/switch_profile_menu.esm.js:0
 msgid "Switch Profile"
-msgstr ""
+msgstr "Scambia profilo"
 
 #. module: base_user_role_profile
 #: model:ir.model,name:base_user_role_profile.model_res_users
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 #. module: base_user_role_profile
 #: model:ir.actions.act_window,name:base_user_role_profile.action_res_users_profile_tree
@@ -137,7 +143,7 @@ msgstr "Profili utente"
 #. module: base_user_role_profile
 #: model:ir.model,name:base_user_role_profile.model_res_users_role
 msgid "User Role"
-msgstr ""
+msgstr "Ruolo utente"
 
 #. module: base_user_role_profile
 #: model:ir.model,name:base_user_role_profile.model_res_users_role_line
