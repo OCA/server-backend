@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 02:07+0000\n"
-"PO-Revision-Date: 2026-04-27 13:45+0000\n"
+"PO-Revision-Date: 2026-09-21 21:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -97,12 +97,12 @@ msgstr "Attivo"
 #: model:ir.actions.act_window,name:base_user_role.action_add_multiple_users_wizard
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_form
 msgid "Add Multiple Users"
-msgstr ""
+msgstr "Aggiungi utenti multipli"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_role_add_users_wizard
 msgid "Add Users"
-msgstr ""
+msgstr "Aggiungi utenti"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_wizard_create_role_from_user__assign_to_user
@@ -520,7 +520,7 @@ msgstr ""
 #. module: base_user_role
 #: model:ir.model,name:base_user_role.model_role_add_users_wizard
 msgid "Wizard to add multiple users to a role"
-msgstr ""
+msgstr "Procedura guidata per aggiungere utenti multipli ad un ruolo"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
