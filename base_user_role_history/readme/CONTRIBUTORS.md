@@ -1,0 +1,4 @@
+- Benoit Aimont \<<benoit.aimont@acsone.eu>\> (<https://acsone.eu>)
+- Thomas Binsfeld \<<thomas.binsfeld@acsone.eu>\> (<https://acsone.eu>)
+- Christopher Rogos \<<crogos@gmail.com>\> (<https://glueckkanja.com>)
+- Mohamed Osman \<<mohamed.osman3@yahoo.com>\> (<https://glueckkanja.com>)
