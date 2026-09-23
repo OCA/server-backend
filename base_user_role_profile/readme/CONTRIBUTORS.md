@@ -1,0 +1,4 @@
+- Kevin Khao \<kevin.khao@akretion.com\>
+- Sébastien Beau \<sebastien.beau@akretion.com\>
+- Olivier Nibart \<olivier.nibart@akretion.com\>
+- Florian Mounier \<florian.mounier@akretion.com\>
