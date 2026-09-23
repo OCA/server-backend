@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record
+        forcecreate="True"
+        id="config_online_sync_request_timeout"
+        model="ir.config_parameter"
+    >
+        <field name="key">base_user_role_activity.reminder_days</field>
+        <field name="value">30</field>
+    </record>
+</odoo>
