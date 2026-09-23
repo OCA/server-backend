@@ -3,12 +3,13 @@
 
 {
     "name": "User roles by company",
-    "version": "19.0.1.0.0",
+    "version": "19.0.2.1.0",
     "category": "Tools",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/server-backend",
     "depends": ["base_user_role"],
+    "external_dependencies": {"python": ["openupgradelib"]},
     "data": [
         "views/role.xml",
         "views/user.xml",
