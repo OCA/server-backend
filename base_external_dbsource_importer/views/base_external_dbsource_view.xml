@@ -13,14 +13,14 @@
                         name="fields_to_update_ids"
                         context="{'default_db_source_id': id}"
                     >
-                        <list editable="top">
+                        <tree editable="top">
                             <field name="model_id" />
                             <field
                                 name="field_ids"
                                 domain="[('model_id', '=', model_id)]"
                                 widget="many2many_tags"
                             />
-                        </list>
+                        </tree>
                     </field>
                 </group>
                 <group string="Options">

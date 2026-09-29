@@ -100,7 +100,7 @@ class DbsourceExternalMixin(models.AbstractModel):
                 elif field.inverse:
                     inversed[key] = val
                     inversed_fields.add(field)
-                    protected.update(self._field_computed.get(field, [field]))
+                    protected.update(self.pool.field_computed.get(field, [field]))
             data_list.append(data)
 
         # From v12 _create method
