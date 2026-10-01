@@ -1,11 +1,12 @@
 [project]
 name = "odoo-addons-oca-server-backend"
-version = "19.0.20260729.0"
+version = "19.0.20261001.0"
 dependencies = [
     "odoo-addon-base_external_dbsource==19.0.*",
     "odoo-addon-base_global_discount==19.0.*",
     "odoo-addon-base_user_role==19.0.*",
     "odoo-addon-base_user_role_company==19.0.*",
+    "odoo-addon-base_user_role_history==19.0.*",
     "odoo-addon-server_action_navigate==19.0.*",
 ]
 classifiers=[
