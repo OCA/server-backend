@@ -1,8 +1,9 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import date, timedelta
+from datetime import timedelta
 
+from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
@@ -60,8 +61,8 @@ class TestBaseUserRoleHistory(TransactionCase):
                         1,
                         self.user_01.role_line_ids[0].id,
                         {
-                            "date_from": date.today(),
-                            "date_to": date.today() + timedelta(days=5),
+                            "date_from": fields.Date.today(),
+                            "date_to": fields.Date.today() + timedelta(days=5),
                         },
                     )
                 ]
@@ -76,9 +77,12 @@ class TestBaseUserRoleHistory(TransactionCase):
         self.assertEqual(history_lines_2.old_role_id, self.role_01)
         self.assertEqual(history_lines_2.new_role_id, self.role_01)
         self.assertFalse(history_lines_2.old_date_from)
-        self.assertEqual(history_lines_2.new_date_from, date.today())
+        self.assertEqual(history_lines_2.new_date_from, fields.Date.today())
         self.assertFalse(history_lines_2.old_date_to)
-        self.assertEqual(history_lines_2.new_date_to, date.today() + timedelta(days=5))
+        self.assertEqual(
+            history_lines_2.new_date_to,
+            fields.Date.today() + timedelta(days=5),
+        )
         self.user_01.write(
             {"role_line_ids": [(1, self.user_01.role_line_ids[0].id, {})]}
         )
@@ -104,9 +108,12 @@ class TestBaseUserRoleHistory(TransactionCase):
         self.assertEqual(history_lines_4.performed_action, "unlink")
         self.assertEqual(history_lines_4.old_role_id, self.role_01)
         self.assertFalse(history_lines_4.new_role_id)
-        self.assertEqual(history_lines_4.old_date_from, date.today())
+        self.assertEqual(history_lines_4.old_date_from, fields.Date.today())
         self.assertFalse(history_lines_4.new_date_from)
-        self.assertEqual(history_lines_4.old_date_to, date.today() + timedelta(days=5))
+        self.assertEqual(
+            history_lines_4.old_date_to,
+            fields.Date.today() + timedelta(days=5),
+        )
         self.assertFalse(history_lines_4.new_date_to)
 
     def test_create_role_lines_on_new_user(self):

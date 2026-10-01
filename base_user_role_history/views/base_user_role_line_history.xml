@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2019 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <!--FORM view-->
-    <record model="ir.ui.view" id="base_user_role_line_history_form_view">
+    <record id="base_user_role_line_history_form_view" model="ir.ui.view">
         <field
             name="name"
         >base.user.role.line.history.form (in base_user_role_history)</field>
@@ -31,7 +31,7 @@
         </field>
     </record>
     <!--LIST view-->
-    <record model="ir.ui.view" id="base_user_role_line_history_tree_view">
+    <record id="base_user_role_line_history_tree_view" model="ir.ui.view">
         <field
             name="name"
         >base.user.role.line.history.tree (in base_user_role_history)</field>
@@ -59,7 +59,7 @@
         </field>
     </record>
     <!--SEARCH view-->
-    <record model="ir.ui.view" id="base_user_role_line_history_search_view">
+    <record id="base_user_role_line_history_search_view" model="ir.ui.view">
         <field
             name="name"
         >base.user.role.line.history.search (in base_user_role_history)</field>
