@@ -13,7 +13,7 @@
                     name="show_role_lines_history"
                     help="Roles history"
                     class="oe_stat_button"
-                    icon="fa-history"
+                    icon="history"
                     type="object"
                 >
                     <div class="o_stat_info">

@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class BaseUserRoleLineHistory(models.Model):
@@ -11,7 +11,7 @@ class BaseUserRoleLineHistory(models.Model):
 
     performed_action = fields.Selection(
         string="Action",
-        selection=[("add", "Add"), ("unlink", "Delete"), ("edit", "Edit")],
+        selection="_selection_performed_action",
         required=True,
     )
     user_id = fields.Many2one(
@@ -37,3 +37,7 @@ class BaseUserRoleLineHistory(models.Model):
     new_date_to = fields.Date(string="New end date")
     old_is_enabled = fields.Boolean(string="Active before edit")
     new_is_enabled = fields.Boolean(string="Active after edit")
+
+    @api.model
+    def _selection_performed_action(self):
+        return [("add", "Add"), ("unlink", "Delete"), ("edit", "Edit")]
