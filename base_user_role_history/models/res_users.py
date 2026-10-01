@@ -9,6 +9,7 @@ class ResUsers(models.Model):
 
     last_role_line_modification = fields.Datetime(
         compute="_compute_last_role_line_modification",
+        compute_sudo=True,
     )
 
     def _compute_last_role_line_modification(self):

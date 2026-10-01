@@ -1,12 +1,15 @@
 from datetime import date
 
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.tests.common import TransactionCase
 
 
-class TestResUsersRole(BaseCommon):
+class TestResUsersRole(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(
+            context=dict(cls.env.context, tracking_disable=True, no_reset_password=True)
+        )
         cls.ResUsers = cls.env["res.users"]
         cls.ResUsersRole = cls.env["res.users.role"]
         cls.ResUsersRoleLine = cls.env["res.users.role.line"]
