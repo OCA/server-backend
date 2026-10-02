@@ -115,7 +115,6 @@ class ResUsers(models.Model):
                     and user.notification_type == "inbox"
                 ):
                     vals["notification_type"] = "email"
-                    pass
 
                 vals["group_ids"] = groups
                 super(ResUsers, user).write(vals)
