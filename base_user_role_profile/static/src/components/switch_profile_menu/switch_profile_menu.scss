@@ -1,0 +1,33 @@
+// Copyright 2025 Akretion (http://www.akretion.com).
+// @author Florian Mounier <florian.mounier@akretion.com>
+// License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+.o_switch_profile_menu_dropdown {
+    min-width: 20rem;
+}
+
+.o_switch_profile_menu_items {
+    max-height: 20rem;
+    overflow-x: auto;
+
+    .o_switch_profile_item {
+        height: 33px;
+
+        [role="button"] {
+            min-width: 0;
+        }
+
+        &.focus,
+        &.focus > * {
+            background-color: var(--gray-200);
+        }
+
+        .disabled {
+            cursor: default;
+        }
+    }
+}
+
+.o_switch_profile_menu .oe_topbar_name {
+    max-width: 15rem;
+}
