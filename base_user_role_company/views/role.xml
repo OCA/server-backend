@@ -13,7 +13,11 @@
                 position="after"
             >
                 <field name="allowed_company_ids" column_invisible="1" />
-                <field name="company_id" groups="base.group_multi_company" />
+                <field
+                    name="company_ids"
+                    widget="many2many_tags"
+                    groups="base.group_multi_company"
+                />
             </xpath>
         </field>
     </record>
