@@ -172,6 +172,41 @@ class ImportCase(TransactionCase):
         child.env.cache.invalidate()
         self.assertEqual(child.email, "child.changed@example.com")
 
+    def test_res_partner_one2many_lines(self):
+        """Match parents by ref and import their one2many lines."""
+        self._create_rule("res.partner", [("ref", None)])
+        parent_1 = self.Partner.create({"name": "O2M Parent 1", "ref": "O2M-1"})
+        parent_2 = self.Partner.create({"name": "O2M Parent 2", "ref": "O2M-2"})
+        count_before = self.Partner.search_count([("ref", "like", "O2M-")])
+        record = self._base_import_record(
+            "res.partner",
+            "O2M-1,Function 1,Child 1A\n,,Child 1B\nO2M-2,Function 2,Child 2A\n",
+        )
+        result = record.execute_import(
+            ["ref", "function", "child_ids/name"], [], OPTIONS
+        )
+        self.assertFalse(result["messages"])
+        self.assertEqual(
+            self.Partner.search_count([("ref", "like", "O2M-")]), count_before
+        )
+        self.assertEqual(parent_1.function, "Function 1")
+        self.assertEqual(
+            sorted(parent_1.child_ids.mapped("name")), ["Child 1A", "Child 1B"]
+        )
+        self.assertEqual(parent_2.function, "Function 2")
+        self.assertEqual(parent_2.child_ids.mapped("name"), ["Child 2A"])
+
+    def test_match_only_one2many_lines(self):
+        """Match by ref via UI selection and import one2many lines."""
+        parent = self.Partner.create({"name": "O2M UI Parent", "ref": "O2M-UI"})
+        record = self._base_import_record("res.partner", "O2M-UI,Child A\n,Child B\n")
+        options = dict(OPTIONS, import_match_only_fields=["ref"])
+        result = record.execute_import(["ref", "child_ids/name"], [], options)
+        self.assertFalse(result["messages"])
+        self.assertEqual(
+            sorted(parent.child_ids.mapped("name")), ["Child A", "Child B"]
+        )
+
     def test_match_only_from_ui(self):
         """Match by email via UI selection, update function, don't write email."""
         partner = self.Partner.create(
