@@ -16,6 +16,15 @@ class ResUsers(models.Model):
 
     show_alert = fields.Boolean(compute="_compute_show_alert")
 
+    has_role_lines = fields.Boolean(
+        compute="_compute_has_role_lines", compute_sudo=True
+    )
+
+    @api.depends("role_line_ids")
+    def _compute_has_role_lines(self):
+        for user in self:
+            user.has_role_lines = bool(user.role_line_ids)
+
     @api.depends("role_line_ids")
     def _compute_show_alert(self):
         for user in self:
@@ -39,7 +48,7 @@ class ResUsers(models.Model):
         apply to new users.
         """
         default_roles = self.env["res.users.role"].search([("is_default", "=", True)])
-        return [{"role_id": r.id} for r in default_roles]
+        return [fields.Command.create({"role_id": role.id}) for role in default_roles]
 
     @api.depends("role_line_ids.role_id")
     def _compute_user_role_ids(self):
