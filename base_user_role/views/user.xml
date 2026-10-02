@@ -42,6 +42,18 @@
                     <a class="close" data-bs-dismiss="alert" href="#">x</a>
                 </div>
             </xpath>
+            <xpath
+                expr="//page[@name='access_rights']//field[@name='role']"
+                position="before"
+            >
+                <field name="has_role_lines" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//page[@name='access_rights']//field[@name='role']"
+                position="attributes"
+            >
+                <attribute name="readonly">has_role_lines</attribute>
+            </xpath>
         </field>
     </record>
 

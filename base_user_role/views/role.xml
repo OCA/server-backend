@@ -22,18 +22,6 @@
                                 string="Access Rights"
                             />
                         </button>
-                        <button
-                            name="show_rule_ids"
-                            type="object"
-                            class="oe_stat_button"
-                            icon="fa-server"
-                        >
-                            <field
-                                name="rules_count"
-                                widget="statinfo"
-                                string="Record Rules"
-                            />
-                        </button>
                     </div>
                     <group>
                         <field name="name" />

@@ -11,6 +11,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestUserRoleCommon(BaseCommon):
+    _test_user_groups = ("base.group_erp_manager",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -20,7 +22,6 @@ class TestUserRoleCommon(BaseCommon):
 
         cls.company1 = cls.env.ref("base.main_company")
         cls.company2 = cls.env["res.company"].create({"name": "company2"})
-        cls.default_user = cls.env.ref("base.template_portal_user_id")
         cls.user_id = cls.user_model.create(
             {"name": "USER TEST (ROLES)", "login": "user_test_roles"}
         )
@@ -95,6 +96,7 @@ class TestUserRole(TestUserRoleCommon):
         user_group_ids = sorted({group.id for group in self.user_id.group_ids})
         role_group_ids = sorted(set(self.role1_id.all_implied_ids.ids))
         self.assertEqual(user_group_ids, role_group_ids)
+        self.assertEqual(self.user_id.role, "light_user")
 
     def test_role_2(self):
         self.user_id.write(
@@ -103,6 +105,19 @@ class TestUserRole(TestUserRoleCommon):
         user_group_ids = sorted({group.id for group in self.user_id.group_ids})
         role_group_ids = sorted(set(self.role2_id.all_implied_ids.ids))
         self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_model_access(self):
+        access = self.env["ir.access"].create(
+            {
+                "name": "User role access",
+                "model_id": self.env["ir.model"]._get(self.role_model._name).id,
+                "group_id": self.group_user_id.id,
+                "operation": "crud",
+            }
+        )
+        self.assertIn(access, self.role1_id.model_access_ids)
+        action = self.role1_id.show_model_access_ids()
+        self.assertIn(access.id, action["domain"][0][2])
 
     def test_role_1_2(self):
         self.user_id.write(
@@ -188,16 +203,20 @@ class TestUserRole(TestUserRoleCommon):
         self.assertLessEqual(role1_groups, self.user_id.group_ids)
         self.assertLessEqual(role2_groups, self.user_id.group_ids)
         # Remove role2 from the user
-        self.user_id.role_line_ids.filtered(
-            lambda rl: rl.role_id.id == self.role2_id.id
-        ).unlink()
+        role_lines = self.env["res.users.role.line"].browse()
+        for role_line in self.user_id.role_line_ids:
+            if role_line.role_id == self.role2_id:
+                role_lines |= role_line
+        role_lines.unlink()
         # Check user has groups from only role1
         self.assertLessEqual(role1_groups, self.user_id.group_ids)
         self.assertFalse(role2_groups <= self.user_id.group_ids)
         # Remove role1 from the user
-        self.user_id.role_line_ids.filtered(
-            lambda rl: rl.role_id.id == self.role1_id.id
-        ).unlink()
+        role_lines = self.env["res.users.role.line"].browse()
+        for role_line in self.user_id.role_line_ids:
+            if role_line.role_id == self.role1_id:
+                role_lines |= role_line
+        role_lines.unlink()
         # Check user has no groups from role1 and role2
         self.assertFalse(role1_groups <= self.user_id.group_ids)
         self.assertFalse(role2_groups <= self.user_id.group_ids)
@@ -280,8 +299,9 @@ class TestUserRole(TestUserRoleCommon):
         # Check that the role has the same groups as the user
         role_id = result["res_id"]
         role = self.role_model.browse([role_id])
-        user_group_ids = sorted(set(self.user_id.group_ids.ids))
-        role_group_ids = sorted(set(role.implied_ids.ids))
+        regular_group_id = self.env.ref("base.group_user_regular").id
+        user_group_ids = set(self.user_id.group_ids.ids) - {regular_group_id}
+        role_group_ids = set(role.implied_ids.ids) - {regular_group_id}
         self.assertEqual(user_group_ids, role_group_ids)
 
     def test_show_alert_computation(self):
@@ -296,11 +316,13 @@ class TestUserRole(TestUserRoleCommon):
         self.assertFalse(self.user_id.show_alert)
 
     def test_group_groups_into_role(self):
-        user_group_ids = self.user_id.group_ids.ids
+        selected_group_ids = self.user_id.group_ids.ids
+        regular_group_id = self.env.ref("base.group_user_regular").id
+        user_group_ids = set(selected_group_ids) - {regular_group_id}
         # Check that there is not a role with name: Test Role
         self.assertFalse(self.role_model.search([("name", "=", "Test Role")]))
         # Call create_role function to group groups into a role
-        wizard = self.wiz_model.with_context(active_ids=user_group_ids).create(
+        wizard = self.wiz_model.with_context(active_ids=selected_group_ids).create(
             {"name": "Test Role"}
         )
         res = wizard.create_role()
@@ -308,7 +330,8 @@ class TestUserRole(TestUserRoleCommon):
         new_role = self.env[res["res_model"]].browse(res["res_id"])
         self.assertEqual(new_role.name, "Test Role")
         # Check that the role has the correct groups (even if the order is not equal)
-        self.assertEqual(set(new_role.implied_ids.ids), set(user_group_ids))
+        role_group_ids = set(new_role.implied_ids.ids) - {regular_group_id}
+        self.assertEqual(role_group_ids, user_group_ids)
 
 
 @tagged("post_install", "-at_install")

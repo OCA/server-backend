@@ -1,7 +1,7 @@
 # Copyright 2014 ABF OSIELL <http://osiell.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-import datetime
 import logging
+from typing import ClassVar
 
 from odoo import api, fields, models
 from odoo.api import SUPERUSER_ID
@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class ResUsersRole(models.Model):
     _name = "res.users.role"
-    _inherits = {"res.groups": "group_id"}
+    _inherits: ClassVar[dict[str, str]] = {"res.groups": "group_id"}
     _description = "User Role"
     _order = "sequence,name"
 
@@ -32,15 +32,8 @@ class ResUsersRole(models.Model):
         compute="_compute_role_user_ids",
         search="_search_role_user_ids",
     )
-    rule_ids = fields.Many2many(
-        comodel_name="ir.rule",
-        compute="_compute_rule_ids",
-        string="Record Rules",
-        required=False,
-    )
-    rules_count = fields.Integer(compute="_compute_rule_ids")
     model_access_ids = fields.Many2many(
-        comodel_name="ir.model.access",
+        comodel_name="ir.access",
         compute="_compute_model_access_ids",
         string="Access Rights",
         required=False,
@@ -65,17 +58,11 @@ class ResUsersRole(models.Model):
     def _search_role_user_ids(self, operator, value):
         return [("line_ids.user_id", operator, value)]
 
-    @api.depends("implied_ids", "implied_ids.model_access")
+    @api.depends("implied_ids", "implied_ids.access_ids")
     def _compute_model_access_ids(self):
         for rec in self:
-            rec.model_access_ids = rec.implied_ids.model_access.ids
+            rec.model_access_ids = rec.implied_ids.access_ids
             rec.model_access_count = len(rec.model_access_ids)
-
-    @api.depends("implied_ids", "implied_ids.rule_groups")
-    def _compute_rule_ids(self):
-        for rec in self:
-            rec.rule_ids = rec.implied_ids.rule_groups.ids
-            rec.rules_count = len(rec.rule_ids)
 
     @api.model
     def _bypass_rules(self):
@@ -88,6 +75,7 @@ class ResUsersRole(models.Model):
     def create(self, vals_list):
         model = (self.sudo() if self._bypass_rules() else self).browse()
         new_records = super(ResUsersRole, model).create(vals_list)
+        self.env["res.groups"]._apply_group_regular()
         new_records.update_users()
         return new_records
 
@@ -112,6 +100,7 @@ class ResUsersRole(models.Model):
     def unlink(self):
         users = self.mapped("role_user_ids")
         res = super().unlink()
+        self.env["res.groups"]._apply_group_regular()
         users.set_groups_from_roles(force=True)
         return res
 
@@ -128,7 +117,7 @@ class ResUsersRole(models.Model):
 
     @api.model
     def cron_update_users(self):
-        logging.info("Update user roles")
+        _logger.info("Update user roles")
         offset = 0
         batch = 2000
         while True:
@@ -138,13 +127,8 @@ class ResUsersRole(models.Model):
             roles.update_users()
             offset += batch
 
-    def show_rule_ids(self):
-        action = self.env["ir.actions.actions"]._for_xml_id("base.action_rule")
-        action["domain"] = [("id", "in", self.rule_ids.ids)]
-        return action
-
     def show_model_access_ids(self):
-        action = self.env["ir.actions.actions"]._for_xml_id("base.ir_access_act")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.ir_access_action")
         action["domain"] = [("id", "in", self.model_access_ids.ids)]
         return action
 
@@ -160,12 +144,11 @@ class ResUsersRoleLine(models.Model):
     name = fields.Char(related="role_id.name")
     active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
-        comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
+        comodel_name="res.users.role", required=True, ondelete="cascade"
     )
     user_id = fields.Many2one(
         comodel_name="res.users",
         required=True,
-        string="User",
         domain=[("id", "!=", SUPERUSER_ID)],
         ondelete="cascade",
     )
@@ -179,7 +162,7 @@ class ResUsersRoleLine(models.Model):
 
     @api.depends("date_from", "date_to")
     def _compute_is_enabled(self):
-        today = datetime.date.today()
+        today = fields.Date.context_today(self)
         for role_line in self:
             role_line.is_enabled = True
             if role_line.date_from:
