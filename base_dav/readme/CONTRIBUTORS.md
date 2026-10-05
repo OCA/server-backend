@@ -1,0 +1,2 @@
+- [Therp BV](https://therp.nl)
+- [initOS GmbH](https://initos.com)
