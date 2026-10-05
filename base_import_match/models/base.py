@@ -33,7 +33,7 @@ class Base(models.AbstractModel):
         return self, len(match)
 
     @api.model
-    def _match_error(self, match_fields, row, record_index, count):
+    def _match_error(self, match_fields, row, info, count):
         """Build an import error dict for a failed match attempt."""
         criteria = ", ".join(f"{f}={row.get(f, '')}" for f in sorted(match_fields))
         if count == 0:
@@ -46,8 +46,8 @@ class Base(models.AbstractModel):
         return {
             "type": "error",
             "message": msg,
-            "rows": {"from": record_index, "to": record_index},
-            "record": record_index,
+            "rows": info["rows"],
+            "record": info["record"],
             "field": False,
         }
 
@@ -68,7 +68,8 @@ class Base(models.AbstractModel):
             self.env["base_import.match"]._usable_rules(self._name, fields)
         )
         if match_only_fields or has_rules:
-            newdata = list()
+            # Copy rows, as matched rows get their ID column patched in place.
+            data = [list(row) for row in data]
             match_errors = []
             # Change .id (dbid) by id (xmlid)
             if ".id" in fields:
@@ -78,26 +79,31 @@ class Base(models.AbstractModel):
                 for values in data:
                     dbid = int(values[column])
                     values[column] = self.browse(dbid).get_external_id().get(dbid)
+            # Mock Odoo to believe the user is importing the ID field. Add the
+            # column before extracting records, as the extraction is lazy and
+            # expects rows as wide as the field list.
+            if "id" not in fields:
+                fields.append("id")
+                for values in data:
+                    values.append("")
+            id_index = fields.index("id")
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
                 self._extract_records(import_fields, data)
             )
-            # Mock Odoo to believe the user is importing the ID field
-            if "id" not in fields:
-                fields.append("id")
-                import_fields.append(["id"])
             # Needed to match with converted data field names
             clean_fields = [f[0] for f in import_fields]
             for dbid, xmlid, record, info in converted_data:
-                row = dict(zip(clean_fields, data[info["record"]], strict=False))
-                match = self
                 if xmlid:
                     # Skip rows with ID, they do not need all this
-                    row["id"] = xmlid
-                    newdata.append(tuple(row[f] for f in clean_fields))
                     continue
-                elif dbid:
+                # A record with one2many lines spans several rows. Only the
+                # first row holds the record values and its ID.
+                first_row = data[info["rows"]["from"]]
+                row = dict(zip(clean_fields, first_row, strict=False))
+                match = self
+                if dbid:
                     # Find the xmlid for this dbid
                     match = self.browse(dbid)
                 elif match_only_fields:
@@ -105,9 +111,7 @@ class Base(models.AbstractModel):
                     match, count = self._match_by_fields(match_only_fields, record, row)
                     if count != 1:
                         match_errors.append(
-                            self._match_error(
-                                match_only_fields, row, info["record"], count
-                            )
+                            self._match_error(match_only_fields, row, info, count)
                         )
                 else:
                     # Store records that match a combination
@@ -115,14 +119,10 @@ class Base(models.AbstractModel):
                 # Give a valid XMLID to this row if a match was found
                 # To generate externals IDS.
                 match.export_data(fields)
-                ext_id = match.get_external_id()
-                row["id"] = ext_id[match.id] if match else row.get("id", "")
-                # Store the modified row, in the same order as fields
-                newdata.append(tuple(row[f] for f in clean_fields))
+                if match:
+                    first_row[id_index] = match.get_external_id()[match.id]
             if match_errors:
                 return {"ids": False, "messages": match_errors, "nextrow": False}
-            # We will import the patched data to get updates on matches
-            data = newdata
             # Rebuild fields/data without match-only columns.
             if match_only_fields:
                 drop_set = {fields.index(f) for f in match_only_fields}
