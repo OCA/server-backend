@@ -1,92 +1,23 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_dav_collection_tree" model="ir.ui.view">
-        <field name="model">dav.collection</field>
-        <field name="arch" type="xml">
-             <tree>
-                 <field name="name" />
-                 <field name="dav_type" />
-                 <field name="url" widget="url" optional="hide" />
-                 <field name="model_id" />
-                 <field name="domain" />
-             </tree>
-        </field>
-    </record>
 
-    <record id="view_dav_collection_form" model="ir.ui.view">
-        <field name="model">dav.collection</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name" />
-                        <field name="dav_type" />
-                        <field name="url" widget="url" />
-                        <field name="model_id" />
-                        <field name="domain" />
-                        <field name="tag" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+    <!--
+        Views used to be defined here as well as in ../views/dav_collection.xml,
+        which broke in two ways:
 
-    <record id="dav_collection_user_form" model="ir.ui.view">
-        <field name="model">dav.collection</field>
-        <field name="groups">base.group_user</field>
-        <field name="priority">16</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name" />
-                        <field name="dav_type" />
-                        <field name="url" widget="url" />
-                        <field name="model_id" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+        - The records in this file are loaded after ../views/, so
+          view_dav_collection_form was overwritten with a stale arch that had no
+          rights, field_uuid or field_mapping_ids field. Any module inheriting
+          from the form then failed to load with
+          "Element '<xpath expr=\"//field[@name='rights']'>' cannot be located
+          in parent view".
+        - dav_collection_user_form and dav_collection_user_tree used the `groups`
+          field, renamed to `groups_id` in Odoo 15. That raised a ParseError
+          part-way through this file, so Odoo discarded the whole demo data set
+          ("Module base_dav demo data failed to install").
 
-    <record id="dav_collection_user_tree" model="ir.ui.view">
-        <field name="model">dav.collection</field>
-        <field name="groups">base.group_user</field>
-        <field name="priority">16</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
-                <field name="dav_type" />
-                <field name="url" widget="url" optional="hide" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="view_dav_collection_field_mapping_form" model="ir.ui.view">
-        <field name="model">dav.collection.field_mapping</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="collection_id" />
-                        <field name="field_id" />
-                        <field name="name" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="view_dav_collection_field_mapping_tree" model="ir.ui.view">
-        <field name="model">dav.collection.field_mapping</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
-                <field name="collection_id" />
-                <field name="field_id" />
-            </tree>
-        </field>
-    </record>
+        Only demo data belongs here; the views live in ../views/dav_collection.xml.
+    -->
 
     <record id="collection_calendar" model="dav.collection">
         <field name="name">Calendar</field>
@@ -128,10 +59,12 @@
         <field name="collection_id" ref="collection_calendar" />
     </record>
 
-    <record id="field_mapping_calendar_uid" model="dav.collection.field_mapping">
-        <field name="name">UID</field>
-        <field name="field_id" ref="calendar.field_calendar_event__uid" />
-        <field name="collection_id" ref="collection_calendar" />
-    </record>
+    <!--
+        field_mapping_calendar_uid used to be defined here, referring to
+        calendar.field_calendar_event__uid. No such field exists in Odoo 17, so
+        loading this record raised a ParseError which made Odoo discard the
+        whole demo data set for this module. calendar.event has had no `uid`
+        column for many versions.
+    -->
 
 </odoo>
