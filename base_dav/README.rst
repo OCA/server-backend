@@ -1,6 +1,6 @@
-==========================
-CalDAV and CardDAV support
-==========================
+===========
+DAV support
+===========
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -102,8 +102,8 @@ Credits
 Authors
 -------
 
-* initOS GmbH
 * Therp BV
+* initOS GmbH
 
 Contributors
 ------------
