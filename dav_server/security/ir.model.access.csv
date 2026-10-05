@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dav_sync_change,access_dav.sync.change,model_dav_sync_change,base.group_user,1,0,0,0
+access_dav_sync_change_system,access_dav.sync.change.system,model_dav_sync_change,base.group_system,1,1,1,1
