@@ -1,0 +1,391 @@
+# Copyright 2014 ABF OSIELL <http://osiell.com>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import datetime
+
+from odoo import fields
+from odoo.exceptions import AccessError
+from odoo.fields import Command
+from odoo.tests import tagged
+
+from odoo.addons.base.tests.common import BaseCommon
+
+
+class TestUserRoleCommon(BaseCommon):
+    _test_user_groups = ("base.group_erp_manager",)
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.user_model = cls.env["res.users"]
+        cls.role_model = cls.env["res.users.role"]
+        cls.wiz_model = cls.env["wizard.groups.into.role"]
+
+        cls.company1 = cls.env.ref("base.main_company")
+        cls.company2 = cls.env["res.company"].create({"name": "company2"})
+        cls.user_id = cls.user_model.create(
+            {"name": "USER TEST (ROLES)", "login": "user_test_roles"}
+        )
+
+        # ROLE_1
+        cls.group_user_id = cls.env.ref("base.group_user")
+        cls.group_no_one_id = cls.env.ref("base.group_no_one")
+        vals = {
+            "name": "ROLE_1",
+            "implied_ids": [
+                fields.Command.set([cls.group_user_id.id, cls.group_no_one_id.id])
+            ],
+        }
+        cls.role1_id = cls.role_model.create(vals)
+
+        # ROLE_2
+        # Must have group_user in order to have sufficient groups. Check:
+        # github.com/odoo/odoo/commit/c3717f3018ce0571aa41f70da4262cc946d883b4
+        cls.group_multi_currency_id = cls.env.ref("base.group_multi_currency")
+        cls.group_settings_id = cls.env.ref("base.group_system")
+        vals = {
+            "name": "ROLE_2",
+            "implied_ids": [
+                fields.Command.set(
+                    [
+                        cls.group_user_id.id,
+                        cls.group_multi_currency_id.id,
+                        cls.group_settings_id.id,
+                    ]
+                )
+            ],
+        }
+        cls.role2_id = cls.role_model.create(vals)
+
+        # Setup for multi-company testing
+        cls.multicompany_user_1 = cls.user_model.create(
+            {
+                "name": "multicompany_user_1",
+                "company_id": cls.company1.id,
+                "company_ids": [fields.Command.set([cls.company1.id, cls.company2.id])],
+                "group_ids": [
+                    fields.Command.set(cls.env.ref("base.group_erp_manager").ids)
+                ],
+                "login": "multicompany_user_1",
+            }
+        )
+        cls.multicompany_user_2 = cls.user_model.create(
+            {
+                "name": "multicompany_user_2",
+                "company_id": cls.company2.id,
+                "company_ids": [fields.Command.set([cls.company2.id])],
+                "group_ids": [fields.Command.set(cls.env.ref("base.group_user").ids)],
+                "login": "multicompany_user_2",
+            }
+        )
+        cls.multicompany_role = cls.role_model.create(
+            {
+                "name": "MULTICOMPANY_ROLE",
+                "implied_ids": [fields.Command.set([cls.group_user_id.id])],
+                "line_ids": [
+                    fields.Command.create({"user_id": cls.multicompany_user_2.id})
+                ],
+            }
+        )
+
+
+class TestUserRole(TestUserRoleCommon):
+    def test_role_1(self):
+        self.user_id.write(
+            {"role_line_ids": [fields.Command.create({"role_id": self.role1_id.id})]}
+        )
+        user_group_ids = sorted({group.id for group in self.user_id.group_ids})
+        role_group_ids = sorted(set(self.role1_id.all_implied_ids.ids))
+        self.assertEqual(user_group_ids, role_group_ids)
+        self.assertEqual(self.user_id.role, "light_user")
+
+    def test_role_2(self):
+        self.user_id.write(
+            {"role_line_ids": [fields.Command.create({"role_id": self.role2_id.id})]}
+        )
+        user_group_ids = sorted({group.id for group in self.user_id.group_ids})
+        role_group_ids = sorted(set(self.role2_id.all_implied_ids.ids))
+        self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_model_access(self):
+        access = self.env["ir.access"].create(
+            {
+                "name": "User role access",
+                "model_id": self.env["ir.model"]._get(self.role_model._name).id,
+                "group_id": self.group_user_id.id,
+                "operation": "crud",
+            }
+        )
+        self.assertIn(access, self.role1_id.model_access_ids)
+        action = self.role1_id.show_model_access_ids()
+        self.assertIn(access.id, action["domain"][0][2])
+
+    def test_role_1_2(self):
+        self.user_id.write(
+            {
+                "role_line_ids": [
+                    fields.Command.create({"role_id": self.role1_id.id}),
+                    fields.Command.create({"role_id": self.role2_id.id}),
+                ]
+            }
+        )
+        user_group_ids = sorted({group.id for group in self.user_id.group_ids})
+        role1_group_ids = self.role1_id.all_implied_ids.ids
+        role2_group_ids = self.role2_id.all_implied_ids.ids
+        role_group_ids = sorted(set(role1_group_ids + role2_group_ids))
+        self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_role_1_2_with_dates(self):
+        today_str = fields.Date.today()
+        today = fields.Date.from_string(today_str)
+        yesterday = today - datetime.timedelta(days=1)
+        yesterday_str = fields.Date.to_string(yesterday)
+        self.user_id.write(
+            {
+                "role_line_ids": [
+                    # Role 1 should be enabled
+                    fields.Command.create(
+                        {"role_id": self.role1_id.id, "date_from": today_str}
+                    ),
+                    # Role 2 should be disabled
+                    fields.Command.create(
+                        {"role_id": self.role2_id.id, "date_to": yesterday_str}
+                    ),
+                ]
+            }
+        )
+        user_group_ids = sorted({group.id for group in self.user_id.group_ids})
+        role_group_ids = sorted(set(self.role1_id.all_implied_ids.ids))
+        self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_role_unlink(self):
+        # Get role1 and role2 groups
+        role1_groups = self.role1_id.all_implied_ids
+        role2_groups = self.role2_id.all_implied_ids
+
+        # Configure the user with role1 and role2
+        self.user_id.write(
+            {
+                "role_line_ids": [
+                    fields.Command.create({"role_id": self.role1_id.id}),
+                    fields.Command.create({"role_id": self.role2_id.id}),
+                ]
+            }
+        )
+        # Check user has groups from role1 and role2
+        self.assertLessEqual(role1_groups, self.user_id.group_ids)
+        self.assertLessEqual(role2_groups, self.user_id.group_ids)
+        # Remove role2
+        self.role2_id.unlink()
+        # Check user has groups from only role1
+        self.assertLessEqual(role1_groups, self.user_id.group_ids)
+        self.assertFalse(role2_groups <= self.user_id.group_ids)
+        # Remove role1
+        self.role1_id.unlink()
+        # Check user has no groups from role1 and role2
+        self.assertFalse(role1_groups <= self.user_id.group_ids)
+        self.assertFalse(role2_groups <= self.user_id.group_ids)
+
+    def test_role_line_unlink(self):
+        # Get role1 and role2 groups
+        role1_groups = self.role1_id.all_implied_ids
+        role2_groups = self.role2_id.all_implied_ids
+
+        # Configure the user with role1 and role2
+        self.user_id.write(
+            {
+                "role_line_ids": [
+                    fields.Command.create({"role_id": self.role1_id.id}),
+                    fields.Command.create({"role_id": self.role2_id.id}),
+                ]
+            }
+        )
+        # Check user has groups from role1 and role2
+        self.assertLessEqual(role1_groups, self.user_id.group_ids)
+        self.assertLessEqual(role2_groups, self.user_id.group_ids)
+        # Remove role2 from the user
+        role_lines = self.env["res.users.role.line"].browse()
+        for role_line in self.user_id.role_line_ids:
+            if role_line.role_id == self.role2_id:
+                role_lines |= role_line
+        role_lines.unlink()
+        # Check user has groups from only role1
+        self.assertLessEqual(role1_groups, self.user_id.group_ids)
+        self.assertFalse(role2_groups <= self.user_id.group_ids)
+        # Remove role1 from the user
+        role_lines = self.env["res.users.role.line"].browse()
+        for role_line in self.user_id.role_line_ids:
+            if role_line.role_id == self.role1_id:
+                role_lines |= role_line
+        role_lines.unlink()
+        # Check user has no groups from role1 and role2
+        self.assertFalse(role1_groups <= self.user_id.group_ids)
+        self.assertFalse(role2_groups <= self.user_id.group_ids)
+
+    def test_default_user_roles(self):
+        # Mark roles as default on new users
+        self.role1_id.is_default = True
+        self.role2_id.is_default = True
+        user = self.user_model.create(
+            {"name": "USER TEST (DEFAULT ROLES)", "login": "user_test_default_roles"}
+        )
+        roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
+        self.assertEqual(user.user_role_ids, roles)
+
+    def test_group_multi_company_write_link(self):
+        group = self.env.ref("base.group_multi_company")
+        self.assertNotIn(
+            group,
+            self.multicompany_user_2.group_ids,
+            "should not have base.group_multi_company",
+        )
+        self.multicompany_user_2.write(
+            {"company_ids": [Command.link(self.company1.id)]}
+        )
+        self.assertIn(
+            group,
+            self.multicompany_user_2.group_ids,
+            "should have base.group_multi_company",
+        )
+
+    def test_group_multi_company_write_unlink(self):
+        group = self.env.ref("base.group_multi_company")
+        self.assertIn(
+            group,
+            self.multicompany_user_1.group_ids,
+            "should have base.group_multi_company",
+        )
+        self.multicompany_user_1.write(
+            {"company_ids": [Command.unlink(self.company2.id)]}
+        )
+        self.assertNotIn(
+            group,
+            self.multicompany_user_1.group_ids,
+            "should not have base.group_multi_company",
+        )
+
+    def test_role_multicompany(self):
+        """Test AccessError when admin-like user accesses a role"""
+        role = self.multicompany_role.with_user(self.multicompany_user_1)
+        # Dummy read to check that multicompany user 1 has read access
+        role.read()
+        # Dummy read to check that multicompany user 1 has read access on the
+        # whole role, even if it's using a different company than multicompany
+        # user 2 (which is included in the role)
+        role.with_context(allowed_company_ids=self.company1.ids).read()
+        # Downgrade multicompany user 1 to common user
+        self.multicompany_user_1.write(
+            {"group_ids": [fields.Command.set(self.env.ref("base.group_user").ids)]}
+        )
+        # Check that the user cannot read multicompany data again since it lost
+        # its admin privileges
+        with self.assertRaisesRegex(
+            AccessError, "You are not allowed to access 'User Role'"
+        ):
+            role.read()
+
+    def test_create_role_from_user(self):
+        # Use a wizard instance to create a new role based on the user.
+        # We use assign_to_user = False, as otherwise this module forcibly
+        # assigns the role's groups to the user, which would make this
+        # test useless.
+        wizard = self.env["wizard.create.role.from.user"].create(
+            {
+                "name": "Role for user (without assign)",
+                "assign_to_user": False,
+            }
+        )
+        result = wizard.with_context(active_ids=[self.user_id.id]).create_from_user()
+
+        # Check that the role has the same groups as the user
+        role_id = result["res_id"]
+        role = self.role_model.browse([role_id])
+        regular_group_id = self.env.ref("base.group_user_regular").id
+        user_group_ids = set(self.user_id.group_ids.ids) - {regular_group_id}
+        role_group_ids = set(role.implied_ids.ids) - {regular_group_id}
+        self.assertEqual(user_group_ids, role_group_ids)
+
+    def test_show_alert_computation(self):
+        """Test the computation of the `show_alert` field."""
+        self.user_id.write(
+            {"role_line_ids": [fields.Command.create({"role_id": self.role1_id.id})]}
+        )
+        self.assertTrue(self.user_id.show_alert)
+
+        # disable role
+        self.user_id.role_line_ids.unlink()
+        self.assertFalse(self.user_id.show_alert)
+
+    def test_group_groups_into_role(self):
+        selected_group_ids = self.user_id.group_ids.ids
+        regular_group_id = self.env.ref("base.group_user_regular").id
+        user_group_ids = set(selected_group_ids) - {regular_group_id}
+        # Check that there is not a role with name: Test Role
+        self.assertFalse(self.role_model.search([("name", "=", "Test Role")]))
+        # Call create_role function to group groups into a role
+        wizard = self.wiz_model.with_context(active_ids=selected_group_ids).create(
+            {"name": "Test Role"}
+        )
+        res = wizard.create_role()
+        # Check that a role with name: Test Role has been created
+        new_role = self.env[res["res_model"]].browse(res["res_id"])
+        self.assertEqual(new_role.name, "Test Role")
+        # Check that the role has the correct groups (even if the order is not equal)
+        role_group_ids = set(new_role.implied_ids.ids) - {regular_group_id}
+        self.assertEqual(role_group_ids, user_group_ids)
+
+
+@tagged("post_install", "-at_install")
+class TestUserRoleMail(TestUserRoleCommon):
+    def test_notification_type_not_reset(self):
+        """Test that roles don't reset notification settings."""
+        if self.env["ir.module.module"]._get("mail").state != "installed":
+            self.skipTest("Mail module is not installed.")
+        notification_group = self.env.ref("mail.group_mail_notification_type_inbox")
+        self.assertNotIn(notification_group, self.user_id.group_ids)
+        self.user_id.notification_type = "inbox"
+        self.assertIn(notification_group, self.user_id.group_ids)
+        self.user_id.write(
+            {"role_line_ids": [Command.create({"role_id": self.role1_id.id})]}
+        )
+        self.assertIn(notification_group, self.user_id.group_ids)
+
+    def test_notification_type_reset(self):
+        """When user is demoted to share user, update notification settings.
+
+        The issue only occurs when the writing user is not the superuser, and
+        if an intermittent flush is triggered by for instance
+        `_check_one_user_type` in website's res.users override. This triggers
+        constraint res_users_notification_type as Odoo has not yet recomputed
+        this at that point.
+        """
+        # Notification settings depend on mail being installed
+        if self.env["ir.module.module"]._get("mail").state != "installed":
+            self.skipTest("Mail module is not installed.")
+
+        # Set up a non-superuser user
+        admin_user = self.env["res.users"].create(
+            {
+                "name": "Some admin",
+                "login": "admin@example.com",
+            },
+        )
+        admin_user.group_ids += self.env.ref("base.group_system")
+
+        self.user_id.write(
+            {
+                "role_line_ids": [Command.create({"role_id": self.role1_id.id})],
+                "notification_type": "inbox",
+            },
+        )
+
+        # As non-superuser, delete all roles from the user
+        user = self.user_id.with_user(admin_user)
+        user.write(
+            {
+                "role_line_ids": [
+                    Command.delete(rl.id) for rl in self.user_id.role_line_ids
+                ],
+            },
+        )
+        # Database constraint has not been triggered
+        self.assertEqual(user.notification_type, "email")

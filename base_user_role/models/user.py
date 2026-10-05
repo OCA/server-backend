@@ -1,0 +1,130 @@
+# Copyright 2014 ABF OSIELL <http://osiell.com>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+from odoo import api, fields, models
+
+
+class ResUsers(models.Model):
+    _inherit = "res.users"
+
+    role_line_ids = fields.One2many(
+        comodel_name="res.users.role.line",
+        inverse_name="user_id",
+        string="Role lines",
+        default=lambda self: self._default_role_lines(),
+        groups="base.group_erp_manager",
+    )
+
+    show_alert = fields.Boolean(compute="_compute_show_alert")
+
+    has_role_lines = fields.Boolean(
+        compute="_compute_has_role_lines", compute_sudo=True
+    )
+
+    @api.depends("role_line_ids")
+    def _compute_has_role_lines(self):
+        for user in self:
+            user.has_role_lines = bool(user.role_line_ids)
+
+    @api.depends("role_line_ids")
+    def _compute_show_alert(self):
+        for user in self:
+            user.show_alert = user.role_line_ids.filtered(lambda rec: rec.is_enabled)
+
+    user_role_ids = fields.One2many(
+        comodel_name="res.users.role",
+        string="Roles",
+        compute="_compute_user_role_ids",
+        compute_sudo=True,
+        groups="base.group_erp_manager",
+    )
+
+    @api.model
+    def _default_role_lines(self):
+        """Default role lines for a new user.
+
+        In Odoo 19, the former ``base.default_user`` template was removed in
+        favor of a default group. There is no default user anymore to copy
+        role lines from. Use a boolean on roles to mark the ones that should
+        apply to new users.
+        """
+        default_roles = self.env["res.users.role"].search([("is_default", "=", True)])
+        return [fields.Command.create({"role_id": role.id}) for role in default_roles]
+
+    @api.depends("role_line_ids.role_id")
+    def _compute_user_role_ids(self):
+        for user in self:
+            user.user_role_ids = user.role_line_ids.mapped("role_id")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        new_records = super().create(vals_list)
+        new_records.set_groups_from_roles()
+        return new_records
+
+    def write(self, vals):
+        res = super().write(vals)
+        self.sudo().set_groups_from_roles()
+        return res
+
+    def _get_enabled_roles(self):
+        return self.role_line_ids.filtered(lambda rec: rec.is_enabled)
+
+    @api.model
+    def _get_self_writable_groups(self):
+        groups = self.env.ref("base.group_multi_company")
+        if group := self.env.ref(
+            "mail.group_mail_notification_type_inbox", raise_if_not_found=False
+        ):
+            groups |= group
+        return groups
+
+    def set_groups_from_roles(self, force=False):
+        """Set (replace) the groups following the roles defined on users.
+        If no role is defined on the user, its groups are let untouched unless
+        the `force` parameter is `True`.
+        """
+        role_groups = {}
+        # We obtain all the groups associated to each role first, so that
+        # it is faster to compare later with each user's groups.
+        for role in self.mapped("role_line_ids.role_id"):
+            # v19: use transitive implied groups provided by ORM
+            role_groups[role] = list(set(role.all_implied_ids.ids))
+        self_writable_group_ids = self._get_self_writable_groups().ids
+        for user in self:
+            if not user.role_line_ids and not force:
+                continue
+            user_group_ids = set(user.group_ids.ids).difference(self_writable_group_ids)
+            group_ids = set()
+            for role_line in user._get_enabled_roles():
+                role = role_line.role_id
+                group_ids.update(role_groups[role])
+            # Preserve admin only if dropping it would leave zero administrators
+            admin_group = self.env.ref("base.group_system", raise_if_not_found=False)
+            if (
+                admin_group
+                and admin_group.id in user.group_ids.ids
+                and admin_group.id not in group_ids
+            ):
+                other_admins = self.sudo().search_count(
+                    [("id", "!=", user.id), ("group_ids", "in", admin_group.id)]
+                )
+                if other_admins == 0:
+                    group_ids.add(admin_group.id)
+            groups_to_add = group_ids - user_group_ids
+            groups_to_remove = user_group_ids - group_ids
+            to_add = [fields.Command.link(gr) for gr in groups_to_add]
+            to_remove = [fields.Command.unlink(gr) for gr in groups_to_remove]
+            groups = to_remove + to_add
+            if groups:
+                # Prevent tiggering res_users_notification_type for share users
+                vals = {}
+                if (
+                    self.env.ref("base.group_user").id in groups_to_remove
+                    and "notification_type" in user._fields
+                    and user.notification_type == "inbox"
+                ):
+                    vals["notification_type"] = "email"
+
+                vals["group_ids"] = groups
+                super(ResUsers, user).write(vals)
+        return True
