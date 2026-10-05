@@ -166,7 +166,8 @@ class DavCollection(models.Model):
         self.ensure_one()
 
         if self.dav_type == "files":
-            # Record-based files: 3-component path = collection/record, 4-component = collection/record/file
+            # Record-based files: a 3-component path is collection/record, a
+            # 4-component path is collection/record/file
             if len(path_components) == 3:
                 collection_model = self.env[self.model_id.model]
                 record = collection_model.browse(

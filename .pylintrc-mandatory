@@ -5,7 +5,11 @@ score=n
 
 [ODOOLINT]
 readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
-manifest-required-authors=Odoo Community Association (OCA)
+# manifest-required-author is intentionally NOT enforced here.
+# It requires every module to claim OCA authorship, which is correct for a
+# module published on the OCA apps store but wrong for one owned by this
+# fork: dav_server is original work here and must not be attributed to OCA.
+# manifest-required-authors=Odoo Community Association (OCA)
 manifest-required-keys=license
 manifest-deprecated-keys=description,active
 license-allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3
@@ -33,8 +37,7 @@ enable=anomalous-backslash-in-string,
     license-allowed,
     manifest-author-string,
     manifest-deprecated-key,
-    manifest-required-author,
-    manifest-required-key,
+        manifest-required-key,
     manifest-version-format,
     method-compute,
     method-inverse,

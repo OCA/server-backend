@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        base_dav's form opens with an anonymous <group>, and Odoo 17 refuses to
+        use `string` as an inheritance selector, so the group is addressed
+        through the `rights` field inside it (unique in this form).
+    -->
+    <record id="view_dav_collection_form_dav_server" model="ir.ui.view">
+        <field name="name">dav.collection.form.dav.server</field>
+        <field name="model">dav.collection</field>
+        <field name="inherit_id" ref="base_dav.view_dav_collection_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='rights']" position="after">
+                <field name="dav_slug" />
+            </xpath>
+            <field name="field_uuid" position="attributes">
+                <attribute name="invisible">dav_type == 'files'</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_dav_collection_tree_dav_server" model="ir.ui.view">
+        <field name="name">dav.collection.tree.dav.server</field>
+        <field name="model">dav.collection</field>
+        <field name="inherit_id" ref="base_dav.view_dav_collection_tree" />
+        <field name="arch" type="xml">
+            <field name="domain" position="after">
+                <field name="dav_slug" optional="show" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

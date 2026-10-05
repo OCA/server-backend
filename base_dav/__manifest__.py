@@ -5,12 +5,11 @@
     "name": "DAV support",
     "version": "17.0.1.0.0",
     "category": "Extra Tools",
-    "summary": "Access Odoo data as calendar, addressbook, or attached files via WebDAV",
-    "author": "Therp BV,initOS GmbH,Odoo Community Association (OCA)",
+    "summary": "Access Odoo data as calendar, addressbook, "
+    "or attached files via WebDAV",
+    "author": "Therp BV,initOS GmbH," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
-    "category": "Extra Tools",
-    "summary": "Access Odoo data as calendar, addressbook, or attached files via WebDAV",
     "development_status": "Beta",
     "depends": [
         "base",
@@ -33,5 +32,4 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "installable": True,
 }
