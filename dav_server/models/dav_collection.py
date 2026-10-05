@@ -39,11 +39,15 @@ class DavCollectionServer(models.Model):
         base = self._slugify(collection.name)
         slug = base
         suffix = 2
-        while self.sudo().with_context(active_test=False).search_count(
-            [
-                ("dav_slug", "=", slug),
-                ("id", "not in", collection.ids),
-            ]
+        while (
+            self.sudo()
+            .with_context(active_test=False)
+            .search_count(
+                [
+                    ("dav_slug", "=", slug),
+                    ("id", "not in", collection.ids),
+                ]
+            )
         ):
             slug = f"{base}-{suffix}"
             suffix += 1

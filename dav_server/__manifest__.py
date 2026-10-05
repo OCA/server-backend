@@ -8,7 +8,7 @@
     "category": "Extra Tools",
     "author": "Ross Golder",
     "license": "AGPL-3",
-    "website": "https://github.com/rossigee/server-backend",
+    "website": "https://github.com/OCA/server-backend",
     "depends": [
         "base_dav",
         "calendar",

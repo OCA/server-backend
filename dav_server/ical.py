@@ -349,7 +349,7 @@ def _recur_list(recur, key):
     ``['TU', 'TH']`` and must not be unwrapped to a single entry.
     """
     value = recur.get(key) or []
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         return value
     return [value]
 
@@ -361,7 +361,7 @@ def _recur_value(recur, key, default=None):
     it silently drops INTERVAL/UNTIL. Read the parsed mapping directly instead.
     """
     value = recur.get(key, default)
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         return value[0] if value else default
     return value
 
@@ -453,7 +453,7 @@ def _properties(component, name):
     value = component.get(name)
     if value is None:
         return []
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         return list(value)
     return [value]
 
@@ -570,9 +570,7 @@ def _with_zone(value, zone):
     if not isinstance(value, datetime):
         return value
     naive = (
-        value
-        if value.tzinfo is None
-        else value.astimezone(UTC).replace(tzinfo=None)
+        value if value.tzinfo is None else value.astimezone(UTC).replace(tzinfo=None)
     )
     try:
         return naive.replace(tzinfo=UTC).astimezone(ZoneInfo(zone or "UTC"))

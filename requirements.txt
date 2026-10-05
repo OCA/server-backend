@@ -1,7 +1,6 @@
 # generated from manifests external_dependencies
 icalendar
 mysqlclient
-python-dateutil
-radicale
+pytz
 sqlalchemy
 vobject

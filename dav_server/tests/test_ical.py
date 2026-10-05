@@ -41,7 +41,7 @@ class TestIcal(TransactionCase):
         self.assertIn("DTSTART;TZID=Asia/Bangkok:20260105T160000", raw)
         self.assertIn(":mailto:attendee.one@example.com", raw)
         self.assertIn("PARTSTAT=NEEDS-ACTION", raw)
-        self.assertIn('ROLE=REQ-PARTICIPANT', raw)
+        self.assertIn("ROLE=REQ-PARTICIPANT", raw)
         self.assertIn('ORGANIZER;CN="Ross Golder":mailto:ical.tester@example.com', raw)
 
     def test_export_emits_vtimezone_for_non_utc_event(self):
@@ -282,12 +282,16 @@ class TestIcal(TransactionCase):
             "ATTENDEE:mailto:nobody.at.all@example.invalid\r\n"
             "END:VEVENT\r\nEND:VCALENDAR\r\n"
         )
-        before = self.env["res.partner"].sudo().search_count(
-            [("email", "=", "nobody.at.all@example.invalid")]
+        before = (
+            self.env["res.partner"]
+            .sudo()
+            .search_count([("email", "=", "nobody.at.all@example.invalid")])
         )
         values = ical.ical_to_event_values(payload.encode("utf-8"), self.user)
-        after = self.env["res.partner"].sudo().search_count(
-            [("email", "=", "nobody.at.all@example.invalid")]
+        after = (
+            self.env["res.partner"]
+            .sudo()
+            .search_count([("email", "=", "nobody.at.all@example.invalid")])
         )
         self.assertEqual(before, after, "a DAV import must not create partners")
         self.assertEqual(values["partner_ids"], [(6, 0, [])])

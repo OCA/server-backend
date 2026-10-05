@@ -62,9 +62,7 @@ class TestVCard(TransactionCase):
             street="123 Test Road", street2="Building B", zip="10330", city="Bangkok"
         )
         raw = vcard.partner_to_vcard(partner)
-        self.assertIn(
-            "ADR;TYPE=HOME:Building B;;123 Test Road;Bangkok;;10330;TH", raw
-        )
+        self.assertIn("ADR;TYPE=HOME:Building B;;123 Test Road;Bangkok;;10330;TH", raw)
 
     def test_export_postal_address_uses_work_type_for_invoice(self):
         partner = self._partner(type="invoice")

@@ -438,12 +438,9 @@ class DavController(http.Controller):
         if not email:
             return None
         partner = (
-            request.env["res.partner"]
-            .sudo()
-            .search([("email", "=", email)], limit=1)
+            request.env["res.partner"].sudo().search([("email", "=", email)], limit=1)
         )
         return partner.user_id.id or None
-
 
     def _calendar_report(self, collection, login):
         root = self._xml_body()
@@ -482,9 +479,7 @@ class DavController(http.Controller):
         if not window:
             return events
         start, end = window
-        return events.filtered(
-            lambda event: event.stop > start and event.start < end
-        )
+        return events.filtered(lambda event: event.stop > start and event.start < end)
 
     def _free_busy_report(self, collection, root, login):
         time_range = root.find(f".//{caldav('time-range')}")
@@ -618,8 +613,8 @@ class DavController(http.Controller):
         if is_update:
             partner.with_context(**IMPORT_CONTEXT).write(values)
         else:
-            partner = request.env["res.partner"].with_context(**IMPORT_CONTEXT).create(
-                values
+            partner = (
+                request.env["res.partner"].with_context(**IMPORT_CONTEXT).create(values)
             )
         response = http.Response(status=204 if is_update else 201)
         response.headers["ETag"] = self._etag(partner)
@@ -710,9 +705,7 @@ class DavController(http.Controller):
             props.text(data_qname, _as_text(payload(record)))
             document.add_propstat(child, props)
         for href in deleted_hrefs:
-            document.add_status(
-                document.add_response(href), "HTTP/1.1 404 Not Found"
-            )
+            document.add_status(document.add_response(href), "HTTP/1.1 404 Not Found")
 
         response = self._multistatus(document, request.httprequest.method.upper())
         response.headers["valid-sync-token"] = changes.token_for(collection)
@@ -832,9 +825,9 @@ class DavController(http.Controller):
     def _unauthorized(self, error):
         _logger.info("dav_server: 401 %s (%s)", request.httprequest.path, error)
         response = http.Response(status=401)
-        response.headers["WWW-Authenticate"] = (
-            f'Basic realm="{auth.REALM}", charset="UTF-8"'
-        )
+        response.headers[
+            "WWW-Authenticate"
+        ] = f'Basic realm="{auth.REALM}", charset="UTF-8"'
         response.headers["DAV"] = DAV_COMPLIANCE
         return response
 

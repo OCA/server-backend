@@ -161,8 +161,10 @@ class TestDavProtocol(HttpCase):
         components = document.xpath(
             "//C:supported-calendar-component-set/C:comp", namespaces=NS
         )
-        self.assertEqual({element.get("name") for element in components},
-                         {"VEVENT", "VTODO", "VJOURNAL"})
+        self.assertEqual(
+            {element.get("name") for element in components},
+            {"VEVENT", "VTODO", "VJOURNAL"},
+        )
 
     def test_addressbook_collection_advertises_vcard_versions(self):
         href = self._collection_href(self.addressbook, "addressbook")
@@ -170,9 +172,7 @@ class TestDavProtocol(HttpCase):
         types = document.xpath(
             "//A:supported-address-data/A:address-data-type", namespaces=NS
         )
-        self.assertEqual(
-            {element.get("version") for element in types}, {"3.0", "4.0"}
-        )
+        self.assertEqual({element.get("version") for element in types}, {"3.0", "4.0"})
 
     # ==================================================================
     # Read
@@ -236,9 +236,7 @@ class TestDavProtocol(HttpCase):
         self.assertEqual(response.status_code, 404)
 
     def test_calendar_query_time_range_filters_results(self):
-        inside = self._event(
-            start="2026-06-10 09:00:00", stop="2026-06-10 10:00:00"
-        )
+        inside = self._event(start="2026-06-10 09:00:00", stop="2026-06-10 10:00:00")
         outside = self._event(
             name="July Event", start="2026-07-10 09:00:00", stop="2026-07-10 10:00:00"
         )
@@ -271,7 +269,8 @@ class TestDavProtocol(HttpCase):
             <C:calendar-multiget xmlns:D="DAV:" xmlns:C="urn:ietf:params:xml:ns:caldav">
               <D:prop><D:getetag/><C:calendar-data/></D:prop>
               <D:href>%s</D:href>
-            </C:calendar-multiget>""" % href,
+            </C:calendar-multiget>"""
+            % href,
         )
         data = _text(document, "//C:calendar-data")
         self.assertIn("BEGIN:VCALENDAR", data)
@@ -300,7 +299,8 @@ class TestDavProtocol(HttpCase):
               xmlns:D="DAV:" xmlns:A="urn:ietf:params:xml:ns:carddav">
               <D:prop><D:getetag/><A:address-data/></D:prop>
               <D:href>%s</D:href>
-            </A:addressbook-multiget>""" % href,
+            </A:addressbook-multiget>"""
+            % href,
         )
         address_data = _text(document, "//A:address-data")
         self.assertIn("BEGIN:VCARD", address_data)
@@ -456,9 +456,7 @@ class TestDavProtocol(HttpCase):
         collection_href = self._collection_href(self.calendar, "calendar")
         token = self._sync_token(collection_href)
 
-        untouched = self._report(
-            collection_href, self._sync_body(token)
-        )
+        untouched = self._report(collection_href, self._sync_body(token))
         self.assertEqual(len(untouched.xpath(".//D:response", namespaces=NS)), 0)
 
         added = self._event(name="Added Later")
@@ -472,9 +470,7 @@ class TestDavProtocol(HttpCase):
         # The deleted event must be reported by its original href with a 404 so
         # the client drops it rather than keeping a ghost.
         self.assertIn(self._uid_href(self.calendar, "calendar", removed_uid), hrefs)
-        statuses = list(
-            _hrefs_of(document, ".//D:response/D:status")
-        )
+        statuses = list(_hrefs_of(document, ".//D:response/D:status"))
         self.assertIn("HTTP/1.1 404 Not Found", statuses)
 
     def test_sync_collection_without_token_returns_everything(self):
@@ -552,7 +548,7 @@ class TestDavProtocol(HttpCase):
 
     def _auth(self, login=None, password=None, content_type=None):
         credentials = base64.b64encode(
-            f"{login or self.user.login}:{password or self.PASSWORD}".encode("utf-8")
+            f"{login or self.user.login}:{password or self.PASSWORD}".encode()
         ).decode("ascii")
         headers = {"Authorization": f"Basic {credentials}"}
         if content_type:
@@ -605,9 +601,7 @@ class TestDavProtocol(HttpCase):
         return self._hrefs()["principal"]
 
     def _collection_href(self, collection, dav_type):
-        return self._collection_href_by_slug(
-            collection, dav_type, collection.dav_slug
-        )
+        return self._collection_href_by_slug(collection, dav_type, collection.dav_slug)
 
     def _collection_href_by_slug(self, collection, dav_type, slug):
         # Mirrors the controller's URL_SEGMENTS mapping.

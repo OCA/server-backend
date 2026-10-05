@@ -49,7 +49,6 @@ def authenticate():
     if not auth_info:
         raise Unauthorized("invalid credentials")
 
-
     uid = _uid_of(auth_info)
     if not uid:
         raise Unauthorized("invalid credentials")
@@ -57,9 +56,7 @@ def authenticate():
     user = request.env(user=uid)["res.users"].browse(uid)
     reason = _second_factor_reason(user, auth_info)
     if reason:
-        _logger.warning(
-            "dav_server: refusing DAV login for %s: %s", login, reason
-        )
+        _logger.warning("dav_server: refusing DAV login for %s: %s", login, reason)
         raise Unauthorized(reason)
 
     request.update_env(user=uid)

@@ -74,7 +74,7 @@ class DavSyncChange(models.Model):
         """Return the change id encoded in ``token``, or None if unusable."""
         if not token or not token.startswith(TOKEN_PREFIX):
             return None
-        raw = token[len(TOKEN_PREFIX):]
+        raw = token[len(TOKEN_PREFIX) :]
         collection_id, _, change_id = raw.partition("-")
         if not change_id.isdigit() or not collection_id.isdigit():
             return None

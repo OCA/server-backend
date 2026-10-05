@@ -15,6 +15,7 @@ never populated from a device payload.
 import logging
 
 import vobject
+
 from odoo.tools import html2plaintext
 
 _logger = logging.getLogger(__name__)
@@ -84,9 +85,7 @@ def partner_to_vcard(partner):
 
     address = _postal_address(partner)
     if address:
-        _add_typed(
-            card, "adr", address, ADDRESS_TYPES.get(partner.type, ["OTHER"])
-        )
+        _add_typed(card, "adr", address, ADDRESS_TYPES.get(partner.type, ["OTHER"]))
 
     if partner.website:
         card.add("url").value = _normalise_url(partner.website)
@@ -234,9 +233,7 @@ def _full_name(card):
     if not structured:
         return ""
     parts = structured[0].value
-    joined = " ".join(
-        piece for piece in (parts.given, parts.family) if piece
-    ).strip()
+    joined = " ".join(piece for piece in (parts.given, parts.family) if piece).strip()
     return joined
 
 
@@ -247,7 +244,7 @@ def _single(card, name, upper=False):
     value = entries[0].value
     if value is None:
         return ""
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         value = " ".join(str(item) for item in value if item)
     text = str(value).strip()
     return text.upper() if upper else text
@@ -298,7 +295,7 @@ def _organisation(card):
     if not entries:
         return ""
     value = entries[0].value
-    if isinstance(value, (list, tuple)):
+    if isinstance(value, list | tuple):
         return str(value[0]).strip() if value else ""
     return str(value).strip()
 

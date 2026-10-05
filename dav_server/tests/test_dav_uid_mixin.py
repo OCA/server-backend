@@ -106,7 +106,7 @@ class TestDavUidMixin(TransactionCase):
 
     def test_sync_token_round_trip(self):
         changes = self.env["dav.sync.change"].sudo()
-        event = self._event()
+        self._event()
         token = changes.token_for(self.collection)
         change_id = changes.parse_token(self.collection, token)
         self.assertIsNotNone(change_id)
