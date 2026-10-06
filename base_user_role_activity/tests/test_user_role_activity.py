@@ -12,81 +12,16 @@ class TestActivityUpdateRoleReminder(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Multi-company dataset for manager selection tests
-        cls.company_a = cls.env["res.company"].create({"name": "Company A"})
-        cls.company_b = cls.env["res.company"].create({"name": "Company B"})
-
-        cls.manager_user_a = cls.env["res.users"].create(
-            {
-                "name": "Manager A",
-                "login": "manager_a_role_activity",
-                "company_id": cls.company_a.id,
-                "company_ids": [fields.Command.set([cls.company_a.id])],
-            }
-        )
-        cls.manager_user_b = cls.env["res.users"].create(
-            {
-                "name": "Manager B",
-                "login": "manager_b_role_activity",
-                "company_id": cls.company_b.id,
-                "company_ids": [fields.Command.set([cls.company_b.id])],
-            }
-        )
-
         cls.user = cls.env["res.users"].create(
             {
                 "name": "Employee User",
                 "login": "employee_user_role_activity",
-                "company_id": cls.company_a.id,
-                "company_ids": [
-                    fields.Command.set([cls.company_a.id, cls.company_b.id])
-                ],
             }
         )
         cls.partner = cls.user.partner_id
 
-        cls.manager_employee_a = cls.env["hr.employee"].create(
-            {
-                "name": "Manager Employee A",
-                "user_id": cls.manager_user_a.id,
-                "company_id": cls.company_a.id,
-            }
-        )
-        cls.manager_employee_b = cls.env["hr.employee"].create(
-            {
-                "name": "Manager Employee B",
-                "user_id": cls.manager_user_b.id,
-                "company_id": cls.company_b.id,
-            }
-        )
-
-        cls.employee_in_a = cls.env["hr.employee"].create(
-            {
-                "name": "Employee in A",
-                "user_id": cls.user.id,
-                "company_id": cls.company_a.id,
-                "parent_id": cls.manager_employee_a.id,
-            }
-        )
-        cls.employee_in_b = cls.env["hr.employee"].create(
-            {
-                "name": "Employee in B",
-                "user_id": cls.user.id,
-                "company_id": cls.company_b.id,
-                "parent_id": cls.manager_employee_b.id,
-            }
-        )
-
-        cls.role = cls.env["res.users.role"].create(
-            {
-                "name": "Test Role",
-            }
-        )
-        cls.role_2 = cls.env["res.users.role"].create(
-            {
-                "name": "Test Role 2",
-            }
-        )
+        cls.role = cls.env["res.users.role"].create({"name": "Test Role"})
+        cls.role_2 = cls.env["res.users.role"].create({"name": "Test Role 2"})
         cls.role_line_1 = cls.env["res.users.role.line"].create(
             {
                 "user_id": cls.user.id,
@@ -188,108 +123,20 @@ class TestActivityUpdateRoleReminder(TransactionCase):
         activities = user_2.partner_id.activity_search([ACTIVITY_XMLID])
         self.assertEqual(len(activities), 1)
 
-    def _get_activities(self):
-        return self.user.partner_id.activity_search([ACTIVITY_XMLID])
+    @freeze_time("2025-01-01")
+    def test_activity_is_self_assigned_by_default(self):
+        """The user is responsible for their own roles."""
+        self.user.activity_update_role_reminder()
+        activities = self.partner.activity_search([ACTIVITY_XMLID])
+        self.assertEqual(activities.user_id, self.user)
 
-    def _cleanup_activities(self):
-        self._get_activities().unlink()
-
-    # ------------------------------------------------------------------
-    # tests
-    # ------------------------------------------------------------------
-
-    @freeze_time("2025-01-15")
-    def test_manager_from_current_company_is_assigned(self):
-        """Activity user_id should be Manager A when env.company is Company A."""
-        self._cleanup_activities()
-        env_a = self.env(
-            context=dict(self.env.context, allowed_company_ids=[self.company_a.id])
-        )
-        env_a["res.users"].browse(self.user.id).activity_update_role_reminder()
-
-        activities = self._get_activities()
-        self.assertTrue(activities, "An activity should have been created")
-        self.assertEqual(
-            activities[0].user_id,
-            self.manager_user_a,
-            "Activity should be assigned to Manager A (current company)",
-        )
-
-    @freeze_time("2025-01-15")
-    def test_fallback_to_other_company_manager(self):
-        """When env.company has no matching employee, fall back to first found."""
-        self._cleanup_activities()
-        # Use a third company that user has no employee record in
-        company_c = self.env["res.company"].create({"name": "Company C (no employee)"})
-        env_c = self.env(
-            context=dict(self.env.context, allowed_company_ids=[company_c.id])
-        )
-        env_c["res.users"].browse(self.user.id).activity_update_role_reminder()
-
-        activities = self._get_activities()
-        self.assertTrue(activities, "An activity should have been created")
-        # Fallback: first employee found is in Company A (earlier creation order)
-        self.assertIn(
-            activities[0].user_id,
-            self.manager_user_a | self.manager_user_b,
-            "Activity should fall back to one of the existing managers",
-        )
-
-    @freeze_time("2025-01-15")
-    def test_preferred_company_b_manager_when_env_is_company_b(self):
-        """Activity user_id should be Manager B when env.company is Company B."""
-        self._cleanup_activities()
-        env_b = self.env(
-            context=dict(self.env.context, allowed_company_ids=[self.company_b.id])
-        )
-        env_b["res.users"].browse(self.user.id).activity_update_role_reminder()
-
-        activities = self._get_activities()
-        self.assertTrue(activities, "An activity should have been created")
-        self.assertEqual(
-            activities[0].user_id,
-            self.manager_user_b,
-            "Activity should be assigned to Manager B (current company)",
-        )
-
-    @freeze_time("2025-01-15")
-    def test_no_manager_falls_back_to_user(self):
-        # When user has no employee records with a parent, activity is self-assigned.
-        self._cleanup_activities()
-        # Create a user with no hr.employee record
-        standalone_user = self.env["res.users"].create(
-            {
-                "name": "Standalone User",
-                "login": "standalone_role_activity",
-                "company_id": self.company_a.id,
-                "company_ids": [fields.Command.set([self.company_a.id])],
-            }
-        )
-        role_line = self.env["res.users.role.line"].create(
-            {
-                "user_id": standalone_user.id,
-                "role_id": self.role.id,
-                "date_from": fields.Date.from_string("2024-01-01"),
-                "date_to": fields.Date.from_string("2025-02-01"),
-            }
-        )
-        try:
-            standalone_user.activity_update_role_reminder()
-            activities = standalone_user.partner_id.activity_search([ACTIVITY_XMLID])
-            self.assertTrue(activities, "An activity should have been created")
-            self.assertEqual(
-                activities[0].user_id,
-                standalone_user,
-                "Activity should be self-assigned when no manager exists",
-            )
-        finally:
-            role_line.unlink()
-            standalone_user.partner_id.activity_search([ACTIVITY_XMLID]).unlink()
+    def test_get_role_manager_default(self):
+        """The hook returns the user itself by default."""
+        self.assertEqual(self.user._get_role_manager(), self.user)
 
     @freeze_time("2025-01-01")
     def test_cron_role_reminder_creates_activity(self):
         """Cron path uses .search() instead of filtered_domain and creates reminder."""
-        self._cleanup_activities()
         self.env["res.users.role.line"].cron_role_reminder()
         activities = self.partner.activity_search([ACTIVITY_XMLID])
         self.assertTrue(activities)

@@ -11,7 +11,7 @@
     "license": "LGPL-3",
     "maintainers": ["CRogos"],
     "website": "https://github.com/OCA/server-backend",
-    "depends": ["base_user_role", "hr"],
+    "depends": ["base_user_role", "mail"],
     "data": [
         "data/ir_cron.xml",
         "data/mail_activity_type.xml",

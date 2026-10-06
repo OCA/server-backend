@@ -7,7 +7,12 @@ The activity is created `base_user_role_activity.reminder_days = 30` (days) befo
 
 
 # Activity
-When a user role is about to expire (default=30 days), an activity is created for the manager of a user (employee). When the user has no Manager, the activity is assigend to user. The activity is linked to the users res.partner entity.
+When a user role is about to expire (default=30 days), an activity is created
+for the user itself. The activity is linked to the user's res.partner entity.
+
+The responsible user is computed by the hook `res.users._get_role_manager()`.
+Install `hr_user_role_activity` (OCA/hr) to assign the activity to the
+manager of the related employee instead.
 
 ![activity](../static/description/activity.drawio.png)
 

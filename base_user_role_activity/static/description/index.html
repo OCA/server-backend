@@ -386,9 +386,12 @@ role assignment is adapted.</p>
 <div class="section" id="activity">
 <h2>Activity</h2>
 <p>When a user role is about to expire (default=30 days), an activity is
-created for the manager of a user (employee). When the user has no
-Manager, the activity is assigend to user. The activity is linked to the
-users res.partner entity.</p>
+created for the user itself. The activity is linked to the user’s
+res.partner entity.</p>
+<p>The responsible user is computed by the hook
+<tt class="docutils literal">res.users._get_role_manager()</tt>. Install <tt class="docutils literal">hr_user_role_activity</tt>
+(OCA/hr) to assign the activity to the manager of the related employee
+instead.</p>
 <img alt="activity" src="https://raw.githubusercontent.com/OCA/server-backend/19.0/base_user_role_activity/static/description/activity.drawio.png" />
 <p><strong>Table of contents</strong></p>
 </div>

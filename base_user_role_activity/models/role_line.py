@@ -14,7 +14,6 @@ class ResUsersRoleLine(models.Model):
 
         if "date_to" in vals:
             self.mapped("user_id").activity_update_role_reminder()
-            return
 
         return res
 

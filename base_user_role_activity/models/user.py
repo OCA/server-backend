@@ -6,6 +6,16 @@ from odoo import models
 class ResUsers(models.Model):
     _inherit = "res.users"
 
+    def _get_role_manager(self):
+        """Return the user responsible for the role expiration reminder.
+
+        By default users are responsible for their own roles. Glue modules can
+        override this hook, e.g. ``hr_user_role_activity`` (OCA/hr) delegates
+        the reminder to the manager of the related employee.
+        """
+        self.ensure_one()
+        return self
+
     def activity_update_role_reminder(self):
         activity_type_xmlid = "base_user_role_activity.mail_activity_role_expire"
         for user in self:
@@ -43,21 +53,10 @@ class ResUsers(models.Model):
             )
             activity_type = self.env["mail.activity.type"].browse(activity_type_id)
 
-            # receive manager independet of selected company
-            employees = (
-                self.env["hr.employee"]
-                .sudo()
-                .search([("user_id", "=", user.id), ("parent_id", "!=", False)])
-            )
-            manager = employees.filtered(
-                lambda e: e.company_id == self.env.company
-            ).parent_id
-            if not manager and employees:
-                manager = employees[0].parent_id
-
+            responsible = user._get_role_manager()
             user.partner_id.activity_schedule(
                 activity_type_id=activity_type_id,
-                date_deadline=min(expiring_lines.mapped("date_to")),
+                date_deadline=min_deadline,
                 note=activity_type.default_note
                 % {
                     "user": user._get_html_link(),
@@ -70,5 +69,5 @@ class ResUsers(models.Model):
                         )
                     ),
                 },
-                user_id=manager.user_id.id or user.id,
+                user_id=responsible.id,
             )
