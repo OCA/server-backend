@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="mail_activity_role_expire" model="mail.activity.type">
+        <field name="name">User Role Expires</field>
+        <field name="icon">fa-clock-o</field>
+        <field name="res_model">res.partner</field>
+        <field name="default_note" type="html">
+            <div>
+                A user role assignment for %%(user)s is about to expire.
+                <br />- %%(roles)s
+                <br /><br />
+                Please review and take the necessary action.
+            </div>
+        </field>
+    </record>
+</odoo>
