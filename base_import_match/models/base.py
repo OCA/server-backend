@@ -65,10 +65,14 @@ class Base(models.AbstractModel):
         # UI-selected match fields prevail; configured rules are only used when the
         # context key is absent (e.g. programmatic imports).
         ctx_match_only = self.env.context.get("import_match_only_fields")
-        # Subfield paths (e.g. one2many lines) cannot be used as match criteria.
-        match_only_fields = {
-            f for f in ctx_match_only or [] if "/" not in f and f in fields
-        }
+        # Subfield paths (e.g. one2many lines) cannot be used as match criteria,
+        # and an ID column identifies the records by itself (the UI hides the
+        # Match column then).
+        match_only_fields = set()
+        if not {"id", ".id"} & set(fields):
+            match_only_fields = {
+                f for f in ctx_match_only or [] if "/" not in f and f in fields
+            }
         has_rules = ctx_match_only is None and bool(
             self.env["base_import.match"]._usable_rules(self._name, fields)
         )
@@ -94,6 +98,9 @@ class Base(models.AbstractModel):
                 for values in data:
                     values.append("")
             id_index = fields.index("id")
+            # Conversion may name-create related records ("Create new values"),
+            # which must not outlive an import blocked by match errors.
+            savepoint = self.env.cr.savepoint()
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
             conversion_errors = defaultdict(list)
@@ -142,7 +149,9 @@ class Base(models.AbstractModel):
                 if match:
                     first_row[id_index] = match.get_external_id()[match.id]
             if match_errors:
+                savepoint.close(rollback=True)
                 return {"ids": False, "messages": match_errors, "nextrow": False}
+            savepoint.close(rollback=False)
             # Rebuild fields/data without match-only columns.
             if match_only_fields:
                 drop_set = {fields.index(f) for f in match_only_fields}

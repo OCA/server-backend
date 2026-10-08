@@ -305,6 +305,35 @@ class ImportCase(TransactionCase):
         self.assertFalse(result["ids"])
         self.assertEqual(result["name"][0], "New Name")
 
+    def test_match_only_blocked_rolls_back_created(self):
+        """A blocked import does not keep related records it name-created."""
+        self.env["res.partner"].create({"name": "Leak", "email": "leak@example.com"})
+        record = self._base_import_record(
+            "res.partner",
+            data="leak@example.com,Leak Co A\nnope@example.com,Leak Co B\n",
+        )
+        options = dict(
+            OPTIONS,
+            import_match_only_fields=["email"],
+            name_create_enabled_fields={"parent_id": True},
+        )
+        result = record.execute_import(["email", "parent_id"], [], options)
+        self.assertFalse(result["ids"])
+        self.assertFalse(self.env["res.partner"].search([("name", "like", "Leak Co")]))
+
+    def test_match_only_ignored_with_id_column(self):
+        """With an ID column, match-only fields are imported as usual."""
+        deco_addict = self.env.ref("base.res_partner_2")
+        record = self._base_import_record(
+            "res.partner",
+            data="base.res_partner_2,Deco Addict Renamed,new-deco@example.com\n",
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        result = record.execute_import(["id", "name", "email"], [], options)
+        self.assertFalse(result["messages"])
+        self.assertEqual(deco_addict.name, "Deco Addict Renamed")
+        self.assertEqual(deco_addict.email, "new-deco@example.com")
+
     def test_res_users_login(self):
         """Change name based on login."""
         record = self._base_import_record("res.users", "res_users_login")

@@ -11,17 +11,8 @@ patch(BaseImportModel.prototype, {
             this.matchFieldDefaults[name] = true;
         }
         super._onLoadSuccess(res);
-        const hasId = this.columns.some(
-            (c) => c.fieldInfo && ["id", ".id"].includes(c.fieldInfo.fieldPath)
-        );
         for (const column of this.columns) {
-            const fieldInfo = column.fieldInfo;
-            // Subfield columns (e.g. one2many lines) cannot be match criteria.
-            column.matchOnly =
-                !hasId &&
-                Boolean(fieldInfo) &&
-                !fieldInfo.fieldPath.includes("/") &&
-                Boolean(this.matchFieldDefaults[fieldInfo.name]);
+            column.matchOnly = this._isDefaultMatchOnly(column.fieldInfo);
         }
     },
 
@@ -32,13 +23,27 @@ patch(BaseImportModel.prototype, {
             for (const col of this.columns) {
                 col.matchOnly = false;
             }
-        } else if (fieldPath && fieldPath.includes("/")) {
-            column.matchOnly = false;
         } else {
-            column.matchOnly = Boolean(
-                this.matchFieldDefaults[fieldInfo && fieldInfo.name]
-            );
+            column.matchOnly = this._isDefaultMatchOnly(fieldInfo);
         }
+    },
+
+    get hasIdColumn() {
+        return this.columns.some(
+            (c) => c.fieldInfo && ["id", ".id"].includes(c.fieldInfo.fieldPath)
+        );
+    },
+
+    _isDefaultMatchOnly(fieldInfo) {
+        // Records are identified by ID when an ID column is mapped (the Match
+        // column is then hidden), and subfield columns (e.g. one2many lines)
+        // cannot be match criteria.
+        return (
+            !this.hasIdColumn &&
+            Boolean(fieldInfo) &&
+            !fieldInfo.fieldPath.includes("/") &&
+            Boolean(this.matchFieldDefaults[fieldInfo.name])
+        );
     },
 
     get formattedImportOptions() {
