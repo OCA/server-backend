@@ -258,6 +258,53 @@ class ImportCase(TransactionCase):
         self.assertEqual(count_after, count_before + 1)
         self.assertEqual(partner.name, original_name)
 
+    def test_match_only_subfield_ignored(self):
+        """A subfield path sent as match-only still imports its lines."""
+        parent = self.env["res.partner"].create({"name": "Subfield Parent"})
+        record = self._base_import_record(
+            "res.partner", data="Subfield Parent,Func,Child X\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["name", "child_ids/name"])
+        result = record.execute_import(
+            ["name", "function", "child_ids/name"], [], options
+        )
+        self.assertFalse(result["messages"])
+        self.assertEqual(parent.function, "Func")
+        self.assertEqual(parent.child_ids.mapped("name"), ["Child X"])
+
+    def test_match_only_conversion_error_blocks(self):
+        """A match value that fails conversion blocks the import."""
+        company = self.env["res.partner"].create(
+            {"name": "Real Co", "is_company": True}
+        )
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Contact",
+                "ref": "R-1",
+                "parent_id": company.id,
+                "function": "Original",
+            }
+        )
+        record = self._base_import_record("res.partner", data="R-1,Typo Co,Changed\n")
+        options = dict(OPTIONS, import_match_only_fields=["ref", "parent_id"])
+        result = record.execute_import(["ref", "parent_id", "function"], [], options)
+        self.assertFalse(result["ids"])
+        self.assertEqual(result["messages"][0]["field"], "parent_id")
+        self.assertEqual(partner.function, "Original")
+
+    def test_match_only_error_row_names(self):
+        """Column errors are labelled with the imported name, not another column."""
+        self.env["res.partner"].create(
+            {"name": "Label Partner", "email": "label@example.com"}
+        )
+        record = self._base_import_record(
+            "res.partner", data="label@example.com,New Name,bogus\n"
+        )
+        options = dict(OPTIONS, import_match_only_fields=["email"])
+        result = record.execute_import(["email", "name", "type"], [], options)
+        self.assertFalse(result["ids"])
+        self.assertEqual(result["name"][0], "New Name")
+
     def test_res_users_login(self):
         """Change name based on login."""
         record = self._base_import_record("res.users", "res_users_login")

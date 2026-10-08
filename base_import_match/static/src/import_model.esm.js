@@ -15,10 +15,13 @@ patch(BaseImportModel.prototype, {
             (c) => c.fieldInfo && ["id", ".id"].includes(c.fieldInfo.fieldPath)
         );
         for (const column of this.columns) {
-            const fieldName = column.fieldInfo && column.fieldInfo.name;
-            column.matchOnly = hasId
-                ? false
-                : Boolean(this.matchFieldDefaults[fieldName]);
+            const fieldInfo = column.fieldInfo;
+            // Subfield columns (e.g. one2many lines) cannot be match criteria.
+            column.matchOnly =
+                !hasId &&
+                Boolean(fieldInfo) &&
+                !fieldInfo.fieldPath.includes("/") &&
+                Boolean(this.matchFieldDefaults[fieldInfo.name]);
         }
     },
 

@@ -1,6 +1,8 @@
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2026 Quartile (https://www.quartile.co)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from collections import defaultdict
+
 from odoo import _, api, models
 
 
@@ -63,12 +65,17 @@ class Base(models.AbstractModel):
         # UI-selected match fields prevail; configured rules are only used when the
         # context key is absent (e.g. programmatic imports).
         ctx_match_only = self.env.context.get("import_match_only_fields")
-        match_only_fields = set(ctx_match_only or []) & set(fields)
+        # Subfield paths (e.g. one2many lines) cannot be used as match criteria.
+        match_only_fields = {
+            f for f in ctx_match_only or [] if "/" not in f and f in fields
+        }
         has_rules = ctx_match_only is None and bool(
             self.env["base_import.match"]._usable_rules(self._name, fields)
         )
         if match_only_fields or has_rules:
-            # Copy rows, as matched rows get their ID column patched in place.
+            # Copy fields and rows, as they get patched in place below. The
+            # caller keeps using its field list (e.g. to label column errors).
+            fields = list(fields)
             data = [list(row) for row in data]
             match_errors = []
             # Change .id (dbid) by id (xmlid)
@@ -89,8 +96,10 @@ class Base(models.AbstractModel):
             id_index = fields.index("id")
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
+            conversion_errors = defaultdict(list)
             converted_data = self._convert_records(
-                self._extract_records(import_fields, data)
+                self._extract_records(import_fields, data),
+                log=lambda error: conversion_errors[error["record"]].append(error),
             )
             # Needed to match with converted data field names
             clean_fields = [f[0] for f in import_fields]
@@ -107,6 +116,17 @@ class Base(models.AbstractModel):
                     # Find the xmlid for this dbid
                     match = self.browse(dbid)
                 elif match_only_fields:
+                    # A match value that fails conversion would be left out of
+                    # the criteria, matching on a looser key. Report it instead.
+                    failed = [
+                        error
+                        for error in conversion_errors[info["record"]]
+                        if error["type"] == "error"
+                        and error["field"] in match_only_fields
+                    ]
+                    if failed:
+                        match_errors.extend(failed)
+                        continue
                     # Match using user-selected fields from the UI
                     match, count = self._match_by_fields(match_only_fields, record, row)
                     if count != 1:
@@ -127,7 +147,7 @@ class Base(models.AbstractModel):
             if match_only_fields:
                 drop_set = {fields.index(f) for f in match_only_fields}
                 keep_indexes = [i for i in range(len(fields)) if i not in drop_set]
-                fields[:] = [fields[i] for i in keep_indexes]
+                fields = [fields[i] for i in keep_indexes]
                 data = [tuple(row[i] for i in keep_indexes) for row in data]
         # Normal method handles the rest of the job
         return super().load(fields, data)
