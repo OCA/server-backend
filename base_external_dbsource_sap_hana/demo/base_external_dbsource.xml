@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="base.external.dbsource" id="demo_sap_hana">
+        <field name="name">SAP Hana Demo</field>
+        <field name="conn_string">hana://username:password@example.de:30015</field>
+        <field name="password">password</field>
+        <field name="connector">sap_hana</field>
+    </record>
+</odoo>
