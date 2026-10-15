@@ -39,15 +39,15 @@ msgstr "%s (copia)"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<em>Any configuration changes made here will not be persistent.</em>"
 msgstr ""
-"<em>Qualsiasi modifica configurazione effettuata qui non sarà "
-"persistente.</em>"
+"<em>Qualsiasi modifica configurazione effettuata qui non sarà persistente.</"
+"em>"
 
 #. module: base_user_role
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "<strong>The access rights of this user are managed by roles.</strong>"
 msgstr ""
-"<strong>Le autorizzazioni di accesso di questo utente sono gestiti dai "
-"ruoli.</strong>"
+"<strong>Le autorizzazioni di accesso di questo utente sono gestiti dai ruoli."
+"</strong>"
 
 #. module: base_user_role
 #: model:ir.model.fields,field_description:base_user_role.field_res_users_role__model_access
@@ -401,6 +401,11 @@ msgstr "Viste"
 #: model_terms:ir.ui.view,arch_db:base_user_role.create_from_user_wizard_view
 msgid "or"
 msgstr "o"
+
+#. module: base_user_role
+#: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
+msgid "x"
+msgstr ""
 
 #~ msgid "Last Modified on"
 #~ msgstr "Ultima modifica il"
