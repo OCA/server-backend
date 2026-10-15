@@ -1,4 +1,5 @@
 # Copyright 2021 Open Source Integrators
+# Copyright 2026 Akretion
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from datetime import timedelta
 
@@ -11,6 +12,7 @@ class TestUserRoleCompany(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.company1 = cls.env.ref("base.main_company")
+        cls.company2 = cls.env["res.company"].create({"name": "company2"})
         # GROUPS for roles
         cls.groupA = cls.env.ref("base.group_user")
         cls.groupB = cls.env.ref("base.group_system")
@@ -19,13 +21,13 @@ class TestUserRoleCompany(TransactionCase):
         cls.roleA = cls.Role.create({"name": "Role internal user"})
         cls.roleA.implied_ids |= cls.groupA
         cls.roleB = cls.Role.create({"name": "Role system user"})
-        # USER with roles
         cls.roleB.implied_ids |= cls.groupB
+        # USER with roles
         cls.User = cls.env["res.users"]
         user_vals = {
             "name": "Role test user",
             "login": "role_test_user",
-            "company_ids": [(Command.set([cls.company1.id]))],
+            "company_ids": (cls.company1 | cls.company2).ids,
             "role_line_ids": [
                 (Command.create({"role_id": cls.roleA.id})),
                 (
@@ -43,7 +45,7 @@ class TestUserRoleCompany(TransactionCase):
     def test_110_enabled_role_is_used(self):
         # User should be in group A and B because date_to is in the future
         self.test_user.with_context(
-            active_company_ids=self.company1.ids
+            allowed_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA | self.groupB
         found = self.test_user.group_ids.filtered(lambda x: x in expected)
@@ -55,7 +57,7 @@ class TestUserRoleCompany(TransactionCase):
             lambda x: x.role_id == self.roleB
         ).date_to = fields.Date.today() - timedelta(days=1)
         self.test_user.with_context(
-            active_company_ids=self.company1.ids
+            allowed_company_ids=self.company1.ids
         ).set_groups_from_roles()
         expected = self.groupA
         found = self.test_user.group_ids.filtered(lambda x: x in expected)
