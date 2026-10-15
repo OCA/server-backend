@@ -87,6 +87,7 @@ class TestUserRoleCommon(BaseCommon):
         )
 
 
+@tagged("post_install", "-at_install")
 class TestUserRole(TestUserRoleCommon):
     def test_role_1(self):
         self.user_id.write(
