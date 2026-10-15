@@ -1,0 +1,149 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_user_effective_permissions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-11-25 18:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
+
+#. module: base_user_effective_permissions
+#: model_terms:ir.ui.view,arch_db:base_user_effective_permissions.view_users_form
+msgid "<span class=\"o_stat_text\">Effective permissions</span>"
+msgstr "<span class=\"o_stat_text\">Permessi effettivi</span>"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_permission
+msgid "Create"
+msgstr "Crea"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_domain_widget
+msgid "Create domain"
+msgstr "Crea dominio"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_domain
+msgid "Create restrictions"
+msgstr "Crea restrizioni"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_permission
+msgid "Delete"
+msgstr "Cancella"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_domain_widget
+msgid "Delete domain"
+msgstr "Cancella dominio"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__unlink_domain
+msgid "Delete restrictions"
+msgstr "Cancella restrizioni"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: base_user_effective_permissions
+#: model:ir.model,name:base_user_effective_permissions.model_res_users_effective_permission
+msgid "Effective permissions"
+msgstr "Permessi effettivi"
+
+#. module: base_user_effective_permissions
+#. odoo-python
+#: code:addons/base_user_effective_permissions/models/res_users.py:0
+#, python-format
+msgid "Effective permissions for %s"
+msgstr "Permessi effettivi per %s"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_human_name
+msgid "Human readable model name"
+msgstr "Nome modello leggibile"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_id
+msgid "Model"
+msgstr "Modello"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__model_name
+msgid "Model name"
+msgstr "Nome modello"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_permission
+msgid "Read"
+msgstr "Leggi"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_domain_widget
+msgid "Read domain"
+msgstr "Leggi dominio"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__read_domain
+msgid "Read restrictions"
+msgstr "Leggi restrizioni"
+
+#. module: base_user_effective_permissions
+#: model:ir.model,name:base_user_effective_permissions.model_res_users
+msgid "User"
+msgstr "Utente"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_permission
+msgid "Write"
+msgstr "Scrivi"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_domain_widget
+msgid "Write domain"
+msgstr "Scrivi dominio"
+
+#. module: base_user_effective_permissions
+#: model:ir.model.fields,field_description:base_user_effective_permissions.field_res_users_effective_permission__write_domain
+msgid "Write restrictions"
+msgstr "Scrivi restrizioni"
