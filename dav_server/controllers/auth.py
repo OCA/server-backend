@@ -150,9 +150,10 @@ def authenticate_with_bearer():
     # Extract the token
     api_key = auth_header.split("Bearer ", 1)[1].strip()
     
-    # Validate the API key using res.users.apikeys (same as sms_collector)
+    # Validate the API key using res.users.apikeys. DAV tokens are issued with
+    # the dedicated "dav" scope so they cannot be replayed against RPC.
     auth_info = request.env["res.users.apikeys"]._check_credentials(
-        scope="rpc", key=api_key
+        scope="dav", key=api_key
     )
     
     if not auth_info:
