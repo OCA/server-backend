@@ -1,0 +1,177 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_import_match
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-23 21:53+0000\n"
+"PO-Revision-Date: 2019-09-03 01:23+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
+"teams/23907/pt_BR/)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
+
+#. module: base_import_match
+#: model:ir.model,name:base_import_match.model_base
+msgid "Base"
+msgstr "Suporte"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__conditional
+msgid "Conditional"
+msgstr "Condicional"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__create_uid
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__create_uid
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__create_date
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__create_date
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: base_import_match
+#: model:ir.model,name:base_import_match.model_base_import_match
+msgid "Deduplicate settings prior to CSV imports."
+msgstr "Desduplicar as configurações antes das importações de CSV."
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__display_name
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__display_name
+msgid "Display Name"
+msgstr "Nome para Mostrar"
+
+#. module: base_import_match
+#: model:ir.model.fields,help:base_import_match.field_base_import_match_field__conditional
+msgid "Enable if you want to use this field only in some conditions."
+msgstr "Ative se você desejar usar este campo apenas em algumas condições."
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__field_id
+msgid "Field"
+msgstr "Campo"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__name
+msgid "Field Name"
+msgstr "Nome do Campo"
+
+#. module: base_import_match
+#: model:ir.model,name:base_import_match.model_base_import_match_field
+msgid "Field import match definition"
+msgstr "Definição de concordância de importância do campo"
+
+#. module: base_import_match
+#: model:ir.model.fields,help:base_import_match.field_base_import_match_field__field_id
+msgid "Field that will be part of an unique key."
+msgstr "Campo que formará parte de uma chave única."
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__field_ids
+msgid "Fields"
+msgstr "Campos"
+
+#. module: base_import_match
+#: model:ir.model.fields,help:base_import_match.field_base_import_match__field_ids
+msgid "Fields that will define an unique key."
+msgstr "Campos que definiram uma chave única."
+
+#. module: base_import_match
+#: model_terms:ir.ui.view,arch_db:base_import_match.match_search_view
+msgid "Group By"
+msgstr "Agrupado por"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__id
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__id
+msgid "ID"
+msgstr "Identificação"
+
+#. module: base_import_match
+#: model:ir.model.fields,help:base_import_match.field_base_import_match_field__imported_value
+msgid ""
+"If the imported value is not this, the whole matching rule will be "
+"discarded. Be careful, this data is always treated as a string, and "
+"comparison is case-sensitive so if you set 'True', it will NOT match '1' nor "
+"'true', only EXACTLY 'True'."
+msgstr ""
+"Se o valor não for importado, a regra de concordância será descartada. Tenga "
+"cuidado, que dados são considerados como cadena, e a comparação é sensível a "
+"todas as moléculas, por que você estabelece 'True', não concorda com '1' e "
+"'true'."
+
+#. module: base_import_match
+#: model:ir.actions.act_window,name:base_import_match.match_action
+#: model:ir.ui.menu,name:base_import_match.match_menu
+#: model_terms:ir.ui.view,arch_db:base_import_match.match_form_view
+#: model_terms:ir.ui.view,arch_db:base_import_match.match_search_view
+msgid "Import Match"
+msgstr "Coincidência de importação"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__imported_value
+msgid "Imported Value"
+msgstr "Valor Importado"
+
+#. module: base_import_match
+#: model:ir.model.fields,help:base_import_match.field_base_import_match__model_id
+#: model:ir.model.fields,help:base_import_match.field_base_import_match_field__model_id
+msgid "In this model you will apply the match."
+msgstr "Neste modelo, você aplicará a correspondência."
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match____last_update
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field____last_update
+msgid "Last Modified on"
+msgstr "Última atualização em"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__write_uid
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__write_uid
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__write_date
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__write_date
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__match_id
+msgid "Match"
+msgstr "Correspondência"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__model_id
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match_field__model_id
+#: model_terms:ir.ui.view,arch_db:base_import_match.match_search_view
+msgid "Model"
+msgstr "Modelo"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__model_name
+msgid "Model name"
+msgstr "Nome do Modelo"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: base_import_match
+#: model:ir.model.fields,field_description:base_import_match.field_base_import_match__sequence
+msgid "Sequence"
+msgstr "Sequência"
