@@ -45,7 +45,7 @@ def authenticate():
     if not login or not password:
         raise Unauthorized("no Basic credentials supplied")
 
-    auth_info = _login(login, password, request.httprequest.environ)
+    auth_info = _login(login, password, _user_agent_env())
     if not auth_info:
         raise Unauthorized("invalid credentials")
 
@@ -74,6 +74,29 @@ def _credentials():
         return None, None
     login, _, password = decoded.partition(":")
     return login, password
+
+
+def _user_agent_env():
+    """Return the wsgienv ``_login`` expects, mirroring ``Request._authenticate``.
+
+    Odoo's own login builds a small dict rather than passing the live WSGI
+    environ through:
+
+        {'interactive': True, 'base_location': ..., 'HTTP_HOST': ...,
+         'REMOTE_ADDR': ...}
+
+    Passing the raw environ instead breaks on a site with ``auth_oauth``
+    installed. ``auth_oauth`` overrides ``_check_credentials`` and reads
+    ``env['interactive']`` while handling the AccessDenied raised for a wrong
+    password; a bare WSGI environ has no such key, so it raises KeyError and
+    the client gets a 500 instead of the 401 the protocol requires.
+    """
+    return {
+        "interactive": True,
+        "base_location": request.httprequest.url_root.rstrip("/"),
+        "HTTP_HOST": request.httprequest.environ.get("HTTP_HOST", ""),
+        "REMOTE_ADDR": request.httprequest.environ.get("REMOTE_ADDR", ""),
+    }
 
 
 def _login(login, password, user_agent_env):

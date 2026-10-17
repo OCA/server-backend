@@ -91,6 +91,32 @@ class TestDavProtocol(HttpCase):
         )
         self.assertEqual(response.status_code, 401)
 
+    @mute_logger("dav_server")
+    @mute_logger("odoo.http")
+    @mute_logger("odoo.addons.auth_oauth.models.res_users")
+    def test_wrong_password_with_auth_oauth_installed(self):
+        """A wrong password must stay a 401 even with auth_oauth overriding.
+
+        auth_oauth overrides _check_credentials and reads env['interactive']
+        from the wsgienv it is handed. Passing a bare WSGI environ through
+        makes that lookup raise KeyError, which Odoo reports as a 500 -- so
+        DAVx5 and Thunderbird see a server error instead of an auth challenge
+        and cannot recover by re-prompting.
+        """
+        overridden = type(
+            self.env["res.users"]
+        )._check_credentials.__module__.startswith("odoo.addons.auth_oauth")
+        if not overridden:
+            self.skipTest("auth_oauth does not override _check_credentials")
+        response = self._dav_request(
+            "PROPFIND",
+            "/dav/",
+            data=PROPFIND_ALLPROP,
+            headers=self._auth(self.user.login, "not-the-password"),
+        )
+        self.assertEqual(response.status_code, 401)
+        self.assertIn("Basic", response.headers["WWW-Authenticate"])
+
     def test_options_advertises_dav_compliance(self):
         response = self._dav_request("OPTIONS", "/dav/")
         self.assertEqual(response.status_code, 200)
