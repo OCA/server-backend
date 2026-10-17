@@ -30,8 +30,10 @@ class TestDavBearerAuth(TransactionCase):
 
     def test_dav_scoped_key_validates_only_for_dav(self):
         user = self._make_user()
-        key = self.env["res.users.apikeys"].with_user(user)._generate(
-            "dav", "dav bearer test key"
+        key = (
+            self.env["res.users.apikeys"]
+            .with_user(user)
+            ._generate("dav", "dav bearer test key")
         )
         apikeys = self.env["res.users.apikeys"]
         self.assertEqual(
@@ -46,8 +48,10 @@ class TestDavBearerAuth(TransactionCase):
 
     def test_unscoped_key_validates_for_both_scopes(self):
         user = self._make_user()
-        key = self.env["res.users.apikeys"].with_user(user)._generate(
-            None, "unscoped test key"
+        key = (
+            self.env["res.users.apikeys"]
+            .with_user(user)
+            ._generate(None, "unscoped test key")
         )
         apikeys = self.env["res.users.apikeys"]
         self.assertEqual(
