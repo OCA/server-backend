@@ -137,8 +137,6 @@ def authenticate_with_bearer():
     
     Raises Unauthorized when the token is missing, invalid, or the user cannot use DAV.
     """
-    import re
-    
     auth_header = request.httprequest.headers.get("Authorization", "")
     if not auth_header:
         raise Unauthorized("no Bearer credentials supplied")
