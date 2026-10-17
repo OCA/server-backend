@@ -243,7 +243,7 @@ class DavController(http.Controller):
             login=unquote(login),
             slug=unquote(slug),
             resource=unquote(resource),
-            use_bearer_token=True
+            use_bearer_token=True,
         )
 
     @http.route(
@@ -261,17 +261,18 @@ class DavController(http.Controller):
             login=unquote(login),
             slug=unquote(slug),
             resource=unquote(resource),
-            use_bearer_token=True
+            use_bearer_token=True,
         )
 
-
-    def _handle(self, target, login=None, slug=None, resource=None, use_bearer_token=False):
+    def _handle(
+        self, target, login=None, slug=None, resource=None, use_bearer_token=False
+    ):
         method = request.httprequest.method.upper()
         if method == "OPTIONS":
             # Answered before authentication: clients probe capabilities
             # unauthenticated while discovering an account.
             return self._options()
-        
+
         # Try Bearer token authentication first if requested, otherwise Basic auth
         try:
             if use_bearer_token:
