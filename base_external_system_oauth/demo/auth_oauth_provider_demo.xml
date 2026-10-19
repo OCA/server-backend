@@ -4,7 +4,6 @@
     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 -->
 <odoo noupdate="1">
-
     <!-- Full url will be auth_endpoint/tenant_id/validation_endpoint. -->
     <record id="oauth_provider_demo" model="auth.oauth.provider">
         <field name="name">Demo oauth providerI</field>
@@ -17,5 +16,4 @@
         <field name="body">Log in to oauth token provider</field>
         <field name="enabled" eval="False" />
     </record>
-
 </odoo>

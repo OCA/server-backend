@@ -4,7 +4,6 @@
     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-
     <record id="external_system_oauth_demo" model="external.system">
         <field name="name">Example system access with oauth athorization</field>
         <field name="system_type">external.system.adapter.oauth</field>
@@ -13,5 +12,4 @@
         <field name="oauth_definition_id" ref="oauth_provider_demo" />
         <field name="company_ids" eval="[(5, 0), (4, ref('base.main_company'))]" />
     </record>
-
 </odoo>
