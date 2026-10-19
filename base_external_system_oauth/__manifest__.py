@@ -4,7 +4,7 @@
 {
     "name": "Base External System - oauth systems",
     "summary": "Connect to external systems through oauth authentication.",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Base",
     "website": "https://github.com/OCA/server-backend",
     "author": "Therp BV, Odoo Community Association (OCA)",

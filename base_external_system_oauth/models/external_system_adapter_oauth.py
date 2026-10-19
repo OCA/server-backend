@@ -108,7 +108,7 @@ class ExternalSystemAdapterOAuth(models.Model):
         self.ensure_one()
         token = self._fetch_bearer_token()
         req_headers = dict(headers or {})
-        req_headers["Authorization"] = "Bearer %s" % token
+        req_headers["Authorization"] = f"Bearer {token}"
 
         url = self._base_url()
         if endpoint:
