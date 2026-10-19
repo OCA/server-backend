@@ -1,7 +1,7 @@
 # Copyright 2026 Ross Golder
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-"""HTTP Basic authentication for DAV requests.
+"""HTTP Basic and Bearer token authentication for DAV requests.
 
 Every DAV route is declared ``auth="none"`` so that PROPFIND/REPORT/PUT reach
 the controller at all -- Odoo's session layer only understands GET and POST.
@@ -22,6 +22,7 @@ The calling convention of ``res.users._login`` has changed twice since 17.0:
 
 import base64
 import logging
+import re
 
 import odoo
 from odoo.exceptions import AccessDenied, AccessError
@@ -148,3 +149,52 @@ def _second_factor_reason(user, auth_info):
     if callable(mfa_url) and mfa_url():
         return "the account requires a second authentication factor"
     return None
+
+
+def authenticate_with_bearer():
+    """Authenticate a Bearer-token request and rebind request.env to that user.
+
+    This follows the same pattern as res.users.apikey authentication in sms_collector
+    and sms_device_setup_token. It validates the Bearer token against the
+    res.users.apikeys table and returns the authenticated user.
+
+    Raises Unauthorized when the token is missing, invalid, or the user cannot use DAV.
+    """
+    auth_header = request.httprequest.headers.get("Authorization", "")
+    if not auth_header:
+        raise Unauthorized("no Bearer credentials supplied")
+
+    # Check for Bearer token format
+    if not re.match(r"^(Bearer)\s+", auth_header, re.IGNORECASE):
+        raise Unauthorized("invalid Bearer credentials")
+
+    # Extract the token
+    api_key = auth_header.split("Bearer ", 1)[1].strip()
+
+    # Validate the API key using res.users.apikeys. DAV tokens are issued with
+    # the dedicated "dav" scope so they cannot be replayed against RPC.
+    auth_info = request.env["res.users.apikeys"]._check_credentials(
+        scope="dav", key=api_key
+    )
+
+    if not auth_info:
+        raise Unauthorized("invalid Bearer token")
+
+    uid = _uid_of(auth_info)
+    if not uid:
+        raise Unauthorized("invalid Bearer token")
+
+    # Check if user has DAV access
+    user = request.env(user=uid)["res.users"].browse(uid)
+    if not user.exists():
+        raise Unauthorized("invalid Bearer token")
+
+    reason = _second_factor_reason(user, auth_info)
+    if reason:
+        _logger.warning(
+            "dav_server: refusing Bearer DAV login for %s: %s", user.name, reason
+        )
+        raise Unauthorized(reason)
+
+    request.update_env(user=uid)
+    return user

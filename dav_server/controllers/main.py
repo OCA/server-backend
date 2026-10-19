@@ -221,14 +221,64 @@ class DavController(http.Controller):
     # ------------------------------------------------------------------
     # Dispatch
     # ------------------------------------------------------------------
-    def _handle(self, target, login=None, slug=None, resource=None):
+
+    # ------------------------------------------------------------------
+    # Bearer Token Authentication for File Uploads (DAV Collections)
+    # ------------------------------------------------------------------
+    # These routes support Bearer token authentication for external clients
+    # to upload files to DAV collections. This is used by external upload clients
+    # that authenticate using bearer tokens generated via dav.apikey module.
+    @http.route(
+        "/dav/upload/caldav/<string:login>/<string:slug>/<string:resource>",
+        type="http",
+        auth="none",
+        csrf=False,
+        readonly=False,
+        methods=["PUT", "GET", "HEAD", "OPTIONS"],
+    )
+    def dav_upload_calendar_resource(self, login, slug, resource, **kwargs):
+        """Calendar event upload with Bearer token authentication."""
+        return self._handle(
+            "calendar_resource",
+            login=unquote(login),
+            slug=unquote(slug),
+            resource=unquote(resource),
+            use_bearer_token=True,
+        )
+
+    @http.route(
+        "/dav/upload/carddav/<string:login>/<string:slug>/<string:resource>",
+        type="http",
+        auth="none",
+        csrf=False,
+        readonly=False,
+        methods=["PUT", "GET", "HEAD", "OPTIONS"],
+    )
+    def dav_upload_addressbook_resource(self, login, slug, resource, **kwargs):
+        """Address book entry upload with Bearer token authentication."""
+        return self._handle(
+            "addressbook_resource",
+            login=unquote(login),
+            slug=unquote(slug),
+            resource=unquote(resource),
+            use_bearer_token=True,
+        )
+
+    def _handle(
+        self, target, login=None, slug=None, resource=None, use_bearer_token=False
+    ):
         method = request.httprequest.method.upper()
         if method == "OPTIONS":
             # Answered before authentication: clients probe capabilities
             # unauthenticated while discovering an account.
             return self._options()
+
+        # Try Bearer token authentication first if requested, otherwise Basic auth
         try:
-            user = auth.authenticate()
+            if use_bearer_token:
+                user = auth.authenticate_with_bearer()
+            else:
+                user = auth.authenticate()
         except auth.Unauthorized as error:
             return self._unauthorized(error)
 
