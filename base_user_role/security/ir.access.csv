@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+access_res_users_role,access_res_users_role,res.users.role,base.group_erp_manager,crud,
+access_res_users_role_line,access_res_users_role_line,res.users.role.line,base.group_erp_manager,crud,
+access_wizard_create_role_from_user,access_wizard_create_role_from_user,wizard.create.role.from.user,base.group_erp_manager,crud,
+access_wizard_groups_into_role,access_wizard_groups_into_role,wizard.groups.into.role,base.group_erp_manager,crud,
+access_role_add_users_wizard,access_role_add_users_wizard,role.add.users.wizard,base.group_erp_manager,crud,
