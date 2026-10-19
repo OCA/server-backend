@@ -8,10 +8,10 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Configure http endpoints">
                     <field name="endpoint_ids" nolabel="1">
-                        <tree>
+                        <list>
                             <field name="name" />
                             <field name="endpoint" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

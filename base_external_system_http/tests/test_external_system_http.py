@@ -3,7 +3,7 @@
 
 from unittest.mock import patch
 
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 from ..models import external_system_adapter_http as http_mod
@@ -42,13 +42,10 @@ class TestExternalSystemHTTP(TransactionCase):
             self.env["external.system"]._get_system_types(),
         )
 
-    def test_interface(self):
-        self.assertTrue(self.system.interface)
-        self.assertEqual(
-            self.system.interface._name,
-            "external.system.adapter.http",
-        )
-        self.assertEqual(self.system.interface.system_id, self.system)
+    def test_adapter(self):
+        with self.system.client() as client:
+            self.assertEqual(client._name, "external.system.adapter.http")
+            self.assertEqual(client.system_id, self.system)
 
     def test_get_base_url_and__response(self):
         with patch.object(http_mod.requests, "get") as mock_get:
@@ -192,5 +189,9 @@ class TestExternalSystemHTTP(TransactionCase):
     def test_action_test_connection(self):
         with patch.object(http_mod.requests, "get") as mock_get:
             mock_get.return_value = _FakeResponse(status_code=200, text="ok")
-            with self.assertRaises(UserError):
+            self.assertTrue(self.system.action_test_connection())
+            mock_get.assert_called()
+        with patch.object(http_mod.requests, "get") as mock_get:
+            mock_get.return_value = _FakeResponse(status_code=500, text="boom")
+            with self.assertRaises(ValidationError):
                 self.system.action_test_connection()

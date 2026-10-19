@@ -7,41 +7,30 @@ import logging
 import requests
 from requests import exceptions as req_exc
 
-from odoo import _, models
+from odoo import _, api, models
 from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
 
-class ExternalSystemAdapterHTTP(models.Model):
+class ExternalSystemAdapterHTTP(models.AbstractModel):
     """HTTP external system adapter."""
 
     _name = "external.system.adapter.http"
     _inherit = "external.system.adapter"
     _description = "External System HTTP"
 
+    @api.model
     def external_get_client(self):
-        self.ensure_one()
         return self
 
+    @api.model
     def external_destroy_client(self, client):
-        self.ensure_one()
-        return super().external_destroy_client(client)
+        return None
 
-    def external_test_connection(self):
-        """Test connection in the UI by doing a GET on the base URL."""
-        self.ensure_one()
-        try:
-            self.get(endpoint=None)
-        except ValidationError:
-            raise
-        except Exception as exc:
-            raise ValidationError(_("Connection failed.\n\nDETAIL: %s") % exc) from exc
-        return super().external_test_connection()
-
+    @api.model
     def get(self, endpoint=None, params=None, timeout=16, **kwargs):
         """GET helper."""
-        self.ensure_one()
         url = self._get_url(endpoint=endpoint)
         _logger.debug("Will GET %s", url)
         try:
@@ -54,9 +43,9 @@ class ExternalSystemAdapterHTTP(models.Model):
             ) from exc
         return self._return_checked_response(endpoint, response)
 
+    @api.model
     def post(self, endpoint=None, data=None, json=None, timeout=16, **kwargs):
         """POST helper."""
-        self.ensure_one()
         url = self._get_url(endpoint=endpoint)
         _logger.debug("Will POST %s", url)
         try:
@@ -71,9 +60,9 @@ class ExternalSystemAdapterHTTP(models.Model):
             ) from exc
         return self._return_checked_response(endpoint, response)
 
+    @api.model
     def put(self, endpoint=None, data=None, json=None, timeout=16, **kwargs):
         """PUT helper."""
-        self.ensure_one()
         url = self._get_url(endpoint=endpoint)
         _logger.debug("Will PUT %s", url)
         try:
@@ -88,9 +77,9 @@ class ExternalSystemAdapterHTTP(models.Model):
             ) from exc
         return self._return_checked_response(endpoint, response)
 
+    @api.model
     def delete(self, endpoint=None, params=None, timeout=16, **kwargs):
         """DELETE helper."""
-        self.ensure_one()
         url = self._get_url(endpoint=endpoint)
         _logger.debug("Will DELETE %s", url)
         try:
@@ -105,7 +94,6 @@ class ExternalSystemAdapterHTTP(models.Model):
 
     def _get_url(self, endpoint=None, url_suffix=None):
         """Build full URL for an endpoint"""
-        self.ensure_one()
         system = self.system_id
         endpoint_record = None
         if endpoint:
@@ -134,7 +122,8 @@ class ExternalSystemAdapterHTTP(models.Model):
         if response.status_code >= 400:
             text = response.text or ""
             _logger.error(
-                "Got response with statuscode %(status)s from endpoint %(endpoint)s: %(text)s",
+                "Got response with statuscode %(status)s from endpoint "
+                "%(endpoint)s: %(text)s",
                 {
                     "status": str(response.status_code),
                     "endpoint": endpoint or "<base>",
