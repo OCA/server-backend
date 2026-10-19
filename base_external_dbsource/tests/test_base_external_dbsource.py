@@ -3,7 +3,7 @@
 from contextlib import contextmanager
 from unittest import mock
 
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.sql_db import connection_info_for
 from odoo.tests import common
 
@@ -81,7 +81,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should call the adapter methods with proper args"""
         expect = ("query", "execute", "metadata")
         return_value = "rows", "cols"
-        res, adapter = self._test_adapter_method(
+        _res, adapter = self._test_adapter_method(
             "execute", args=expect, return_value=return_value
         )
         adapter.assert_called_once_with(*expect)
@@ -90,7 +90,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should return rows if not metadata"""
         expect = (True, True, False)
         return_value = "rows", "cols"
-        res, adapter = self._test_adapter_method(
+        res, _adapter = self._test_adapter_method(
             "execute", args=expect, return_value=return_value
         )
         self.assertEqual(res, return_value[0])
@@ -99,7 +99,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         """It should return rows and cols if metadata"""
         expect = (True, True, True)
         return_value = "rows", "cols"
-        res, adapter = self._test_adapter_method(
+        res, _adapter = self._test_adapter_method(
             "execute", args=expect, return_value=return_value
         )
         self.assertEqual(res, {"rows": return_value[0], "cols": return_value[1]})
@@ -121,7 +121,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         kwargs = {"kwargs": True}
         self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
-            res, adapter = self._test_adapter_method(
+            self._test_adapter_method(
                 "remote_browse", create=True, args=args, kwargs=kwargs
             )
 
@@ -142,7 +142,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         kwargs = {"kwargs": True}
         self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
-            res, adapter = self._test_adapter_method(
+            self._test_adapter_method(
                 "remote_create", create=True, args=args, kwargs=kwargs
             )
 
@@ -163,7 +163,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         kwargs = {"kwargs": True}
         self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
-            res, adapter = self._test_adapter_method(
+            self._test_adapter_method(
                 "remote_delete", create=True, args=args, kwargs=kwargs
             )
 
@@ -184,7 +184,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         kwargs = {"kwargs": True}
         self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
-            res, adapter = self._test_adapter_method(
+            self._test_adapter_method(
                 "remote_search", create=True, args=args, kwargs=kwargs
             )
 
@@ -205,7 +205,7 @@ class TestBaseExternalDbsource(common.TransactionCase):
         kwargs = {"kwargs": True}
         self.dbsource._current_table_by_id.pop(self.dbsource.id, None)
         with self.assertRaises(AssertionError):
-            res, adapter = self._test_adapter_method(
+            self._test_adapter_method(
                 "remote_update", create=True, args=args, kwargs=kwargs
             )
 
@@ -271,11 +271,13 @@ class TestBaseExternalDbsource(common.TransactionCase):
         def _connection_open_ok(self):
             yield mock.Mock()
 
-        with mock.patch.object(
-            type(self.dbsource), "connection_open", _connection_open_ok
+        with (
+            mock.patch.object(
+                type(self.dbsource), "connection_open", _connection_open_ok
+            ),
+            self.assertRaises(ValidationError) as ctx,
         ):
-            with self.assertRaises(ValidationError) as ctx:
-                self.dbsource.connection_test()
+            self.dbsource.connection_test()
         self.assertIn("Connection test succeeded", str(ctx.exception))
 
     def test_connection_test_failure(self):
@@ -285,11 +287,13 @@ class TestBaseExternalDbsource(common.TransactionCase):
         def _connection_open_fail(self):
             raise ConnectionError("connection refused")
 
-        with mock.patch.object(
-            type(self.dbsource), "connection_open", _connection_open_fail
+        with (
+            mock.patch.object(
+                type(self.dbsource), "connection_open", _connection_open_fail
+            ),
+            self.assertRaises(ValidationError) as ctx,
         ):
-            with self.assertRaises(ValidationError) as ctx:
-                self.dbsource.connection_test()
+            self.dbsource.connection_test()
         self.assertIn("Connection test failed", str(ctx.exception))
         self.assertIn("connection refused", str(ctx.exception))
 
@@ -315,3 +319,112 @@ class TestBaseExternalDbsource(common.TransactionCase):
             with self.dbsource.connection_open():
                 pass
             close_mock.assert_called_once_with(mock_connection)
+
+    def test_conn_string_compute_preserves_source(self):
+        self.dbsource.conn_string = "User=Derp;"
+        self.dbsource.password = "password"
+        self.assertEqual(self.dbsource.conn_string_full, "User=Derp;PWD=password;")
+        self.assertEqual(self.dbsource.conn_string, "User=Derp;")
+        self.dbsource.password = "replacement"
+        self.assertEqual(self.dbsource.conn_string_full, "User=Derp;PWD=replacement;")
+        self.assertEqual(self.dbsource.conn_string, "User=Derp;")
+
+    def test_conn_string_empty_with_password(self):
+        self.dbsource.conn_string = False
+        self.dbsource.password = "password"
+        self.assertEqual(self.dbsource.conn_string_full, "PWD=password;")
+        self.assertFalse(self.dbsource.conn_string)
+
+    def test_connection_open_failure_does_not_close(self):
+        with (
+            mock.patch.object(
+                type(self.dbsource),
+                "connection_open_postgresql",
+                side_effect=ConnectionError("connection refused"),
+            ),
+            mock.patch.object(type(self.dbsource), "connection_close") as close,
+        ):
+            with (
+                self.assertRaisesRegex(ConnectionError, "connection refused"),
+                self.dbsource.connection_open(),
+            ):
+                self.fail("Connection unexpectedly opened")
+            close.assert_not_called()
+
+    def test_connection_closes_on_query_failure(self):
+        connection = mock.Mock()
+        with (
+            mock.patch.object(
+                type(self.dbsource),
+                "connection_open_postgresql",
+                return_value=connection,
+            ),
+            self.assertRaisesRegex(ValueError, "query failed"),
+            self.dbsource.connection_open(),
+        ):
+            raise ValueError("query failed")
+        connection.close.assert_called_once_with()
+
+    def test_execute_postgresql_integration(self):
+        self.dbsource.conn_string += " connect_timeout=5"
+        self.assertEqual(
+            self.dbsource.execute("SELECT %s::integer AS value", (42,)), [(42,)]
+        )
+        self.assertEqual(
+            self.dbsource.execute(
+                "SELECT %(value)s::integer AS value",
+                {"value": 7},
+                metadata=True,
+            ),
+            {"rows": [(7,)], "cols": ["value"]},
+        )
+
+    def test_internal_user_cannot_access_sources(self):
+        user = common.new_test_user(self.env, login="dbsource_internal")
+        with self.assertRaises(AccessError):
+            self.dbsource.with_user(user).read(["password"])
+
+    def test_administrator_multicompany_access(self):
+        company = self.env.company
+        other_company = self.env["res.company"].create({"name": "Other DB company"})
+        user = common.new_test_user(
+            self.env,
+            login="dbsource_admin",
+            groups="base.group_system",
+            company_id=company.id,
+            company_ids=[(6, 0, [company.id, other_company.id])],
+        )
+        sources = self.env["base.external.dbsource"].create(
+            [
+                {"name": "Own", "connector": "postgresql", "company_id": company.id},
+                {
+                    "name": "Other",
+                    "connector": "postgresql",
+                    "company_id": other_company.id,
+                },
+                {"name": "Shared", "connector": "postgresql", "company_id": False},
+            ]
+        )
+        allowed = sources.with_user(user).with_context(allowed_company_ids=[company.id])
+        self.assertEqual(
+            set(allowed.search([("id", "in", sources.ids)]).ids),
+            {sources[0].id, sources[2].id},
+        )
+        with self.assertRaises(AccessError):
+            allowed[1].read(["name"])
+        with self.assertRaises(AccessError):
+            allowed[1].write({"name": "Forbidden"})
+        with self.assertRaises(AccessError):
+            allowed[1].unlink()
+        with self.assertRaises(AccessError), self.cr.savepoint():
+            allowed.create(
+                {
+                    "name": "Forbidden",
+                    "connector": "postgresql",
+                    "company_id": other_company.id,
+                }
+            )
+        both = allowed.with_context(allowed_company_ids=[company.id, other_company.id])
+        self.assertEqual(
+            set(both.search([("id", "in", sources.ids)]).ids), set(sources.ids)
+        )

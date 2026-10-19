@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- DBSource -->
-    <record model="ir.ui.view" id="view_dbsource_tree">
+    <record id="view_dbsource_tree" model="ir.ui.view">
         <field name="name">base.external.dbsource.list</field>
         <field name="model">base.external.dbsource</field>
         <field name="type">list</field>
@@ -13,7 +13,7 @@
             </list>
         </field>
     </record>
-    <record model="ir.ui.view" id="view_dbsource_form">
+    <record id="view_dbsource_form" model="ir.ui.view">
         <field name="name">base.external.dbsource.form</field>
         <field name="model">base.external.dbsource</field>
         <field name="arch" type="xml">
@@ -53,15 +53,15 @@
             </form>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_dbsource">
+    <record id="action_dbsource" model="ir.actions.act_window">
         <field name="name">External Database Sources</field>
         <field name="res_model">base.external.dbsource</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_dbsource_tree" />
     </record>
     <menuitem
-        name="Database Sources"
         id="menu_dbsource"
+        name="Database Sources"
         parent="base.next_id_9"
         action="action_dbsource"
     />

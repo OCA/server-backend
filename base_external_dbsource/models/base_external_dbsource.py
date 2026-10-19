@@ -4,6 +4,7 @@
 
 import logging
 from contextlib import contextmanager
+from typing import ClassVar
 
 import psycopg2
 
@@ -34,7 +35,7 @@ class BaseExternalDbsource(models.Model):
     _name = "base.external.dbsource"
     _description = "External Database Sources"
 
-    CONNECTORS = [("postgresql", "PostgreSQL")]
+    CONNECTORS: ClassVar[list[tuple[str, str]]] = [("postgresql", "PostgreSQL")]
     # This is appended to the conn string if pass declared but not detected.
     # Children should declare PWD_STRING_CONNECTOR (such as PWD_STRING_FBD)
     #   to allow for override.
@@ -59,7 +60,6 @@ class BaseExternalDbsource(models.Model):
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         default=lambda self: self.env.user.company_id,
     )
     conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")
@@ -73,7 +73,7 @@ class BaseExternalDbsource(models.Model):
         help="If a connector is missing from the list, check the server "
         "log to confirm that the required components were detected.",
     )
-    _current_table_by_id = {}
+    _current_table_by_id: ClassVar[dict[int, str]] = {}
 
     def change_table(self, name):
         """Change the table that is used for CRUD operations"""
@@ -85,18 +85,19 @@ class BaseExternalDbsource(models.Model):
         self.ensure_one()
         return self._current_table_by_id.get(self.id)
 
-    @api.depends("conn_string", "password")
+    @api.depends("conn_string", "password", "connector")
     def _compute_conn_string_full(self):
         for record in self:
+            conn_string = record.conn_string or ""
             if record.password:
-                if "%s" not in record.conn_string:
+                if "%s" not in conn_string:
                     pwd_string = getattr(
                         record,
                         f"PWD_STRING_{record.connector.upper()}",
                         record.PWD_STRING,
                     )
-                    record.conn_string += pwd_string
-                record.conn_string_full = record.conn_string % record.password
+                    conn_string += pwd_string
+                record.conn_string_full = conn_string % record.password
             else:
                 record.conn_string_full = record.conn_string
 
@@ -121,8 +122,8 @@ class BaseExternalDbsource(models.Model):
         """
 
         method = self._get_adapter_method("connection_open")
+        connection = method()
         try:
-            connection = method()
             yield connection
         finally:
             try:

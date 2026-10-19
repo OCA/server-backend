@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-    <record model="base.external.dbsource" id="demo_postgre">
+    <record id="demo_postgre" model="base.external.dbsource">
         <field name="name">PostgreSQL local</field>
         <field name="conn_string">dbname='postgres' password=%s</field>
         <field name="password">postgresql</field>
