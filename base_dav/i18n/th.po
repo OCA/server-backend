@@ -1,0 +1,164 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_dav
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: base_dav
+#: model:ir.model,name:base_dav.model_dav_collection
+msgid "A collection accessible via WebDAV"
+msgstr "คอลเลกชันที่เข้าถึงได้ผ่าน WebDAV"
+
+#. module: base_dav
+#: model:ir.model,name:base_dav.model_dav_collection_field_mapping
+msgid "A field mapping for a WebDAV collection"
+msgstr "การแมปฟิลด์สำหรับคอลเลกชัน WebDAV"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__name
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__dav_type
+msgid "Type"
+msgstr "ประเภท"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__model_id
+msgid "Model"
+msgstr "โมเดล"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__domain
+msgid "Domain"
+msgstr "โดเมน"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__rights
+msgid "Rights"
+msgstr "สิทธิ์"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection__url
+msgid "URL"
+msgstr "URL"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,dav_type:calendar
+msgid "Calendar"
+msgstr "ปฏิทิน"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,dav_type:addressbook
+msgid "Addressbook"
+msgstr "สมุดที่อยู่"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,dav_type:files
+msgid "Files"
+msgstr "ไฟล์"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,rights:owner_only
+msgid "Owner Only"
+msgstr "เฉพาะเจ้าของ"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,rights:owner_write_only
+msgid "Owner Write Only"
+msgstr "เฉพาะเจ้าของเขียนได้"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection,rights:authenticated
+msgid "Authenticated"
+msgstr "ผ่านการยืนยัน"
+
+#. module: base_dav
+#: model:ir.actions.act_window,name:base_dav.action_dav_collection
+msgid "WebDAV collections"
+msgstr "คอลเลกชัน WebDAV"
+
+#. module: base_dav
+#: model:ir.ui.menu,name:base_dav.menu_dav_collection
+msgid "WebDAV Collections"
+msgstr "คอลเลกชัน WebDAV"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection_field_mapping__name
+msgid "Attribute name"
+msgstr "ชื่อแอตทริบิวต์"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection_field_mapping__field_id
+msgid "Field"
+msgstr "ฟิลด์"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection_field_mapping__mapping_type
+msgid "Mapping type"
+msgstr "ประเภทการแมป"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection_field_mapping__import_code
+msgid "Import code"
+msgstr "โค้ดนำเข้า"
+
+#. module: base_dav
+#: model:ir.model.fields,field_description:base_dav.field_dav_collection_field_mapping__export_code
+msgid "Export code"
+msgstr "โค้ดส่งออก"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection_field_mapping,mapping_type:simple
+msgid "Simple"
+msgstr "แบบง่าย"
+
+#. module: base_dav
+#: model:ir.model.fields.selection,selection:base_dav,field_dav_collection_field_mapping,mapping_type:code
+msgid "Code"
+msgstr "โค้ด"
+
+#. module: base_dav
+#: model:res.groups,name:base_dav.group_dav_admin
+msgid "WebDAV Administrator"
+msgstr "ผู้ดูแล WebDAV"
+
+#. module: base_dav
+#: model:ir.model.fields,help:base_dav.field_dav_collection_field_mapping__name
+msgid "Attribute name in the vobject"
+msgstr "ชื่อแอตทริบิวต์ใน vobject"
+
+#. module: base_dav
+#: model:ir.model.fields,help:base_dav.field_dav_collection_field_mapping__field_id
+msgid "Field of the model the values are mapped to"
+msgstr "ฟิลด์ของโมเดลที่ค่าถูกแมปไป"
+
+#. module: base_dav
+#: model:ir.model.fields,help:base_dav.field_dav_collection_field_mapping__import_code
+msgid "Code to import the value from a vobject. Use the variable result for the output of the value and item as input"
+msgstr "โค้ดสำหรับนำเข้าค่าจาก vobject ใช้ตัวแปร result สำหรับผลลัพธ์และ item เป็นอินพุต"
+
+#. module: base_dav
+#: model:ir.model.fields,help:base_dav.field_dav_collection_field_mapping__export_code
+msgid "Code to export the value to a vobject. Use the variable result for the output of the value and record as input"
+msgstr "โค้ดสำหรับส่งออกค่าไปยัง vobject ใช้ตัวแปร result สำหรับผลลัพธ์และ record เป็นอินพุต"
+
+#. module: base_dav
+msgid "Access"
+msgstr "การเข้าถึง"
+
+#. module: base_dav
+msgid "Additional field mapping"
+msgstr "การแมปฟิลด์เพิ่มเติม"

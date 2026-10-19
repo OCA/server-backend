@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Views used to be defined here as well as in ../views/dav_collection.xml,
+        which broke in two ways:
+
+        - The records in this file are loaded after ../views/, so
+          view_dav_collection_form was overwritten with a stale arch that had no
+          rights, field_uuid or field_mapping_ids field. Any module inheriting
+          from the form then failed to load with
+          "Element '<xpath expr=\"//field[@name='rights']'>' cannot be located
+          in parent view".
+        - dav_collection_user_form and dav_collection_user_tree used the `groups`
+          field, renamed to `groups_id` in Odoo 15. That raised a ParseError
+          part-way through this file, so Odoo discarded the whole demo data set
+          ("Module base_dav demo data failed to install").
+
+        Only demo data belongs here; the views live in ../views/dav_collection.xml.
+    -->
+
+    <record id="collection_calendar" model="dav.collection">
+        <field name="name">Calendar</field>
+        <field name="dav_type">calendar</field>
+        <field name="model_id" ref="calendar.model_calendar_event" />
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="field_mapping_calendar_summary" model="dav.collection.field_mapping">
+        <field name="name">Summary</field>
+        <field name="field_id" ref="calendar.field_calendar_event__name" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record
+        id="field_mapping_calendar_description"
+        model="dav.collection.field_mapping"
+    >
+        <field name="name">Description</field>
+        <field name="field_id" ref="calendar.field_calendar_event__description" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_start" model="dav.collection.field_mapping">
+        <field name="name">Start</field>
+        <field name="field_id" ref="calendar.field_calendar_event__start_date" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_stop" model="dav.collection.field_mapping">
+        <field name="name">End</field>
+        <field name="field_id" ref="calendar.field_calendar_event__stop_date" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <record id="field_mapping_calendar_location" model="dav.collection.field_mapping">
+        <field name="name">Location</field>
+        <field name="field_id" ref="calendar.field_calendar_event__location" />
+        <field name="collection_id" ref="collection_calendar" />
+    </record>
+
+    <!--
+        field_mapping_calendar_uid used to be defined here, referring to
+        calendar.field_calendar_event__uid. No such field exists in Odoo 17, so
+        loading this record raised a ParseError which made Odoo discard the
+        whole demo data set for this module. calendar.event has had no `uid`
+        column for many versions.
+    -->
+
+</odoo>
