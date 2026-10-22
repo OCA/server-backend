@@ -325,6 +325,35 @@ class TestUserRoleMail(TestUserRoleCommon):
         )
         self.assertIn(notification_group, self.user_id.groups_id)
 
+    def test_notification_type_not_forced(self):
+        """Test that a role implying the inbox group does not force it.
+
+        The notification type is a preference of the user, not of their roles:
+        picking "Handle by Emails" removes the group, and the sync used to hand
+        it straight back within the same write, so the stored value computed
+        from it went back to ``inbox`` and the choice could not be made at all.
+        """
+        if self.env["ir.module.module"]._get("mail").state != "installed":
+            self.skipTest("Mail module is not installed.")
+        notification_group = self.env.ref("mail.group_mail_notification_type_inbox")
+        role = self.role_model.create(
+            {
+                "name": "ROLE_INBOX",
+                "implied_ids": [
+                    Command.set([self.group_user_id.id, notification_group.id])
+                ],
+            }
+        )
+        self.user_id.write({"role_line_ids": [Command.create({"role_id": role.id})]})
+        self.user_id.write({"notification_type": "inbox"})
+        self.assertEqual(self.user_id.notification_type, "inbox")
+
+        self.user_id.write({"notification_type": "email"})
+        self.assertEqual(self.user_id.notification_type, "email")
+
+        self.user_id.write({"name": "USER TEST (ROLES) renamed"})
+        self.assertEqual(self.user_id.notification_type, "email")
+
     def test_notification_type_reset(self):
         """When user is demoted to share user, update notification settings.
 
