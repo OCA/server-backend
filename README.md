@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [base_external_dbsource_mysql](base_external_dbsource_mysql/) | 16.0.1.0.0 |  | External Database Source - MySQL
 [base_external_dbsource_sqlite](base_external_dbsource_sqlite/) | 16.0.1.0.2 | <a href='https://github.com/anddago78'><img src='https://github.com/anddago78.png' width='32' height='32' style='border-radius:50%;' alt='anddago78'/></a> | External Database Source - SQLite
 [base_external_system](base_external_system/) | 16.0.1.0.0 |  | Data models allowing for connection to external systems.
+[base_external_system_http](base_external_system_http/) | 16.0.1.1.0 | <a href='https://github.com/NL66278'><img src='https://github.com/NL66278.png' width='32' height='32' style='border-radius:50%;' alt='NL66278'/></a> <a href='https://github.com/ntsirintanis'><img src='https://github.com/ntsirintanis.png' width='32' height='32' style='border-radius:50%;' alt='ntsirintanis'/></a> | HTTP Connector for External Systems
 [base_external_system_odoorpc](base_external_system_odoorpc/) | 16.0.1.0.0 |  | Connect to a remote Odoo instance via the odoorpc library.
 [base_global_discount](base_global_discount/) | 16.0.1.1.0 |  | Base Global Discount
 [base_group_backend](base_group_backend/) | 16.0.1.2.0 | <a href='https://github.com/FranzPoize'><img src='https://github.com/FranzPoize.png' width='32' height='32' style='border-radius:50%;' alt='FranzPoize'/></a> <a href='https://github.com/bealdav'><img src='https://github.com/bealdav.png' width='32' height='32' style='border-radius:50%;' alt='bealdav'/></a> | Group backend

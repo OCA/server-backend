@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo-addon-base_external_dbsource_mysql>=16.0dev,<16.1dev',
         'odoo-addon-base_external_dbsource_sqlite>=16.0dev,<16.1dev',
         'odoo-addon-base_external_system>=16.0dev,<16.1dev',
+        'odoo-addon-base_external_system_http>=16.0dev,<16.1dev',
         'odoo-addon-base_external_system_odoorpc>=16.0dev,<16.1dev',
         'odoo-addon-base_global_discount>=16.0dev,<16.1dev',
         'odoo-addon-base_group_backend>=16.0dev,<16.1dev',
