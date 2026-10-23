@@ -21,6 +21,7 @@ msgstr ""
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system__is_ssl
+#: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_adapter_http__is_ssl
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__is_ssl
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_os__is_ssl
 msgid "Change protocol if SSL"
@@ -76,6 +77,7 @@ msgstr ""
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system__db_name
+#: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_adapter_http__db_name
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__db_name
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_os__db_name
 msgid "Database"
@@ -84,6 +86,16 @@ msgstr ""
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: base_external_system_odoorpc
+#: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__endpoint_ids
+msgid "Endpoints"
+msgstr ""
+
+#. module: base_external_system_odoorpc
+#: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__endpoint_ids
+msgid "Endpoints on remote system"
 msgstr ""
 
 #. module: base_external_system_odoorpc
@@ -118,6 +130,7 @@ msgstr ""
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system__db_name
+#: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_adapter_http__db_name
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__db_name
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_os__db_name
 msgid "Input database name"
@@ -180,6 +193,7 @@ msgstr ""
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system__is_ssl
+#: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_adapter_http__is_ssl
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__is_ssl
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_os__is_ssl
 msgid "SSL"
