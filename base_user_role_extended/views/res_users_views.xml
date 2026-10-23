@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 CIT Services
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <!-- Inherit res.users Form to add View Access Rules tab -->
+    <record id="view_users_form_inherited" model="ir.ui.view">
+        <field name="name">res.users.form.view_access_rules</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='role_line_ids']" position="before">
+                <field name="bypass_role_policy" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
