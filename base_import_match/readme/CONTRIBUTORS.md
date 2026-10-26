@@ -2,3 +2,5 @@
   - Jairo Llopis
   - Vicent Cubells
   - Ernesto Tejeda
+- [Quartile](https://www.quartile.co):
+  - Yoshi Tashiro

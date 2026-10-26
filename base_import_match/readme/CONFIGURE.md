@@ -1,4 +1,5 @@
-To configure this module, you need to:
+Import Match rules are optional templates that pre-check the **Match** column in the
+import preview. To configure them:
 
 1.  Go to *Settings \> Technical \> Database Structure \> Import Match*.
 2.  *Create*.
