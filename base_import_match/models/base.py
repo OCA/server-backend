@@ -17,7 +17,8 @@ class Base(models.AbstractModel):
         """
         # We only need to patch this call if there are usable rules for it
         if self.env["base_import.match"]._usable_rules(self._name, fields):
-            newdata = list()
+            # Copy rows, as matched rows get their ID column patched in place.
+            data = [list(row) for row in data]
             # Change .id (dbid) by id (xmlid)
             if ".id" in fields:
                 column = fields.index(".id")
@@ -26,26 +27,31 @@ class Base(models.AbstractModel):
                 for values in data:
                     dbid = int(values[column])
                     values[column] = self.browse(dbid).get_external_id().get(dbid)
+            # Mock Odoo to believe the user is importing the ID field. Add the
+            # column before extracting records, as the extraction is lazy and
+            # expects rows as wide as the field list.
+            if "id" not in fields:
+                fields.append("id")
+                for values in data:
+                    values.append("")
+            id_index = fields.index("id")
             # Data conversion to ORM format
             import_fields = list(map(models.fix_import_export_id_paths, fields))
             converted_data = self._convert_records(
                 self._extract_records(import_fields, data)
             )
-            # Mock Odoo to believe the user is importing the ID field
-            if "id" not in fields:
-                fields.append("id")
-                import_fields.append(["id"])
             # Needed to match with converted data field names
             clean_fields = [f[0] for f in import_fields]
             for dbid, xmlid, record, info in converted_data:
-                row = dict(zip(clean_fields, data[info["record"]], strict=False))
-                match = self
                 if xmlid:
                     # Skip rows with ID, they do not need all this
-                    row["id"] = xmlid
-                    newdata.append(tuple(row[f] for f in clean_fields))
                     continue
-                elif dbid:
+                # A record with one2many lines spans several rows. Only the
+                # first row holds the record values and its ID.
+                first_row = data[info["rows"]["from"]]
+                row = dict(zip(clean_fields, first_row, strict=False))
+                match = self
+                if dbid:
                     # Find the xmlid for this dbid
                     match = self.browse(dbid)
                 else:
@@ -54,11 +60,7 @@ class Base(models.AbstractModel):
                 # Give a valid XMLID to this row if a match was found
                 # To generate externals IDS.
                 match.export_data(fields)
-                ext_id = match.get_external_id()
-                row["id"] = ext_id[match.id] if match else row.get("id", "")
-                # Store the modified row, in the same order as fields
-                newdata.append(tuple(row[f] for f in clean_fields))
-            # We will import the patched data to get updates on matches
-            data = newdata
+                if match:
+                    first_row[id_index] = match.get_external_id()[match.id]
         # Normal method handles the rest of the job
         return super().load(fields, data)
