@@ -1,0 +1,6 @@
+- Holger Brunn \<hbrunn@therp.nl\>
+- Florian Kantelberg \<florian.kantelberg@initos.com\>
+- [Cetmix](https://cetmix.com/)
+  - Ivan Sokolov
+  - George Smirnov
+  - Dmitry Meita
