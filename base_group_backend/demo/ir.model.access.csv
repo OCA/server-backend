@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"backend_dummy_models","backend dummy.model","model_backend_dummy_model",group_backend_ui_users,1,0,0,0
+"backend_dummy_models_user_grp","backend dummy.model user grp","model_backend_dummy_model",base.group_user,1,0,0,0

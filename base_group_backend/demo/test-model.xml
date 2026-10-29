@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="backend.dummy.model" id="dummy_model_1">
+        <field name="my_value">hello</field>
+        <field name="my_other_value">hello</field>
+    </record>
+</odoo>
