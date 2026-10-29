@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2025 Akretion (http://www.akretion.com).
+    @author Florian Mounier <florian.mounier@akretion.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<templates xml:space="preserve">
+
+    <t t-name="base_user_role_profile.switchProfileMenu">
+        <div t-if="currentProfile" class="o_switch_profile_menu d-none d-md-block">
+            <DropdownGroup group="'web-navbar-group'">
+                <Dropdown
+                    position="'bottom-end'"
+                    menuRef="containerRef"
+                    state="this.dropdown"
+                    navigationOptions="navigationOptions"
+                    menuClass="'o_switch_profile_menu_dropdown'"
+                    disabled="!isEnabled"
+                >
+                    <button
+                        data-hotkey="shift+p"
+                        t-att-disabled="!isEnabled"
+                        t-att-title="currentProfile[1]"
+                    >
+                        <i class="fa fa-building d-lg-none" />
+                        <span
+                            class="oe_topbar_name d-none d-lg-block text-truncate"
+                            t-esc="currentProfile[1]"
+                        />
+                    </button>
+
+                    <t t-set-slot="content">
+                        <t t-call="base_user_role_profile.switchProfileMenu.Items" />
+                    </t>
+                </Dropdown>
+            </DropdownGroup>
+        </div>
+    </t>
+
+    <t t-name="base_user_role_profile.switchProfileMenu.Items">
+        <div class="o_switch_profile_menu_items">
+            <t t-foreach="profiles" t-as="profile" t-key="profile[0]">
+                <t t-set="isCurrent" t-value="currentProfile[0] === profile[0]" />
+                <span
+                    class="d-flex o_switch_profile_item dropdown-item p-0 w-100 o-navigable"
+                    tabindex="0"
+                    data-menu="profile"
+                    t-att-data-profile-id="profile[0]"
+                >
+                    <div
+                        role="button"
+                        t-att-aria-pressed="isCurrent ? 'true' : 'false'"
+                        t-att-aria-label="'Switch to ' + profile[1]"
+                        t-att-title="'Switch to ' + profile[1]"
+                        class="d-flex flex-grow-1 align-items-center py-0 log_into ps-2"
+                        t-att-class="isCurrent ? 'bg-primary-subtle' : 'btn fw-normal border-0 btn-link text-primary'"
+                        t-on-click="() => this.switchToProfile(profile[0])"
+                    >
+                        <span class="profile_label text-700 text-truncate">
+                            <i t-if="isCurrent" class="fa fa-check mr8" />
+                            <span t-else="" style="margin-right: 24px;" />
+                            <t t-out="profile[1]" />
+                        </span>
+                    </div>
+                </span>
+            </t>
+        </div>
+    </t>
+
+</templates>
