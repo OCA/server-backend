@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-11-08 20:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
@@ -20,180 +22,185 @@ msgid ""
 "<strong>Important:</strong>\n"
 "                        The url cannot be retrieved later and provides access to this calendar without further authentication."
 msgstr ""
+"<strong>Importante:</strong>\n"
+"                        L'URL non potrà essere recuperato in seguito e "
+"fornisce accesso a questo calendario senza ulteriore autenticazione."
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__active
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzata"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
 msgid "Advanced Configuration"
-msgstr ""
+msgstr "Configurazione avanzata"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__auto
 msgid "Allow automatically"
-msgstr ""
+msgstr "Consenti automaticamente"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__allowed_users_ids
 msgid "Allowed Users"
-msgstr ""
+msgstr "Utenti consentiti"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__calendar_id
 msgid "Calendar"
-msgstr ""
+msgstr "Calendario"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
 msgid "Calendars"
-msgstr ""
+msgstr "Calendari"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_description_form
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__code
 msgid "Code"
-msgstr ""
+msgstr "Codice"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Converts HTML to plain text"
-msgstr ""
+msgstr "Converte l'HTML in testo semplice"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__create_uid
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__create_date
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Current user record"
-msgstr ""
+msgstr "Record dell'utente corrente"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtend
 msgid "DTEND"
-msgstr ""
+msgstr "DTEND"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtstamp
 msgid "DTSTAMP"
-msgstr ""
+msgstr "DTSTAMP"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_dtstart
 msgid "DTSTART"
-msgstr ""
+msgstr "DTSTART"
 
 #. module: base_ical
 #: model:ir.model,name:base_ical.model_base_ical
 msgid "Definition of an iCal export"
-msgstr ""
+msgstr "Definizione di un'esportazione iCal"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #. module: base_ical
 #: model:base.ical,name:base_ical.demo_calendar
 msgid "Demo calendar"
-msgstr ""
+msgstr "Calendario demo"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__name
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: base_ical
 #: model:ir.model,name:base_ical.model_base_ical_url_description
 msgid "Description for iCalendar"
-msgstr ""
+msgstr "Descrizione per iCalendar"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__display_name
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__domain
 msgid "Domain"
-msgstr ""
+msgstr "Dominio"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
 msgid "Done!"
-msgstr ""
+msgstr "Fatto!"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
 msgid "Existing Access"
-msgstr ""
+msgstr "Accesso esistente"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Function to add the key-values of dict to ical component"
 msgstr ""
+"Funzione per aggiungere le coppie chiave-valore del dizionario al componente "
+"iCal"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_description_form
 msgid "Generate url"
-msgstr ""
+msgstr "Genera URL"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__auto_group_ids
 msgid "Groups"
-msgstr ""
+msgstr "Gruppi"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
 msgid "Help"
-msgstr ""
+msgstr "Aiuto"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__help_text
 msgid "Help Text"
-msgstr ""
+msgstr "Testo di aiuto"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_icalendar_url_show_form
 msgid "Here is your new URL to the calendar."
-msgstr ""
+msgstr "Ecco il nuovo URL per il calendario."
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__id
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__id
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_show__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_res_users__ical_ids
 msgid "Ical"
-msgstr ""
+msgstr "iCal"
 
 #. module: base_ical
 #: model:ir.model.fields,help:base_ical.field_base_ical__auto
@@ -202,49 +209,52 @@ msgid ""
 "users. Note that unchecking this will not disable existing calendar "
 "subscriptions"
 msgstr ""
+"Se selezionato, il calendario sarà abilitato per tutti gli utenti attuali e "
+"futuri. Nota che deselezionando questa opzione non verranno disabilitate le "
+"iscrizioni al calendario esistenti"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__write_uid
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__write_date
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_description__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__mode
 msgid "Mode"
-msgstr ""
+msgstr "Modalità"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__model_id
 msgid "Model"
-msgstr ""
+msgstr "Modello"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__model
 msgid "Model Name"
-msgstr ""
+msgstr "Nome modello"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_res_users_form
 msgid "New URL"
-msgstr ""
+msgstr "Nuovo URL"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical_url_description.py:0
 msgid "Only internal users can create API keys"
-msgstr ""
+msgstr "Solo gli utenti interni possono creare chiavi API"
 
 #. module: base_ical
 #: model:ir.model.fields,help:base_ical.field_base_ical__auto_group_ids
@@ -252,77 +262,79 @@ msgid ""
 "Only users of selected groups will be auto-allowed. Leave empty for all "
 "users"
 msgstr ""
+"Solo gli utenti dei gruppi selezionati saranno abilitati automaticamente. "
+"Lasciare vuoto per tutti gli utenti"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Output: Calendar e.g. from `_get_ics_file`"
-msgstr ""
+msgstr "Output: Calendario es. da `_get_ics_file`"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Output: Dictionary of an VEVENT"
-msgstr ""
+msgstr "Output: Dizionario di un VEVENT"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Output: Dictionary of an VTODO"
-msgstr ""
+msgstr "Output: Dizionario di un VTODO"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__preview
 #: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
 msgid "Preview"
-msgstr ""
+msgstr "Anteprima"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Record to export"
-msgstr ""
+msgstr "Record da esportare"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_summary
 msgid "SUMMARY"
-msgstr ""
+msgstr "SUMMARY"
 
 #. module: base_ical
 #: model:ir.model,name:base_ical.model_base_ical_url_show
 msgid "Show URL for iCalendar"
-msgstr ""
+msgstr "Mostra URL per iCalendar"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "Simple"
-msgstr ""
+msgstr "Semplice"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
 msgid "Simple Configuration"
-msgstr ""
+msgstr "Configurazione semplice"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical__expression_uid
 msgid "UID"
-msgstr ""
+msgstr "UID"
 
 #. module: base_ical
 #: model:ir.model.fields,field_description:base_ical.field_base_ical_url_show__url
 msgid "Url"
-msgstr ""
+msgstr "URL"
 
 #. module: base_ical
 #: model:ir.model,name:base_ical.model_res_users
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 #. module: base_ical
 #: model:ir.model.fields,help:base_ical.field_base_ical__domain
 msgid "You can use variables `env` and `user` here"
-msgstr ""
+msgstr "Qui è possibile utilizzare le variabili `env` e `user`"
 
 #. module: base_ical
 #: model:ir.model.fields,help:base_ical.field_base_ical__expression_dtend
@@ -331,27 +343,27 @@ msgstr ""
 #: model:ir.model.fields,help:base_ical.field_base_ical__expression_summary
 #: model:ir.model.fields,help:base_ical.field_base_ical__expression_uid
 msgid "You can use variables `record` and `user` here"
-msgstr ""
+msgstr "Qui è possibile utilizzare le variabili `record` e `user`"
 
 #. module: base_ical
 #: model_terms:ir.ui.view,arch_db:base_ical.view_base_ical_form
 msgid "[('user_id', '=', user.id)]"
-msgstr ""
+msgstr "[('user_id', '=', user.id)]"
 
 #. module: base_ical
 #: model:ir.actions.act_window,name:base_ical.action_base_ical
 #: model:ir.ui.menu,name:base_ical.menu_ical
 msgid "iCalendars"
-msgstr ""
+msgstr "iCalendar"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "useful Python libraries"
-msgstr ""
+msgstr "librerie Python utili"
 
 #. module: base_ical
 #. odoo-python
 #: code:addons/base_ical/models/base_ical.py:0
 msgid "vobject python library"
-msgstr ""
+msgstr "libreria Python vobject"
