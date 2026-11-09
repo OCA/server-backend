@@ -18,4 +18,10 @@
         "views/base_import_match_view.xml",
     ],
     "demo": ["demo/base_import_match.xml"],
+    "assets": {
+        "web.assets_backend": [
+            "base_import_match/static/src/**/*.js",
+            "base_import_match/static/src/**/*.xml",
+        ],
+    },
 }
