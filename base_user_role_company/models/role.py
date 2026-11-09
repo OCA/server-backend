@@ -11,7 +11,6 @@ class ResUsersRoleLine(models.Model):
     allowed_company_ids = fields.Many2many(related="user_id.company_ids")
     company_id = fields.Many2one(
         "res.company",
-        "Company",
         domain="[('id', 'in', allowed_company_ids)]",
         help="If set, this role only applies when this is the main company selected."
         " Otherwise it applies to all companies.",

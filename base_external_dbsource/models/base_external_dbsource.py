@@ -59,7 +59,6 @@ class BaseExternalDbsource(models.Model):
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         default=lambda self: self.env.user.company_id,
     )
     conn_string_full = fields.Text(readonly=True, compute="_compute_conn_string_full")

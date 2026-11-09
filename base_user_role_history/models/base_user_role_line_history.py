@@ -15,7 +15,6 @@ class BaseUserRoleLineHistory(models.Model):
         required=True,
     )
     user_id = fields.Many2one(
-        string="User",
         comodel_name="res.users",
         ondelete="cascade",
         index=True,
