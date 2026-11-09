@@ -5,6 +5,7 @@
 import pymssql
 import sqlalchemy
 from sqlalchemy import text
+from sqlalchemy.sql.elements import TextClause
 
 from odoo import fields, models
 
@@ -35,8 +36,11 @@ class BaseExternalDbsource(models.Model):
 
     def _execute_mssql(self, sqlquery, sqlparams, metadata):
         rows, cols = list(), list()
-        # Convert to accepted object by sqlalchemy
-        sqlquery = text(sqlquery)
+        # Convert to accepted object by sqlalchemy, unless the caller already
+        # did (base_external_dbsource_importer._get_external_records wraps
+        # the query in `text()` before calling execute_query)
+        if not isinstance(sqlquery, TextClause):
+            sqlquery = text(sqlquery)
         for record in self:
             with record.connection_open() as connection:
                 if sqlparams is None:
