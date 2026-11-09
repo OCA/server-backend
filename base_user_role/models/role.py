@@ -160,12 +160,11 @@ class ResUsersRoleLine(models.Model):
     name = fields.Char(related="role_id.name")
     active = fields.Boolean(related="user_id.active")
     role_id = fields.Many2one(
-        comodel_name="res.users.role", required=True, string="Role", ondelete="cascade"
+        comodel_name="res.users.role", required=True, ondelete="cascade"
     )
     user_id = fields.Many2one(
         comodel_name="res.users",
         required=True,
-        string="User",
         domain=[("id", "!=", SUPERUSER_ID)],
         ondelete="cascade",
     )
