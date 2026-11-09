@@ -12,7 +12,6 @@ class IrActionsServerNavigateLine(models.Model):
 
     action_id = fields.Many2one(
         comodel_name="ir.actions.server",
-        string="Action",
         required=True,
         ondelete="cascade",
     )
