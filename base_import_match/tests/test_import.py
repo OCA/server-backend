@@ -15,17 +15,19 @@ OPTIONS = {
 
 
 class ImportCase(TransactionCase):
-    def _base_import_record(self, res_model, file_name):
+    def _base_import_record(self, res_model, file_name=None, data=None):
         """Create and return a ``base_import.import`` record."""
-        with open(PATH % file_name) as demo_file:
-            return self.env["base_import.import"].create(
-                {
-                    "res_model": res_model,
-                    "file": demo_file.read(),
-                    "file_name": f"{file_name}.csv",
-                    "file_type": "csv",
-                }
-            )
+        if file_name:
+            with open(PATH % file_name) as demo_file:
+                data = demo_file.read()
+        return self.env["base_import.import"].create(
+            {
+                "res_model": res_model,
+                "file": data,
+                "file_name": f"{file_name or 'test'}.csv",
+                "file_type": "csv",
+            }
+        )
 
     def test_res_partner_external_id(self):
         """Change name based on External ID."""
@@ -79,6 +81,37 @@ class ImportCase(TransactionCase):
             self.env.ref("base.res_partner_address_4").email,
             "floyd.steward34.changed@example.com",
         )
+
+    def test_res_partner_one2many_lines(self):
+        """Match parents by ref and import their one2many lines."""
+        Partner = self.env["res.partner"]
+        self.env["base_import.match"].create(
+            {
+                "model_id": self.env.ref("base.model_res_partner").id,
+                "sequence": 1,
+                "field_ids": [
+                    (0, 0, {"field_id": self.env.ref("base.field_res_partner__ref").id})
+                ],
+            }
+        )
+        parent_1 = Partner.create({"name": "O2M Parent 1", "ref": "O2M-1"})
+        parent_2 = Partner.create({"name": "O2M Parent 2", "ref": "O2M-2"})
+        count_before = Partner.search_count([("ref", "like", "O2M-")])
+        record = self._base_import_record(
+            "res.partner",
+            data="O2M-1,Function 1,Child 1A\n,,Child 1B\nO2M-2,Function 2,Child 2A\n",
+        )
+        result = record.execute_import(
+            ["ref", "function", "child_ids/name"], [], OPTIONS
+        )
+        self.assertFalse(result["messages"])
+        self.assertEqual(Partner.search_count([("ref", "like", "O2M-")]), count_before)
+        self.assertEqual(parent_1.function, "Function 1")
+        self.assertEqual(
+            sorted(parent_1.child_ids.mapped("name")), ["Child 1A", "Child 1B"]
+        )
+        self.assertEqual(parent_2.function, "Function 2")
+        self.assertEqual(parent_2.child_ids.mapped("name"), ["Child 2A"])
 
     def test_res_partner_email(self):
         """Change name based on email."""
