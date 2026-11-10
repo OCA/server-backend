@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-11-10 23:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__company_ids
 msgid "Access to this system is restricted to these companies."
-msgstr ""
+msgstr "L'accesso a questo sistema è limitato a queste aziende."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system__is_ssl
@@ -25,19 +27,19 @@ msgstr ""
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__is_ssl
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_os__is_ssl
 msgid "Change protocol if SSL"
-msgstr ""
+msgstr "Cambia protocollo se SSL"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Aziende"
 
 #. module: base_external_system_odoorpc
 #. odoo-python
 #: code:addons/base_external_system_odoorpc/models/external_system_odoo.py:0
 #, python-format
 msgid "Connected, but could not find admin user."
-msgstr ""
+msgstr "Connesso, ma impossibile trovare l'utente amministratore."
 
 #. module: base_external_system_odoorpc
 #. odoo-python
@@ -48,6 +50,9 @@ msgid ""
 "\n"
 "DETAIL: %s"
 msgstr ""
+"Connessione non riuscita.\n"
+"\n"
+"DETTAGLIO: %s"
 
 #. module: base_external_system_odoorpc
 #. odoo-python
@@ -57,23 +62,25 @@ msgid ""
 "Connection failed. Please make sure that all fields are filled: Database, "
 "Host, Port, Username, Password."
 msgstr ""
+"Connessione non riuscita. Assicurarsi che tutti i campi siano compilati: "
+"Database, Host, Porta, Nome utente, Password."
 
 #. module: base_external_system_odoorpc
 #. odoo-python
 #: code:addons/base_external_system_odoorpc/models/external_system_odoo.py:0
 #, python-format
 msgid "Could not connect the Odoo server at %(host)s:%(port)s"
-msgstr ""
+msgstr "Impossibile connettersi al server Odoo su %(host)s:%(port)s"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system__db_name
@@ -81,52 +88,52 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__db_name
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_os__db_name
 msgid "Database"
-msgstr ""
+msgstr "Database"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__endpoint_ids
 msgid "Endpoints"
-msgstr ""
+msgstr "Endpoint"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__endpoint_ids
 msgid "Endpoints on remote system"
-msgstr ""
+msgstr "Endpoint sul sistema remoto"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model,name:base_external_system_odoorpc.model_external_system
 msgid "External System"
-msgstr ""
+msgstr "Sistema esterno"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model,name:base_external_system_odoorpc.model_external_system_odoo
 msgid "External System RPC"
-msgstr ""
+msgstr "Sistema esterno RPC"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__fingerprint
 msgid "Fingerprint"
-msgstr ""
+msgstr "Impronta"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__host
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__ignore_fingerprint
 msgid "Ignore Fingerprint"
-msgstr ""
+msgstr "Ignora impronta"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system__db_name
@@ -134,62 +141,62 @@ msgstr ""
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__db_name
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_os__db_name
 msgid "Input database name"
-msgstr ""
+msgstr "Inserire il nome del database"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__interface
 msgid "Interface"
-msgstr ""
+msgstr "Interfaccia"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__password
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__port
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__private_key
 msgid "Private Key"
-msgstr ""
+msgstr "Chiave privata"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__private_key_password
 msgid "Private Key Password"
-msgstr ""
+msgstr "Password chiave privata"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__remote_path
 msgid "Remote Path"
-msgstr ""
+msgstr "Percorso remoto"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__remote_path
 msgid "Restrict to this directory path on the remote, if applicable."
-msgstr ""
+msgstr "Limita a questo percorso di directory sul remoto, se applicabile."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system__is_ssl
@@ -197,7 +204,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__is_ssl
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_os__is_ssl
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__ignore_fingerprint
@@ -205,26 +212,28 @@ msgid ""
 "Set this to `True` in order to ignore an invalid/unknown fingerprint from "
 "the system."
 msgstr ""
+"Impostare a `True` per ignorare un'impronta non valida/sconosciuta del "
+"sistema."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__system_id
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__system_type
 msgid "System Type"
-msgstr ""
+msgstr "Tipo sistema"
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__name
 msgid "This is the canonical (humanized) name for the system."
-msgstr ""
+msgstr "Questo è il nome canonico (leggibile) del sistema."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__host
 msgid "This is the domain or IP address that the system can be reached at."
-msgstr ""
+msgstr "Questo è il dominio o l'indirizzo IP a cui è raggiungibile il sistema."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__fingerprint
@@ -232,6 +241,8 @@ msgid ""
 "This is the fingerprint that is advertised by this system in order to "
 "validate its identity."
 msgstr ""
+"Questa è l'impronta pubblicata da questo sistema per convalidare la propria "
+"identità."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__interface
@@ -239,6 +250,8 @@ msgid ""
 "This is the interface that this system represents. It is created "
 "automatically upon creation of the external system."
 msgstr ""
+"Questa è l'interfaccia rappresentata da questo sistema. Viene creata "
+"automaticamente alla creazione del sistema esterno."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__password
@@ -246,6 +259,7 @@ msgid ""
 "This is the password that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questa è la password usata per autenticarsi a questo sistema, se applicabile."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__private_key_password
@@ -253,11 +267,13 @@ msgid ""
 "This is the password to unlock the private key that was provided for this "
 "sytem."
 msgstr ""
+"Questa è la password per sbloccare la chiave privata fornita per questo "
+"sistema."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__port
 msgid "This is the port number that the system is listening on."
-msgstr ""
+msgstr "Questo è il numero di porta su cui il sistema è in ascolto."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__private_key
@@ -265,6 +281,8 @@ msgid ""
 "This is the private key that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questa è la chiave privata usata per autenticarsi a questo sistema, se "
+"applicabile."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,help:base_external_system_odoorpc.field_external_system_odoo__username
@@ -272,8 +290,10 @@ msgid ""
 "This is the username that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questo è il nome utente usato per autenticarsi a questo sistema, se "
+"applicabile."
 
 #. module: base_external_system_odoorpc
 #: model:ir.model.fields,field_description:base_external_system_odoorpc.field_external_system_odoo__username
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
