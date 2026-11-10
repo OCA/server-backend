@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-11-10 23:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__company_ids
 msgid "Access to this system is restricted to these companies."
-msgstr ""
+msgstr "L'accesso a questo sistema è limitato a queste aziende."
 
 #. module: base_external_system_http
 #. odoo-python
@@ -28,16 +30,19 @@ msgid ""
 "\n"
 "DETAIL: %(detail)s"
 msgstr ""
+"Errore di comunicazione con %(endpoint)s (HTTP %(status)s).\n"
+"\n"
+"DETTAGLIO: %(detail)s"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Aziende"
 
 #. module: base_external_system_http
 #: model_terms:ir.ui.view,arch_db:base_external_system_http.external_system_view_form
 msgid "Configure http endpoints"
-msgstr ""
+msgstr "Configura endpoint http"
 
 #. module: base_external_system_http
 #. odoo-python
@@ -48,18 +53,21 @@ msgid ""
 "\n"
 "DETAIL: %s"
 msgstr ""
+"Connessione non riuscita.\n"
+"\n"
+"DETTAGLIO: %s"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__create_uid
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__create_date
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: base_external_system_http
 #. odoo-python
@@ -70,58 +78,61 @@ msgid ""
 "\n"
 "DETAIL: %(detail)s"
 msgstr ""
+"Richiesta DELETE non riuscita per %(url)s.\n"
+"\n"
+"DETTAGLIO: %(detail)s"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__display_name
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__endpoint
 msgid "Endpoint"
-msgstr ""
+msgstr "Endpoint"
 
 #. module: base_external_system_http
 #. odoo-python
 #: code:addons/base_external_system_http/models/external_system_adapter_http.py:0
 #, python-format
 msgid "Endpoint %(endpoint)s not found on system %(system_name)s"
-msgstr ""
+msgstr "Endpoint %(endpoint)s non trovato sul sistema %(system_name)s"
 
 #. module: base_external_system_http
 #: model:ir.model,name:base_external_system_http.model_external_system_endpoint
 msgid "Endpoint on remote system to get from or post to."
-msgstr ""
+msgstr "Endpoint sul sistema remoto da cui leggere o a cui inviare."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system__endpoint_ids
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__endpoint_ids
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_os__endpoint_ids
 msgid "Endpoints"
-msgstr ""
+msgstr "Endpoint"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system__endpoint_ids
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__endpoint_ids
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_os__endpoint_ids
 msgid "Endpoints on remote system"
-msgstr ""
+msgstr "Endpoint sul sistema remoto"
 
 #. module: base_external_system_http
 #: model:ir.model,name:base_external_system_http.model_external_system
 msgid "External System"
-msgstr ""
+msgstr "Sistema esterno"
 
 #. module: base_external_system_http
 #: model:ir.model,name:base_external_system_http.model_external_system_adapter_http
 msgid "External System HTTP"
-msgstr ""
+msgstr "Sistema esterno HTTP"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__fingerprint
 msgid "Fingerprint"
-msgstr ""
+msgstr "Impronta"
 
 #. module: base_external_system_http
 #. odoo-python
@@ -132,55 +143,58 @@ msgid ""
 "\n"
 "DETAIL: %(detail)s"
 msgstr ""
+"Richiesta GET non riuscita per %(url)s.\n"
+"\n"
+"DETTAGLIO: %(detail)s"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__host
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__id
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__ignore_fingerprint
 msgid "Ignore Fingerprint"
-msgstr ""
+msgstr "Ignora impronta"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__interface
 msgid "Interface"
-msgstr ""
+msgstr "Interfaccia"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http____last_update
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__write_uid
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__write_date
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__name
 msgid "Logical name for endpoint"
-msgstr ""
+msgstr "Nome logico per l'endpoint"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: base_external_system_http
 #. odoo-python
@@ -191,6 +205,9 @@ msgid ""
 "\n"
 "DETAIL: %(detail)s"
 msgstr ""
+"Richiesta POST non riuscita per %(url)s.\n"
+"\n"
+"DETTAGLIO: %(detail)s"
 
 #. module: base_external_system_http
 #. odoo-python
@@ -201,41 +218,44 @@ msgid ""
 "\n"
 "DETAIL: %(detail)s"
 msgstr ""
+"Richiesta PUT non riuscita per %(url)s.\n"
+"\n"
+"DETTAGLIO: %(detail)s"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__password
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__port
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__private_key
 msgid "Private Key"
-msgstr ""
+msgstr "Chiave privata"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__private_key_password
 msgid "Private Key Password"
-msgstr ""
+msgstr "Password chiave privata"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__remote_path
 msgid "Remote Path"
-msgstr ""
+msgstr "Percorso remoto"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_endpoint__endpoint
 msgid "Remote path to append to base url for endpoint"
-msgstr ""
+msgstr "Percorso remoto da aggiungere all'URL di base per l'endpoint"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__remote_path
 msgid "Restrict to this directory path on the remote, if applicable."
-msgstr ""
+msgstr "Limita a questo percorso di directory sul remoto, se applicabile."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__ignore_fingerprint
@@ -243,27 +263,29 @@ msgid ""
 "Set this to `True` in order to ignore an invalid/unknown fingerprint from "
 "the system."
 msgstr ""
+"Impostare a `True` per ignorare un'impronta non valida/sconosciuta del "
+"sistema."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__system_id
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_endpoint__system_id
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__system_type
 msgid "System Type"
-msgstr ""
+msgstr "Tipo sistema"
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__name
 msgid "This is the canonical (humanized) name for the system."
-msgstr ""
+msgstr "Questo è il nome canonico (leggibile) del sistema."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__host
 msgid "This is the domain or IP address that the system can be reached at."
-msgstr ""
+msgstr "Questo è il dominio o l'indirizzo IP a cui è raggiungibile il sistema."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__fingerprint
@@ -271,6 +293,8 @@ msgid ""
 "This is the fingerprint that is advertised by this system in order to "
 "validate its identity."
 msgstr ""
+"Questa è l'impronta pubblicata da questo sistema per convalidare la propria "
+"identità."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__interface
@@ -278,6 +302,8 @@ msgid ""
 "This is the interface that this system represents. It is created "
 "automatically upon creation of the external system."
 msgstr ""
+"Questa è l'interfaccia rappresentata da questo sistema. Viene creata "
+"automaticamente alla creazione del sistema esterno."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__password
@@ -285,6 +311,7 @@ msgid ""
 "This is the password that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questa è la password usata per autenticarsi a questo sistema, se applicabile."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__private_key_password
@@ -292,11 +319,13 @@ msgid ""
 "This is the password to unlock the private key that was provided for this "
 "sytem."
 msgstr ""
+"Questa è la password per sbloccare la chiave privata fornita per questo "
+"sistema."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__port
 msgid "This is the port number that the system is listening on."
-msgstr ""
+msgstr "Questo è il numero di porta su cui il sistema è in ascolto."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__private_key
@@ -304,6 +333,8 @@ msgid ""
 "This is the private key that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questa è la chiave privata usata per autenticarsi a questo sistema, se "
+"applicabile."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,help:base_external_system_http.field_external_system_adapter_http__username
@@ -311,8 +342,10 @@ msgid ""
 "This is the username that is used for authenticating to this system, if "
 "applicable."
 msgstr ""
+"Questo è il nome utente usato per autenticarsi a questo sistema, se "
+"applicabile."
 
 #. module: base_external_system_http
 #: model:ir.model.fields,field_description:base_external_system_http.field_external_system_adapter_http__username
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
