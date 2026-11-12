@@ -36,40 +36,39 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
         </field>
     </record>
 
-
     <record id="view_ir_ui_menu_role_search" model="ir.ui.view">
         <field name="model">ir.ui.menu</field>
         <field name="inherit_id" ref="base.edit_menu_access_search" />
         <field name="arch" type="xml">
-                <filter name="inactive" position="after">
-                    <filter
+            <filter name="inactive" position="after">
+                <filter
                     string="Main Menus"
                     name="main_menus"
                     domain="[('parent_id', '=', False)]"
                 />
-                    <filter
+                <filter
                     string="No Role Restriction"
                     name="no_role"
                     domain="[('has_no_role', '=', True)]"
                 />
-                    <filter
+                <filter
                     string="Has Role Restriction"
                     name="has_role"
                     domain="[('has_no_role', '=', False), ('groups_id', '!=', False)]"
                 />
-                    <filter
+                <filter
                     string="No Group at All"
                     name="no_group"
                     domain="[('groups_id', '=', False)]"
                 />
-                    <group expand="0" string="Group By">
-                        <filter
+                <group expand="0" string="Group By">
+                    <filter
                         string="Parent Menu"
                         name="group_parent"
                         context="{'group_by': 'parent_id'}"
                     />
-                    </group>
-                </filter>
+                </group>
+            </filter>
         </field>
     </record>
 
@@ -87,6 +86,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
         action="action_menu_role_access"
         sequence="50"
     />
-
-
 </odoo>
