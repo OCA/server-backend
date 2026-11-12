@@ -47,7 +47,7 @@ class IrUiMenu(models.Model):
             return []
 
         roles = self.env["res.users.role"]
-        if isinstance(value, (list, tuple)):
+        if isinstance(value, list | tuple):
             roles = roles.browse(value)
         elif isinstance(value, int):
             roles = roles.browse([value])

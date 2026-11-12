@@ -25,11 +25,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
             <xpath expr="//page[last()]" position="after">
                 <page string="Roles with Access">
                     <field name="role_ids">
-                        <tree>
+                        <list>
                             <field name="name" />
                             <field name="group_id" />
                             <field name="menu_count" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -75,7 +75,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
     <record id="action_menu_role_access" model="ir.actions.act_window">
         <field name="name">Menus &amp; Role Access</field>
         <field name="res_model">ir.ui.menu</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'search_default_main_menus': 1}</field>
     </record>
 

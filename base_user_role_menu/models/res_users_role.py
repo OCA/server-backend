@@ -15,7 +15,6 @@ class ResUsersRole(models.Model):
         help="All menus accessible through this role.",
     )
     menu_count = fields.Integer(
-        string="Menu Count",
         compute="_compute_menu_ids",
     )
 
@@ -24,7 +23,9 @@ class ResUsersRole(models.Model):
             implied_groups = role.group_id | role.group_id.trans_implied_ids
             menus = self.env["ir.ui.menu"].search([])
             filtered_menus = menus.filtered(
-                lambda menu: any(group in menu.groups_id for group in implied_groups)
+                lambda menu, groups=implied_groups: any(
+                    group in menu.groups_id for group in groups
+                )
             )
             role.menu_ids = filtered_menus
             role.menu_count = len(filtered_menus)
@@ -33,9 +34,9 @@ class ResUsersRole(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "Menus — %s" % self.name,
+            "name": f"Menus — {self.name}",
             "res_model": "ir.ui.menu",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("id", "in", self.menu_ids.ids)],
             "context": {"default_role_id": self.id},
         }

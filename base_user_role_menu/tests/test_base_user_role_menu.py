@@ -2,10 +2,11 @@
 # @author Kévin Roche <kevin.roche@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import SavepointCase
+from odoo import Command
+from odoo.tests.common import TransactionCase
 
 
-class TestBaseUserRoleMenu(SavepointCase):
+class TestBaseUserRoleMenu(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -23,26 +24,29 @@ class TestBaseUserRoleMenu(SavepointCase):
         cls.role_b = cls.env["res.users.role"].create({"name": "Role B"})
         cls.role_parent = cls.env["res.users.role"].create({"name": "Role Parent"})
 
-        cls.role_a.write({"implied_ids": [(4, cls.group_a.id)]})
-        cls.role_b.write({"implied_ids": [(4, cls.group_b.id)]})
-        cls.role_parent.write({"implied_ids": [(4, cls.role_a.group_id.id)]})
+        cls.role_a.write({"implied_ids": [Command.link(cls.group_a.id)]})
+        cls.role_b.write({"implied_ids": [Command.link(cls.group_b.id)]})
+        cls.role_parent.write({"implied_ids": [Command.link(cls.role_a.group_id.id)]})
 
         cls.menu_a = cls.env["ir.ui.menu"].create(
             {
                 "name": "Test Menu A",
-                "groups_id": [(4, cls.role_a.group_id.id)],
+                "groups_id": [Command.link(cls.role_a.group_id.id)],
             }
         )
         cls.menu_b = cls.env["ir.ui.menu"].create(
             {
                 "name": "Test Menu B",
-                "groups_id": [(4, cls.role_b.group_id.id)],
+                "groups_id": [Command.link(cls.role_b.group_id.id)],
             }
         )
         cls.menu_both = cls.env["ir.ui.menu"].create(
             {
                 "name": "Test Menu Both",
-                "groups_id": [(4, cls.role_a.group_id.id), (4, cls.role_b.group_id.id)],
+                "groups_id": [
+                    Command.link(cls.role_a.group_id.id),
+                    Command.link(cls.role_b.group_id.id),
+                ],
             }
         )
         cls.menu_free = cls.env["ir.ui.menu"].create({"name": "Test Menu Free"})
