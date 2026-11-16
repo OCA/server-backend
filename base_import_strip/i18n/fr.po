@@ -1,0 +1,6 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_import_strip
+#
+msgid ""
+msgstr ""
