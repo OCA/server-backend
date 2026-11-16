@@ -3,4 +3,9 @@
 # * base_import_strip
 #
 msgid ""
+msgstr "Report-Msgid-Bugs-To: \n"
+
+#. module: base_import_strip
+#: model:ir.model,name:base_import_strip.model_base_import_import
+msgid "Base Import"
 msgstr ""
