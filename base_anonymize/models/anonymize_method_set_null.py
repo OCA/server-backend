@@ -1,8 +1,9 @@
 # Copyright 2025 Hunki Enterprises BV
+# Copyright 2026 Globalist Technology SRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
 from odoo import models
-from odoo.tools.safe_eval import const_eval
+from odoo.tools import SQL
 
 
 class AnonymizeMethodSetNull(models.AbstractModel):
@@ -11,23 +12,9 @@ class AnonymizeMethodSetNull(models.AbstractModel):
     _description = "Set null"
 
     def _run(self, field):
-        model = self.env[field.model_name].with_context(active_test=False)
-        if not model._fields[field.field_name].store:
-            model.sudo().search(const_eval(field.domain or "[]")).write(
-                {
-                    field.field_name: False,
-                }
-            )
-            return
-
-        from_clause, where_clause, params = self._get_query(field)
-        self.env.cr.execute(
-            f"""UPDATE
-            {from_clause}
-            SET
-            {field.field_name}=NULL
-            WHERE
-            {where_clause}
-            """,
-            params,
-        )
+        if not self._is_stored(field):
+            # binary fields in attachments: let the ORM drop the files
+            records = self._get_model(field).search(field._get_domain())
+            records.write({field.field_name: False})
+            return len(records)
+        return self._update(field, SQL("NULL"))

@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2025 Hunki Enterprises BV
+     Copyright 2026 Globalist Technology SRL
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
-<data>
-    <record id="view_anonymize_field_tree" model="ir.ui.view">
+<odoo>
+    <record id="view_anonymize_field_list" model="ir.ui.view">
         <field name="model">anonymize.field</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" widget="handle" />
                 <field name="model_id" required="True" />
-                <field name="model_name" invisible="True" />
+                <field name="model_name" column_invisible="True" />
                 <field name="field_id" required="True" />
-                <field name="field_name" invisible="True" />
+                <field name="field_name" column_invisible="True" />
                 <field name="method" />
                 <field name="domain" />
-                <field name="options_display" />
-                <field name="has_options" invisible="True" />
-                <button
-                    type="object"
-                    name="action_options"
-                    string="Edit options"
-                    attrs="{'invisible': [('has_options', '=', False)]}"
-                    class="oe_link"
-                />
-            </tree>
+                <field name="options" />
+                <field name="default_options" optional="hide" />
+                <field name="active" column_invisible="True" />
+            </list>
         </field>
     </record>
 
@@ -53,4 +48,4 @@
         <field name="context">{'search_default_groupby_model': True}</field>
         <field name="domain">[('applicable', '=', True)]</field>
     </record>
-</data>
+</odoo>

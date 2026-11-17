@@ -1,14 +1,16 @@
 # Copyright 2025 Hunki Enterprises BV
+# Copyright 2026 Globalist Technology SRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
 {
     "name": "Anonymize a database",
     "summary": "Overwrite all privacy relevant data in a database",
-    "version": "14.0.1.0.0",
-    "development_status": "Alpha",
+    "version": "18.0.1.0.0",
+    "development_status": "Beta",
     "category": "Tools",
     "website": "https://github.com/OCA/server-backend",
-    "author": "Hunki Enterprises BV, Odoo Community Association (OCA)",
+    "author": "Hunki Enterprises BV, Globalist Technology SRL, "
+    "Odoo Community Association (OCA)",
     "maintainers": ["hbrunn"],
     "license": "AGPL-3",
     "depends": [

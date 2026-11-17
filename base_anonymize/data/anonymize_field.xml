@@ -1,139 +1,187 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2025 Hunki Enterprises BV
+     Copyright 2026 Globalist Technology SRL
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
-<data noupdate="1">
+<!-- Definitions for fields of modules that are not installed are kept
+     and simply not applicable. Recompute definitions (sequence 80-90) run
+     after the values they are computed from. -->
+<odoo noupdate="1">
     <!-- account -->
     <record id="anon_ir_attachment__datas_account_move" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
         <field name="field_name">datas</field>
+        <field name="method">anonymize.method.set.null</field>
         <field
             name="domain"
-        >[('res_model', 'in', ['account.move', 'account.payment']), ('id', '>', 0)]</field>
-        <field name="method">anonymize.method.set.null</field>
+        >[('res_model', 'in', ['account.move', 'account.payment']), ('id', '&gt;', 0)]</field>
+    </record>
+    <record
+        id="anon_account_move__invoice_partner_display_name"
+        model="anonymize.field"
+    >
+        <field name="sequence">90</field>
+        <field name="model_name">account.move</field>
+        <field name="field_name">invoice_partner_display_name</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <!-- analytic accounts are often named after the customer -->
+    <record id="anon_account_analytic_account__name" model="anonymize.field">
+        <field name="model_name">account.analytic.account</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "Analytic {id}"}</field>
     </record>
     <!-- base -->
     <record id="anon_res_partner__name" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">name</field>
         <field name="method">anonymize.method.fictional.character</field>
+        <field
+            name="domain"
+        >[('is_company', '=', False), ('id', 'not in', protected_partner_ids)]</field>
     </record>
-    <record id="anon_res_partner__display_name" model="anonymize.field">
+    <record id="anon_res_partner__name_company" model="anonymize.field">
         <field name="model_name">res.partner</field>
-        <field name="field_name">display_name</field>
-        <field name="method">anonymize.method.fictional.character</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field
+            name="domain"
+        >[('is_company', '=', True), ('id', 'not in', protected_partner_ids)]</field>
+        <field name="options">{"pattern": "Company {id}"}</field>
     </record>
-    <record id="anon_res_partner__display_company_name" model="anonymize.field">
+    <record id="anon_res_partner__company_name" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">company_name</field>
-        <field name="method">anonymize.method.fictional.character</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
-    <record
-        id="anon_res_partner__display_commercial_company_name"
-        model="anonymize.field"
-    >
+    <record id="anon_res_partner__commercial_company_name" model="anonymize.field">
+        <field name="sequence">80</field>
         <field name="model_name">res.partner</field>
         <field name="field_name">commercial_company_name</field>
-        <field name="method">anonymize.method.fictional.character</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <record id="anon_res_partner__complete_name" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">res.partner</field>
+        <field name="field_name">complete_name</field>
+        <field name="method">anonymize.method.recompute</field>
     </record>
     <record id="anon_res_partner__title" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">title</field>
         <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
     <record id="anon_res_partner__comment" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">comment</field>
         <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
     <record id="anon_res_partner__vat" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">vat</field>
         <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
     <record id="anon_res_partner__ref" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">ref</field>
         <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
-    <record id="anon_res_partner__city" model="anonymize.field">
+    <record id="anon_res_partner__company_registry" model="anonymize.field">
         <field name="model_name">res.partner</field>
-        <field name="field_name">city</field>
+        <field name="field_name">company_registry</field>
         <field name="method">anonymize.method.set.null</field>
-    </record>
-    <record id="anon_res_partner__zip" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">zip</field>
-        <field name="method">anonymize.method.set.null</field>
-    </record>
-    <record id="anon_res_partner__state_id" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">state_id</field>
-        <field name="method">anonymize.method.set.null</field>
-    </record>
-    <record id="anon_res_partner__country_id" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">country_id</field>
-        <field name="method">anonymize.method.set.null</field>
-    </record>
-    <record id="anon_res_partner__street" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">street</field>
-        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
     <record id="anon_res_partner__street2" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">street2</field>
         <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <record id="anon_res_partner__website" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">website</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <record id="anon_res_partner__street" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">street</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+        <field name="options">{"pattern": "Street {id}"}</field>
     </record>
     <record id="anon_res_partner__email" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">email</field>
-        <field name="method">anonymize.method.random.email</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+        <field name="options">{"pattern": "partner{id}@example.com"}</field>
     </record>
     <record id="anon_res_partner__phone" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">phone</field>
-        <field name="method">anonymize.method.set.null</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+        <field name="options">{"pattern": "+39 000 {id}"}</field>
     </record>
     <record id="anon_res_partner__mobile" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">mobile</field>
-        <field name="method">anonymize.method.set.null</field>
-    </record>
-    <record id="anon_res_partner_bank__sanitized_acc_number" model="anonymize.field">
-        <field name="model_name">res.partner.bank</field>
-        <field name="field_name">sanitized_acc_number</field>
-        <field name="method">anonymize.method.random.number</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+        <field name="options">{"pattern": "+39 000 {id}"}</field>
     </record>
     <record id="anon_res_partner_bank__acc_number" model="anonymize.field">
         <field name="model_name">res.partner.bank</field>
         <field name="field_name">acc_number</field>
-        <field name="method">anonymize.method.random.number</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "ANON{id}"}</field>
+    </record>
+    <record id="anon_res_partner_bank__sanitized_acc_number" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">res.partner.bank</field>
+        <field name="field_name">sanitized_acc_number</field>
+        <field name="method">anonymize.method.recompute</field>
     </record>
     <record id="anon_res_partner_bank__acc_holder_name" model="anonymize.field">
         <field name="model_name">res.partner.bank</field>
         <field name="field_name">acc_holder_name</field>
-        <field name="method">anonymize.method.fictional.character</field>
+        <field name="method">anonymize.method.set.null</field>
     </record>
     <record id="anon_res_users__login" model="anonymize.field">
         <field name="model_name">res.users</field>
         <field name="field_name">login</field>
-        <field name="method">anonymize.method.random.email</field>
-        <field name="domain">[('login', 'like', '%@%')]</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('id', 'not in', protected_user_ids)]</field>
+        <field name="options">{"pattern": "user{id}@example.com"}</field>
+    </record>
+    <record id="anon_res_users__login_admin" model="anonymize.field">
+        <field name="model_name">res.users</field>
+        <field name="field_name">login</field>
+        <field name="method">anonymize.method.fixed.string</field>
+        <field
+            name="domain"
+        >[('id', 'in', admin_user_ids), ('login', '!=', '__system__')]</field>
+        <field name="options">{"string": "admin"}</field>
     </record>
     <record id="anon_res_users__password" model="anonymize.field">
         <field name="model_name">res.users</field>
         <field name="field_name">password</field>
-        <field name="method">anonymize.method.fixed.string</field>
-        <field name="options">{"string": "password"}</field>
+        <field name="method">anonymize.method.random.password</field>
     </record>
     <record id="anon_ir_attachment__datas_partners" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
         <field name="field_name">datas</field>
+        <field name="method">anonymize.method.set.null</field>
         <field
             name="domain"
-        >[('res_model', 'in', ['res.partner', 'res.users']), ('id', '>', 0)]</field>
-        <field name="method">anonymize.method.set.null</field>
+        >[('res_model', 'in', ['res.partner', 'res.users']), ('id', '&gt;', 0)]</field>
     </record>
     <record id="anon_ir_attachment__index_content" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
@@ -153,38 +201,312 @@
             name="domain"
         >[('key', 'in', ('database.secret', 'database.uuid'))]</field>
     </record>
+    <!-- signatures often hold phone numbers and emails: drop them, then let
+         Odoo rebuild the default one from the anonymized name -->
+    <record id="anon_res_users__signature_drop" model="anonymize.field">
+        <field name="model_name">res.users</field>
+        <field name="field_name">signature</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_res_users__signature" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">res.users</field>
+        <field name="field_name">signature</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <!-- bus -->
+    <record id="anon_bus_bus__id" model="anonymize.field">
+        <field name="sequence">50</field>
+        <field name="model_name">bus.bus</field>
+        <field name="field_name">id</field>
+        <field name="method">anonymize.method.delete</field>
+    </record>
+    <!-- calendar -->
+    <record id="anon_calendar_attendee__common_name" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">calendar.attendee</field>
+        <field name="field_name">common_name</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
     <!-- mail -->
+    <record id="anon_res_partner__email_normalized" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">res.partner</field>
+        <field name="field_name">email_normalized</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
     <record id="anon_mail_message__body" model="anonymize.field">
         <field name="model_name">mail.message</field>
         <field name="field_name">body</field>
         <field name="method">anonymize.method.fixed.string</field>
         <field
             name="options"
-        >{"string": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}</field>
+        >{"string": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}</field>
     </record>
     <record id="anon_mail_message__subject" model="anonymize.field">
         <field name="model_name">mail.message</field>
         <field name="field_name">subject</field>
         <field name="method">anonymize.method.random.string</field>
     </record>
-    <!-- partner_firstname -->
-    <record id="anon_res_partner__firstname" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">firstname</field>
+    <record id="anon_mail_message__email_from" model="anonymize.field">
+        <field name="model_name">mail.message</field>
+        <field name="field_name">email_from</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "author{id}@example.com"}</field>
+    </record>
+    <record id="anon_mail_message__reply_to" model="anonymize.field">
+        <field name="model_name">mail.message</field>
+        <field name="field_name">reply_to</field>
         <field name="method">anonymize.method.set.null</field>
     </record>
-    <record id="anon_res_partner__lastname" model="anonymize.field">
-        <field name="model_name">res.partner</field>
-        <field name="field_name">lastname</field>
+    <record id="anon_mail_message__record_name" model="anonymize.field">
+        <field name="model_name">mail.message</field>
+        <field name="field_name">record_name</field>
         <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_mail_tracking_value__old_value_char" model="anonymize.field">
+        <field name="model_name">mail.tracking.value</field>
+        <field name="field_name">old_value_char</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_mail_tracking_value__new_value_char" model="anonymize.field">
+        <field name="model_name">mail.tracking.value</field>
+        <field name="field_name">new_value_char</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_mail_tracking_value__old_value_text" model="anonymize.field">
+        <field name="model_name">mail.tracking.value</field>
+        <field name="field_name">old_value_text</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_mail_tracking_value__new_value_text" model="anonymize.field">
+        <field name="model_name">mail.tracking.value</field>
+        <field name="field_name">new_value_text</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_mail_mail__id" model="anonymize.field">
+        <field name="sequence">50</field>
+        <field name="model_name">mail.mail</field>
+        <field name="field_name">id</field>
+        <field name="method">anonymize.method.delete</field>
+    </record>
+    <!-- sms -->
+    <record id="anon_res_partner__phone_sanitized" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">res.partner</field>
+        <field name="field_name">phone_sanitized</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <!-- l10n_it_edi -->
+    <record id="anon_res_partner__l10n_it_codice_fiscale" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">l10n_it_codice_fiscale</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <record id="anon_res_partner__l10n_it_pec_email" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">l10n_it_pec_email</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <record id="anon_res_partner__l10n_it_pa_index" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">l10n_it_pa_index</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <!-- crm -->
+    <record id="anon_crm_lead__name" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "Lead {id}"}</field>
+    </record>
+    <record id="anon_crm_lead__partner_name" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">partner_name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "Company {id}"}</field>
+    </record>
+    <record id="anon_crm_lead__contact_name" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">contact_name</field>
+        <field name="method">anonymize.method.fictional.character</field>
+    </record>
+    <record id="anon_crm_lead__email_from" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">email_from</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "lead{id}@example.com"}</field>
+    </record>
+    <record id="anon_crm_lead__phone" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">phone</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "+39 000 {id}"}</field>
+    </record>
+    <record id="anon_crm_lead__mobile" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">mobile</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "+39 000 {id}"}</field>
+    </record>
+    <record id="anon_crm_lead__street" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">street</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "Street {id}"}</field>
+    </record>
+    <record id="anon_crm_lead__street2" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">street2</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_crm_lead__website" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">website</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_crm_lead__function" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">function</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_crm_lead__description" model="anonymize.field">
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">description</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_crm_lead__email_normalized" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">email_normalized</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <record id="anon_crm_lead__phone_sanitized" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">phone_sanitized</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <record id="anon_ir_attachment__datas_crm_lead" model="anonymize.field">
+        <field name="model_name">ir.attachment</field>
+        <field name="field_name">datas</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('res_model', '=', 'crm.lead'), ('id', '&gt;', 0)]</field>
+    </record>
+    <record id="anon_crm_lead__email_domain_criterion" model="anonymize.field">
+        <field name="sequence">95</field>
+        <field name="model_name">crm.lead</field>
+        <field name="field_name">email_domain_criterion</field>
+        <field name="method">anonymize.method.recompute</field>
     </record>
     <!-- sale -->
     <record id="anon_ir_attachment__datas_sale_order" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
         <field name="field_name">datas</field>
+        <field name="method">anonymize.method.set.null</field>
         <field
             name="domain"
-        >[('res_model', 'in', ['sale.order']), ('id', '>', 0)]</field>
+        >[('res_model', 'in', ['sale.order']), ('id', '&gt;', 0)]</field>
+    </record>
+    <!-- free text of documents and wizards, found on a production copy -->
+    <record id="anon_res_partner__function" model="anonymize.field">
+        <field name="model_name">res.partner</field>
+        <field name="field_name">function</field>
+        <field name="method">anonymize.method.set.null</field>
+        <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
+    </record>
+    <record id="anon_account_move__narration" model="anonymize.field">
+        <field name="model_name">account.move</field>
+        <field name="field_name">narration</field>
         <field name="method">anonymize.method.set.null</field>
     </record>
-</data>
+    <!-- transient records left in the table -->
+    <record id="anon_account_move_send_wizard__id" model="anonymize.field">
+        <field name="model_name">account.move.send.wizard</field>
+        <field name="field_name">id</field>
+        <field name="method">anonymize.method.delete</field>
+    </record>
+    <record id="anon_mail_compose_message__id" model="anonymize.field">
+        <field name="model_name">mail.compose.message</field>
+        <field name="field_name">id</field>
+        <field name="method">anonymize.method.delete</field>
+    </record>
+    <record id="anon_sale_order_cancel__id" model="anonymize.field">
+        <field name="model_name">sale.order.cancel</field>
+        <field name="field_name">id</field>
+        <field name="method">anonymize.method.delete</field>
+    </record>
+    <record id="anon_sale_order__note" model="anonymize.field">
+        <field name="model_name">sale.order</field>
+        <field name="field_name">note</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_sale_order__client_order_ref" model="anonymize.field">
+        <field name="model_name">sale.order</field>
+        <field name="field_name">client_order_ref</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_purchase_order__notes" model="anonymize.field">
+        <field name="model_name">purchase.order</field>
+        <field name="field_name">notes</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_project_task__description" model="anonymize.field">
+        <field name="model_name">project.task</field>
+        <field name="field_name">description</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_project_task__html_field_history" model="anonymize.field">
+        <field name="model_name">project.task</field>
+        <field name="field_name">html_field_history</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <record id="anon_project_task__partner_name" model="anonymize.field">
+        <field name="sequence">90</field>
+        <field name="model_name">project.task</field>
+        <field name="field_name">partner_name</field>
+        <field name="method">anonymize.method.recompute</field>
+    </record>
+    <record id="anon_calendar_event__name" model="anonymize.field">
+        <field name="model_name">calendar.event</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="options">{"pattern": "Event {id}"}</field>
+    </record>
+    <record id="anon_calendar_event__description" model="anonymize.field">
+        <field name="model_name">calendar.event</field>
+        <field name="field_name">description</field>
+        <field name="method">anonymize.method.set.null</field>
+    </record>
+    <!-- direct chats are named after their members -->
+    <record id="anon_discuss_channel__name" model="anonymize.field">
+        <field name="model_name">discuss.channel</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.pattern</field>
+        <field name="domain">[('channel_type', '=', 'chat')]</field>
+        <field name="options">{"pattern": "Chat {id}"}</field>
+    </record>
+    <!-- line descriptions often quote the customer: inactive by default, because the
+         documents become harder to read -->
+    <record id="anon_account_move_line__name" model="anonymize.field">
+        <field name="active" eval="False" />
+        <field name="model_name">account.move.line</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.product.name</field>
+    </record>
+    <record id="anon_sale_order_line__name" model="anonymize.field">
+        <field name="active" eval="False" />
+        <field name="model_name">sale.order.line</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.product.name</field>
+    </record>
+    <record id="anon_purchase_order_line__name" model="anonymize.field">
+        <field name="active" eval="False" />
+        <field name="model_name">purchase.order.line</field>
+        <field name="field_name">name</field>
+        <field name="method">anonymize.method.product.name</field>
+    </record>
+</odoo>

@@ -1,7 +1,9 @@
 # Copyright 2025 Hunki Enterprises BV
+# Copyright 2026 Globalist Technology SRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
-from odoo import fields, models
+from odoo import models
+from odoo.tools import SQL
 
 
 class AnonymizeMethodFixedString(models.AbstractModel):
@@ -9,19 +11,7 @@ class AnonymizeMethodFixedString(models.AbstractModel):
     _name = "anonymize.method.fixed.string"
     _description = "Fixed string"
 
-    string = fields.Text(required=True, default="-anonymized-")
+    _default_options = {"string": "-anonymized-"}
 
     def _run(self, field):
-        options = field._get_options()
-        from_clause, where_clause, params = self._get_query(field)
-        self.env.cr.execute(
-            f"""UPDATE
-            {from_clause}
-            SET
-            {field.field_name}=%s
-            WHERE
-            {where_clause}
-            AND {from_clause}.{field.field_name} IS NOT NULL
-            """,
-            [options["string"]] + params,
-        )
+        return self._update(field, SQL("%s", field._get_options()["string"]))

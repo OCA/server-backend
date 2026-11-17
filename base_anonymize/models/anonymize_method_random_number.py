@@ -1,7 +1,9 @@
 # Copyright 2025 Hunki Enterprises BV
+# Copyright 2026 Globalist Technology SRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0)
 
-from odoo import fields, models
+from odoo import models
+from odoo.tools import SQL
 
 
 class AnonymizeMethodRandomNumber(models.AbstractModel):
@@ -9,22 +11,11 @@ class AnonymizeMethodRandomNumber(models.AbstractModel):
     _name = "anonymize.method.random.number"
     _description = "Random number"
 
-    min_number = fields.Integer(required=True, default=1)
-    max_number = fields.Integer(required=True, default=9999999)
+    _default_options = {"min_number": 1, "max_number": 9999999}
 
     def _run(self, field):
         options = field._get_options()
-        from_clause, where_clause, params = self._get_query(field)
-        self.env.cr.execute(
-            f"""UPDATE
-            {from_clause}
-            SET
-            {field.field_name}={options['min_number']} + (
-                random() * {options['max_number'] - options['min_number']}
-            )
-            WHERE
-            {where_clause}
-            AND {from_clause}.{field.field_name} IS NOT NULL
-            """,
-            params,
+        low, high = int(options["min_number"]), int(options["max_number"])
+        return self._update(
+            field, SQL("%s + floor(random() * %s)::int", low, high - low + 1)
         )
