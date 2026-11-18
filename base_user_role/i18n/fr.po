@@ -530,39 +530,3 @@ msgstr "ou"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Application"
-
-#~ msgid "Associated category"
-#~ msgstr "Catégorie associée"
-
-#~ msgid "Associated group's category"
-#~ msgstr "Catégorie du groupe associé"
-
-#~ msgid "Color Index"
-#~ msgstr "Indice de couleur"
-
-#~ msgid "Inherits"
-#~ msgstr "Hérite"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Hérite transitivement"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr ""
-#~ "Les utilisateurs de ce groupe héritent automatiquement de ces groupes"
-
-#~ msgid "# Roles"
-#~ msgstr "# Rôles"
-
-#~ msgid "Roles can be assigned to a user only once at a time"
-#~ msgstr ""
-#~ "Les rôles ne peuvent être attribués à un utilisateur qu'une seule fois à "
-#~ "la fois"
-
-#~ msgid "User role"
-#~ msgstr "Rôle utilisateur"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Dernière modification le"

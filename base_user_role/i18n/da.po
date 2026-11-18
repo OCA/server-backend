@@ -525,38 +525,3 @@ msgstr "eller"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr "x"
-
-#~ msgid "Application"
-#~ msgstr "Applikation"
-
-#, fuzzy
-#~ msgid "Associated category"
-#~ msgstr "Tilhørende gruppe"
-
-#, fuzzy
-#~ msgid "Associated group's category"
-#~ msgstr "Tilhørende gruppe"
-
-#~ msgid "Color Index"
-#~ msgstr "Farve indeks"
-
-#~ msgid "Inherits"
-#~ msgstr "Arver"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Transitivt arver"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Bruger af denne gruppe arver automatisk disse grupper"
-
-#~ msgid "User role"
-#~ msgstr "Brugerrolle"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Sidst ændret den"
-
-#~ msgid "If checked, this group is usable as a portal."
-#~ msgstr "Hvis slået til kan denne gruppe anvendes som portal."
-
-#~ msgid "Portal"
-#~ msgstr "Portal"

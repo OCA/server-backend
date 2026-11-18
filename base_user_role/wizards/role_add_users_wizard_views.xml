@@ -7,7 +7,6 @@
         <field name="target">new</field>
         <field name="context">{'default_role_id': active_id}</field>
     </record>
-
     <record id="view_res_users_role_add_users_wizard" model="ir.ui.view">
         <field name="name">role.add.users.wizard.form</field>
         <field name="model">role.add.users.wizard</field>

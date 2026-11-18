@@ -515,12 +515,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Applicatie"
-
-#~ msgid "Color Index"
-#~ msgstr "Kleurindex"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Laatst gewijzigd op"

@@ -528,36 +528,3 @@ msgstr "eller"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr "x"
-
-#~ msgid "Application"
-#~ msgstr "Tillämpning"
-
-#~ msgid "Associated category"
-#~ msgstr "Associerad kategori"
-
-#~ msgid "Associated group's category"
-#~ msgstr "Associerad grupps kategori"
-
-#~ msgid "Color Index"
-#~ msgstr "Färgindex"
-
-#~ msgid "Inherits"
-#~ msgstr "Arv"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Övergångsvis ärver"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Användare av denna grupp ärver automatiskt dessa grupper"
-
-#~ msgid "# Roles"
-#~ msgstr "# Roller"
-
-#~ msgid "Roles can be assigned to a user only once at a time"
-#~ msgstr "Roller kan tilldelas en användare endast en gång åt gången"
-
-#~ msgid "User role"
-#~ msgstr "Användarroll"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Senast redigerad"

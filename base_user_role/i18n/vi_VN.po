@@ -517,30 +517,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Ứng dụng"
-
-#~ msgid "Associated category"
-#~ msgstr "Danh mục được liên kết"
-
-#~ msgid "Associated group's category"
-#~ msgstr "Phân loại của nhóm được liên kết"
-
-#~ msgid "Color Index"
-#~ msgstr "Danh mục màu"
-
-#~ msgid "Inherits"
-#~ msgstr "Kế thừa từ"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Người dùng của nhóm này sẽ tự động kế thừa từ các nhóm khác"
-
-#~ msgid "Roles can be assigned to a user only once at a time"
-#~ msgstr "Vai trò chỉ được gán cho người dùng một lần tại một thời điểm"
-
-#~ msgid "User role"
-#~ msgstr "Vai trò người dùng"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Chỉnh sửa lần cuối vào"

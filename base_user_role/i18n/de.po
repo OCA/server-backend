@@ -534,20 +534,3 @@ msgstr "oder"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr "x"
-
-#~ msgid "Application"
-#~ msgstr "Anwendung"
-
-#, fuzzy
-#~ msgid "Associated category"
-#~ msgstr "Zugewiesene Gruppe"
-
-#, fuzzy
-#~ msgid "Associated group's category"
-#~ msgstr "Zugewiesene Gruppe"
-
-#~ msgid "Color Index"
-#~ msgstr "Farbindex"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Zuletzt geändert am"

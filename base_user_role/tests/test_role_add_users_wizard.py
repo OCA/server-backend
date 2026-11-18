@@ -1,8 +1,12 @@
 from odoo import Command
-from odoo.tests.common import TransactionCase
+from odoo.tests import new_test_user
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestRoleAddUsersWizard(TransactionCase):
+class TestRoleAddUsersWizard(BaseCommon):
+    _test_user_groups = ("base.group_erp_manager",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -11,27 +15,9 @@ class TestRoleAddUsersWizard(TransactionCase):
                 "name": "Test Role",
             }
         )
-        cls.user1 = cls.env["res.users"].create(
-            {
-                "name": "Test User 1",
-                "login": "testuser1",
-                "email": "testuser1@example.com",
-            }
-        )
-        cls.user2 = cls.env["res.users"].create(
-            {
-                "name": "Test User 2",
-                "login": "testuser2",
-                "email": "testuser2@example.com",
-            }
-        )
-        cls.user3 = cls.env["res.users"].create(
-            {
-                "name": "Test User 3",
-                "login": "testuser3",
-                "email": "testuser3@example.com",
-            }
-        )
+        cls.user1 = new_test_user(cls.env, login="testuser1")
+        cls.user2 = new_test_user(cls.env, login="testuser2")
+        cls.user3 = new_test_user(cls.env, login="testuser3")
 
     def test_add_new_users_to_role(self):
         """Test adding new users to a role without existing users"""
