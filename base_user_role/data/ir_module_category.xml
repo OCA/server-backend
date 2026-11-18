@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2016 ABF OSIELL <http://osiell.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
  -->
@@ -9,7 +9,7 @@ module (field 'res.groups.category_id').
 By doing this you'll have the section 'User roles' in the "Access rights" tab
 on the user form which will regroup all roles/groups for a better visibility.
 -->
-    <record model="ir.module.category" id="ir_module_category_role">
+    <record id="ir_module_category_role" model="ir.module.category">
         <field name='name'>User roles</field>
     </record>
 </odoo>
