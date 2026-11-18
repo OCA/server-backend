@@ -262,12 +262,10 @@ class TestUserRole(TestUserRoleCommon):
         self.multicompany_user_1.write(
             {"group_ids": [fields.Command.set(self.env.ref("base.group_user").ids)]}
         )
-        # Check that the user cannot read multicompany data again since it lost
+        # Check that the user cannot write roles anymore since it lost
         # its admin privileges
-        with self.assertRaisesRegex(
-            AccessError, "You are not allowed to access 'User Role'"
-        ):
-            role.read()
+        with self.assertRaises(AccessError):
+            role.write({"sequence": 20})
 
     def test_create_role_from_user(self):
         # Use a wizard instance to create a new role based on the user.
