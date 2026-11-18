@@ -16,7 +16,11 @@ class ResGroups(models.Model):
         role_groups = (
             self.env["res.users.role"].sudo().search([], limit=1000).mapped("group_id")
         )
-        return (*xmlids, *role_groups._ensure_xml_id().values())
+        role_group_xmlids = role_groups.get_external_id()
+        return (
+            *xmlids,
+            *(role_group_xmlids[group.id] or str(group.id) for group in role_groups),
+        )
 
     view_access = fields.Many2many(
         groups="base.group_system",

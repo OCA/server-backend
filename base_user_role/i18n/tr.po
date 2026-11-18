@@ -521,36 +521,3 @@ msgstr "veya"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Uygulama"
-
-#~ msgid "Associated category"
-#~ msgstr "İlişkili kategori"
-
-#~ msgid "Associated group's category"
-#~ msgstr "İlişkili grup kategorisi"
-
-#~ msgid "Color Index"
-#~ msgstr "Renk İndeksi"
-
-#~ msgid "Inherits"
-#~ msgstr "Devralır"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Geçişli olarak miras alır"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Bu grubun kullanıcıları, bu grupları otomatik olarak devralır"
-
-#~ msgid "# Roles"
-#~ msgstr "# Roller"
-
-#~ msgid "Roles can be assigned to a user only once at a time"
-#~ msgstr "Roller bir kullanıcıya aynı anda yalnızca bir kez atanabilir"
-
-#~ msgid "User role"
-#~ msgstr "Kullanıcı rolü"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Son değişiklik"

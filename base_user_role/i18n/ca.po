@@ -515,33 +515,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Aplicació"
-
-#~ msgid "Associated category"
-#~ msgstr "Categoria associada"
-
-#~ msgid "Associated group's category"
-#~ msgstr "Categoria del grup associat"
-
-#~ msgid "Color Index"
-#~ msgstr "Índex de colors"
-
-#~ msgid "Inherits"
-#~ msgstr "Hereta"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Hereta transitivament"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Els usuaris d'aquest grup hereten automàticament aquests grups"
-
-#~ msgid "Roles can be assigned to a user only once at a time"
-#~ msgstr "Els rols es poden assignar a un usuari només una vegada a la vegada"
-
-#~ msgid "User role"
-#~ msgstr "Rol d'usuari"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Darrera modificació el"

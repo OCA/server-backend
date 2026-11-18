@@ -1,7 +1,6 @@
 # Copyright 2014 ABF OSIELL <http://osiell.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import logging
-from typing import ClassVar
 
 from odoo import api, fields, models
 from odoo.api import SUPERUSER_ID
@@ -11,7 +10,7 @@ _logger = logging.getLogger(__name__)
 
 class ResUsersRole(models.Model):
     _name = "res.users.role"
-    _inherits: ClassVar[dict[str, str]] = {"res.groups": "group_id"}
+    _inherits = {"res.groups": "group_id"}
     _description = "User Role"
     _order = "sequence,name"
 

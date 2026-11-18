@@ -525,32 +525,3 @@ msgstr "ali"
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr "x"
-
-#~ msgid "Application"
-#~ msgstr "Aplikacija"
-
-#, fuzzy
-#~ msgid "Associated category"
-#~ msgstr "Povezana skupina"
-
-#, fuzzy
-#~ msgid "Associated group's category"
-#~ msgstr "Povezana skupina"
-
-#~ msgid "Color Index"
-#~ msgstr "Barvni indeks"
-
-#~ msgid "Inherits"
-#~ msgstr "Podeduje"
-
-#~ msgid "Transitively inherits"
-#~ msgstr "Prehodno podeduje"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Uporabniki v tej skupini samodejno podedujejo te skupine"
-
-#~ msgid "User role"
-#~ msgstr "Uporabniška vloga"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Zadnjič spremenjeno"

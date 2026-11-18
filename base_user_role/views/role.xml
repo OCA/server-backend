@@ -14,7 +14,7 @@
                             name="show_model_access_ids"
                             type="object"
                             class="oe_stat_button"
-                            icon="fa-book"
+                            icon="book"
                         >
                             <field
                                 name="model_access_count"

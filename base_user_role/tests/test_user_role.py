@@ -8,7 +8,8 @@ from unittest.mock import patch
 from odoo import fields
 from odoo.exceptions import AccessError
 from odoo.fields import Command
-from odoo.tests import tagged
+from odoo.tests import new_test_user, tagged
+from odoo.tools import mute_logger
 
 from odoo.addons.base.models.res_users import ResUsers as BaseResUsers
 from odoo.addons.base.tests.common import BaseCommon
@@ -20,15 +21,12 @@ class TestUserRoleCommon(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user_model = cls.env["res.users"]
         cls.role_model = cls.env["res.users.role"]
         cls.wiz_model = cls.env["wizard.groups.into.role"]
 
         cls.company1 = cls.env.ref("base.main_company")
         cls.company2 = cls.env["res.company"].create({"name": "company2"})
-        cls.user_id = cls.user_model.create(
-            {"name": "USER TEST (ROLES)", "login": "user_test_roles"}
-        )
+        cls.user_id = new_test_user(cls.env, login="user_test_roles")
 
         # ROLE_1
         cls.group_user_id = cls.env.ref("base.group_user")
@@ -61,25 +59,19 @@ class TestUserRoleCommon(BaseCommon):
         cls.role2_id = cls.role_model.create(vals)
 
         # Setup for multi-company testing
-        cls.multicompany_user_1 = cls.user_model.create(
-            {
-                "name": "multicompany_user_1",
-                "company_id": cls.company1.id,
-                "company_ids": [fields.Command.set([cls.company1.id, cls.company2.id])],
-                "group_ids": [
-                    fields.Command.set(cls.env.ref("base.group_erp_manager").ids)
-                ],
-                "login": "multicompany_user_1",
-            }
+        cls.multicompany_user_1 = new_test_user(
+            cls.env,
+            company_id=cls.company1.id,
+            company_ids=(cls.company1 + cls.company2).ids,
+            groups="base.group_erp_manager",
+            login="multicompany_user_1",
         )
-        cls.multicompany_user_2 = cls.user_model.create(
-            {
-                "name": "multicompany_user_2",
-                "company_id": cls.company2.id,
-                "company_ids": [fields.Command.set([cls.company2.id])],
-                "group_ids": [fields.Command.set(cls.env.ref("base.group_user").ids)],
-                "login": "multicompany_user_2",
-            }
+        cls.multicompany_user_2 = new_test_user(
+            cls.env,
+            company_id=cls.company2.id,
+            company_ids=cls.company2.ids,
+            groups="base.group_user",
+            login="multicompany_user_2",
         )
         cls.multicompany_role = cls.role_model.create(
             {
@@ -162,6 +154,7 @@ class TestUserRole(TestUserRoleCommon):
         role_group_ids = sorted(set(self.role1_id.all_implied_ids.ids))
         self.assertEqual(user_group_ids, role_group_ids)
 
+    @mute_logger("odoo.models.unlink")
     def test_role_unlink(self):
         # Get role1 and role2 groups
         role1_groups = self.role1_id.all_implied_ids
@@ -230,9 +223,7 @@ class TestUserRole(TestUserRoleCommon):
         # Mark roles as default on new users
         self.role1_id.is_default = True
         self.role2_id.is_default = True
-        user = self.user_model.create(
-            {"name": "USER TEST (DEFAULT ROLES)", "login": "user_test_default_roles"}
-        )
+        user = new_test_user(self.env, login="user_test_default_roles")
         roles = self.role_model.browse([self.role1_id.id, self.role2_id.id])
         self.assertEqual(user.user_role_ids, roles)
 
@@ -308,6 +299,7 @@ class TestUserRole(TestUserRoleCommon):
         role_group_ids = set(role.implied_ids.ids)
         self.assertEqual(user_group_ids, role_group_ids)
 
+    @mute_logger("odoo.models.unlink")
     def test_show_alert_computation(self):
         """Test the computation of the `show_alert` field."""
         self.user_id.write(

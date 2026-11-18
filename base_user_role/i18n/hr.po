@@ -519,29 +519,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_user_role.view_res_users_form_inherit
 msgid "x"
 msgstr ""
-
-#~ msgid "Application"
-#~ msgstr "Aplikacija"
-
-#, fuzzy
-#~ msgid "Associated category"
-#~ msgstr "Pridružena grupa"
-
-#, fuzzy
-#~ msgid "Associated group's category"
-#~ msgstr "Pridružena grupa"
-
-#~ msgid "Color Index"
-#~ msgstr "Index boje"
-
-#~ msgid "Inherits"
-#~ msgstr "Nasljeđuje"
-
-#~ msgid "Users of this group automatically inherit those groups"
-#~ msgstr "Korisnici ove grupe automatski nasljeđuju ove grupe"
-
-#~ msgid "User role"
-#~ msgstr "Korisnička rola"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Zadnja izmjena dana"

@@ -7,7 +7,6 @@
         <field name="target">new</field>
         <field name="binding_model_id" ref="base.model_res_users" />
     </record>
-
     <record id="create_from_user_wizard_view" model="ir.ui.view">
         <field name="name">Create role from user</field>
         <field name="model">wizard.create.role.from.user</field>
@@ -17,15 +16,13 @@
                     <field name="name" />
                     <field name="assign_to_user" />
                 </group>
-
                 <footer>
                     <button
-                    name="create_from_user"
-                    string="Create"
-                    type="object"
-                    class="oe_highlight"
-                />
-                    or
+                        name="create_from_user"
+                        string="Create"
+                        type="object"
+                        class="oe_highlight"
+                    />
                     <button string="Close" class="oe_link" special="cancel" />
                 </footer>
             </form>
