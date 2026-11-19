@@ -1,0 +1,181 @@
+# Copyright 2014 ABF OSIELL <http://osiell.com>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+import logging
+from typing import ClassVar
+
+from odoo import api, fields, models
+from odoo.api import SUPERUSER_ID
+
+_logger = logging.getLogger(__name__)
+
+
+class ResUsersRole(models.Model):
+    _name = "res.users.role"
+    _inherits: ClassVar[dict[str, str]] = {"res.groups": "group_id"}
+    _description = "User Role"
+    _order = "sequence,name"
+
+    sequence = fields.Integer(default=10)
+    group_id = fields.Many2one(
+        comodel_name="res.groups",
+        required=True,
+        ondelete="cascade",
+        readonly=True,
+        string="Associated group",
+    )
+    line_ids = fields.One2many(
+        comodel_name="res.users.role.line", inverse_name="role_id", string="Role lines"
+    )
+    role_user_ids = fields.One2many(
+        comodel_name="res.users",
+        string="Users list",
+        compute="_compute_role_user_ids",
+        search="_search_role_user_ids",
+    )
+    model_access_ids = fields.Many2many(
+        comodel_name="ir.access",
+        compute="_compute_model_access_ids",
+        string="Access Rights",
+        required=False,
+    )
+    model_access_count = fields.Integer(compute="_compute_model_access_ids")
+    group_privilege_id = fields.Many2one(
+        related="group_id.privilege_id",
+        string="Associated privilege",
+        help="Privilege assigned to the associated group.",
+        readonly=False,
+    )
+    is_default = fields.Boolean(
+        string="Default on new users",
+        help=("When enabled, this role is assigned to newly created users by default."),
+    )
+
+    @api.depends("line_ids.user_id")
+    def _compute_role_user_ids(self):
+        for role in self.sudo() if self._bypass_rules() else self:
+            role.role_user_ids = role.line_ids.mapped("user_id")
+
+    def _search_role_user_ids(self, operator, value):
+        return [("line_ids.user_id", operator, value)]
+
+    @api.depends("implied_ids", "implied_ids.access_ids")
+    def _compute_model_access_ids(self):
+        for rec in self:
+            rec.model_access_ids = rec.implied_ids.access_ids
+            rec.model_access_count = len(rec.model_access_ids)
+
+    @api.model
+    def _bypass_rules(self):
+        # Run methods as super user to avoid problems by "Administrator/Access Right"
+        return self._name == "res.users.role" and self.env.user.has_group(
+            "base.group_erp_manager"
+        )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        model = (self.sudo() if self._bypass_rules() else self).browse()
+        new_records = super(ResUsersRole, model).create(vals_list)
+        self.env["res.groups"]._apply_group_regular()
+        new_records.update_users()
+        return new_records
+
+    def read(self, fields=None, load="_classic_read"):
+        recs = self.sudo() if self._bypass_rules() else self
+        return super(ResUsersRole, recs).read(fields, load)
+
+    def write(self, vals):
+        recs = self.sudo() if self._bypass_rules() else self
+        # Workaround to solve issue with broken code in odoo that clear the
+        # cache during the write: see odoo/addons/base/models/res_users.py#L226
+        groups_vals = {}
+        for field in recs.group_id._fields:
+            if field in vals:
+                groups_vals[field] = vals.pop(field)
+        if groups_vals:
+            recs.group_id.write(groups_vals)
+        res = super(ResUsersRole, recs).write(vals)
+        recs.update_users()
+        return res
+
+    def unlink(self):
+        users = self.mapped("role_user_ids")
+        res = super().unlink()
+        self.env["res.groups"]._apply_group_regular()
+        users.set_groups_from_roles(force=True)
+        return res
+
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {}, name=self.env._("%s (copy)", self.name))
+        return super().copy(default)
+
+    def update_users(self):
+        """Update all the users concerned by the roles identified by `ids`."""
+        users = self.mapped("role_user_ids")
+        users.set_groups_from_roles()
+        return True
+
+    @api.model
+    def cron_update_users(self):
+        _logger.info("Update user roles")
+        offset = 0
+        batch = 2000
+        while True:
+            roles = self.search([], offset=offset, limit=batch)
+            if not roles:
+                break
+            roles.update_users()
+            offset += batch
+
+    def show_model_access_ids(self):
+        action = self.env["ir.actions.actions"]._for_xml_id("base.ir_access_action")
+        action["domain"] = [("id", "in", self.model_access_ids.ids)]
+        return action
+
+
+class ResUsersRoleLine(models.Model):
+    _name = "res.users.role.line"
+    _description = "Users associated to a role"
+    _order = "sequence,name"
+
+    sequence = fields.Integer(related="role_id.sequence")
+    # name is used in _order (see above) to sort lines
+    # the same way roles are sorted.
+    name = fields.Char(related="role_id.name")
+    active = fields.Boolean(related="user_id.active")
+    role_id = fields.Many2one(
+        comodel_name="res.users.role", required=True, ondelete="cascade"
+    )
+    user_id = fields.Many2one(
+        comodel_name="res.users",
+        required=True,
+        domain=[("id", "!=", SUPERUSER_ID)],
+        ondelete="cascade",
+    )
+    date_from = fields.Date("From")
+    date_to = fields.Date("To")
+    is_enabled = fields.Boolean("Enabled", compute="_compute_is_enabled")
+    _user_role_uniq = models.Constraint(
+        "UNIQUE (user_id, role_id)",
+        "User roles can be assigned to a user only once at a time",
+    )
+
+    @api.depends("date_from", "date_to")
+    def _compute_is_enabled(self):
+        today = fields.Date.context_today(self)
+        for role_line in self:
+            role_line.is_enabled = True
+            if role_line.date_from:
+                date_from = role_line.date_from
+                if date_from > today:
+                    role_line.is_enabled = False
+            if role_line.date_to:
+                date_to = role_line.date_to
+                if today > date_to:
+                    role_line.is_enabled = False
+
+    def unlink(self):
+        users = self.mapped("user_id")
+        res = super().unlink()
+        users.set_groups_from_roles(force=True)
+        return res
