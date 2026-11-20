@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Base Global Discount",
-    "version": "19.0.1.0.1",
+    "version": "20.0.1.0.0",
     "category": "Base",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/server-backend",
@@ -11,7 +11,7 @@
     "depends": ["product"],
     "data": [
         "security/security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "views/global_discount_views.xml",
         "views/product_views.xml",
         "views/res_partner_views.xml",
