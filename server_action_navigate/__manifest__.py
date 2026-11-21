@@ -4,7 +4,7 @@
 
 {
     "name": "Server Actions - Navigate",
-    "version": "19.0.1.0.1",
+    "version": "20.0.1.0.0",
     "author": "GRAP, Odoo Community Association (OCA)",
     "summary": "Navigate between any items of any Odoo Models",
     "category": "Tools",
@@ -12,7 +12,7 @@
     "license": "AGPL-3",
     "depends": ["base_automation"],
     "maintainers": ["legalsylvain", "ashishhirpara"],
-    "data": ["security/ir.model.access.csv", "views/view_ir_actions_server.xml"],
+    "data": ["views/view_ir_actions_server.xml", "security/ir.access.csv"],
     "demo": ["demo/ir_actions_server.xml"],
     "uninstall_hook": "uninstall_hook",
 }

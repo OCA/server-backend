@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import Command
-from odoo.tests.common import TransactionCase
+from odoo.exceptions import AccessError
+from odoo.tests.common import TransactionCase, new_test_user
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.server_action_navigate import hooks
@@ -81,5 +82,15 @@ class TestModule(TransactionCase):
 
     def test_module_uninstall(self):
         self.assertTrue(self.action_server.exists())
-        hooks.uninstall_hook(self.env.cr, self.env.registry)
+        hooks.uninstall_hook(self.env)
         self.assertFalse(self.action_server.exists())
+
+    def test_navigate_line_access(self):
+        user = new_test_user(self.env, login="navigate_user", groups="base.group_user")
+        lines = self.env["ir.actions.server.navigate.line"].with_user(user)
+        self.assertEqual(
+            lines.search([("action_id", "=", self.action_server.id)]),
+            self.action_server.navigate_line_ids,
+        )
+        with self.assertRaises(AccessError):
+            self.navigate_line_1.with_user(user).unlink()
