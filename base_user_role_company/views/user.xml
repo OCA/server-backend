@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Camptocamp SA
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_res_users_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_form_inherit" />
+        <field name="arch" type="xml">
+            <field name="role_id" position="attributes">
+                <!-- Remove the domain on existing roles. This allows to set
+                  the same role multiple times on a user as long as it is set on a
+                  different company. -->
+                <attribute name="domain">[]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
