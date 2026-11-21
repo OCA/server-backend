@@ -103,3 +103,61 @@ class TestUserRoleCompany(TransactionCase):
         }
         with self.assertRaises(ValidationError):
             self.User.create(user_vals)
+
+    def test_150_no_context_fallback(self):
+        "No active_company_ids context: falls back to user main company"
+        self.assertEqual(
+            self.test_user.company_id,
+            self.company1,
+            "Guard: test_user main company must be company1 for this test to be valid",
+        )
+        # roles active for company1: roleA (global), roleB (company1), roleC (company1 line)
+        enabled = self.test_user._get_enabled_roles()
+        role_ids = enabled.mapped("role_id")
+        self.assertIn(self.roleA, role_ids)
+        self.assertIn(self.roleB, role_ids)
+        self.assertIn(self.roleC, role_ids)
+        # roleC line scoped to company2 should NOT be active under company1 alone
+        enabled_companies = enabled.filtered(
+            lambda l: l.role_id == self.roleC
+        ).mapped("company_id")
+        self.assertNotIn(self.company2, enabled_companies)
+
+    def test_160_check_role_company_secondary_ok(self):
+        "Role assigned to a secondary company (in company_ids) does not raise"
+        # company2 is not the main company but IS in test_user.company_ids
+        line = self.test_user.role_line_ids.filtered(
+            lambda l: l.company_id == self.company2
+        )
+        self.assertTrue(line, "Expected a role line for company2")
+        # _check_role_company should not raise
+        line._check_role_company()
+
+    def test_170_role_uniq_same_company_blocked(self):
+        "Assigning the same role to the same company twice raises an error"
+        with self.assertRaises(Exception):
+            with self.env.cr.savepoint():
+                self.env["res.users.role.line"].create(
+                    {
+                        "user_id": self.test_user.id,
+                        "role_id": self.roleB.id,
+                        "company_id": self.company1.id,
+                    }
+                )
+                self.env.flush_all()
+
+    def test_180_role_uniq_different_company_allowed(self):
+        "Assigning the same role to different companies succeeds"
+        # roleA is currently assigned without company_id (global)
+        # Assigning it again for company1 specifically should succeed
+        self.env["res.users.role.line"].create(
+            {
+                "user_id": self.test_user.id,
+                "role_id": self.roleA.id,
+                "company_id": self.company1.id,
+            }
+        )
+        lines = self.test_user.role_line_ids.filtered(
+            lambda l: l.role_id == self.roleA
+        )
+        self.assertEqual(len(lines), 2)

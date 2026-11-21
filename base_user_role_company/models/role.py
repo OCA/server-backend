@@ -17,7 +17,7 @@ class ResUsersRoleLine(models.Model):
     )
 
     @api.constrains("user_id", "company_id")
-    def _check_company(self):
+    def _check_role_company(self):
         for record in self:
             if (
                 record.company_id

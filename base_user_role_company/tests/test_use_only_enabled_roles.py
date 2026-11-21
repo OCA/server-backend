@@ -60,3 +60,4 @@ class TestUserRoleCompany(TransactionCase):
         expected = self.groupA
         found = self.test_user.group_ids.filtered(lambda x: x in expected)
         self.assertEqual(expected, found)
+        self.assertNotIn(self.groupB, self.test_user.group_ids)
