@@ -176,6 +176,10 @@ def _second_factor_reason(user, auth_info):
     """
     if isinstance(auth_info, dict):
         marker = auth_info.get("mfa")
+        # API keys are non-interactive credentials; they authenticate without
+        # a second factor, so never apply the interactive MFA refusal.
+        if marker == "skip":
+            return None
         if marker not in (None, "skip"):
             return "the account requires a second authentication factor"
     if user.totp_secret:
