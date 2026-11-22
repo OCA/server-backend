@@ -129,11 +129,12 @@
         <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
         <field name="options">{"pattern": "+39 000 {id}"}</field>
     </record>
+    <!-- valid IBANs, so that bank accounts and payments can still be tested -->
     <record id="anon_res_partner_bank__acc_number" model="anonymize.field">
         <field name="model_name">res.partner.bank</field>
         <field name="field_name">acc_number</field>
-        <field name="method">anonymize.method.pattern</field>
-        <field name="options">{"pattern": "ANON{id}"}</field>
+        <field name="method">anonymize.method.faker</field>
+        <field name="options">{"provider": "iban"}</field>
     </record>
     <record id="anon_res_partner_bank__sanitized_acc_number" model="anonymize.field">
         <field name="sequence">90</field>
@@ -292,10 +293,12 @@
         <field name="method">anonymize.method.recompute</field>
     </record>
     <!-- l10n_it_edi -->
+    <!-- valid fiscal codes, required on e-invoices to private persons -->
     <record id="anon_res_partner__l10n_it_codice_fiscale" model="anonymize.field">
         <field name="model_name">res.partner</field>
         <field name="field_name">l10n_it_codice_fiscale</field>
-        <field name="method">anonymize.method.set.null</field>
+        <field name="method">anonymize.method.faker</field>
+        <field name="options">{"provider": "ssn", "locale": "it_IT"}</field>
         <field name="domain">[('id', 'not in', protected_partner_ids)]</field>
     </record>
     <record id="anon_res_partner__l10n_it_pec_email" model="anonymize.field">

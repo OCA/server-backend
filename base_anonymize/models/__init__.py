@@ -1,6 +1,7 @@
 from . import anonymize_field
 from . import anonymize_method
 from . import anonymize_method_delete
+from . import anonymize_method_faker
 from . import anonymize_method_fictional_character
 from . import anonymize_method_fictional_character_data
 from . import anonymize_method_fixed_string

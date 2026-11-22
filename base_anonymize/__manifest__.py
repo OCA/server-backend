@@ -16,6 +16,9 @@
     "depends": [
         "base",
     ],
+    "external_dependencies": {
+        "python": ["faker"],
+    },
     "data": [
         "data/anonymize_field.xml",
         "data/anonymize.method.fictional.character.data.csv",

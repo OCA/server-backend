@@ -4,6 +4,9 @@
 
 from unittest.mock import patch
 
+from stdnum import iban
+from stdnum.it import codicefiscale
+
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase, tagged
 
@@ -370,3 +373,74 @@ class TestBaseAnonymize(TransactionCase):
         # emptied attachments are not counted again
         definition = self.env.ref("base_anonymize.anon_ir_attachment__datas")
         self.assertEqual(self.env[definition.method]._run(definition), 0)
+
+    def test_faker(self):
+        bank = self.env["res.partner.bank"].create(
+            {
+                "partner_id": self.person.id,
+                "acc_number": "IT60 X054 2811 1010 0000 0123 456",
+            }
+        )
+        fiscal_code = "l10n_it_codice_fiscale" in self.person._fields
+        if fiscal_code:
+            self.env.cr.execute(
+                "UPDATE res_partner SET l10n_it_codice_fiscale='RSSMRA80A01E472X' "
+                "WHERE id=%s",
+                [self.person.id],
+            )
+        self._run()
+        self.assertNotEqual(bank.acc_number, "IT60 X054 2811 1010 0000 0123 456")
+        self.assertTrue(iban.is_valid(bank.acc_number))
+        # stored copies follow the new values
+        self.assertEqual(bank.sanitized_acc_number, bank.acc_number)
+        if fiscal_code:
+            value = self.person.l10n_it_codice_fiscale
+            self.assertNotEqual(value, "RSSMRA80A01E472X")
+            self.assertTrue(codicefiscale.is_valid(value))
+
+    def test_faker_options(self):
+        definition = self._definition(
+            "res.partner",
+            "ref",
+            "anonymize.method.faker",
+            domain=f"[('id', 'in', {(self.company | self.person).ids})]",
+            options='{"kwargs": {"max_chars": 5}, "unique": true}',
+        )
+        (self.company | self.person).write({"ref": "customer code"})
+        method = self.env[definition.method]
+        # one row per batch: every row is written whatever the batch size
+        self.assertEqual(
+            method._update_values(definition, lambda: "x", batch_size=1), 2
+        )
+        self.env.invalidate_all()
+        self.assertEqual(self.company.ref, "x")
+        self.assertEqual(method._run(definition), 2)
+        self.env.invalidate_all()
+        refs = (self.company | self.person).mapped("ref")
+        self.assertEqual(len(set(refs)), 2)
+        self.assertTrue(all(0 < len(ref) <= 5 for ref in refs))
+        # translated fields hold the value as en_US
+        category = self.env["res.partner.category"].create({"name": "Mario's friends"})
+        translated = self._definition(
+            "res.partner.category",
+            "name",
+            "anonymize.method.faker",
+            domain=f"[('id', '=', {category.id})]",
+            options='{"provider": "word"}',
+        )
+        self.assertEqual(self.env[translated.method]._run(translated), 1)
+        self.env.invalidate_all()
+        self.assertNotEqual(category.name, "Mario's friends")
+        # unknown providers and locales are reported, not ignored
+        for options in ('{"provider": "no_such_provider"}', '{"locale": "xx_YY"}'):
+            definition.options = options
+            with self.assertRaises(UserError):
+                method._run(definition)
+        # fields without a column are skipped
+        display_name = self._definition(
+            "res.partner", "display_name", "anonymize.method.faker"
+        )
+        with self.assertLogs(
+            "odoo.addons.base_anonymize.models.anonymize_method", level="WARNING"
+        ):
+            self.assertEqual(method._run(display_name), 0)
