@@ -117,6 +117,65 @@ class TestDavProtocol(HttpCase):
         self.assertEqual(response.status_code, 401)
         self.assertIn("Basic", response.headers["WWW-Authenticate"])
 
+    def test_basic_auth_with_dav_api_key(self):
+        """A DAV-scoped key works in the Basic password slot (DAVx5/Thunderbird)."""
+        key = (
+            self.env["res.users.apikeys"]
+            .with_user(self.user)
+            ._generate("dav", "dav api key test")
+        )
+        response = self._dav_request(
+            "PROPFIND",
+            "/dav/",
+            data=PROPFIND_ALLPROP,
+            headers=self._auth(self.user.login, key),
+        )
+        self.assertEqual(response.status_code, 200)
+
+    @mute_logger("dav_server")
+    def test_basic_auth_with_wrong_api_key_is_rejected(self):
+        response = self._dav_request(
+            "PROPFIND",
+            "/dav/",
+            data=PROPFIND_ALLPROP,
+            headers=self._auth(self.user.login, "not-a-real-key-xxxx"),
+        )
+        self.assertEqual(response.status_code, 401)
+
+    @mute_logger("dav_server")
+    def test_basic_auth_with_rpc_scoped_key_is_rejected(self):
+        """A key minted for RPC must not authenticate a DAV request."""
+        key = (
+            self.env["res.users.apikeys"]
+            .with_user(self.user)
+            ._generate("rpc", "rpc key must not work for dav")
+        )
+        response = self._dav_request(
+            "PROPFIND",
+            "/dav/",
+            data=PROPFIND_ALLPROP,
+            headers=self._auth(self.user.login, key),
+        )
+        self.assertEqual(response.status_code, 401)
+
+    def test_api_key_works_with_two_factor_enabled(self):
+        """An API key is non-interactive, so TOTP must not block it."""
+        if "totp_secret" not in self.user._fields:
+            self.skipTest("this Odoo version has no TOTP support")
+        key = (
+            self.env["res.users.apikeys"]
+            .with_user(self.user)
+            ._generate("dav", "2fa dav key")
+        )
+        self.user.totp_secret = "JBSWY3DPEHPK3PXP"
+        response = self._dav_request(
+            "PROPFIND",
+            "/dav/",
+            data=PROPFIND_ALLPROP,
+            headers=self._auth(self.user.login, key),
+        )
+        self.assertEqual(response.status_code, 200)
+
     def test_options_advertises_dav_compliance(self):
         response = self._dav_request("OPTIONS", "/dav/")
         self.assertEqual(response.status_code, 200)

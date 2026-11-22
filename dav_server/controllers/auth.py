@@ -1,12 +1,18 @@
 # Copyright 2026 Ross Golder
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-"""HTTP Basic and Bearer token authentication for DAV requests.
+"""HTTP Basic, Basic-with-API-key and Bearer token authentication for DAV.
 
 Every DAV route is declared ``auth="none"`` so that PROPFIND/REPORT/PUT reach
 the controller at all -- Odoo's session layer only understands GET and POST.
 Credentials are therefore verified here and the request environment is rebound
 to the authenticated user.
+
+Stock CalDAV/CardDAV clients only offer a username and password field, so an
+Odoo API key can be supplied as the Basic "password" as well as via Bearer on
+the upload routes. API keys are validated with the dedicated ``dav`` scope so
+they cannot be replayed against RPC, and -- being non-interactive credentials
+-- they are not subject to the interactive-only second-factor refusal.
 
 The calling convention of ``res.users._login`` has changed twice since 17.0:
 
@@ -48,7 +54,14 @@ def authenticate():
 
     auth_info = _login(login, password, _user_agent_env())
     if not auth_info:
-        raise Unauthorized("invalid credentials")
+        # Stock DAV clients have no Bearer field, so also accept a DAV-scoped
+        # API key in the Basic password slot. Odoo's interactive login path
+        # never checks API keys, hence the explicit lookup here.
+        uid = _api_key_uid(login, password)
+        if not uid:
+            raise Unauthorized("invalid credentials")
+        auth_info = {"uid": uid, "mfa": "skip"}
+        _logger.info("dav_server: authenticated %s with DAV API key", login)
 
     uid = _uid_of(auth_info)
     if not uid:
@@ -132,6 +145,28 @@ def _uid_of(auth_info):
     return auth_info
 
 
+def _api_key_uid(login, password):
+    """Return the uid for a valid DAV-scoped API key, or None.
+
+    The key must belong to the login supplied in the Basic header; otherwise a
+    stolen key could be paired with a different login string. Only keys with
+    the ``dav`` scope are accepted so a key cannot be replayed against RPC.
+    """
+    try:
+        uid = request.env["res.users.apikeys"]._check_credentials(
+            scope="dav", key=password
+        )
+    except Exception:
+        _logger.debug("dav_server: API key validation failed", exc_info=True)
+        return None
+    if not uid:
+        return None
+    user = request.env(user=uid)["res.users"].browse(uid)
+    if not user.exists() or not user.active or user.login != login:
+        return None
+    return uid
+
+
 def _second_factor_reason(user, auth_info):
     """Return why this account cannot authenticate over DAV, or None.
 
@@ -189,7 +224,9 @@ def authenticate_with_bearer():
     if not user.exists():
         raise Unauthorized("invalid Bearer token")
 
-    reason = _second_factor_reason(user, auth_info)
+    # An API key is a non-interactive credential; the interactive-only MFA
+    # refusal must not lock it out just because the account has TOTP enabled.
+    reason = _second_factor_reason(user, {"uid": uid, "mfa": "skip"})
     if reason:
         _logger.warning(
             "dav_server: refusing Bearer DAV login for %s: %s", user.name, reason

@@ -4,7 +4,7 @@
 {
     "name": "Native CalDAV/CardDAV server",
     "summary": "CalDAV and CardDAV endpoint served directly by Odoo",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Extra Tools",
     "author": "Ross Golder",
     "license": "AGPL-3",
