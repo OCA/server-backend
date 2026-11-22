@@ -1,0 +1,2 @@
+- add definitions for all relevant OCA modules
+- anonymize the content of attachments other than those of partners, users, invoices, payments, sale orders and leads, which are dropped

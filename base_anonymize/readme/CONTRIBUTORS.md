@@ -1,0 +1,2 @@
+- Holger Brunn \<mail@hunki-enterprises.com> (https://hunki-enterprises.com)
+- Raffaele Del Gatto \<r.delgatto@gb-technology.com> (https://www.gb-technology.com)
