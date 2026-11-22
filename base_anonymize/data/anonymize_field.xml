@@ -7,14 +7,6 @@
      after the values they are computed from. -->
 <odoo noupdate="1">
     <!-- account -->
-    <record id="anon_ir_attachment__datas_account_move" model="anonymize.field">
-        <field name="model_name">ir.attachment</field>
-        <field name="field_name">datas</field>
-        <field name="method">anonymize.method.set.null</field>
-        <field
-            name="domain"
-        >[('res_model', 'in', ['account.move', 'account.payment']), ('id', '&gt;', 0)]</field>
-    </record>
     <record
         id="anon_account_move__invoice_partner_display_name"
         model="anonymize.field"
@@ -175,13 +167,15 @@
         <field name="field_name">password</field>
         <field name="method">anonymize.method.random.password</field>
     </record>
-    <record id="anon_ir_attachment__datas_partners" model="anonymize.field">
+    <!-- the content of the attachments of documents that hold personal data;
+         emptied in SQL, the files are garbage-collected at the end -->
+    <record id="anon_ir_attachment__datas" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
         <field name="field_name">datas</field>
         <field name="method">anonymize.method.set.null</field>
         <field
             name="domain"
-        >[('res_model', 'in', ['res.partner', 'res.users']), ('id', '&gt;', 0)]</field>
+        >[('res_model', 'in', ['account.move', 'account.payment', 'crm.lead', 'res.partner', 'res.users', 'sale.order'])]</field>
     </record>
     <record id="anon_ir_attachment__index_content" model="anonymize.field">
         <field name="model_name">ir.attachment</field>
@@ -390,26 +384,11 @@
         <field name="field_name">phone_sanitized</field>
         <field name="method">anonymize.method.recompute</field>
     </record>
-    <record id="anon_ir_attachment__datas_crm_lead" model="anonymize.field">
-        <field name="model_name">ir.attachment</field>
-        <field name="field_name">datas</field>
-        <field name="method">anonymize.method.set.null</field>
-        <field name="domain">[('res_model', '=', 'crm.lead'), ('id', '&gt;', 0)]</field>
-    </record>
     <record id="anon_crm_lead__email_domain_criterion" model="anonymize.field">
         <field name="sequence">95</field>
         <field name="model_name">crm.lead</field>
         <field name="field_name">email_domain_criterion</field>
         <field name="method">anonymize.method.recompute</field>
-    </record>
-    <!-- sale -->
-    <record id="anon_ir_attachment__datas_sale_order" model="anonymize.field">
-        <field name="model_name">ir.attachment</field>
-        <field name="field_name">datas</field>
-        <field name="method">anonymize.method.set.null</field>
-        <field
-            name="domain"
-        >[('res_model', 'in', ['sale.order']), ('id', '&gt;', 0)]</field>
     </record>
     <!-- free text of documents and wizards, found on a production copy -->
     <record id="anon_res_partner__function" model="anonymize.field">

@@ -1,3 +1,3 @@
-- add more anonymization methods to generate syntactically correct data like IBANs, VAT numbers, ...
+- add more anonymization methods to generate syntactically correct data like IBANs, VAT numbers, ..., for instance with [Faker](https://faker.readthedocs.io), imported only when such a method is used so that it does not become a dependency of the module; values generated in Python should be written back in batches (`UPDATE ... FROM (VALUES ...)`), not record by record
 - add definitions for all relevant OCA modules
 - anonymize the content of attachments other than those of partners, users, invoices, payments, sale orders and leads, which are dropped

@@ -35,6 +35,14 @@ Unlike ``odoo-bin obfuscate``, which encrypts values with a password and
 can be reversed, the overwrite is irreversible: the result is
 anonymized, not pseudonymized, data.
 
+Not to be confused with ``base_db_anonymization`` by Mint System, a
+separate module with a similar name. This one has pluggable methods,
+default definitions for the core modules (partners, users, bank
+accounts, chatter and tracking values, mail queue, calendar, CRM,
+invoices, sales, purchases, projects, Italian e-invoicing, attachments),
+writes in SQL rather than record by record, and refuses to run on a
+database that was not neutralized.
+
 **Table of contents**
 
 .. contents::
@@ -96,8 +104,11 @@ To use this module, you need to:
 2. Go to Settings / Technical / Anonymization / Run Anonymization
 3. Confirm you really mean it
 
-The above is only for testing configurations. Usually you would script
-this on a clone of the production database, before handing it over:
+The above is only for testing configurations on small databases: the run
+happens inside a web request, and on a real-size database it outlasts
+the HTTP worker's time limit (``limit_time_real``, 120 seconds by
+default). Usually you would script this on a clone of the production
+database, before handing it over:
 
 ::
 
@@ -110,6 +121,10 @@ this on a clone of the production database, before handing it over:
 
 then dump the database and copy the file store.
 
+The log has one line per definition, with its XML id, its domain, the
+rows touched and the time taken, so that a slow definition can be
+spotted.
+
 **!!CAUTION!!** The default configuration replaces the database secret
 and gives all users the same random password, stored in the system
 parameter ``base_anonymize.password``. The administrator's login becomes
@@ -119,7 +134,11 @@ Known issues / Roadmap
 ======================
 
 -  add more anonymization methods to generate syntactically correct data
-   like IBANs, VAT numbers, ...
+   like IBANs, VAT numbers, ..., for instance with
+   `Faker <https://faker.readthedocs.io>`__, imported only when such a
+   method is used so that it does not become a dependency of the module;
+   values generated in Python should be written back in batches
+   (``UPDATE ... FROM (VALUES ...)``), not record by record
 -  add definitions for all relevant OCA modules
 -  anonymize the content of attachments other than those of partners,
    users, invoices, payments, sale orders and leads, which are dropped

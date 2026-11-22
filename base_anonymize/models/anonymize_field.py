@@ -4,6 +4,7 @@
 
 import json
 import logging
+import time
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -188,19 +189,31 @@ class AnonymizeField(models.Model):
     def _run(self):
         """Run the definitions in self, in sequence. Never on production data."""
         self._check_neutralized()
-        for this in self.filtered("applicable"):
+        definitions = self.filtered("applicable")
+        xmlids = definitions.get_external_id()
+        started = time.monotonic()
+        for this in definitions:
+            step = time.monotonic()
             count = self.env[this.method]._run(this)
             _logger.info(
-                "Anonymized %s.%s with %s: %s rows",
+                "Anonymized %s.%s with %s (%s, domain %s): %s rows in %.1fs",
                 this.model_name,
                 this.field_name,
                 this.method,
+                xmlids.get(this.id) or f"anonymize.field {this.id}",
+                this.domain or "[]",
                 count,
+                time.monotonic() - step,
             )
             # the methods write in SQL behind the ORM's back
             self.env.invalidate_all()
         # files of attachments whose content was dropped
         self.env["ir.attachment"]._gc_file_store_unsafe()
+        _logger.info(
+            "Anonymization done: %s definitions in %.1fs",
+            len(definitions),
+            time.monotonic() - started,
+        )
         return True
 
     @api.model

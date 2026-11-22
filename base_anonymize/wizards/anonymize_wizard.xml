@@ -9,6 +9,11 @@
                 <div class="alert alert-danger" role="alert">
                     This will destroy your data! Be absolutely sure you're on a test database!
                 </div>
+                <div class="alert alert-info" role="status">
+                    On a real-size database the run takes longer than a web request is
+                    allowed to (limit_time_real): run it from odoo-bin shell, as described
+                    in the module's usage instructions.
+                </div>
                 <footer>
                     <button
                         name="action_run"

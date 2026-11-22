@@ -309,3 +309,64 @@ class TestBaseAnonymize(TransactionCase):
         self.assertNotIn(definition, not_applicable)
         with self.assertRaises(NotImplementedError):
             self.env["anonymize.field"].search([("applicable", "in", [True])])
+
+    def test_attachments(self):
+        attachment = self.env["ir.attachment"]
+        document = attachment.create(
+            {
+                "name": "cv.txt",
+                "raw": b"Mario Rossi, Via Roma 1, Latina",
+                "res_model": "res.partner",
+                "res_id": self.person.id,
+            }
+        )
+        # attachments of binary fields are anonymized too
+        image = attachment.create(
+            {
+                "name": "image_1920",
+                "raw": b"a picture of Mario Rossi",
+                "res_model": "res.partner",
+                "res_field": "image_1920",
+                "res_id": self.person.id,
+            }
+        )
+        other = attachment.create(
+            {
+                "name": "terms.txt",
+                "raw": b"General terms and conditions",
+                "res_model": "res.company",
+                "res_id": self.env.company.id,
+            }
+        )
+        fnames = {document.store_fname, image.store_fname} - {False}
+        manual = self._definition(
+            "res.partner",
+            "function",
+            "anonymize.method.set.null",
+            domain=f"[('id', '=', {self.person.id})]",
+        )
+        with (
+            patch.object(type(attachment), "_file_delete") as file_delete,
+            self.assertLogs(
+                "odoo.addons.base_anonymize.models.anonymize_field", level="INFO"
+            ) as logs,
+        ):
+            self._run()
+        for record in document | image:
+            self.assertFalse(record.raw)
+            self.assertFalse(record.store_fname)
+            self.assertFalse(record.db_datas)
+            self.assertEqual(record.file_size, 0)
+            self.assertEqual(record.checksum, attachment._compute_checksum(b""))
+        self.assertEqual(other.raw, b"General terms and conditions")
+        # other attachments of partners and users in the database too
+        self.assertLessEqual(
+            fnames, {call.args[0] for call in file_delete.call_args_list}
+        )
+        output = "\n".join(logs.output)
+        self.assertIn("(base_anonymize.anon_ir_attachment__datas, domain [(", output)
+        self.assertIn(f"(anonymize.field {manual.id}, domain [('id', '=',", output)
+        self.assertIn("Anonymization done", output)
+        # emptied attachments are not counted again
+        definition = self.env.ref("base_anonymize.anon_ir_attachment__datas")
+        self.assertEqual(self.env[definition.method]._run(definition), 0)
