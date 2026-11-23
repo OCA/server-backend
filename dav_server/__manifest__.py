@@ -4,7 +4,7 @@
 {
     "name": "Native CalDAV/CardDAV server",
     "summary": "CalDAV and CardDAV endpoint served directly by Odoo",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.2.0",
     "category": "Extra Tools",
     "author": "Ross Golder",
     "license": "AGPL-3",
@@ -24,6 +24,7 @@
         "security/ir.model.access.csv",
         "views/dav_collection.xml",
         "views/calendar_event.xml",
+        "views/res_users.xml",
         "data/ir_cron.xml",
     ],
     "post_init_hook": "post_init_hook",
