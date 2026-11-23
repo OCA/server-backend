@@ -6,9 +6,9 @@ from odoo.http import request
 class Http(models.AbstractModel):
     _inherit = "ir.http"
 
-    def session_info(self):  # pragma: no cover
+    def session_info(self):
         result = super().session_info()
-        user = request.env.user
+        user = self.env.user
         allowed_profiles = (
             []
             if user.restrict_profile_switching
