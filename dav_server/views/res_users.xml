@@ -6,7 +6,7 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form_simple_modif" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='page_account_security']" position="after">
+            <xpath expr="//notebook" position="inside">
                 <page string="Calendar &amp; Contacts Sync" name="page_dav_sync">
                     <group string="Connection details">
                         <field name="dav_server_url" readonly="1" />
