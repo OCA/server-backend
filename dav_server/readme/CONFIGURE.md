@@ -41,8 +41,19 @@ Authentication
 
 Clients send HTTP Basic credentials. Two consequences:
 
-* An account with two-factor authentication enabled is refused with ``401``.
-  CalDAV has nowhere to prompt for a one-time code, so the account is rejected
-  up front with a logged reason rather than failing silently on every sync.
+* A password login on an account with two-factor authentication enabled is
+  refused with ``401``. CalDAV has nowhere to prompt for a one-time code, so the
+  account is rejected up front with a logged reason rather than failing
+  silently on every sync.
 * Portal users are refused with ``403``. They can reach the web client but must
   not enumerate internal records.
+
+An API key can be used instead of the account password, which is preferable for
+phone and desktop clients: it is revocable, scoped and does not expose the real
+password. Generate a key with scope ``dav`` and use it as the password field in
+DAVx5 / Thunderbird. Keys with no scope also work for backwards compatibility;
+keys scoped to ``rpc`` are rejected. API keys are non-interactive credentials,
+so they work even when the account has two-factor authentication enabled.
+
+The same DAV-scoped key can be sent as ``Authorization: Bearer <key>`` on the
+``.ics`` / ``.vcf`` upload routes.

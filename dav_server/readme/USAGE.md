@@ -21,8 +21,9 @@ Android (DAVx5)
 ~~~~~~~~~~~~~~~
 
 1. *Add account* ▸ *Log in with URL and username*.
-2. Server URL: ``https://<host>/dav/``, username: your Odoo login, password: as
-   usual.
+2. Server URL: ``https://<host>/dav/``, username: your Odoo login, password:
+   your Odoo password, or preferably a DAV-scoped API key from your Odoo account
+   settings (see ``CONFIGURE.md``).
 3. Choose which calendars and address books to synchronise, then force a sync.
 4. On the first run only, use *Settings ▸ Account ▸ Contacts* to push the
    phone's own address book up to Odoo.

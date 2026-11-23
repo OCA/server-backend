@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_users_form_simple_modif_dav_server" model="ir.ui.view">
+        <field name="name">res.users.preferences.dav.server</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Calendar &amp; Contacts Sync" name="page_dav_sync">
+                    <group string="Connection details">
+                        <field name="dav_server_url" readonly="1" />
+                        <field name="dav_username" readonly="1" />
+                        <field name="dav_caldav_url" readonly="1" />
+                        <field name="dav_carddav_url" readonly="1" />
+                    </group>
+                    <group string="Collections available to you">
+                        <field
+                            name="dav_collections_info"
+                            readonly="1"
+                            nolabel="1"
+                            widget="text"
+                        />
+                    </group>
+                    <group string="Client setup">
+                        <div class="text-muted" colspan="2">
+                        <p>
+                            In DAVx5 choose <b>Log in with URL and username</b>; in
+                            Thunderbird choose <b>On the Network</b>. Use the CalDAV URL
+                            for calendars and the CardDAV URL for address books.
+                        </p>
+                        <p>
+                            Use a DAV-scoped API key as the password instead of your
+                            Odoo password. Create one in the
+                            <b>Account Security</b> tab above. An API key also works
+                            when two-factor authentication is enabled, whereas a
+                            password login does not.
+                        </p>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
