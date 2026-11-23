@@ -1,0 +1,1 @@
+from . import test_base_external_dbsource_sap_hana
