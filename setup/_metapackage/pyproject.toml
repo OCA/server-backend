@@ -1,10 +1,11 @@
 [project]
 name = "odoo-addons-oca-server-backend"
-version = "18.0.20261003.0"
+version = "18.0.20261123.0"
 dependencies = [
     "odoo-addon-base_external_dbsource==18.0.*",
     "odoo-addon-base_external_dbsource_mssql==18.0.*",
     "odoo-addon-base_external_dbsource_mysql==18.0.*",
+    "odoo-addon-base_external_dbsource_sap_hana==18.0.*",
     "odoo-addon-base_external_dbsource_sqlite==18.0.*",
     "odoo-addon-base_external_system==18.0.*",
     "odoo-addon-base_global_discount==18.0.*",
