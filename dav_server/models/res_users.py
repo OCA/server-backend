@@ -46,8 +46,8 @@ class ResUsers(models.Model):
         )
         for collection in collections:
             try:
-                domain = safe_eval(collection.domain or "[]", {"user": self})
-                model = self.env[collection.model_id.model].with_user(self)
+                domain = safe_eval(collection.domain or "[]", {"user": user})
+                model = self.env[collection.model_id.model].with_user(user)
                 if model.search_count(domain, limit=1):
                     names.append(f"{collection.name} ({collection.dav_type})")
             except Exception:
