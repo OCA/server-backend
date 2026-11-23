@@ -130,7 +130,7 @@ class TestDavProtocol(HttpCase):
             data=PROPFIND_ALLPROP,
             headers=self._auth(self.user.login, key),
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 207)
 
     @mute_logger("dav_server")
     def test_basic_auth_with_wrong_api_key_is_rejected(self):
@@ -174,7 +174,7 @@ class TestDavProtocol(HttpCase):
             data=PROPFIND_ALLPROP,
             headers=self._auth(self.user.login, key),
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 207)
 
     def test_options_advertises_dav_compliance(self):
         response = self._dav_request("OPTIONS", "/dav/")
