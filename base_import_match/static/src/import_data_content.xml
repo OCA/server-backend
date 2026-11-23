@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="base_import_match.ImportDataContent"
+        t-inherit="ImportDataContent"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//th[text()='Comments']" position="before">
+            <th
+                t-if="!this.hasIdColumn"
+                scope="col"
+                class="text-nowrap"
+                style="min-width: 0 !important; width: auto;"
+                title="Use this field to find existing records without updating its value."
+            >Match</th>
+        </xpath>
+        <xpath expr="//td[.//t[@t-foreach='column.comments']]" position="before">
+            <td t-if="!this.hasIdColumn" class="text-center">
+                <input
+                    type="checkbox"
+                    class="form-check-input"
+                    t-att-checked="column.matchOnly"
+                    t-att-disabled="!column.fieldInfo || column.fieldInfo.fieldPath.includes('/')"
+                    t-on-change="(ev) => this.onMatchOnlyChanged(column, ev)"
+                />
+            </td>
+        </xpath>
+    </t>
+</templates>
