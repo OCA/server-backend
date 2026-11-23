@@ -6,23 +6,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Language: it\n"
+"PO-Revision-Date: 2026-11-23 11:46+0000\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #. module: base_external_dbsource_sap_hana
 #: model:ir.model.fields,field_description:base_external_dbsource_sap_hana.field_base_external_dbsource__connector
 msgid "Connector"
-msgstr ""
+msgstr "Connettore"
 
 #. module: base_external_dbsource_sap_hana
 #: model:ir.model,name:base_external_dbsource_sap_hana.model_base_external_dbsource
 msgid "External Database Sources"
-msgstr ""
+msgstr "Origini database esterne"
 
 #. module: base_external_dbsource_sap_hana
 #: model:ir.model.fields,help:base_external_dbsource_sap_hana.field_base_external_dbsource__connector
@@ -30,8 +32,10 @@ msgid ""
 "If a connector is missing from the list, check the server log to confirm "
 "that the required components were detected."
 msgstr ""
+"Se il connettore è mancante dalla lista, controllare il log del server per "
+"avere conferma che i componenti richiesti siano stati rilevati."
 
 #. module: base_external_dbsource_sap_hana
 #: model:ir.model.fields.selection,name:base_external_dbsource_sap_hana.selection__base_external_dbsource__connector__sap_hana
 msgid "SAP-Hana"
-msgstr ""
+msgstr "SAP-Hana"
