@@ -304,7 +304,7 @@ class DavController(http.Controller):
     # Discovery
     # ------------------------------------------------------------------
     def _root(self, method, user, login, slug, resource):
-        hrefs = self._hrefs(login)
+        hrefs = self._hrefs(login or user.login)
         if method in ("GET", "HEAD"):
             return self._text(DAV_COMPLIANCE)
         if method != "PROPFIND":
